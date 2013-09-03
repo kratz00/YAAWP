@@ -222,7 +222,7 @@ public class UtilsGUI {
 		    		b.setPositiveButton(posText, posLis);	
 		    	}
 		    	if (!TextUtils.isEmpty(negText)) {
-		    		b.setNegativeButton(negText, posLis);	
+		    		b.setNegativeButton(negText, negLis);	
 		    	}
 				b.show();
 			}
