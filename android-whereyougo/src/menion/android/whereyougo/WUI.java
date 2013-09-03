@@ -249,13 +249,4 @@ Logger.w(TAG, "showScreen(" + screenId + "), parent:" + activity + ", param:" + 
 		}
 	}
 
-	@Override
-	public String getDeviceId() {
-		String appVersion = "";
-		try {
-			appVersion = A.getMain().getPackageManager().getPackageInfo(A.getMain().getPackageName(), 0).versionName;
-		} catch (Exception e) {}
-		return "WhereYouGo, app:" + appVersion;
-	}
-
 }
