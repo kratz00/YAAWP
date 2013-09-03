@@ -40,6 +40,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import cz.matejcik.openwig.WherigoLib;
 
 public class MainApplication extends Application {
 
@@ -137,6 +138,11 @@ public class MainApplication extends Application {
 		LocationState.init(this);
     	// initialize DPI
     	Utils.getDpPixels(this, 1.0f);
+    	
+    	// issue #2
+    	WherigoLib.env.put(WherigoLib.DEVICE_ID, "device-0815");
+    	WherigoLib.env.put(WherigoLib.PLATFORM, "android-openwig");
+    	
 	}
 	
     private static Timer mTimer;
