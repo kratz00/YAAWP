@@ -26,7 +26,7 @@
  		anyDensity="true" />
 
 	<application android:icon="@drawable/icon"
-		android:label="WhereYouGo"
+		android:label="Yaawp"
 		android:name="menion.android.whereyougo.gui.extension.MainApplication"
 		android:theme="@style/AppTheme">
 		

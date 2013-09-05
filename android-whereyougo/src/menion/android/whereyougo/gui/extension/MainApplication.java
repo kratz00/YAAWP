@@ -47,7 +47,7 @@ public class MainApplication extends Application {
 	private static final String TAG = "MainApplication";
 	
 	// application name
-	public static String APP_NAME = "WhereYouGo";
+	public static String APP_NAME = "Yaawp";
 	
     private Locale locale = null;
 	// screen ON/OFF receiver
