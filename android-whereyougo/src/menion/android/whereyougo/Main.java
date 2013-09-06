@@ -98,37 +98,6 @@ public class Main extends CustomMain {
 		((TextView) findViewById(R.id.title_text)).setText(
 				MainApplication.APP_NAME);
 		
-		// define buttons
-		View.OnClickListener mOnClickListener = new View.OnClickListener() {
-			public void onClick(View v) {
-				switch (v.getId()) {
-				case R.id.button_start:
-					clickStart();
-					break;
-				case R.id.button_gps:
-					Intent intent02 = new Intent(Main.this, SatelliteScreen.class);
-					startActivity(intent02);
-					break;
-				case R.id.button_settings:
-					UtilsSettings.showSettings(Main.this);
-					break;
-				case R.id.button_map:
-					clickMap();
-					break;
-				case R.id.button_logo:
-					getSupportFragmentManager().
-						beginTransaction().
-						add(new DialogMain(), "DIALOG_TAG_MAIN").
-						commitAllowingStateLoss();
-					break;
-				}
-			}
-		};
-		
-		UtilsGUI.setButtons(this, new int[] {
-				R.id.button_start, R.id.button_map, R.id.button_gps,
-				R.id.button_settings, R.id.button_logo},
-				mOnClickListener, null);
 	}
 	
 	@Override

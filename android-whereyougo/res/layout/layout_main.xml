@@ -21,26 +21,5 @@
         android:orientation="vertical"
         android:padding="6dip"
         android:background="@android:color/white">
-        <LinearLayout style="@style/MainScreenLine">
-            <Button style="@style/MainScreenButton"
-                android:id="@+id/button_start"
-                android:text="@string/start"
-                android:drawableTop="@drawable/ic_main_start"/>
-            <Button style="@style/MainScreenButton"
-                android:id="@+id/button_map"
-                android:text="@string/map"
-                android:drawableTop="@drawable/ic_main_map"/>
-        </LinearLayout>
-
-        <LinearLayout style="@style/MainScreenLine">
-            <Button style="@style/MainScreenButton"
-                android:id="@+id/button_gps"
-                android:text="@string/gps"
-                android:drawableTop="@drawable/ic_main_gps"/>
-            <Button style="@style/MainScreenButton"
-                android:id="@+id/button_settings"
-                android:text="@string/settings"
-                android:drawableTop="@drawable/ic_main_settings"/>
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
