@@ -49,6 +49,9 @@ import menion.android.whereyougo.utils.Utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -128,6 +131,40 @@ public class Main extends CustomMain {
 				mOnClickListener, null);
 	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate( R.menu.menu, menu);
+		return true;
+	}	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.menu_info:
+				getSupportFragmentManager().
+					beginTransaction().
+					add(new DialogMain(), "DIALOG_TAG_MAIN").
+					commitAllowingStateLoss();				
+				break;
+			case R.id.menu_map:
+				clickMap();
+				break;
+			case R.id.menu_positioning:
+				Intent intent02 = new Intent(Main.this, SatelliteScreen.class);
+				startActivity(intent02);				
+				break;
+			case R.id.menu_preferences:
+				UtilsSettings.showSettings(Main.this);
+				break;
+			case R.id.menu_start:
+				clickStart();
+				break;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+		return true;
+	}	
 	private void clickStart() {
 		// check cartridges
 		if (!isAnyCartridgeAvailable()) {
