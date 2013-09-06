@@ -23,7 +23,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.StringReader;
 
-import menion.android.whereyougo.R;
+import org.yaawp.R;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.settings.Settings;

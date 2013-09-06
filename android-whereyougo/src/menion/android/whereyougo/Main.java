@@ -54,6 +54,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.formats.CartridgeFile;
+import org.yaawp.R;
 
 public class Main extends CustomMain {
 

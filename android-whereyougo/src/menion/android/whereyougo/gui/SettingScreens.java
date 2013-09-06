@@ -19,7 +19,7 @@
 
 package menion.android.whereyougo.gui;
 
-import menion.android.whereyougo.R;
+import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomPreferenceActivity;
 import menion.android.whereyougo.settings.SettingItems;
 import menion.android.whereyougo.settings.UtilsSettings;

@@ -1,7 +1,7 @@
 package menion.android.whereyougo.gui.dialogs;
 
 import menion.android.whereyougo.MainAfterStart;
-import menion.android.whereyougo.R;
+import org.yaawp.R;
 import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;

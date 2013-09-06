@@ -26,6 +26,7 @@ import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import org.yaawp.R;
 
 /**
  * @author menion

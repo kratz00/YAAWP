@@ -20,7 +20,7 @@
 package menion.android.whereyougo.gui;
 
 import menion.android.whereyougo.Main;
-import menion.android.whereyougo.R;
+import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.utils.Logger;

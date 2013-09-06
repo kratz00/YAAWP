@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import locus.api.objects.extra.Location;
-import menion.android.whereyougo.R;
+import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.gui.extension.DataInfo;

@@ -9,7 +9,7 @@ import java.util.Vector;
 
 import locus.api.objects.extra.Location;
 import menion.android.whereyougo.Main;
-import menion.android.whereyougo.R;
+import org.yaawp.R;
 import menion.android.whereyougo.WUI;
 import menion.android.whereyougo.gui.extension.DataInfo;
 import menion.android.whereyougo.gui.extension.IconedListAdapter;

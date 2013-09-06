@@ -19,7 +19,7 @@
 
 package menion.android.whereyougo.guiding;
 
-import menion.android.whereyougo.R;
+import org.yaawp.R;
 import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Images;

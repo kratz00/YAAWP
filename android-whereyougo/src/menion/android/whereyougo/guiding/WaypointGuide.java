@@ -24,7 +24,7 @@ import java.util.TimerTask;
 
 import locus.api.objects.extra.Location;
 import locus.api.objects.extra.Waypoint;
-import menion.android.whereyougo.R;
+import org.yaawp.R;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.settings.Settings;

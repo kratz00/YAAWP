@@ -20,7 +20,7 @@
 package menion.android.whereyougo.settings;
 
 import static menion.android.whereyougo.settings.Settings.*;
-import menion.android.whereyougo.R;
+import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomPreferenceActivity;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;

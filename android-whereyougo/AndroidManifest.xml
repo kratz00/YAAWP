@@ -23,14 +23,14 @@
     	android:largeScreens="true"
     	android:normalScreens="true"
     	android:smallScreens="true"
- 		anyDensity="true" />
+ 		android:anyDensity="true" />
 
 	<application android:icon="@drawable/icon"
 		android:label="Yaawp"
 		android:name="menion.android.whereyougo.gui.extension.MainApplication"
 		android:theme="@style/AppTheme">
 		
-		<activity android:name=".Main" android:label="WhereYouGo" android:screenOrientation="portrait">
+		<activity android:name="menion.android.whereyougo.Main" android:label="WhereYouGo" android:screenOrientation="portrait">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -38,58 +38,58 @@
 		</activity>
 
 		<activity
-			android:name=".gui.CartridgeDetails"
+			android:name="menion.android.whereyougo.gui.CartridgeDetails"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name=".gui.CartridgeMainMenu"
+			android:name="menion.android.whereyougo.gui.CartridgeMainMenu"
 			android:launchMode="singleTask"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name=".gui.Details"
+			android:name="menion.android.whereyougo.gui.Details"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name=".gui.InputScreen"
+			android:name="menion.android.whereyougo.gui.InputScreen"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name=".gui.ListActions"
+			android:name="menion.android.whereyougo.gui.ListActions"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name=".gui.ListTargets"
+			android:name="menion.android.whereyougo.gui.ListTargets"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name=".gui.ListTasks"
+			android:name="menion.android.whereyougo.gui.ListTasks"
 			android:screenOrientation="portrait"
 			android:theme="@android:style/Theme.Dialog"/>
 		<activity
-			android:name=".gui.ListThings"
+			android:name="menion.android.whereyougo.gui.ListThings"
 			android:screenOrientation="portrait"
 			android:theme="@android:style/Theme.Dialog"/>
 		<activity
-			android:name=".gui.ListZones"
+			android:name="menion.android.whereyougo.gui.ListZones"
 			android:screenOrientation="portrait"
 			android:theme="@android:style/Theme.Dialog"/>
 		<activity
-			android:name=".gui.MapScreen"
+			android:name="menion.android.whereyougo.gui.MapScreen"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name=".gui.PushDialog" 
+			android:name="menion.android.whereyougo.gui.PushDialog" 
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name=".gui.OnlineChooser"
+			android:name="menion.android.whereyougo.gui.OnlineChooser"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name=".guiding.GuidingScreen"
+			android:name="menion.android.whereyougo.guiding.GuidingScreen"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name=".gui.location.SatelliteScreen"
+			android:name="menion.android.whereyougo.gui.location.SatelliteScreen"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name=".gui.SettingScreens"
+			android:name="menion.android.whereyougo.gui.SettingScreens"
 			android:screenOrientation="portrait"
 			android:theme="@style/ThemeSettings" />
 		
-		<service android:name=".hardware.location.GpsConnectionService" />
-		<service android:name=".utils.audio.AudioPlayService" />
+		<service android:name="menion.android.whereyougo.hardware.location.GpsConnectionService" />
+		<service android:name="menion.android.whereyougo.utils.audio.AudioPlayService" />
 		
 		<!--<activity android:name="com.paypal.android.MEP.PayPalActivity"></activity>-->
 	</application>

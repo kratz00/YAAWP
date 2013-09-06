@@ -19,7 +19,7 @@
 
 package menion.android.whereyougo.utils;
 
-import menion.android.whereyougo.R;
+import org.yaawp.R;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;

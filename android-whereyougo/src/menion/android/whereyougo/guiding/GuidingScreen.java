@@ -20,7 +20,7 @@
 package menion.android.whereyougo.guiding;
 
 import locus.api.objects.extra.Location;
-import menion.android.whereyougo.R;
+import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.sensors.OrientationListener;
