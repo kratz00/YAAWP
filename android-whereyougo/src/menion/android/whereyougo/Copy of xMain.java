@@ -23,6 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Vector;
 
 import locus.api.android.ActionDisplay.ExtraAction;
@@ -34,12 +36,16 @@ import locus.api.objects.extra.Waypoint;
 import menion.android.whereyougo.gui.dialogs.DialogChooseCartridge;
 import menion.android.whereyougo.gui.dialogs.DialogMain;
 import menion.android.whereyougo.gui.extension.CustomMain;
+import menion.android.whereyougo.gui.extension.DataInfo;
+import menion.android.whereyougo.gui.extension.IconedListAdapter;
 import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
 import menion.android.whereyougo.gui.location.SatelliteScreen;
 import menion.android.whereyougo.guiding.GuidingScreen;
+import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.settings.UtilsSettings;
+import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.FileSystem;
 import menion.android.whereyougo.utils.Images;
@@ -47,17 +53,24 @@ import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.ManagerNotify;
 import menion.android.whereyougo.utils.Utils;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.formats.CartridgeFile;
 import org.yaawp.R;
+import org.yaawp.gui.adapter.CartridgesListAdapter;
 
 public class Main extends CustomMain {
 
@@ -97,62 +110,75 @@ public class Main extends CustomMain {
 		// set title
 		((TextView) findViewById(R.id.title_text)).setText(
 				MainApplication.APP_NAME);
+		
 	}
 	
-    // Initiating Menu XML file (menu.xml)
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate( R.menu.menu, menu);
-        return true;
-    }
-	
-    /**
-     * Event Handling for Individual menu item selected
-     * Identify single menu item by it's id
-     * */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        boolean status = true;
-        
-        switch (item.getItemId())
-        {
-			case R.id.menu_positioning:
-				Intent intent02 = new Intent(Main.this, SatelliteScreen.class);
-				startActivity(intent02);				
-				break;
+	public Dialog createDialog(Bundle savedInstanceState) {
+		
+		final ListView listview = (ListView) findViewById(R.id.list_cartridges);  
+		
+		try {
+			
+			if ( listview.) {
 
-            case R.id.menu_map:
-                clickMap(); 
-                /* Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
-                startActivity(intent); */               
-                break;			
+			// complete adapter 
+			CartridgesListAdapter adapter = new CartridgesListAdapter(A.getMain(), cartridgeFiles, null);
+			adapter.setTextView02Visible(View.VISIBLE, false);
 				
-			case R.id.menu_preferences:
-				UtilsSettings.showSettings(Main.this);
-				break;
+            /* runOnUiThread( new Runnable() {
+                public void run() { */
+            listview.setAdapter( adapter );
+            //     }
+            // }
+            // );	
+			} else
+            {
 
+        	}
+          
+			
+		} catch (Exception e) {
+			Logger.e(TAG, "createDialog()", e);
+		}
+		return null;
+	}
+		
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate( R.menu.menu, menu);
+		return true;
+	}	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
 			case R.id.menu_info:
 				getSupportFragmentManager().
 					beginTransaction().
 					add(new DialogMain(), "DIALOG_TAG_MAIN").
-					commitAllowingStateLoss();
+					commitAllowingStateLoss();				
 				break;
-
+			case R.id.menu_map:
+				clickMap();
+				break;
+			case R.id.menu_positioning:
+				Intent intent02 = new Intent(Main.this, SatelliteScreen.class);
+				startActivity(intent02);				
+				break;
+			case R.id.menu_preferences:
+				UtilsSettings.showSettings(Main.this);
+				break;
 			case R.id.menu_start:
 				clickStart();
 				break;
-				
-            default:
-                status = super.onOptionsItemSelected(item);
-                break;
-        }
-		return status;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+		return true;
 	}	
 	
-	private void clickStart() {
+	/* private void clickStart() {
 		// check cartridges
 		if (!isAnyCartridgeAvailable()) {
 			return;
@@ -164,7 +190,7 @@ public class Main extends CustomMain {
 			beginTransaction().
 			add(dialog, "DIALOG_TAG_CHOOSE_CARTRIDGE").
 			commitAllowingStateLoss();
-	}
+	} */
 	
 	private void clickMap() {
 		// check cartridges
