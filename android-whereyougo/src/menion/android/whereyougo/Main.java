@@ -69,6 +69,7 @@ import org.yaawp.bl.CartridgeSession;
 import org.yaawp.bl.CartridgeSessionListener;
 import org.yaawp.bl.PlayerSession;
 import org.yaawp.bl.PlayerSessionListener;
+import org.yaawp.gui.helper.ProgressDialogHelper;
 
 // import yawp.mapservice.mapforge.gui.CartridgeMapActivity;
 import android.os.Bundle;
@@ -99,7 +100,7 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
     public void UpdatedCartridgeSession( int msgid, CartridgeFile cartridge ) {
         switch( msgid) {
             case CartridgeSessionListener.CARTRIDGE_SESSION_LOADINING:
-                WUI.startProgressDialog( "Starting Cartridge" );
+            	ProgressDialogHelper.Show( "", "Starting Cartridges" ); // TODO use string id
                 break;
         }
     }
@@ -108,16 +109,16 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
     public void UpdatedPlayerSession( int msgid ) {
         switch( msgid) {
             case PlayerSessionListener.CARTRIDGE_LIST_UPDATING:
-                WUI.startProgressDialog( "Loading Cartridges" );
+            	ProgressDialogHelper.Show( "", "Loading Cartridges" ); // TODO use string id
                 break;
             case PlayerSessionListener.CARTRIDGE_LIST_UPDATED:
                 if ( playerSession.isAnyCartridgeAvailable() ) {
                     refreshCartridgeList();
                 }
-                WUI.endProgressDialog();
+        		ProgressDialogHelper.Hide();
                 break;
             case PlayerSessionListener.CARTRIDGE_NOT_AVAILABLE:   
-                WUI.endProgressDialog();
+            	ProgressDialogHelper.Hide();
                 UtilsGUI.showDialogInfo(Main.this, 
                                 getString(R.string.no_wherigo_cartridge_available,
                                         FileSystem.ROOT, MainApplication.APP_NAME));            

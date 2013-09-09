@@ -21,6 +21,8 @@ package menion.android.whereyougo;
 
 import java.io.ByteArrayInputStream;
 
+import org.yaawp.gui.helper.ProgressDialogHelper;
+
 import menion.android.whereyougo.gui.CartridgeDetails;
 import menion.android.whereyougo.gui.CartridgeMainMenu;
 import menion.android.whereyougo.gui.Details;
@@ -40,7 +42,6 @@ import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import se.krka.kahlua.vm.LuaClosure;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Vibrator;
@@ -204,51 +205,13 @@ Logger.w(TAG, "showScreen(" + screenId + "), parent:" + activity + ", param:" + 
 		closeActivity(activity);
 	}
 
-    private static ProgressDialog progressDialog;
-    
-    public static void showTextProgress(final String text) {
-    	Logger.i(TAG, "showTextProgress(" + text + ")");
-    }
-    
-    public static void startProgressDialog() {
-        startProgressDialog( "Loading..." );
-    }
-    
-    public static void startProgressDialog( String message ) { // TODO calling in UI thread ?
-        if (progressDialog != null)
-            progressDialog.dismiss();    
-        
-    	progressDialog = new ProgressDialog(((CustomActivity) A.getMain()));
-		progressDialog.setMessage(message);
-		progressDialog.show();
-    }
-    
-    public static void startProgressDialog( String headline, String message ) { // TODO calling in UI thread ?
-        if (progressDialog != null)
-            progressDialog.dismiss();    
-        
-        progressDialog = new ProgressDialog(((CustomActivity) A.getMain()));
-        progressDialog.setMessage(message);
-        progressDialog.setTitle( headline );
-        progressDialog.show();        
-    }   
-    
-    public static void endProgressDialog() {
-        ((CustomActivity) A.getMain()).runOnUiThread(new Runnable() {
-            public void run() {
-                if (progressDialog != null)
-                    progressDialog.dismiss();               
-            }
-        });        
-    }
-    
 	public void start() {
-	    endProgressDialog();
+		ProgressDialogHelper.Hide();
     	showScreen(MAINSCREEN, null);
 	}
 	
 	public void end() {
-	    endProgressDialog();
+		ProgressDialogHelper.Hide();
 		Engine.kill();
 		showScreen(SCREEN_MAIN, null);
 	}
