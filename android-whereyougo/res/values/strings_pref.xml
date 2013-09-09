@@ -90,4 +90,13 @@
     <string name="pref_units_length_na">Nautical</string>
     <string name="pref_units_speed">Speed units</string>
     <string name="pref_units_speed_desc">Choose default speed units</string>
+    <string name="pref_wherigo_engine">Wherigo Engine</string>
+    <string name="pref_wherigo_engine_deviceid">Device identifier</string>
+    <string name="pref_wherigo_engine_plattform">Name of the plattform</string>
+    <string name="pref_wherigo_engine_username">Custom user name</string>
+    <string name="pref_wherigo_engine_replace_username">Use custom user name</string>
+    <string name="pref_wherigo_engine_deviceid_desc">Choose the device identifier.</string>
+    <string name="pref_wherigo_engine_plattform_desc">Choose name of the plattform</string>
+    <string name="pref_wherigo_engine_username_desc">Choose your user name</string>
+    <string name="pref_wherigo_engine_replace_username_desc">Replace the cartridge build-in username with custom user name</string>
 </resources>

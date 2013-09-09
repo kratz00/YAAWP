@@ -152,9 +152,9 @@ Logger.d(TAG, "onKeyDown(" + keyCode + ", " + event + ")");
 	    			new DialogInterface.OnClickListener() {
 						
 	    		@Override
-	    		public void onClick(DialogInterface dialog, int which) {
+	    		public void onClick(DialogInterface dialog, int which) {	    		    
 					Engine.requestSync();
-					Main.selectedFile = null;
+					Main.cartridgeSession.EndSession();
 					new SaveGameOnExit().execute();
 	    		}
 	    	});
@@ -165,7 +165,7 @@ Logger.d(TAG, "onKeyDown(" + keyCode + ", " + event + ")");
 	    		@Override
 	    		public void onClick(DialogInterface dialog, int which) {
 					Engine.kill();
-					Main.selectedFile = null;
+					Main.cartridgeSession.EndSession();
 					CartridgeMainMenu.this.finish();
 	    		}
 	    	});

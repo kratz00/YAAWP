@@ -139,10 +139,11 @@ public class MainApplication extends Application {
     	// initialize DPI
     	Utils.getDpPixels(this, 1.0f);
     	
-    	// issue #2
-    	WherigoLib.env.put(WherigoLib.DEVICE_ID, "device-0815");
-    	WherigoLib.env.put(WherigoLib.PLATFORM, "android-openwig");
-    	
+    	// init openwig engine
+    	Log.i( TAG, "set WherigoLib.DEVICE_ID = "+SettingValues.WHEREIGO_ENGINE_DEVICEID );
+        WherigoLib.env.put(WherigoLib.DEVICE_ID, SettingValues.WHEREIGO_ENGINE_DEVICEID );
+        Log.i( TAG, "set WherigoLib.PLATFORM = "+SettingValues.WHEREIGO_ENGINE_PLATTFORM );
+        WherigoLib.env.put(WherigoLib.PLATFORM, SettingValues.WHEREIGO_ENGINE_PLATTFORM);       	
 	}
 	
     private static Timer mTimer;

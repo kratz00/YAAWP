@@ -40,6 +40,8 @@ import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import cz.matejcik.openwig.formats.CartridgeFile;
+import org.yaawp.bl.CartridgeSession;
 
 public class CartridgeDetails extends CustomActivity {
 	
@@ -48,20 +50,22 @@ public class CartridgeDetails extends CustomActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		CartridgeFile cartridgeFile = Main.cartridgeSession.GetCartridge();
+		
 		setContentView(R.layout.layout_details);
 
 		TextView tvName = (TextView) findViewById(R.id.layoutDetailsTextViewName);
-		tvName.setText(Html.fromHtml(Main.cartridgeFile.name));
+		tvName.setText(Html.fromHtml(cartridgeFile.name));
 		
 		TextView tvState = (TextView) findViewById(R.id.layoutDetailsTextViewState);
-		tvState.setText(Html.fromHtml(Loc.get(R.string.author) + ": " + Main.cartridgeFile.author));
+		tvState.setText(Html.fromHtml(Loc.get(R.string.author) + ": " + cartridgeFile.author));
 
 		TextView tvDescription = (TextView) findViewById(R.id.layoutDetailsTextViewDescription);
-		tvDescription.setText(Html.fromHtml(Main.cartridgeFile.description));
+		tvDescription.setText(Html.fromHtml(cartridgeFile.description));
 		
 		ImageView ivImage = (ImageView) findViewById(R.id.layoutDetailsImageViewImage);
 		try {
-			byte[] is = Main.cartridgeFile.getFile(Main.cartridgeFile.splashId);
+			byte[] is = cartridgeFile.getFile(cartridgeFile.splashId);
 			Bitmap i = BitmapFactory.decodeByteArray(is, 0, is.length);
 			Main.setBitmapToImageView(i, ivImage);
 		} catch (Exception e) {}
@@ -72,18 +76,18 @@ public class CartridgeDetails extends CustomActivity {
 		TextView tvDistance = (TextView) findViewById(R.id.layoutDetailsTextViewDistance);
 
 		Location loc = new Location(TAG);
-		loc.setLatitude(Main.cartridgeFile.latitude);
-		loc.setLongitude(Main.cartridgeFile.longitude);
+		loc.setLatitude(cartridgeFile.latitude);
+		loc.setLongitude(cartridgeFile.longitude);
 
 		StringBuffer buff = new StringBuffer();
 		buff.append(Loc.get(R.string.distance)).append(": ").append("<b>").
 		append(UtilsFormat.formatDistance(LocationState.getLocation().distanceTo(loc), false)).
 		append("</b>").append("<br />").
 		append(Loc.get(R.string.latitude)).append(": ").
-		append(UtilsFormat.formatLatitude(Main.cartridgeFile.latitude)).
+		append(UtilsFormat.formatLatitude(cartridgeFile.latitude)).
 		append("<br />").
 		append(Loc.get(R.string.longitude)).append(": ").
-		append(UtilsFormat.formatLatitude(Main.cartridgeFile.longitude));
+		append(UtilsFormat.formatLatitude(cartridgeFile.longitude));
 		
 		tvDistance.setText(Html.fromHtml(buff.toString()));
 		
@@ -92,26 +96,18 @@ public class CartridgeDetails extends CustomActivity {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
 				CartridgeDetails.this.finish();
-				File file = new File(Main.selectedFile.substring(0, Main.selectedFile.length() - 3) + "gwl");
-				FileOutputStream fos = null;
-				try {
-					if (!file.exists())
-						file.createNewFile();
-					fos = new FileOutputStream(file);
-				} catch (Exception e) {
-					Logger.e(TAG, "onResume() - create empy saveGame file", e);
-				}
-				Main.loadCartridge(fos);
+				Main.cartridgeSession.Start(); 
 				return true;
 			}
 		}, null, null,
 		getString(R.string.navigate), new CustomDialog.OnClickListener() {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
+			    CartridgeFile cartridgeFile = Main.cartridgeSession.GetCartridge();
 				Location loc = new Location(TAG);
-				loc.setLatitude(Main.cartridgeFile.latitude);
-				loc.setLongitude(Main.cartridgeFile.longitude);
-				Waypoint wpt = new Waypoint(Main.cartridgeFile.name, loc);
+				loc.setLatitude(cartridgeFile.latitude);
+				loc.setLongitude(cartridgeFile.longitude);
+				Waypoint wpt = new Waypoint(cartridgeFile.name, loc);
 				A.getGuidingContent().guideStart(wpt);
 				Main.callGudingScreen(CartridgeDetails.this);
 				CartridgeDetails.this.finish();

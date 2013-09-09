@@ -53,6 +53,7 @@ public class SettingScreens extends CustomPreferenceActivity {
 		root.addPreference(createPrefSensors(activity, activity.getPreferenceManager()));
 		root.addPreference(createPrefGuiding(activity, activity.getPreferenceManager()));
 		root.addPreference(createPrefLocale(activity, activity.getPreferenceManager()));
+		root.addPreference(createPrefWherigo(activity, activity.getPreferenceManager()));
 		return root;
 	}
 	
@@ -135,5 +136,21 @@ public class SettingScreens extends CustomPreferenceActivity {
         SettingItems.addPrefUnitsAngle(activity, prefCatLocale);
         
         return init(preferenceLocale);
+	}
+	
+	public static PreferenceScreen createPrefWherigo( CustomPreferenceActivity activity,
+	                PreferenceManager prefManager ) {
+	    PreferenceScreen preferenceWherigo = prefManager.createPreferenceScreen( activity );
+	    preferenceWherigo.setTitle( R.string.pref_wherigo_engine ); 
+
+	    PreferenceCategory prefCatWherigo = 
+	                    addNewPreferenceCategory(activity, R.string.pref_wherigo_engine, preferenceWherigo );
+	    
+	    SettingItems.addPrefWherigoDeviceId( activity, prefCatWherigo );
+	    SettingItems.addPrefWherigoPlattform( activity, prefCatWherigo );
+	    SettingItems.addPrefWherigoReplaceUsername( activity, prefCatWherigo );
+	    SettingItems.addPrefWherigoUsername( activity, prefCatWherigo );
+	    
+	    return init(preferenceWherigo);
 	}
 }

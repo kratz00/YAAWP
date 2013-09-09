@@ -88,7 +88,7 @@ Logger.e(TAG, "playSound(" + (data != null ? data.length : 0) + ", "+ mime + ")"
 				A.getManagerAudio().playMp3File("audio", ".mp3", bis);
 			} 
 		} catch (Exception e) {
-			Logger.e(TAG, "play(), cart:" + Main.cartridgeFile.code, e);
+			Logger.e(TAG, "play(), cart:" + Main.cartridgeSession.GetCartridge().code, e);
 		}
 	}
 	
@@ -211,24 +211,44 @@ Logger.w(TAG, "showScreen(" + screenId + "), parent:" + activity + ", param:" + 
     }
     
     public static void startProgressDialog() {
+        startProgressDialog( "Loading..." );
+    }
+    
+    public static void startProgressDialog( String message ) { // TODO calling in UI thread ?
+        if (progressDialog != null)
+            progressDialog.dismiss();    
+        
     	progressDialog = new ProgressDialog(((CustomActivity) A.getMain()));
-		progressDialog.setMessage("Loading...");
+		progressDialog.setMessage(message);
 		progressDialog.show();
     }
     
+    public static void startProgressDialog( String headline, String message ) { // TODO calling in UI thread ?
+        if (progressDialog != null)
+            progressDialog.dismiss();    
+        
+        progressDialog = new ProgressDialog(((CustomActivity) A.getMain()));
+        progressDialog.setMessage(message);
+        progressDialog.setTitle( headline );
+        progressDialog.show();        
+    }   
+    
+    public static void endProgressDialog() {
+        ((CustomActivity) A.getMain()).runOnUiThread(new Runnable() {
+            public void run() {
+                if (progressDialog != null)
+                    progressDialog.dismiss();               
+            }
+        });        
+    }
+    
 	public void start() {
-    	((CustomActivity) A.getMain()).runOnUiThread(new Runnable() {
-			public void run() {
-				if (progressDialog != null)
-					progressDialog.dismiss();				
-			}
-    	});
+	    endProgressDialog();
     	showScreen(MAINSCREEN, null);
 	}
 	
 	public void end() {
-		if (progressDialog != null)
-			progressDialog.dismiss();
+	    endProgressDialog();
 		Engine.kill();
 		showScreen(SCREEN_MAIN, null);
 	}

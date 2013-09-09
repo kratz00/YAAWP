@@ -85,6 +85,19 @@ public class Settings {
 	public static final String KEY_I_GET_COORDINATES_LAST_INDEX = "KEY_I_GET_COORDINATES_LAST_INDEX";
 	public static final int DEFAULT_GET_COORDINATES_LAST_INDEX = 0;
 	
+	/** WHERIGO ENGINE */
+	public static final String KEY_B_WHERIGO_ENGINE_DEVICEID = "KEY_B_WHERIGO_ENGINE_DEVICEID";
+	public static final String DEFAULT_WHERIGO_ENGINE_DEVICEID = "android0815";
+
+    public static final String KEY_B_WHERIGO_ENGINE_PLATTFORM = "KEY_B_WHERIGO_ENGINE_PLATTFORM";
+    public static final String DEFAULT_WHERIGO_ENGINE_PLATTFORM = "android.openwig";
+	
+    public static final String KEY_B_WHERIGO_ENGINE_REPLACE_USERNAME = "KEY_B_WHERIGO_ENGINE_REPLACE_USERNAME";
+    public static final boolean DEFAULT_WHERIGO_ENGINE_REPLACE_USERNAME = false;
+    
+    public static final String KEY_B_WHERIGO_ENGINE_USERNAME = "KEY_B_WHERIGO_ENGINE_USERNAME";
+    public static final String DEFAULT_WHERIGO_ENGINE_USERNAME = "Max Mustermann";
+
 	// GPS & LOCATION
 	/** if GPS should start automatically after application start */
 	public static final String KEY_B_START_GPS_AUTOMATICALLY = "KEY_B_START_GPS_AUTOMATICALLY";

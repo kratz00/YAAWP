@@ -150,7 +150,7 @@ public abstract class CustomPreferenceActivity extends PreferenceActivity {
         return preference;
 	}
 	
-	public void addCheckBoxPreference(PreferenceCategory category,
+	public CheckBoxPreference addCheckBoxPreference(PreferenceCategory category,
 			int name, int desc, String key, boolean def, Preference.OnPreferenceChangeListener lis) {
 		CheckBoxPreference preference = new CheckBoxPreference(this);
         preference.setTitle(name);
@@ -160,6 +160,7 @@ public abstract class CustomPreferenceActivity extends PreferenceActivity {
         if (lis != null)
         	preference.setOnPreferenceChangeListener(lis);
         category.addPreference(preference);
+        return preference;
 	}
 	
 	public EditTextPreference addEditTextPreference(PreferenceCategory category,

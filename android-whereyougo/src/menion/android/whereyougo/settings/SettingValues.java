@@ -75,8 +75,24 @@ public class SettingValues {
     /** waypoint sound distance */
     public static int GUIDING_WAYPOINT_SOUND_DISTANCE;
     
+    // WHERIGO
+    public static String WHEREIGO_ENGINE_DEVICEID;
+    public static String WHEREIGO_ENGINE_PLATTFORM;
+    public static String WHEREIGO_ENGINE_USERNAME;
+    public static boolean WHEREIGO_ENGINE_REPLACE_USERNAME;
+    
 	public static void init(Context c) {
 		Logger.d(TAG, "init(" + c + ")");
+		
+		WHEREIGO_ENGINE_DEVICEID = getPrefString( c, KEY_B_WHERIGO_ENGINE_DEVICEID,
+		                DEFAULT_WHERIGO_ENGINE_DEVICEID );
+		WHEREIGO_ENGINE_PLATTFORM = getPrefString( c, KEY_B_WHERIGO_ENGINE_PLATTFORM,
+		                DEFAULT_WHERIGO_ENGINE_PLATTFORM );
+		WHEREIGO_ENGINE_USERNAME = getPrefString( c, KEY_B_WHERIGO_ENGINE_USERNAME,
+		                DEFAULT_WHERIGO_ENGINE_USERNAME );
+		WHEREIGO_ENGINE_REPLACE_USERNAME = getPrefBoolean( c, KEY_B_WHERIGO_ENGINE_REPLACE_USERNAME,
+		                DEFAULT_WHERIGO_ENGINE_REPLACE_USERNAME );
+		
 		GLOBAL_FULLSCREEN = getPrefBoolean(c, KEY_B_FULLSCREEN,
 				DEFAULT_FULLSCREEN);
 		GLOBAL_HIGHLIGHT = Utils.parseInt(getPrefString(c, KEY_S_HIGHLIGHT,

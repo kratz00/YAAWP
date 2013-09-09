@@ -151,6 +151,10 @@ public class Utils {
         }
     }
     
+    public static String parseString(Object data) {
+        return String.valueOf(data);
+    }    
+    
 	/**********************************************/
 	/*               OTHERS SECTION               */
 	/**********************************************/

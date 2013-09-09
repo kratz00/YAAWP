@@ -52,6 +52,7 @@
     <string name="pending">Pending</string>
     <string name="pitch">Pitch</string>
     <string name="point">Point</string>
+    <string name="positioning">Positioning</string>
     <string name="press_color_to_apply">Press color to apply</string>
     <string name="problem_with_internet_connection">Problem with Internet connection!</string>
     <string name="question">Question</string>
@@ -76,5 +77,12 @@
     <string name="you_see">You see</string>
     <string name="compass">Compass</string>
     <string name="navigate">Navigate</string>
-    <string name="positioning">Positioning</string>
+    <string name="ctx_menu_send_game">Send game</string>
+    <string name="ctx_menu_show_on_map">Show on map</string>
+    <string name="ctx_menu_continue_game">Continue game</string>
+    <string name="ctx_menu_restart_game">Restart game</string>
+    <string name="ctx_menu_del_saved_game">Delete saved game</string>
+    <string name="ctx_menu_play">Play</string>
+    <string name="ctx_menu_delete_log_file">Delete log file</string>
+    <string name="ctx_menu_send_log_file">Send log file</string>   
 </resources>

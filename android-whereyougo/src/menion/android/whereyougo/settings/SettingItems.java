@@ -20,8 +20,10 @@
 package menion.android.whereyougo.settings;
 
 import static menion.android.whereyougo.settings.Settings.*;
+import cz.matejcik.openwig.WherigoLib;
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomPreferenceActivity;
+import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.ManagerNotify;
@@ -31,20 +33,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.text.InputType;
+import android.util.Log;
 
 public class SettingItems {
 	
 	private static final String TAG = "SettingItems";
 	
+	private static EditTextPreference prefWherigoCustomName = null;
 	/*****************************/
 	/*           GLOBAL          */
 	/*****************************/
-	
 	// GLOBAL
 	
 	public static void addPrefFullscreen(CustomPreferenceActivity activity, 
@@ -191,7 +195,99 @@ public class SettingItems {
 				Settings.KEY_B_GPS_DISABLE_WHEN_HIDE,
 				Settings.DEFAULT_GPS_DISABLE_WHEN_HIDE);
 	}
+
+    /***************************/
+    /*     Wherigo Engine      */
+    /***************************/
+	public static void addPrefWherigoDeviceId(CustomPreferenceActivity activity, 
+	                PreferenceCategory category) {
+	    
+	    EditTextPreference pref = activity.addEditTextPreference( category,
+	                    R.string.pref_wherigo_engine_deviceid,
+	                    R.string.pref_wherigo_engine_deviceid_desc, 
+	                    Settings.KEY_B_WHERIGO_ENGINE_DEVICEID,
+	                    Settings.DEFAULT_WHERIGO_ENGINE_DEVICEID,
+	                    InputType.TYPE_CLASS_TEXT,
+	                    new Preference.OnPreferenceChangeListener() {
+                            @Override
+                            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                                SettingValues.WHEREIGO_ENGINE_DEVICEID = Utils.parseString(newValue);
+                                Log.i( TAG, "set WherigoLib.DEVICE_ID = "+SettingValues.WHEREIGO_ENGINE_DEVICEID );
+                                WherigoLib.env.put(WherigoLib.DEVICE_ID, SettingValues.WHEREIGO_ENGINE_DEVICEID );
+                                return true;
+                            }
+                        });
+	       setPreferenceText(activity, pref, getPrefString(Settings.KEY_B_WHERIGO_ENGINE_DEVICEID, Settings.DEFAULT_WHERIGO_ENGINE_DEVICEID),
+	                       R.string.pref_wherigo_engine_deviceid_desc);
+	}
 	
+    public static void addPrefWherigoPlattform(CustomPreferenceActivity activity, 
+                    PreferenceCategory category) {
+        
+        EditTextPreference pref = activity.addEditTextPreference( category,
+                        R.string.pref_wherigo_engine_plattform,
+                        R.string.pref_wherigo_engine_plattform_desc, 
+                        Settings.KEY_B_WHERIGO_ENGINE_PLATTFORM,
+                        Settings.DEFAULT_WHERIGO_ENGINE_PLATTFORM,
+                        InputType.TYPE_CLASS_TEXT,
+                        new Preference.OnPreferenceChangeListener() {
+                            @Override
+                            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                                SettingValues.WHEREIGO_ENGINE_PLATTFORM = Utils.parseString(newValue);
+                                Log.i( TAG, "set WherigoLib.PLATFORM = "+SettingValues.WHEREIGO_ENGINE_PLATTFORM );
+                                WherigoLib.env.put(WherigoLib.PLATFORM, SettingValues.WHEREIGO_ENGINE_PLATTFORM); 
+                                return true;
+                            }
+                        });
+        setPreferenceText(activity, pref, getPrefString(Settings.KEY_B_WHERIGO_ENGINE_PLATTFORM, Settings.DEFAULT_WHERIGO_ENGINE_PLATTFORM),
+                        R.string.pref_wherigo_engine_deviceid_desc);        
+    }
+   
+    public static void addPrefWherigoUsername(CustomPreferenceActivity activity, 
+                    PreferenceCategory category) {
+        
+        prefWherigoCustomName = activity.addEditTextPreference( category,
+                        R.string.pref_wherigo_engine_username,
+                        R.string.pref_wherigo_engine_username_desc, // TODO ? dsc value
+                        Settings.KEY_B_WHERIGO_ENGINE_USERNAME,
+                        Settings.DEFAULT_WHERIGO_ENGINE_USERNAME,
+                        InputType.TYPE_CLASS_TEXT,
+                        new Preference.OnPreferenceChangeListener() {
+                            @Override
+                            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                                SettingValues.WHEREIGO_ENGINE_USERNAME = Utils.parseString(newValue);
+
+                                setPreferenceText(A.getMain(), preference, getPrefString(Settings.KEY_B_WHERIGO_ENGINE_USERNAME, Settings.DEFAULT_WHERIGO_ENGINE_USERNAME),
+                                                R.string.pref_wherigo_engine_deviceid_desc);  
+                                
+                                return true;
+                            }
+                        });
+        
+        prefWherigoCustomName.setEnabled( SettingValues.WHEREIGO_ENGINE_REPLACE_USERNAME );
+        
+        setPreferenceText(activity, prefWherigoCustomName, getPrefString(Settings.KEY_B_WHERIGO_ENGINE_USERNAME, Settings.DEFAULT_WHERIGO_ENGINE_USERNAME),
+                        R.string.pref_wherigo_engine_deviceid_desc);   
+    } 
+    
+    public static void addPrefWherigoReplaceUsername(CustomPreferenceActivity activity, 
+                    PreferenceCategory category) {
+           CheckBoxPreference pref = activity.addCheckBoxPreference(category,
+                        R.string.pref_wherigo_engine_replace_username,
+                        R.string.pref_wherigo_engine_replace_username_desc,
+                        Settings.KEY_B_WHERIGO_ENGINE_REPLACE_USERNAME,
+                        Settings.DEFAULT_WHERIGO_ENGINE_REPLACE_USERNAME,
+                        new Preference.OnPreferenceChangeListener() {
+                            @Override
+                            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                                SettingValues.WHEREIGO_ENGINE_REPLACE_USERNAME = Utils.parseBoolean(newValue);
+                                if ( prefWherigoCustomName != null ) {
+                                    prefWherigoCustomName.setEnabled( SettingValues.WHEREIGO_ENGINE_REPLACE_USERNAME );
+                                }
+                                return true;
+                            }
+                        });
+     }    
 	/***************************/
 	/*         SENSORS         */
 	/***************************/
