@@ -87,7 +87,7 @@ public class CartridgeDetails extends CustomActivity {
 		append(UtilsFormat.formatLatitude(cartridgeFile.latitude)).
 		append("<br />").
 		append(Loc.get(R.string.longitude)).append(": ").
-		append(UtilsFormat.formatLatitude(cartridgeFile.longitude));
+		append(UtilsFormat.formatLongitude(cartridgeFile.longitude));
 		
 		tvDistance.setText(Html.fromHtml(buff.toString()));
 		
