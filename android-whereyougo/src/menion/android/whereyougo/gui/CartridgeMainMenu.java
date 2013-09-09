@@ -24,6 +24,7 @@ import java.util.Vector;
 
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
+import org.yaawp.gui.helper.ScreenHelper;
 import org.yaawp.openwig.WUI;
 
 import menion.android.whereyougo.gui.extension.CustomActivity;
@@ -67,22 +68,22 @@ public class CartridgeMainMenu extends CustomActivity implements Refreshable {
 				switch (position) {
 				case 0:
 					if (Engine.instance.cartridge.visibleZones() >= 1) {
-						Main.wui.showScreen(WUI.LOCATIONSCREEN, null);
+						ScreenHelper.activateScreen(ScreenHelper.SCREEN_LOCATIONSCREEN, null);
 					}
 					break;
 				case 1:
 					if (Engine.instance.cartridge.visibleThings() >= 1) {
-						Main.wui.showScreen(WUI.ITEMSCREEN, null);
+						ScreenHelper.activateScreen(ScreenHelper.SCREEN_ITEMSCREEN, null);
 					}
 					break;
 				case 2:
 					if (Engine.instance.player.visibleThings() >= 1) {
-						Main.wui.showScreen(WUI.INVENTORYSCREEN, null);
+						ScreenHelper.activateScreen(ScreenHelper.SCREEN_INVENTORYSCREEN, null);
 					}
 					break;
 				case 3:
 					if (getVisibleTasksCount() > 0) {
-						Main.wui.showScreen(WUI.TASKSCREEN, null);
+						ScreenHelper.activateScreen(ScreenHelper.SCREEN_TASKSCREEN, null);
 					}
 					break;
 				};

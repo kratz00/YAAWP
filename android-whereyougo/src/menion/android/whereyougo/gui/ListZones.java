@@ -22,7 +22,7 @@ package menion.android.whereyougo.gui;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import org.yaawp.openwig.WUI;
+import org.yaawp.gui.helper.ScreenHelper;
 
 import locus.api.objects.extra.Location;
 import menion.android.whereyougo.Main;
@@ -40,7 +40,7 @@ public class ListZones extends ListVarious implements LocationEventListener {
 	
 	@Override
 	protected void callStuff(Object what) {
-		Main.wui.showScreen(WUI.DETAILSCREEN, (Zone) what);
+		ScreenHelper.activateScreen(ScreenHelper.SCREEN_DETAILSCREEN, (Zone) what);
 		ListZones.this.finish();
 	}
 

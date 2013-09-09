@@ -21,7 +21,7 @@ package menion.android.whereyougo.gui;
 
 import java.util.Vector;
 
-import org.yaawp.openwig.WUI;
+import org.yaawp.gui.helper.ScreenHelper;
 
 import menion.android.whereyougo.Main;
 import se.krka.kahlua.vm.LuaTable;
@@ -46,7 +46,7 @@ public class ListThings extends ListVarious {
 		if (t.hasEvent("OnClick")) {
 			Engine.callEvent(t, "OnClick", null);
 		} else {
-			Main.wui.showScreen(WUI.DETAILSCREEN, t);
+			ScreenHelper.activateScreen(ScreenHelper.SCREEN_DETAILSCREEN, t);
 		}
 		ListThings.this.finish();
 	}

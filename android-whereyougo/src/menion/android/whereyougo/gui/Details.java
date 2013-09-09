@@ -29,7 +29,6 @@ import locus.api.objects.extra.Location;
 import locus.api.objects.extra.Waypoint;
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
-import org.yaawp.openwig.WUI;
 
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
@@ -53,6 +52,7 @@ import cz.matejcik.openwig.Media;
 import cz.matejcik.openwig.Task;
 import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
+import org.yaawp.gui.helper.ScreenHelper;
 
 // ADD locationListener to update UpdateNavi
 public class Details extends CustomActivity implements Refreshable, LocationEventListener {
@@ -235,7 +235,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 					@Override
 					public boolean onClick(CustomDialog dialog, View v, int btn) {
 				    	ListActions.reset((Thing) et);
-				    	Main.wui.showScreen(WUI.SCREEN_ACTIONS, et);
+				    	ScreenHelper.activateScreen(ScreenHelper.SCREEN_ACTIONS, et);
 				    	Details.this.finish();						
 				    	return true;
 					}
@@ -288,7 +288,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 						@Override
 						public boolean onClick(CustomDialog dialog, View v, int btn) {
 					    	ListActions.reset((Thing) et);
-					    	Main.wui.showScreen(WUI.SCREEN_ACTIONS, et);
+					    	ScreenHelper.activateScreen(ScreenHelper.SCREEN_ACTIONS, et);
 					    	Details.this.finish();
 					    	return true;
 						}

@@ -23,7 +23,7 @@ import java.util.Vector;
 
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
-import org.yaawp.openwig.WUI;
+import org.yaawp.gui.helper.ScreenHelper;
 
 import menion.android.whereyougo.utils.Images;
 import android.graphics.Bitmap;
@@ -38,7 +38,7 @@ public class ListTasks extends ListVarious {
 		if (z.hasEvent("OnClick")) {
 			Engine.callEvent(z, "OnClick", null);
 		} else {
-			Main.wui.showScreen(WUI.DETAILSCREEN, z);
+			ScreenHelper.activateScreen(ScreenHelper.SCREEN_DETAILSCREEN, z);
 		}
 		ListTasks.this.finish();
 	}

@@ -21,12 +21,11 @@ package menion.android.whereyougo.gui;
 
 import java.util.Vector;
 
-import org.yaawp.openwig.WUI;
-
 import menion.android.whereyougo.Main;
 import cz.matejcik.openwig.Action;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Thing;
+import org.yaawp.gui.helper.ScreenHelper;
 
 public class ListActions extends ListVarious {
 
@@ -49,13 +48,13 @@ public class ListActions extends ListVarious {
 		if (z.hasParameter()) {
 			if (z.getActor() == thing) {
 				ListTargets.reset(thing.name + ": " + z.text, z, thing);
-				Main.wui.showScreen(WUI.SCREEN_TARGETS, null);
+				ScreenHelper.activateScreen( ScreenHelper.SCREEN_TARGETS, null);
 			} else {
-				Main.wui.showScreen(WUI.DETAILSCREEN, Details.et);
+				ScreenHelper.activateScreen( ScreenHelper.SCREEN_DETAILSCREEN, Details.et);
 				Engine.callEvent(z.getActor(), eventName, thing);
 			}
 		} else {
-			Main.wui.showScreen(WUI.DETAILSCREEN, Details.et);
+			ScreenHelper.activateScreen( ScreenHelper.SCREEN_DETAILSCREEN, Details.et);
 			Engine.callEvent(thing, eventName, null);
 		}
 	}

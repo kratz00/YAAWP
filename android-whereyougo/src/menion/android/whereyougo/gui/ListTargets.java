@@ -23,7 +23,7 @@ import java.util.Vector;
 
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
-import org.yaawp.openwig.WUI;
+import org.yaawp.gui.helper.ScreenHelper;
 
 import menion.android.whereyougo.gui.extension.UtilsGUI;
 import se.krka.kahlua.vm.LuaTable;
@@ -82,7 +82,7 @@ public class ListTargets extends ListVarious {
 	
 	@Override
 	protected void callStuff(Object what) {
-		Main.wui.showScreen(WUI.DETAILSCREEN, Details.et);
+		ScreenHelper.activateScreen(ScreenHelper.SCREEN_DETAILSCREEN, Details.et);
 		String eventName = "On" + action.getName();
 		Engine.callEvent(action.getActor(), eventName, (Thing) what);
 	}

@@ -51,15 +51,11 @@ import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.EventTable;
 import cz.matejcik.openwig.Media;
 import cz.matejcik.openwig.platform.UI;
+import org.yaawp.gui.helper.ScreenHelper;
 
 public class WUI implements UI {
 
 	private static final String TAG = "WUI";
-	
-	public static final int SCREEN_MAIN = 10;
-	public static final int SCREEN_CART_DETAIL = 11;
-	public static final int SCREEN_ACTIONS = 12;
-	public static final int SCREEN_TARGETS = 13;
 	
 	public static boolean saving = false;
 	
@@ -103,11 +99,11 @@ Logger.e(TAG, "playSound(" + (data != null ? data.length : 0) + ", "+ mime + ")"
 			String button2, LuaClosure callback) {
 Logger.w(TAG, "pushDialog(" + texts + ", " + media + ", " + button1 + ", " + button2 + ", " + callback + ")");
 
-		Activity activity = getParentActivity();
+		Activity activity = ScreenHelper.getParentActivity();
 		PushDialog.setDialog(texts, media, button1, button2, callback);
 		Intent intent = new Intent(activity, PushDialog.class);
 		activity.startActivity(intent);
-		closeActivity(activity);
+		ScreenHelper.closeActivity(activity);
 					
 		Vibrator v = (Vibrator) A.getMain().getSystemService(Context.VIBRATOR_SERVICE);
 		v.vibrate(25);		
@@ -115,11 +111,11 @@ Logger.w(TAG, "pushDialog(" + texts + ", " + media + ", " + button1 + ", " + but
 
 	public void pushInput(EventTable input) {
 Logger.w(TAG, "pushInput(" + input + ")");
-		Activity activity = getParentActivity();
+		Activity activity = ScreenHelper.getParentActivity();
 		InputScreen.setInput(input);
 		Intent intent = new Intent(activity, InputScreen.class);
 		activity.startActivity(intent);
-		closeActivity(activity);
+		ScreenHelper.closeActivity(activity);
 	}
 
 	public void refresh() {
@@ -135,7 +131,7 @@ Logger.w(TAG, "setStatus(" + text + ")");
 			return;
 		
 		try {
-			final CustomActivity activity = getParentActivity();
+			final CustomActivity activity = ScreenHelper.getParentActivity();
 			activity.runOnUiThread(new Runnable() {
 				public void run() {
 					Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();	
@@ -147,90 +143,18 @@ Logger.w(TAG, "setStatus(" + text + ")");
 	}
 
 	public void showScreen(int screenId, EventTable details) {
-		Activity activity = getParentActivity();
-Logger.w(TAG, "showScreen(" + screenId + "), parent:" + activity + ", param:" + details);
-				
-		// disable currentActivity
-		Settings.setCurrentActivity(null);
-		
-		switch (screenId) {
-			case MAINSCREEN:
-				Intent intent01 = new Intent(activity, CartridgeMainMenu.class);
-				activity.startActivity(intent01);
-				return;
-			case SCREEN_CART_DETAIL:
-				Intent intent02 = new Intent(activity, CartridgeDetails.class);
-				activity.startActivity(intent02);
-				return;
-			case DETAILSCREEN:
-				Details.et = details;
-				Intent intent03 = new Intent(activity, Details.class);
-				activity.startActivity(intent03);
-				return;
-			case INVENTORYSCREEN:
-				Intent intent04 = new Intent(activity, ListThings.class);
-				intent04.putExtra("title", "Inventory");
-				intent04.putExtra("mode", ListThings.INVENTORY);
-				activity.startActivity(intent04);
-				return;
-			case ITEMSCREEN:
-				Intent intent05 = new Intent(activity, ListThings.class);
-				intent05.putExtra("title", "You see");
-				intent05.putExtra("mode", ListThings.SURROUNDINGS);
-				activity.startActivity(intent05);
-				return;
-			case LOCATIONSCREEN:
-				Intent intent06 = new Intent(activity, ListZones.class);
-				intent06.putExtra("title", "Locations");
-				activity.startActivity(intent06);
-				return;
-			case TASKSCREEN:
-				Intent intent07 = new Intent(activity, ListTasks.class);
-				intent07.putExtra("title", "Tasks");
-				activity.startActivity(intent07);
-				return;
-			case SCREEN_ACTIONS:
-				Intent intent09 = new Intent(activity, ListActions.class);
-				if (details != null)
-					intent09.putExtra("title", details.name);
-				activity.startActivity(intent09);
-				return;
-			case SCREEN_TARGETS:
-				Intent intent10 = new Intent(activity, ListTargets.class);
-				if (details != null)
-					intent10.putExtra("title", details.name);
-				activity.startActivity(intent10);
-				return;
-		}
-		
-		closeActivity(activity);
+		ScreenHelper.activateScreen( screenId, details );
 	}
-
+	
 	public void start() {
 		ProgressDialogHelper.Hide();
-    	showScreen(MAINSCREEN, null);
+		ScreenHelper.activateScreen(UI.MAINSCREEN, null);
 	}
 	
 	public void end() {
 		ProgressDialogHelper.Hide();
 		Engine.kill();
-		showScreen(SCREEN_MAIN, null);
+		ScreenHelper.activateScreen(ScreenHelper.SCREEN_MAIN, null);
 	}
 	
-	private static CustomActivity getParentActivity() {
-		CustomActivity activity = (CustomActivity) Settings.getCurrentActivity();
-
-		if (activity == null)
-			activity = (CustomActivity) A.getMain();
-		
-		return activity;
-	}
-	
-	private static void closeActivity(Activity activity) {
-		if (activity instanceof PushDialog ||
-				activity instanceof GuidingScreen) {
-			activity.finish();
-		}
-	}
-
 }

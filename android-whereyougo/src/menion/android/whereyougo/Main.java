@@ -70,6 +70,7 @@ import org.yaawp.bl.CartridgeSessionListener;
 import org.yaawp.bl.PlayerSession;
 import org.yaawp.bl.PlayerSessionListener;
 import org.yaawp.gui.helper.ProgressDialogHelper;
+import org.yaawp.gui.helper.ScreenHelper;
 import org.yaawp.openwig.WUI;
 
 // import yawp.mapservice.mapforge.gui.CartridgeMapActivity;
@@ -304,11 +305,11 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
                 @Override
                 public void onClick(DialogInterface dialog, int btn) {
                     Logger.w(TAG, "SaveGame - onClick2 ");
-                    Main.wui.showScreen(WUI.SCREEN_CART_DETAIL, null);
+                    ScreenHelper.activateScreen(ScreenHelper.SCREEN_CART_DETAIL, null);
                 }
             });
         } else {
-            Main.wui.showScreen(WUI.SCREEN_CART_DETAIL, null);
+        	ScreenHelper.activateScreen(ScreenHelper.SCREEN_CART_DETAIL, null);
         }
     }
           
