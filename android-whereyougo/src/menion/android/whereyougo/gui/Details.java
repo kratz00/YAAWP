@@ -29,7 +29,8 @@ import locus.api.objects.extra.Location;
 import locus.api.objects.extra.Waypoint;
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
-import menion.android.whereyougo.WUI;
+import org.yaawp.openwig.WUI;
+
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.hardware.location.LocationEventListener;

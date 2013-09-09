@@ -23,7 +23,8 @@ import java.util.Vector;
 
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
-import menion.android.whereyougo.WUI;
+import org.yaawp.openwig.WUI;
+
 import menion.android.whereyougo.gui.extension.UtilsGUI;
 import se.krka.kahlua.vm.LuaTable;
 import android.content.DialogInterface;

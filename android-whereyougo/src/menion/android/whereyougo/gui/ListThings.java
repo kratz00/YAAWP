@@ -21,8 +21,9 @@ package menion.android.whereyougo.gui;
 
 import java.util.Vector;
 
+import org.yaawp.openwig.WUI;
+
 import menion.android.whereyougo.Main;
-import menion.android.whereyougo.WUI;
 import se.krka.kahlua.vm.LuaTable;
 import android.os.Bundle;
 import cz.matejcik.openwig.Engine;

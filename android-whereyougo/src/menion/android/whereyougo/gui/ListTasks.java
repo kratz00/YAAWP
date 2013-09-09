@@ -23,7 +23,8 @@ import java.util.Vector;
 
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
-import menion.android.whereyougo.WUI;
+import org.yaawp.openwig.WUI;
+
 import menion.android.whereyougo.utils.Images;
 import android.graphics.Bitmap;
 import cz.matejcik.openwig.Engine;

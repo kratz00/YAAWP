@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo;
+package org.yaawp.openwig;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

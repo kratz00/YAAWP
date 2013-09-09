@@ -12,8 +12,6 @@ import android.app.ProgressDialog;
 import locus.api.objects.extra.Location;
 import locus.api.objects.extra.Waypoint;
 import menion.android.whereyougo.Main;
-import menion.android.whereyougo.WSaveFile;
-import menion.android.whereyougo.WSeekableFile;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
@@ -25,6 +23,8 @@ import menion.android.whereyougo.utils.FileSystem;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.ManagerNotify;
 import org.yaawp.R;
+import org.yaawp.openwig.WSaveFile;
+import org.yaawp.openwig.WSeekableFile;
 
 public class PlayerSession implements Runnable
 {

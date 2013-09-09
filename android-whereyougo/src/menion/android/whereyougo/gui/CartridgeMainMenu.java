@@ -24,7 +24,8 @@ import java.util.Vector;
 
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
-import menion.android.whereyougo.WUI;
+import org.yaawp.openwig.WUI;
+
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.gui.extension.DataInfo;

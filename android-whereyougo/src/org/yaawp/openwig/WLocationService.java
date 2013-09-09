@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo;
+package org.yaawp.openwig;
 
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.utils.Logger;

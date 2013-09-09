@@ -70,6 +70,7 @@ import org.yaawp.bl.CartridgeSessionListener;
 import org.yaawp.bl.PlayerSession;
 import org.yaawp.bl.PlayerSessionListener;
 import org.yaawp.gui.helper.ProgressDialogHelper;
+import org.yaawp.openwig.WUI;
 
 // import yawp.mapservice.mapforge.gui.CartridgeMapActivity;
 import android.os.Bundle;

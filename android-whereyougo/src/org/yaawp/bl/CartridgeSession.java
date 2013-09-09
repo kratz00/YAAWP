@@ -5,9 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.yaawp.bl.CartridgeSessionListener;
+import org.yaawp.openwig.WLocationService;
+import org.yaawp.openwig.WUI;
 
-import menion.android.whereyougo.WLocationService;
-import menion.android.whereyougo.WUI;
 import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.utils.Logger;
 import cz.matejcik.openwig.Engine;

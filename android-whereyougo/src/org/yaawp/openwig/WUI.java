@@ -17,12 +17,13 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo;
+package org.yaawp.openwig;
 
 import java.io.ByteArrayInputStream;
 
 import org.yaawp.gui.helper.ProgressDialogHelper;
 
+import menion.android.whereyougo.Main;
 import menion.android.whereyougo.gui.CartridgeDetails;
 import menion.android.whereyougo.gui.CartridgeMainMenu;
 import menion.android.whereyougo.gui.Details;

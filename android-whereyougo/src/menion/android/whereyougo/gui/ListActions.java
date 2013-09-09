@@ -21,8 +21,9 @@ package menion.android.whereyougo.gui;
 
 import java.util.Vector;
 
+import org.yaawp.openwig.WUI;
+
 import menion.android.whereyougo.Main;
-import menion.android.whereyougo.WUI;
 import cz.matejcik.openwig.Action;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Thing;
