@@ -30,7 +30,10 @@
 		android:name="menion.android.whereyougo.gui.extension.MainApplication"
 		android:theme="@style/AppTheme">
 		
-		<activity android:name="menion.android.whereyougo.Main" android:label="WhereYouGo" android:screenOrientation="portrait">
+		<activity 
+		        android:name="menion.android.whereyougo.Main" 
+			android:label="Yaawp" 
+			android:screenOrientation="portrait">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -91,6 +94,5 @@
 		<service android:name="menion.android.whereyougo.hardware.location.GpsConnectionService" />
 		<service android:name="menion.android.whereyougo.utils.audio.AudioPlayService" />
 		
-		<!--<activity android:name="com.paypal.android.MEP.PayPalActivity"></activity>-->
 	</application>
 </manifest> 
