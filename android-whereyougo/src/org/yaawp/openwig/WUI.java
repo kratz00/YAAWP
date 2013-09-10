@@ -52,6 +52,7 @@ import cz.matejcik.openwig.EventTable;
 import cz.matejcik.openwig.Media;
 import cz.matejcik.openwig.platform.UI;
 import org.yaawp.gui.helper.ScreenHelper;
+import org.yaawp.hmi.AudioHelper;
 
 public class WUI implements UI {
 
@@ -74,20 +75,7 @@ public class WUI implements UI {
 	}
 
 	public void playSound(byte[] data, String mime) {
-Logger.e(TAG, "playSound(" + (data != null ? data.length : 0) + ", "+ mime + ")");
-		// test on wrong data
-		if (data == null || data.length == 0 || mime == null)
-			return;
-		try {
-			ByteArrayInputStream bis = new ByteArrayInputStream(data);
-			if ("audio/x-wav".equals(mime)) {
-				A.getManagerAudio().playMp3File("audio", ".wav", bis);
-			} else if ("audio/mpeg".equals(mime)) {
-				A.getManagerAudio().playMp3File("audio", ".mp3", bis);
-			} 
-		} catch (Exception e) {
-			Logger.e(TAG, "play(), cart:" + Main.cartridgeSession.GetCartridge().code, e);
-		}
+		AudioHelper.playSound( data, mime );
 	}
 	
 	public void showError(String msg) {
