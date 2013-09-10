@@ -22,7 +22,7 @@ package menion.android.whereyougo.gui;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import org.yaawp.gui.helper.ScreenHelper;
+import org.yaawp.hmi.helper.ScreenHelper;
 
 import locus.api.objects.extra.Location;
 import menion.android.whereyougo.Main;

@@ -69,8 +69,8 @@ import org.yaawp.bl.CartridgeSession;
 import org.yaawp.bl.CartridgeSessionListener;
 import org.yaawp.bl.PlayerSession;
 import org.yaawp.bl.PlayerSessionListener;
-import org.yaawp.gui.helper.ProgressDialogHelper;
-import org.yaawp.gui.helper.ScreenHelper;
+import org.yaawp.hmi.helper.ProgressDialogHelper;
+import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.openwig.WUI;
 
 // import yawp.mapservice.mapforge.gui.CartridgeMapActivity;

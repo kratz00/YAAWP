@@ -52,7 +52,8 @@ import cz.matejcik.openwig.Media;
 import cz.matejcik.openwig.Task;
 import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
-import org.yaawp.gui.helper.ScreenHelper;
+
+import org.yaawp.hmi.helper.ScreenHelper;
 
 // ADD locationListener to update UpdateNavi
 public class Details extends CustomActivity implements Refreshable, LocationEventListener {

@@ -21,7 +21,6 @@ package org.yaawp.openwig;
 
 import java.io.ByteArrayInputStream;
 
-import org.yaawp.gui.helper.ProgressDialogHelper;
 
 import menion.android.whereyougo.Main;
 import menion.android.whereyougo.gui.CartridgeDetails;
@@ -51,8 +50,9 @@ import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.EventTable;
 import cz.matejcik.openwig.Media;
 import cz.matejcik.openwig.platform.UI;
-import org.yaawp.gui.helper.ScreenHelper;
-import org.yaawp.hmi.AudioHelper;
+import org.yaawp.hmi.helper.AudioHelper;
+import org.yaawp.hmi.helper.ProgressDialogHelper;
+import org.yaawp.hmi.helper.ScreenHelper;
 
 public class WUI implements UI {
 

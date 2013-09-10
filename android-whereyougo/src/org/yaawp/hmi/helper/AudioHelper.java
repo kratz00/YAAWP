@@ -1,4 +1,4 @@
-package org.yaawp.hmi;
+package org.yaawp.hmi.helper;
 
 import java.io.ByteArrayInputStream;
 

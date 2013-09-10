@@ -24,7 +24,7 @@ import java.util.Vector;
 
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
-import org.yaawp.gui.helper.ScreenHelper;
+import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.openwig.WUI;
 
 import menion.android.whereyougo.gui.extension.CustomActivity;

@@ -25,7 +25,8 @@ import menion.android.whereyougo.Main;
 import cz.matejcik.openwig.Action;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Thing;
-import org.yaawp.gui.helper.ScreenHelper;
+
+import org.yaawp.hmi.helper.ScreenHelper;
 
 public class ListActions extends ListVarious {
 

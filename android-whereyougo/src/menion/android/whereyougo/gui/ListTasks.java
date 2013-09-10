@@ -23,7 +23,7 @@ import java.util.Vector;
 
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
-import org.yaawp.gui.helper.ScreenHelper;
+import org.yaawp.hmi.helper.ScreenHelper;
 
 import menion.android.whereyougo.utils.Images;
 import android.graphics.Bitmap;

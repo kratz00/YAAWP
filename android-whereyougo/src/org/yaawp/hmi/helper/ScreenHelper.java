@@ -1,4 +1,4 @@
-package org.yaawp.gui.helper;
+package org.yaawp.hmi.helper;
 
 import menion.android.whereyougo.gui.CartridgeDetails;
 import menion.android.whereyougo.gui.CartridgeMainMenu;

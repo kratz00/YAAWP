@@ -1,4 +1,4 @@
-package org.yaawp.gui.helper;
+package org.yaawp.hmi.helper;
 
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.utils.A;
