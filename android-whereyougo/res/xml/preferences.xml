@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cgeo="http://schemas.android.com/apk/res/cgeo.geocaching"
+    android:key="@string/pref_fakekey_main_screen" >
+
+    <PreferenceScreen
+        android:icon="?attr/settings_map"
+        android:title="@string/settings_title_map" >
+        <PreferenceCategory android:title="@string/settings_title_map_data" >
+            <ListPreference
+                android:defaultValue="0"
+                android:dialogTitle="@string/init_mapsource_select"
+                android:key="@string/pref_mapsource"
+                android:title="@string/init_mapsource_select" />
+
+            <!--   <cgeo.geocaching.settings.InfoPreference
+                android:text="@string/settings_info_offline_maps"
+                android:title="@string/settings_info_offline_maps_title"
+                cgeo:url="@string/settings_offline_maps_url"
+                cgeo:urlButton="@string/settings_goto_url_button" /> -->
+
+            <Preference
+                android:key="@string/pref_mapDirectory"
+                android:title="@string/init_map_directory_description" />
+
+            <!--   <cgeo.geocaching.settings.InfoPreference
+                android:text="@string/settings_info_themes"
+                android:title="@string/settings_info_themes_title"
+                cgeo:url="@string/settings_themes_url"
+                cgeo:urlButton="@string/settings_goto_url_button" /> -->
+
+            <Preference
+                android:key="@string/pref_renderthemepath"
+                android:title="@string/init_rendertheme_folder" />
+        </PreferenceCategory>
+        <PreferenceCategory android:title="@string/settings_title_map_content" >
+            <Preference
+                android:selectable="false"
+                android:summary="@string/init_showwaypoint_description"
+                android:title="@string/init_showwaypoints" />
+
+            <!--   <cgeo.geocaching.settings.WpThresholdPreference
+                android:key="@string/pref_showwaypointsthreshold"
+                android:layout="@layout/wp_threshold_preference" /> -->
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="@string/pref_maptrail"
+                android:summary="@string/init_summary_maptrail"
+                android:title="@string/init_maptrail" />
+        </PreferenceCategory>
+    </PreferenceScreen>
+</PreferenceScreen>
