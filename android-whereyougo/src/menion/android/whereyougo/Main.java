@@ -433,6 +433,7 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
 	@Override
     public void onResume() {
     	super.onResume();
+    	playerSession.InvalidCartridgeStatus();
     	playerSession.refresh();
     }
     
