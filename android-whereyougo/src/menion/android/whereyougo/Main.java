@@ -50,7 +50,6 @@ import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.ManagerNotify;
 import menion.android.whereyougo.utils.Utils;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -65,31 +64,34 @@ import android.widget.ListView;
 import android.widget.TextView;
 import cz.matejcik.openwig.formats.CartridgeFile;
 import org.yaawp.R;
+import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.bl.CartridgeSessionListener;
-import org.yaawp.bl.PlayerSession;
-import org.yaawp.bl.PlayerSessionListener;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.helper.ScreenHelper;
+import org.yaawp.openwig.WSaveFile;
+import org.yaawp.openwig.WSeekableFile;
 import org.yaawp.openwig.WUI;
+import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 
-// import yawp.mapservice.mapforge.gui.CartridgeMapActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 
-public class Main extends CustomMain implements CartridgeSessionListener, PlayerSessionListener {
+public class Main extends CustomMain implements CartridgeSessionListener {
 
 	private static final String TAG = "Main";
+	
+    private static final int CARTRIDGE_LIST_UPDATING = 0;
+    private static final int CARTRIDGE_LIST_UPDATED = 1;
+    private static final int CARTRIDGE_NOT_AVAILABLE = 2;	
 	
 	public static WUI wui = new WUI();
 	
 	
 	public static CartridgeSession cartridgeSession = null;
-	
-	private PlayerSession playerSession = new PlayerSession(this);
 	
 	public static IconedListAdapter adapter = null;
 	
@@ -107,19 +109,16 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
         }
     }
 
-    @Override 
-    public void UpdatedPlayerSession( int msgid ) {
+    public void fetchCartridgeFilesNotification( int msgid ) {
         switch( msgid) {
-            case PlayerSessionListener.CARTRIDGE_LIST_UPDATING:
-            	ProgressDialogHelper.Show( "", "Loading Cartridges" ); // TODO use string id
+            case CARTRIDGE_LIST_UPDATING:
+            	ProgressDialogHelper.Show( "", "Loading Cartridges" ); 
                 break;
-            case PlayerSessionListener.CARTRIDGE_LIST_UPDATED:
-                if ( playerSession.isAnyCartridgeAvailable() ) {
-                    refreshCartridgeList();
-                }
+            case CARTRIDGE_LIST_UPDATED:
+                refreshCartridgeList();
         		ProgressDialogHelper.Hide();
                 break;
-            case PlayerSessionListener.CARTRIDGE_NOT_AVAILABLE:   
+            case CARTRIDGE_NOT_AVAILABLE:   
             	ProgressDialogHelper.Hide();
                 UtilsGUI.showDialogInfo(Main.this, 
                                 getString(R.string.no_wherigo_cartridge_available,
@@ -128,25 +127,31 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
         }
     }   
     
+    private void invalidateCartridgeList() {
+        runOnUiThread( new Runnable() {
+            public void run() {
+            	final ListView listview = (ListView) findViewById(R.id.listView1); 
+                listview.invalidate();
+            }
+        });
+    }
+    
+    
     private void refreshCartridgeList() {
-        
-        if ( !playerSession.isAnyCartridgeAvailable() ) {
-            return;
-        }
-        
+               
         adapter = new IconedListAdapter( this, new ArrayList<DataInfo>(), null );    
    
         final ListView listview = (ListView) findViewById(R.id.listView1);  
  
         try {             
             final Location actLoc = LocationState.getLocation();
-            playerSession.sort( PlayerSession.comparatorDistance );
+            // TODO playerSession.sort( PlayerSession.comparatorDistance );
     
-
+            YaawpAppData appdata = YaawpAppData.GetInstance();
             // prepare list
             ArrayList<DataInfo> data = new ArrayList<DataInfo>();
-            for (int i = 0; i < playerSession.GetList().size(); i++) {
-                CartridgeFile file = playerSession.GetCartridge( i );
+            for (int i = 0; i < appdata.mWigFiles.size(); i++) {
+                CartridgeFile file = appdata.mWigFiles.get( i );
                 byte[] iconData = file.getFile(file.iconId);
                 Bitmap icon;
                 try {
@@ -205,7 +210,7 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
                 
                 if ( v.getId()==R.id.listView1) {
                     AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-                    CartridgeSession file = new CartridgeSession( playerSession.GetCartridge(info.position), null, wui );
+                    CartridgeSession file = new CartridgeSession( YaawpAppData.GetInstance().mWigFiles.get(info.position), null, wui );
                     menu.setHeaderTitle( file.GetCartridge().name );
                     // menu.setHeaderIcon( file.GetCartridge().iconId );
                     
@@ -244,7 +249,7 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
         if ( cartridgeSession != null ) {
             cartridgeSession.EndSession();
         }
-        cartridgeSession = new CartridgeSession( playerSession.GetCartridge(info.position), this, wui );        
+        cartridgeSession = new CartridgeSession( YaawpAppData.GetInstance().mWigFiles.get(info.position), this, wui );        
         
         switch( index )
         {
@@ -254,28 +259,24 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
                 break;
             case R.string.ctx_menu_continue_game:
                 cartridgeSession.Continue();
-                playerSession.InvalidCartridgeStatus();
                 break;
             case R.string.ctx_menu_restart_game:
                 cartridgeSession.Start();
-                playerSession.InvalidCartridgeStatus();
                 break;
             case R.string.ctx_menu_del_saved_game:
                 try {
                     cartridgeSession.getSaveFile().delete();
-                    playerSession.InvalidCartridgeStatus();
+                    invalidateCartridgeList();
+                    refreshCartridgeList(); // TODO remove it
                 } catch ( Exception e ) {  
                 }
                 break;
             case R.string.ctx_menu_play:
                 cartridgeSession.Start();
-                playerSession.InvalidCartridgeStatus();
                 break;
             case R.string.ctx_menu_delete_log_file:
                 try {
                     cartridgeSession.getLogFile().delete();
-                    // currently not shown in the ui: 
-                    // playerSession.InvalidCartridgeStatus();
                 } catch ( Exception e ) {  
                 }                
                 break;
@@ -285,8 +286,6 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
                 break;    
         }
 
-        playerSession.refresh();        
-        
         return true;
     }
     
@@ -317,9 +316,9 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
         if ( cartridgeSession != null ) {
             cartridgeSession.EndSession();
         }
-        cartridgeSession = new CartridgeSession( playerSession.GetCartridge(position), this, wui );
+        cartridgeSession = new CartridgeSession( YaawpAppData.GetInstance().mWigFiles.get(position), this, wui );
         startCartridge();
-        playerSession.InvalidCartridgeStatus();
+        // TODO playerSession.InvalidCartridgeStatus();
     }    
 	
 	@Override
@@ -361,16 +360,15 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
         boolean status = true;
         
         switch (item.getItemId())
-        {
+        { 
             case R.id.menu_positioning:
                 Intent intent02 = new Intent(Main.this, SatelliteScreen.class);
                 startActivity(intent02);
                 break;
                 
             case R.id.menu_map:
-                clickMap(); 
-                /* Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
-                startActivity(intent); */               
+                Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
+                startActivity(intent);              
                 break;
                 
 			case R.id.menu_preferences:
@@ -392,50 +390,21 @@ public class Main extends CustomMain implements CartridgeSessionListener, Player
         return status;
     }        
     
-	private void clickMap() {
-		// check cartridges
-		if (!playerSession.isAnyCartridgeAvailable()) {
-			return;
-		}
-
-		try {
-			// complete waypoints data
-			PackWaypoints pack = new PackWaypoints("WhereYouGo");
-			Bitmap b = Images.getImageB(R.drawable.ic_title_logo, (int) Utils.getDpPixels(32.0f));
-			pack.setBitmap(b);
-			for (CartridgeFile cartridge : playerSession.GetList() ) {
-				// do not show waypoints that are "Play anywhere" (with zero coordinates)
-				if (cartridge.latitude % 360.0 == 0 && cartridge.longitude % 360.0 == 0) {
-					continue;
-				}
-
-				// construct waypoint
-				Location loc = new Location(TAG);
-				loc.setLatitude(cartridge.latitude);
-				loc.setLongitude(cartridge.longitude);
-				Waypoint wpt = new Waypoint(cartridge.name, loc);
-				wpt.addParameter(ExtraData.PAR_DESCRIPTION, cartridge.description);
-				wpt.addUrl(cartridge.url);
-				pack.addWaypoint(wpt);
-			}
-
-			ActionDisplayPoints.sendPack(this, pack, ExtraAction.NONE);
-		} catch (Exception e) {
-			Logger.e(TAG, "clickMap()", e);
-		}
-	}
-	
-
-	@Override
+    @Override
 	protected void eventDestroyApp() {
 	}
 	
 	@Override
     public void onResume() {
-    	super.onResume();
-    	playerSession.InvalidCartridgeStatus();
-    	playerSession.refresh();
+    	super.onResume();	
+		refreshCartridgeList(); // TODO invalid ListAdpater at UI Thread
     }
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		fetchCartridgeFiles();
+	}
     
 	public static void setBitmapToImageView(Bitmap i, ImageView iv) {
 Logger.w(TAG, "setBitmapToImageView(), " + i.getWidth() + " x " + i.getHeight());
@@ -475,4 +444,47 @@ Logger.w(TAG, "setBitmapToImageView(), " + i.getWidth() + " x " + i.getHeight())
 	@Override
 	protected void eventRegisterOnly() {
 	}
+	
+	
+    public void fetchCartridgeFiles() {
+
+    	if ( YaawpAppData.GetInstance().mWigFiles.size() > 0 ) {
+    		return;
+    	}
+    	
+        new Thread( new Runnable() { 
+        	public void run() {
+        		
+        		fetchCartridgeFilesNotification( CARTRIDGE_LIST_UPDATING );
+        		
+                // load cartridge files
+                File[] files = FileSystem.getFiles(FileSystem.ROOT, "gwc");
+                YaawpAppData.GetInstance().mWigFiles.clear(); 
+                
+                if (files != null) {
+                    for (File file : files) {
+                        try {
+                            // actualFile = file;
+                            CartridgeFile cart = CartridgeFile.read(new WSeekableFile(file), new WSaveFile(file));
+                            
+                            if (cart != null) {               
+                                cart.filename = file.getAbsolutePath();
+                                YaawpAppData.GetInstance().mWigFiles.add(cart);
+                            }
+                        } catch (Exception e) {
+                            Logger.w(TAG, "updateCartridgeList(), file:" + file + ", e:" + e.toString());
+                            ManagerNotify.toastShortMessage(Loc.get(R.string.invalid_cartridge, file.getName()));
+                        }
+                    }
+                }
+
+                if ( YaawpAppData.GetInstance().mWigFiles.size() > 0 ) {
+                	fetchCartridgeFilesNotification( CARTRIDGE_LIST_UPDATED );            
+                } else {
+                	fetchCartridgeFilesNotification( CARTRIDGE_NOT_AVAILABLE );
+                }        		
+        	}
+        } ).start();
+    }
+   
 }
