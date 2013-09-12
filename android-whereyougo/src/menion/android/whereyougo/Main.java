@@ -74,6 +74,7 @@ import org.yaawp.openwig.WSeekableFile;
 import org.yaawp.openwig.WUI;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
+import org.yaawp.hmi.activities.YaawpPreferenceActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -317,6 +318,11 @@ public class Main extends CustomMain implements CartridgeSessionListener {
         
         switch (item.getItemId())
         { 
+        	case R.id.menu_start:
+                Intent intent2 = new Intent( Main.this, YaawpPreferenceActivity.class );
+                startActivity(intent2); 
+                break;
+                
             case R.id.menu_positioning:
                 Intent intent02 = new Intent(Main.this, SatelliteScreen.class);
                 startActivity(intent02);
@@ -328,7 +334,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                 break;
                 
 			case R.id.menu_preferences:
-                UtilsSettings.showSettings(Main.this);
+				UtilsSettings.showSettings(Main.this);
                 break; 
 
             case R.id.menu_info:
