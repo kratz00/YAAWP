@@ -1,5 +1,12 @@
 /*
-  * This file is part of WhereYouGo.
+                Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
+                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/bayern.map" );
+                int array[] = new int[YaawpAppData.GetInstance().mWigFiles.size()];
+                for (int i = 0; i < YaawpAppData.GetInstance().mWigFiles.size(); i++) {
+                	array[i]=i;
+                }
+                intent.putExtra( CartridgeMapActivity.CARTRIDGES, array);
+                startActivity(intent);   * This file is part of WhereYouGo.
   *
   * WhereYouGo is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
@@ -221,6 +228,12 @@ public class Main extends CustomMain implements CartridgeSessionListener {
             case R.string.ctx_menu_send_game:
                 break;
             case R.string.ctx_menu_show_on_map:
+                Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
+                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/bayern.map" );
+                int array[] = new int[1];
+               	array[0]=info.position;
+                intent.putExtra( CartridgeMapActivity.CARTRIDGES, array);
+                startActivity(intent);            	
                 break;
             case R.string.ctx_menu_continue_game:
                 cartridgeSession.Continue();
@@ -336,6 +349,12 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                 
             case R.id.menu_map:
                 Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
+                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/bayern.map" );
+                int array[] = new int[YaawpAppData.GetInstance().mWigFiles.size()];
+                for (int i = 0; i < YaawpAppData.GetInstance().mWigFiles.size(); i++) {
+                	array[i]=i;
+                }
+                intent.putExtra( CartridgeMapActivity.CARTRIDGES, array);
                 startActivity(intent);              
                 break;
                 
