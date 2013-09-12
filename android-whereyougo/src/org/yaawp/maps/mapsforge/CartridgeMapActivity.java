@@ -14,6 +14,7 @@ import org.mapsforge.android.maps.overlay.OverlayItem;
 import org.mapsforge.core.GeoPoint;
 import org.yaawp.R;
 import org.yaawp.app.YaawpAppData;
+import org.yaawp.hmi.helper.CartridgeHelper;
 
 import cz.matejcik.openwig.formats.CartridgeFile;
 
@@ -48,7 +49,7 @@ public class CartridgeMapActivity extends MapActivity {
         	CartridgeFile wigfile = data.mWigFiles.get(i);
         	
 			// remove location less
-        	if (wigfile.latitude % 360.0 == 0 && wigfile.longitude % 360.0 == 0) {
+        	if (CartridgeHelper.isPlayAnywhere(wigfile)) {
 				continue;
         	}
         	

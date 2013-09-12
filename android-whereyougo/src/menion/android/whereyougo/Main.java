@@ -67,6 +67,7 @@ import org.yaawp.R;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.bl.CartridgeSessionListener;
+import org.yaawp.hmi.helper.CartridgeHelper;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.openwig.WSaveFile;
@@ -75,6 +76,7 @@ import org.yaawp.openwig.WUI;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
 import org.yaawp.hmi.activities.YaawpPreferenceActivity;
+import org.yaawp.hmi.helper.CartridgeHelper;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -174,7 +176,11 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                     
                     
                     menu.add( Menu.NONE, R.string.ctx_menu_send_game, 1, getString(R.string.ctx_menu_send_game) ); 
-                    menu.add( Menu.NONE, R.string.ctx_menu_show_on_map, 2, getString(R.string.ctx_menu_show_on_map) );
+                    
+                    if ( !CartridgeHelper.isPlayAnywhere(file.GetCartridge())) {
+                    	menu.add( Menu.NONE, R.string.ctx_menu_show_on_map, 2, getString(R.string.ctx_menu_show_on_map) );
+                    }
+                    
                     try {
                         if ( file.SaveGameExists() ) {
                             menu.add( Menu.NONE, R.string.ctx_menu_continue_game, 0, getString(R.string.ctx_menu_continue_game) );
