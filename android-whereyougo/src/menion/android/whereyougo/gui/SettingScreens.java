@@ -48,26 +48,12 @@ public class SettingScreens extends CustomPreferenceActivity {
 	
 	public static PreferenceScreen createPreferences(CustomPreferenceActivity activity) {
 		PreferenceScreen root = activity.getPreferenceManager().createPreferenceScreen(activity);
-		root.addPreference(createPrefGlobal(activity, activity.getPreferenceManager()));
 		root.addPreference(createPrefGps(activity, activity.getPreferenceManager()));
 		root.addPreference(createPrefSensors(activity, activity.getPreferenceManager()));
 		root.addPreference(createPrefGuiding(activity, activity.getPreferenceManager()));
 		root.addPreference(createPrefLocale(activity, activity.getPreferenceManager()));
 		root.addPreference(createPrefWherigo(activity, activity.getPreferenceManager()));
 		return root;
-	}
-	
-	public static PreferenceScreen createPrefGlobal(final CustomPreferenceActivity activity,
-			PreferenceManager prefManager) {
-		PreferenceScreen preferenceScreen = prefManager.createPreferenceScreen(activity);
-		preferenceScreen.setTitle(R.string.pref_global);
-		PreferenceCategory prefCatGlobal = 
-			addNewPreferenceCategory(activity, R.string.pref_global, preferenceScreen);
-
-        SettingItems.addPrefFullscreen(activity, prefCatGlobal);
-        SettingItems.addPrefHighlight(activity, prefCatGlobal);
-		
-        return init(preferenceScreen);
 	}
 	
 	public static PreferenceScreen createPrefGps(CustomPreferenceActivity activity,

@@ -21,6 +21,8 @@ package menion.android.whereyougo.settings;
 
 import java.util.Locale;
 
+import org.yaawp.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -34,6 +36,7 @@ import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
+import org.yaawp.preferences.PreferenceUtils;
 
 public class Settings {
 
@@ -43,15 +46,11 @@ public class Settings {
 	private static final String KEY_S_APPLICATION_VERSION_LAST = "KEY_S_APPLICATION_VERSION_LAST";
 	
 	// GLOBAL
-	/** enable fullscreen mode on newly created activities */
-	public static final String KEY_B_FULLSCREEN = "KEY_B_FULLSCREEN";
-	public static final boolean DEFAULT_FULLSCREEN = false;
 	/** screen highlight mode */
-	public static final String KEY_S_HIGHLIGHT = "KEY_S_HIGHLIGHT";
 	public static final int VALUE_HIGHLIGHT_OFF = 0;
 	public static final int VALUE_HIGHLIGHT_ONLY_GPS = 1;
 	public static final int VALUE_HIGHLIGHT_ALWAYS = 2;
-	public static final String DEFAULT_HIGHLIGHT = String.valueOf(VALUE_HIGHLIGHT_OFF);
+
 
 	// GENERAL
 	/** default language */
@@ -232,6 +231,7 @@ public class Settings {
 		}
 		return PreferenceManager.getDefaultSharedPreferences(A.getApp()).getBoolean(key, def);
 	}
+
 	public static void setPrefBoolean(String key, boolean value) {
 		if (A.getApp() == null) {
 			return;
@@ -378,54 +378,6 @@ Logger.w(TAG, "getLanguageCode() - " + lang);
     	}
     	return false;
     }
-    
-    public static void setScreenFullscreen(Activity activity) {
-    	try {
-    		if (!(activity instanceof CustomPreferenceActivity)) {
-				// set fullScreen
-        		if (SettingValues.GLOBAL_FULLSCREEN) {
-    				activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-    						WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    			} else {
-    				activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    			}
-    		}
-    	} catch (Exception e) {
-    		Logger.e(TAG, "setFullScreen(" + activity + ")", e);
-    	}
-    }
-    
-    private static PowerManager.WakeLock wl;
+      
 
-    public static void enableWakeLock() {
-    	try {
-	    	boolean disable = false;
-	    	if (SettingValues.GLOBAL_HIGHLIGHT == VALUE_HIGHLIGHT_OFF) {
-	    		disable = true;
-	    	} else if (SettingValues.GLOBAL_HIGHLIGHT == VALUE_HIGHLIGHT_ONLY_GPS) {
-	    		if (!LocationState.isActuallyHardwareGpsOn()) {
-	    			disable = true;
-	    		}
-	    	}
-Logger.w(TAG, "enableWakeLock(), dis:" + disable + ", wl:" + wl);
-	    	if (disable && wl != null) {
-	    		disableWakeLock();
-	    	} else if (!disable && wl == null) {
-	   			PowerManager pm = (PowerManager) A.getApp().getSystemService(Context.POWER_SERVICE);
-	   			wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, TAG);
-	   			wl.acquire();
-	    	}
-//Logger.w(TAG, "enableWakeLock(), res:" + wl);
-    	} catch (Exception e) {
-    		Logger.e(TAG, "enableWakeLock(), e:" + e.toString());
-    	}
-    }
-    
-    public static void disableWakeLock() {
-Logger.w(TAG, "disableWakeLock(), wl:" + wl);
-    	if (wl != null) {
-    		wl.release();
-    		wl = null;
-    	}
-    }
 }

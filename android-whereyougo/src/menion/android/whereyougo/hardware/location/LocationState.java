@@ -51,6 +51,7 @@ import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import org.yaawp.preferences.PreferenceFunc;
 
 /**
  * @author menion
@@ -320,7 +321,7 @@ Logger.i(TAG, "removeLocationChangeListener(" + listener + "), actualSize:" + mL
 
 			// also disable wake-lock here
 			if (!Settings.existCurrentActivity() || screenOff) {
-				Settings.disableWakeLock();
+				PreferenceFunc.disableWakeLock();
 			}
 			
 			// do not change gps state when ...

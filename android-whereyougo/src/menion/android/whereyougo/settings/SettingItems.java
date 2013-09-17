@@ -51,28 +51,6 @@ public class SettingItems {
 	/*****************************/
 	// GLOBAL
 	
-	public static void addPrefFullscreen(CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-		activity.addCheckBoxPreference(category,
-				R.string.pref_fullscreen,
-				R.string.pref_fullscreen_desc,
-				Settings.KEY_B_FULLSCREEN,
-				Settings.DEFAULT_FULLSCREEN,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference preference, Object newValue) {
-						setPrefFullscreen(false, Utils.parseBoolean(newValue));
-						return true;
-					}
-				});
-	}
-	
-	public static void setPrefFullscreen(boolean saveToPref, boolean value) {
-		if (saveToPref) {
-			Settings.setPrefBoolean(Settings.KEY_B_FULLSCREEN, value);
-		}
-		SettingValues.GLOBAL_FULLSCREEN = value;
-	}
 	
 	public static void addPrefConfirmOnExit(CustomPreferenceActivity activity, 
 			PreferenceCategory category) {
@@ -83,36 +61,7 @@ public class SettingItems {
 				Settings.DEFAULT_CONFIRM_ON_EXIT);
 	}
 	
-	public static void addPrefHighlight(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		Loc.get(R.string.pref_highlight_off_text),
-        		Loc.get(R.string.pref_highlight_only_gps_text),
-        		Loc.get(R.string.pref_highlight_always_text)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_HIGHLIGHT_OFF),
-        		String.valueOf(Settings.VALUE_HIGHLIGHT_ONLY_GPS),
-        		String.valueOf(Settings.VALUE_HIGHLIGHT_ALWAYS)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_highlight,
-				R.string.pref_highlight_desc,
-				Settings.KEY_S_HIGHLIGHT,
-				Settings.DEFAULT_HIGHLIGHT,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.GLOBAL_HIGHLIGHT = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.GLOBAL_HIGHLIGHT, R.string.pref_highlight_desc);
-						Settings.enableWakeLock();
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.GLOBAL_HIGHLIGHT, R.string.pref_highlight_desc);
-	}
-	
+
 	/**************************/
 	/*           GPS          */
 	/**************************/

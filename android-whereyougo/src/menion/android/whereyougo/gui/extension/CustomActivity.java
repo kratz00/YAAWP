@@ -20,6 +20,7 @@
 package menion.android.whereyougo.gui.extension;
 
 import menion.android.whereyougo.settings.Settings;
+
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Logger;
 import android.app.Activity;
@@ -28,6 +29,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import org.yaawp.preferences.PreferenceFunc;
 
 public class CustomActivity extends FragmentActivity {
 
@@ -72,7 +74,7 @@ Logger.v(getLocalClassName(), "onStart(), id:" + hashCode());
 	
 	protected static void customOnStart(Activity activity) {
 //Logger.v(activity.getLocalClassName(), "customOnStart(), id:" + activity.hashCode());
-		Settings.setScreenFullscreen(activity);
+		PreferenceFunc.setScreenFullscreen(activity);
 	}
 
 	@Override
@@ -95,7 +97,7 @@ Logger.v(getLocalClassName(), "onResume(), id:" + hashCode());
 		// set current activity
 		Settings.setCurrentActivity(activity);
    		// enable permanent screen on
-   		Settings.enableWakeLock();
+		PreferenceFunc.enableWakeLock();
 	}
 	
 	@Override

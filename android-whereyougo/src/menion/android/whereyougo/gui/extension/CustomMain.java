@@ -45,6 +45,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.StatFs;
 import android.view.KeyEvent;
+import org.yaawp.preferences.PreferenceFunc;
 
 public abstract class CustomMain extends CustomActivity {
 
@@ -171,7 +172,7 @@ public abstract class CustomMain extends CustomActivity {
 			eventDestroyApp();
 
 			// disable highlight
-			Settings.disableWakeLock();
+			PreferenceFunc.disableWakeLock();
 			// save last known location
 			Settings.setLastKnownLocation();
 			// disable GPS modul

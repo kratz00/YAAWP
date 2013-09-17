@@ -43,6 +43,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import org.yaawp.preferences.PreferenceFunc;
 
 /**
  * @author menion
@@ -99,7 +100,7 @@ public class SatelliteScreen extends CustomActivity implements LocationEventList
 				}
 				
 				onGpsStatusChanged(0, null);
-				Settings.enableWakeLock();
+				PreferenceFunc.enableWakeLock();
 			}
 		});
         

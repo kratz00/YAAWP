@@ -1,53 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+	src\menion\android\whereyougo\gui\SettingScreens.java (GUI)
+	src\menion\android\whereyougo\settings\SettingItems.java  (GUI)
+	? src\menion\android\whereyougo\settings\Settings.java 
+	? src\menion\android\whereyougo\settings\SettingValues.java
+	? src\menion\android\whereyougo\settings\UtilsSettings.java
+-->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cgeo="http://schemas.android.com/apk/res/cgeo.geocaching"
     android:key="@string/pref_fakekey_main_screen" >
 
-    <PreferenceScreen
-        
-        android:title="@string/map" >
-        <PreferenceCategory android:title="string/settings_title_map_data" >
-            <ListPreference
-                android:defaultValue="0"
-                android:dialogTitle="string/init_mapsource_select"
-                android:key="string/pref_mapsource"
-                android:title="string/init_mapsource_select" />
+	<PreferenceCategory android:title="@string/settings" >
+	
+		<PreferenceScreen
+			
+			android:title="@string/pref_global" >
+			
+			<PreferenceCategory android:title="@string/pref_global" >
+			
+				<CheckBoxPreference
+					android:defaultValue="false"
+					android:key="@string/pref_fullscreen"
+					android:summary="@string/pref_fullscreen_desc"
+					android:title="@string/pref_fullscreen" />		
+				
+				<ListPreference 
+           			android:key="@string/pref_highlight"
+            		android:title="@string/pref_highlight"
+            		android:summary="@string/pref_highlight_desc"
+            		android:defaultValue="0" 
+            		android:entries="@array/pref_highlight_strings"
+            		android:entryValues="@array/pref_highlight_values" />
+		
+			</PreferenceCategory>
+			
+		</PreferenceScreen>	
 
-            <!--   <cgeo.geocaching.settings.InfoPreference
-                android:text="@string/settings_info_offline_maps"
-                android:title="@string/settings_info_offline_maps_title"
-                cgeo:url="@string/settings_offline_maps_url"
-                cgeo:urlButton="@string/settings_goto_url_button" /> -->
+		<PreferenceScreen
+			
+			android:title="@string/gps_and_location" >
+			
+			<PreferenceCategory android:title="@string/pref_global" >
+			<!--         
+				SettingItems.addPrefGpsAltitudeManualCorrection(activity, prefCatGlobal);
+				SettingItems.addPrefGpsBeepOnGpsFix(activity, prefCatGlobal);
+			-->
+			</PreferenceCategory>
+			<PreferenceCategory android:title="@string/pref_global" >
+			<!--
+				SettingItems.addPrefGpsDisable(activity, prefCatDisable);
+				SettingItems.addPrefGuidingGpsRequired(activity, prefCatDisable);			
+			-->
+			</PreferenceCategory>
+			
+		</PreferenceScreen>	
 
-            <Preference
-                android:key="string/pref_mapDirectory"
-                android:title="string/init_map_directory_description" />
+		<PreferenceScreen
+			
+			android:title="@string/pref_sensors" >
+			
+			<PreferenceCategory android:title="@string/pref_orientation" >
+			<!--
+				SettingItems.addPrefSensorsCompassHardware(activity, prefCatOrient);
+				SettingItems.addPrefSensorsCompassAutoChange(activity, prefCatOrient);
+				SettingItems.addPrefSensorsCompassAutoChangeValue(activity, prefCatOrient);
+				SettingItems.addPrefSensorsBearingTrue(activity, prefCatOrient);
+				SettingItems.addPrefSensorsOrienFilter(activity, prefCatOrient);
+			-->			
+			</PreferenceCategory>
+		</PreferenceScreen>	
 
-            <!--   <cgeo.geocaching.settings.InfoPreference
-                android:text="@string/settings_info_themes"
-                android:title="@string/settings_info_themes_title"
-                cgeo:url="@string/settings_themes_url"
-                cgeo:urlButton="@string/settings_goto_url_button" /> -->
+		<PreferenceScreen
+			
+			android:title="@string/pref_guiding" >
+			
+			<PreferenceCategory android:title="@string/pref_global" >
+				<!-- SettingItems.addPrefGuidingCompassSounds(activity, prefCatGlobal); -->
+			</PreferenceCategory>
+			<PreferenceCategory android:title="@string/pref_waypoints" >
+			<!--
+				SettingItems.addPrefGuidingWptSound(activity, prefCatWptGuide);
+				SettingItems.addPrefGuidingWptSoundDistance(activity, prefCatWptGuide);			
+			-->
+			</PreferenceCategory>
+		</PreferenceScreen>	
 
-            <Preference
-                android:key="string/pref_renderthemepath"
-                android:title="string/init_rendertheme_folder" />
-        </PreferenceCategory>
-        <PreferenceCategory android:title="string/settings_title_map_content" >
-            <Preference
-                android:selectable="false"
-                android:summary="string/init_showwaypoint_description"
-                android:title="string/init_showwaypoints" />
+		<PreferenceScreen
+			
+			android:title="@string/pref_locale" >
+			
+			<PreferenceCategory android:title="@string/pref_language" >
+				<!-- 
+					SettingItems.addPrefLocal(activity, prefCatLang);
+				-->
+				<!--
+				-->
+			</PreferenceCategory>
+			<PreferenceCategory android:title="@string/pref_units" >
+				<!--
+					SettingItems.addPrefUnitsCooLatLon(activity, prefCatLocale);
+					SettingItems.addPrefUnitsLength(activity, prefCatLocale);
+					SettingItems.addPrefUnitsAltitude(activity, prefCatLocale);
+					SettingItems.addPrefUnitsSpeed(activity, prefCatLocale);
+					SettingItems.addPrefUnitsAngle(activity, prefCatLocale);
+				-->
+			</PreferenceCategory>			
 
-            <!--   <cgeo.geocaching.settings.WpThresholdPreference
-                android:key="@string/pref_showwaypointsthreshold"
-                android:layout="@layout/wp_threshold_preference" /> -->
+		</PreferenceScreen>	
 
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="string/pref_maptrail"
-                android:summary="string/init_summary_maptrail"
-                android:title="string/init_maptrail" />
-        </PreferenceCategory>
-    </PreferenceScreen>
+		<PreferenceScreen
+			
+			android:title="@string/pref_wherigo_engine" >
+			
+		    <!-- 
+			<PreferenceCategory android:title="@string/pref_wherigo_engine" > 
+			
+				<CheckBoxPreference
+					android:defaultValue="false"
+					android:key="@string/pref_suppress_audio"
+					android:summary="@string/pref_suppress_audio_desc"
+					android:title="@string/pref_suppress_audio" />
+				
+			</PreferenceCategory>
+			-->	
+			<PreferenceCategory android:title="@string/pref_wherigo_engine" >
+			
+				<EditTextPreference
+					android:defaultValue="0815"
+					android:key="@string/pref_wherigo_engine_deviceid"
+					android:title="@string/pref_wherigo_engine_deviceid"
+					android:summary="@string/pref_wherigo_engine_deviceid_desc"
+					android:dialogTitle="@string/pref_wherigo_engine_deviceid" />
+
+				<EditTextPreference
+					android:defaultValue="openwig-android"
+					android:key="@string/pref_wherigo_engine_platform"
+					android:title="@string/pref_wherigo_engine_platform"
+					android:summary="@string/pref_wherigo_engine_platform_desc"
+					android:dialogTitle="@string/pref_wherigo_engine_platform" />
+
+				<CheckBoxPreference
+					android:defaultValue="false"
+					android:key="@string/pref_wherigo_engine_replace_username"
+					android:summary="@string/pref_wherigo_engine_replace_username_desc"
+					android:title="@string/pref_wherigo_engine_replace_username" />
+
+				<EditTextPreference
+					android:defaultValue="openwig-android"
+					android:dependency="@string/pref_wherigo_engine_replace_username"
+					android:key="@string/pref_wherigo_engine_username"
+					android:title="@string/pref_wherigo_engine_username"
+					android:summary="@string/pref_wherigo_engine_username_desc"
+					android:dialogTitle="@string/pref_wherigo_engine_username" />
+					
+				<CheckBoxPreference
+					android:defaultValue="false"
+					android:key="@string/pref_wherigo_engine_replace_username"
+					android:summary="@string/pref_wherigo_engine_replace_username_desc"
+					android:title="@string/pref_wherigo_engine_replace_username" />
+					
+			</PreferenceCategory>	
+			
+		</PreferenceScreen>
+		<!--  
+		<PreferenceScreen
+			android:icon="?attr/settings_map"
+			android:title="@string/pref_map_title" >
+			<PreferenceCategory android:title="@string/pref_map_data_title" >
+			
+				<ListPreference
+					android:defaultValue="0"
+					android:dialogTitle="@string/init_mapsource_select"
+					android:key="@string/pref_mapsource"
+					android:title="@string/init_mapsource_select" />
+-->
+				<!--   <cgeo.geocaching.settings.InfoPreference
+					android:text="@string/settings_info_offline_maps"
+					android:title="@string/settings_info_offline_maps_title"
+					cgeo:url="@string/settings_offline_maps_url"
+					cgeo:urlButton="@string/settings_goto_url_button" /> -->
+<!--
+				<Preference
+					android:key="@string/pref_mapDirectory"
+					android:title="@string/init_map_directory_description" />
+-->
+				<!--   <cgeo.geocaching.settings.InfoPreference
+					android:text="@string/settings_info_themes"
+					android:title="@string/settings_info_themes_title"
+					cgeo:url="@string/settings_themes_url"
+					cgeo:urlButton="@string/settings_goto_url_button" /> -->
+<!-- 
+				<Preference
+					android:key="@string/pref_renderthemepath"
+					android:title="@string/init_rendertheme_folder" />
+			</PreferenceCategory>
+			<PreferenceCategory android:title="@string/settings_title_map_content" >
+				<Preference
+					android:selectable="false"
+					android:summary="@string/init_showwaypoint_description"
+					android:title="@string/init_showwaypoints" />
+-->
+				<!--   <cgeo.geocaching.settings.WpThresholdPreference
+					android:key="@string/pref_showwaypointsthreshold"
+					android:layout="@layout/wp_threshold_preference" /> -->
+<!--  
+				<CheckBoxPreference
+					android:defaultValue="true"
+					android:key="@string/pref_maptrail"
+					android:summary="@string/init_summary_maptrail"
+					android:title="@string/init_maptrail" />
+			</PreferenceCategory>
+		</PreferenceScreen>
+	-->
+	</PreferenceCategory>	
+		
 </PreferenceScreen>

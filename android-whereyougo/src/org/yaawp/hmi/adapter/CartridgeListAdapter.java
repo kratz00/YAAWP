@@ -1,13 +1,7 @@
 package org.yaawp.hmi.adapter;
 
-import java.util.ArrayList;
-
 import org.yaawp.R;
-import org.yaawp.app.YaawpAppData;
 
-import locus.api.objects.extra.Location;
-import menion.android.whereyougo.gui.extension.DataInfo;
-import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Images;
 import menion.android.whereyougo.utils.Logger;

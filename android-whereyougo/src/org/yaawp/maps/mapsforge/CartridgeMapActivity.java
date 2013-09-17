@@ -38,7 +38,7 @@ public class CartridgeMapActivity extends MapActivity {
 		MapView mapview = new MapView(this);
 		mapview.setClickable(true);
 		mapview.setBuiltInZoomControls(true);
-		
+	
 		mMapFile = getIntent().getStringExtra(MAPFILE);
 		File file = new File (mMapFile);
 		mapview.setMapFile(file);

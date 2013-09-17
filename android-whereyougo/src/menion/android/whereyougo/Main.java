@@ -229,7 +229,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                 break;
             case R.string.ctx_menu_show_on_map:
                 Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
-                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/bayern.map" );
+                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
                 int array[] = new int[1];
                	array[0]=info.position;
                 intent.putExtra( CartridgeMapActivity.CARTRIDGES, array);
@@ -349,7 +349,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                 
             case R.id.menu_map:
                 Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
-                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/bayern.map" );
+                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
                 int array[] = new int[YaawpAppData.GetInstance().mWigFiles.size()];
                 for (int i = 0; i < YaawpAppData.GetInstance().mWigFiles.size(); i++) {
                 	array[i]=i;

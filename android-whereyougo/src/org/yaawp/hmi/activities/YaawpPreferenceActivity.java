@@ -1,4 +1,4 @@
-package org.yaawp.hmi.activities;
+	package org.yaawp.hmi.activities;
 
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -8,8 +8,12 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.content.SharedPreferences;
+import menion.android.whereyougo.gui.extension.MainApplication;
+import menion.android.whereyougo.utils.A;
 
 import org.yaawp.R;
+import org.yaawp.preferences.PreferenceFunc;
 
 public class YaawpPreferenceActivity extends PreferenceActivity {
 
@@ -19,17 +23,20 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
 	    super.onCreate(savedInstanceState);
 	
 	    this.addPreferencesFromResource(R.xml.preferences);
+	    
+	    addOnPreferenceChangeListener( R.string.pref_highlight, VALUE_CHANGE_LISTENER );
+
 	    initPreferences();
+	}
 	
-	    /* TODO Intent intent = getIntent();
-	    int gotoPage = intent.getIntExtra(INTENT_GOTO, 0);
-	    if (gotoPage == INTENT_GOTO_SERVICES) {
-	        // start with services screen
-	        PreferenceScreen main = (PreferenceScreen) getPreference(R.string.pref_fakekey_main_screen);
-	        int index = getPreference(R.string.pref_fakekey_services_screen).getOrder();
-	        main.onItemClick(null, null, index, 0);
+	private void addOnPreferenceChangeListener( int key, Preference.OnPreferenceChangeListener listener ) {
+	    
+	    String _key = getKey( key );
+	    Preference preference = this.findPreference ( this, _key );
+	    if ( preference != null ) {
+	    	preference.setOnPreferenceChangeListener(listener);
 	    }
-	    */
+	    // listener.onPreferenceChange(preference, value);
 	}
 	
 	/* @Override
@@ -39,4 +46,35 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
 	
 	private void initPreferences() {
 	}
+	
+
+    @SuppressWarnings("deprecation")
+    public static Preference findPreference(final PreferenceActivity preferenceActivity, final CharSequence key) {
+        return preferenceActivity.findPreference(key);
+    }  
+    
+    private static boolean isPreference(final Preference preference, int preferenceKeyId) {
+        return getKey(preferenceKeyId).equals(preference.getKey());
+    }
+    
+    private static String getKey(final int prefKeyId) {
+        return A.getApp().getString(prefKeyId);
+    }   
+
+    private static final Preference.OnPreferenceChangeListener VALUE_CHANGE_LISTENER = new Preference.OnPreferenceChangeListener() {
+        @Override
+        public boolean onPreferenceChange(final Preference preference, final Object value) {
+            String stringValue = value.toString();
+            
+            if (isPreference(preference, R.string.pref_highlight)) {
+            	PreferenceFunc.enableWakeLock();
+            	preference.setSummary( stringValue );
+            }
+            
+            return true;
+        }
+    }; 
+    
+
+    
 }

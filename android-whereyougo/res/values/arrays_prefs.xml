@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_highlight_strings">
+        <item name="0">@string/pref_highlight_off_text</item>
+        <item name="1">@string/pref_highlight_only_gps_text</item>
+        <item name="2">@string/pref_highlight_always_text</item>
+    </string-array>
+    <string-array name="pref_highlight_values">
+        <item name="0">0</item>
+        <item name="1">1</item>
+        <item name="2">2</item>
+    </string-array>
+    
+</resources>

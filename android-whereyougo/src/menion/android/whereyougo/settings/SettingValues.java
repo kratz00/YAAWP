@@ -40,11 +40,7 @@ public class SettingValues {
 	/** speed format */
 	public static int FORMAT_SPEED;
 	
-	/** is fullscreen enabled */
-	public static boolean GLOBAL_FULLSCREEN;
-	/** highlight option */
-	public static int GLOBAL_HIGHLIGHT;
-	
+
 	// GPS
 	/** gps min time */
 	public static int GPS_MIN_TIME;
@@ -92,12 +88,7 @@ public class SettingValues {
 		                DEFAULT_WHERIGO_ENGINE_USERNAME );
 		WHEREIGO_ENGINE_REPLACE_USERNAME = getPrefBoolean( c, KEY_B_WHERIGO_ENGINE_REPLACE_USERNAME,
 		                DEFAULT_WHERIGO_ENGINE_REPLACE_USERNAME );
-		
-		GLOBAL_FULLSCREEN = getPrefBoolean(c, KEY_B_FULLSCREEN,
-				DEFAULT_FULLSCREEN);
-		GLOBAL_HIGHLIGHT = Utils.parseInt(getPrefString(c, KEY_S_HIGHLIGHT,
-				DEFAULT_HIGHLIGHT));
-		
+			
 		FORMAT_ALTITUDE = Utils.parseInt(getPrefString(c, KEY_S_UNITS_ALTITUDE, 
 				DEFAULT_UNITS_ALTITUDE));
 		FORMAT_ANGLE = Utils.parseInt(getPrefString(c, KEY_S_UNITS_ANGLE, 
