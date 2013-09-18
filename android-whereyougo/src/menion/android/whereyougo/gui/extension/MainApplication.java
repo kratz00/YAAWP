@@ -24,6 +24,8 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.yaawp.R;
+
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.settings.Settings;
@@ -41,6 +43,9 @@ import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import cz.matejcik.openwig.WherigoLib;
+
+import org.yaawp.openwig.OpenWigHelper;
+import org.yaawp.preferences.PreferenceUtils;
 
 public class MainApplication extends Application {
 
@@ -113,10 +118,10 @@ public class MainApplication extends Application {
 	    @Override
 	    public void onReceive(Context context, Intent intent) {
 	        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-//Logger.v(TAG, "ACTION_SCREEN_OFF");
+	        	//Logger.v(TAG, "ACTION_SCREEN_OFF");
 				mScreenOff = true;
 	        } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-//Logger.v(TAG, "ACTION_SCREEN_ON");
+	        	//Logger.v(TAG, "ACTION_SCREEN_ON");
 				LocationState.onScreenOn(false);
 				mScreenOff = false;
 	        }
@@ -139,17 +144,17 @@ public class MainApplication extends Application {
     	// initialize DPI
     	Utils.getDpPixels(this, 1.0f);
     	
+    	PreferenceUtils.SetContext( this );
+    	
     	// init openwig engine
-    	Log.i( TAG, "set WherigoLib.DEVICE_ID = "+SettingValues.WHEREIGO_ENGINE_DEVICEID );
-        WherigoLib.env.put(WherigoLib.DEVICE_ID, SettingValues.WHEREIGO_ENGINE_DEVICEID );
-        Log.i( TAG, "set WherigoLib.PLATFORM = "+SettingValues.WHEREIGO_ENGINE_PLATTFORM );
-        WherigoLib.env.put(WherigoLib.PLATFORM, SettingValues.WHEREIGO_ENGINE_PLATTFORM);       	
+    	OpenWigHelper.SetDeviceId( PreferenceUtils.getPrefString( R.string.pref_wherigo_engine_deviceid ) );
+    	OpenWigHelper.SetPlatform( PreferenceUtils.getPrefString( R.string.pref_wherigo_engine_plattform ) );
 	}
 	
     private static Timer mTimer;
     
     public static void onActivityPause() {
-//Logger.i(TAG, "onActivityPause()");
+    	//Logger.i(TAG, "onActivityPause()");
     	if (mTimer != null) {
     		mTimer.cancel();
     	}

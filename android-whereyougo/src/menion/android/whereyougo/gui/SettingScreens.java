@@ -48,46 +48,17 @@ public class SettingScreens extends CustomPreferenceActivity {
 	
 	public static PreferenceScreen createPreferences(CustomPreferenceActivity activity) {
 		PreferenceScreen root = activity.getPreferenceManager().createPreferenceScreen(activity);
-		root.addPreference(createPrefGps(activity, activity.getPreferenceManager()));
-		root.addPreference(createPrefSensors(activity, activity.getPreferenceManager()));
+
+
 		root.addPreference(createPrefGuiding(activity, activity.getPreferenceManager()));
 		root.addPreference(createPrefLocale(activity, activity.getPreferenceManager()));
-		root.addPreference(createPrefWherigo(activity, activity.getPreferenceManager()));
+
 		return root;
 	}
 	
-	public static PreferenceScreen createPrefGps(CustomPreferenceActivity activity,
-			PreferenceManager prefManager) {
-		PreferenceScreen preferenceGps = prefManager.createPreferenceScreen(activity);
-		preferenceGps.setTitle(R.string.gps_and_location);
-		// category global
-        PreferenceCategory prefCatGlobal = 
-        	addNewPreferenceCategory(activity, R.string.pref_global, preferenceGps);
-        PreferenceCategory prefCatDisable = 
-            	addNewPreferenceCategory(activity, R.string.disable_location, preferenceGps);
-        SettingItems.addPrefGpsAltitudeManualCorrection(activity, prefCatGlobal);
-        SettingItems.addPrefGpsBeepOnGpsFix(activity, prefCatGlobal);
 
-        // disabling gps part
-        SettingItems.addPrefGpsDisable(activity, prefCatDisable);
-        SettingItems.addPrefGuidingGpsRequired(activity, prefCatDisable);
-        return init(preferenceGps);
-	}
 	
-	public static PreferenceScreen createPrefSensors(CustomPreferenceActivity activity,
-			PreferenceManager prefManager) {
-		PreferenceScreen preferenceSensors = prefManager.createPreferenceScreen(activity);
-		preferenceSensors.setTitle(R.string.pref_sensors);
-        PreferenceCategory prefCatOrient = 
-        	addNewPreferenceCategory(activity, R.string.pref_orientation, preferenceSensors);
 
-        SettingItems.addPrefSensorsCompassHardware(activity, prefCatOrient);
-        SettingItems.addPrefSensorsCompassAutoChange(activity, prefCatOrient);
-        SettingItems.addPrefSensorsCompassAutoChangeValue(activity, prefCatOrient);
-        SettingItems.addPrefSensorsBearingTrue(activity, prefCatOrient);
-        SettingItems.addPrefSensorsOrienFilter(activity, prefCatOrient);
-        return init(preferenceSensors);
-	}
 	
 	public static PreferenceScreen createPrefGuiding(CustomPreferenceActivity activity,
 			PreferenceManager prefManager) {
@@ -123,20 +94,5 @@ public class SettingScreens extends CustomPreferenceActivity {
         
         return init(preferenceLocale);
 	}
-	
-	public static PreferenceScreen createPrefWherigo( CustomPreferenceActivity activity,
-	                PreferenceManager prefManager ) {
-	    PreferenceScreen preferenceWherigo = prefManager.createPreferenceScreen( activity );
-	    preferenceWherigo.setTitle( R.string.pref_wherigo_engine ); 
 
-	    PreferenceCategory prefCatWherigo = 
-	                    addNewPreferenceCategory(activity, R.string.pref_wherigo_engine, preferenceWherigo );
-	    
-	    SettingItems.addPrefWherigoDeviceId( activity, prefCatWherigo );
-	    SettingItems.addPrefWherigoPlattform( activity, prefCatWherigo );
-	    SettingItems.addPrefWherigoReplaceUsername( activity, prefCatWherigo );
-	    SettingItems.addPrefWherigoUsername( activity, prefCatWherigo );
-	    
-	    return init(preferenceWherigo);
-	}
 }

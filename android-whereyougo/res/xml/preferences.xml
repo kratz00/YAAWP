@@ -7,10 +7,10 @@
 	? src\menion\android\whereyougo\settings\UtilsSettings.java
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:cgeo="http://schemas.android.com/apk/res/cgeo.geocaching"
     android:key="@string/pref_fakekey_main_screen" >
 
-	<PreferenceCategory android:title="@string/settings" >
+	<PreferenceCategory 
+	    android:title="@string/settings" >
 	
 		<PreferenceScreen
 			
@@ -37,53 +37,104 @@
 		</PreferenceScreen>	
 
 		<PreferenceScreen
-			
-			android:title="@string/gps_and_location" >
+			android:title="@string/positioning" >
 			
 			<PreferenceCategory android:title="@string/pref_global" >
-			<!--         
-				SettingItems.addPrefGpsAltitudeManualCorrection(activity, prefCatGlobal);
-				SettingItems.addPrefGpsBeepOnGpsFix(activity, prefCatGlobal);
-			-->
+
+				<EditTextPreference
+					android:defaultValue="0.0"
+					android:key="@string/pref_gps_altitude_manual_correction"
+					android:title="@string/pref_gps_altitude_manual_correction"
+					android:summary="@string/pref_gps_altitude_manual_correction_desc"
+					android:dialogTitle="@string/pref_gps_altitude_manual_correction" 
+					android:dialogMessage="xxx"/>
+					<!-- TODO InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL |
+				InputType.TYPE_NUMBER_FLAG_SIGNED -->			    			    
+			    	<!-- 					public boolean onPreferenceChange(Preference pref, Object newValue) {
+						SettingValues.GPS_ALTITUDE_CORRECTION = Utils.parseDouble(newValue);
+						setEditTextPreference(activity, (EditTextPreference) pref,
+								UtilsFormat.formatDouble(SettingValues.GPS_ALTITUDE_CORRECTION, 2) + "m",
+								R.string.pref_gps_altitude_manual_correction_desc);
+						return true;
+					} -->
+
+				<CheckBoxPreference
+					android:defaultValue="true"
+					android:key="@string/pref_gps_beep_on_gps_fix"
+					android:summary="@string/pref_gps_beep_on_gps_fix_desc"
+					android:title="@string/pref_gps_beep_on_gps_fix" />			
+			
 			</PreferenceCategory>
-			<PreferenceCategory android:title="@string/pref_global" >
-			<!--
-				SettingItems.addPrefGpsDisable(activity, prefCatDisable);
-				SettingItems.addPrefGuidingGpsRequired(activity, prefCatDisable);			
-			-->
+					
+			<PreferenceCategory android:title="@string/disable_location" >
+			    
+			    <CheckBoxPreference
+					android:defaultValue="true"
+					android:key="@string/pref_gps_disable"
+					android:summary="@string/pref_gps_disable_desc"
+					android:title="@string/pref_gps_disable" />	
+								    
 			</PreferenceCategory>
+			
+			
+			<PreferenceCategory android:title="@string/compass" >
+			    
+			    <CheckBoxPreference
+					android:defaultValue="true"
+					android:key="@string/pref_sensors_compass_hardware"
+					android:summary="@string/pref_sensors_compass_hardware_desc"
+					android:title="@string/pref_sensors_compass_hardware" />
+			    
+			    <CheckBoxPreference
+					android:defaultValue="false"
+					android:key="@string/pref_sensors_compass_auto_change"
+					android:summary="@string/pref_sensors_compass_auto_change_desc"
+					android:title="@string/pref_sensors_compass_auto_change" />
+			     
+				<EditTextPreference
+					android:defaultValue="1"
+					android:key="@string/pref_sensors_compass_auto_change_value"
+					android:title="@string/pref_sensors_compass_auto_change_value"
+					android:summary="@string/pref_sensors_compass_auto_change_value_desc"
+					android:dialogTitle="@string/pref_sensors_compass_auto_change_value" 
+					android:dialogMessage="@string/pref_sensors_compass_auto_change_value_desc"
+					android:dependency="@string/pref_sensors_compass_auto_change"/>
+				<!-- TODO InputType.TYPE_CLASS_NUMBER 			
+				-->
+							     
+			    <CheckBoxPreference
+					android:defaultValue="true"
+					android:key="@string/pref_bearing_true"
+					android:summary="@string/pref_bearing_true_desc"
+					android:title="@string/pref_bearing_true" />
+
+				<ListPreference 
+           			android:key="@string/pref_sensors_orient_filter"
+            		android:title="@string/pref_sensors_orient_filter"
+            		android:summary="@string/pref_sensors_orient_filter_desc"
+            		android:defaultValue="2" 
+            		android:entries="@array/pref_sensors_orient_filter_strings"
+            		android:entryValues="@array/pref_sensors_orient_filter_values" />
+							    			    			    			    		
+			</PreferenceCategory>			
 			
 		</PreferenceScreen>	
 
-		<PreferenceScreen
-			
-			android:title="@string/pref_sensors" >
-			
-			<PreferenceCategory android:title="@string/pref_orientation" >
-			<!--
-				SettingItems.addPrefSensorsCompassHardware(activity, prefCatOrient);
-				SettingItems.addPrefSensorsCompassAutoChange(activity, prefCatOrient);
-				SettingItems.addPrefSensorsCompassAutoChangeValue(activity, prefCatOrient);
-				SettingItems.addPrefSensorsBearingTrue(activity, prefCatOrient);
-				SettingItems.addPrefSensorsOrienFilter(activity, prefCatOrient);
-			-->			
-			</PreferenceCategory>
-		</PreferenceScreen>	
-
-		<PreferenceScreen
+<!--  
+				<PreferenceScreen
 			
 			android:title="@string/pref_guiding" >
 			
-			<PreferenceCategory android:title="@string/pref_global" >
+			<PreferenceCategory android:title="@string/pref_global" >-->
 				<!-- SettingItems.addPrefGuidingCompassSounds(activity, prefCatGlobal); -->
-			</PreferenceCategory>
-			<PreferenceCategory android:title="@string/pref_waypoints" >
+			<!-- </PreferenceCategory>
+			<PreferenceCategory android:title="@string/pref_waypoints" >-->
 			<!--
 				SettingItems.addPrefGuidingWptSound(activity, prefCatWptGuide);
 				SettingItems.addPrefGuidingWptSoundDistance(activity, prefCatWptGuide);			
 			-->
-			</PreferenceCategory>
-		</PreferenceScreen>	
+			<!-- </PreferenceCategory>
+		</PreferenceScreen>	-->
 
 		<PreferenceScreen
 			

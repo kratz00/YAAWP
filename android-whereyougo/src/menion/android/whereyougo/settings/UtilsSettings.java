@@ -33,11 +33,6 @@ public class UtilsSettings {
 		setDependency(act, Settings.KEY_S_GUIDING_WAYPOINT_SOUND_DISTANCE,
 				Settings.KEY_B_GUIDING_COMPASS_SOUNDS);
 		
-		setDependency(act, Settings.KEY_B_GUIDING_GPS_REQUIRED, 
-				Settings.KEY_B_GPS_DISABLE_WHEN_HIDE);
-		
-		setDependency(act, Settings.KEY_S_HARDWARE_COMPASS_AUTO_CHANGE_VALUE, 
-				Settings.KEY_B_HARDWARE_COMPASS_AUTO_CHANGE);
 	}
 	
 	private static void setDependency(CustomPreferenceActivity act, String prefKey, String parentKey) {

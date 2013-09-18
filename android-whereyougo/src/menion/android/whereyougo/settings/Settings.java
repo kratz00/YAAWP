@@ -116,33 +116,19 @@ public class Settings {
 	/** minimum time for notification */
 	public static final String KEY_S_GPS_MIN_TIME_NOTIFICATION = "KEY_S_GPS_MIN_TIME_NOTIFICATION";
 	public static final String DEFAULT_GPS_MIN_TIME_NOTIFICATION = "0";
-	/** beep on first gps fix */
-	public static final String KEY_B_GPS_BEEP_ON_GPS_FIX = "KEY_B_GPS_BEEP_ON_GPS_FIX";
-	public static final boolean DEFAULT_GPS_BEEP_ON_GPS_FIX = true;
-	/** disable GPS when not needed */
-	public static final String KEY_B_GPS_DISABLE_WHEN_HIDE = "KEY_B_GPS_DISABLE_WHEN_HIDE";
-	public static final boolean DEFAULT_GPS_DISABLE_WHEN_HIDE = true;
+
+
 	
 	// SENSORS
-	/** is hardware orientation sensor enabled */
-	public static final String KEY_B_HARDWARE_COMPASS_SENSOR = "KEY_B_HARDWARE_COMPASS_SENSOR";
-	public static final boolean DEFAULT_HARDWARE_COMPASS_SENSOR = true;
-	/** is hardware orientation sensor enabled */
-	public static final String KEY_B_HARDWARE_COMPASS_AUTO_CHANGE = "KEY_B_HARDWARE_COMPASS_AUTO_CHANGE";
-	public static final boolean DEFAULT_HARDWARE_COMPASS_AUTO_CHANGE = false;
-	/** is hardware orientation sensor enabled */
-	public static final String KEY_S_HARDWARE_COMPASS_AUTO_CHANGE_VALUE = "KEY_S_HARDWARE_COMPASS_AUTO_CHANGE_VALUE";
-	public static final String DEFAULT_HARDWARE_COMPASS_AUTO_CHANGE_VALUE = "1";
-	/** use true or magnetic bearing */
-	public static final String KEY_B_SENSORS_BEARING_TRUE = "KEY_B_SENSORS_BEARING_TRUE";
-	public static final boolean DEFAULT_SENSORS_BEARING_TRUE = true;
+
+
+
 	/** orientation filter */
-	public static final String KEY_S_SENSORS_ORIENT_FILTER = "KEY_S_SENSORS_ORIENT_FILTER";
+
 	public static final int VALUE_SENSORS_ORIENT_FILTER_NO = 0;
 	public static final int VALUE_SENSORS_ORIENT_FILTER_LIGHT = 1;
 	public static final int VALUE_SENSORS_ORIENT_FILTER_MEDIUM = 2;
 	public static final int VALUE_SENSORS_ORIENT_FILTER_HEAVY = 3;
-	public static final String DEFAULT_SENSORS_ORIENT_FILTER = String.valueOf(VALUE_SENSORS_ORIENT_FILTER_MEDIUM);
 
 	// GUIDING
 	/** is guiding sounds enabled on compass screen */

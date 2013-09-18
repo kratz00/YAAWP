@@ -26,6 +26,8 @@ import java.util.TimerTask;
 import locus.api.android.utils.LocusUtils;
 import locus.api.objects.extra.Location;
 import org.yaawp.R;
+import org.yaawp.preferences.PreferenceUtils;
+
 import menion.android.whereyougo.gui.extension.UtilsGUI;
 import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.settings.Settings;
@@ -152,7 +154,7 @@ public class GpsConnection {
 		mGpsTimer.schedule(new TimerTask() {
     		@Override
     		public void run() {
-    			if (SettingValues.GPS_BEEP_ON_GPS_FIX)
+    			if (PreferenceUtils.getPrefBoolean( R.string.pref_gps_beep_on_gps_fix ))
     				UtilsAudio.playBeep(2);
     			mGpsTimer = null;
 				isFixed = false;
@@ -164,7 +166,7 @@ public class GpsConnection {
 //Logger.d(TAG, "handleOnLocationChanged(), fix:" + isFixed + ", loc:" + location);
 		if (!isFixed) {
 			if (location.getProvider().equals(LocationManager.GPS_PROVIDER)) {
-				if (SettingValues.GPS_BEEP_ON_GPS_FIX)
+				if (PreferenceUtils.getPrefBoolean( R.string.pref_gps_beep_on_gps_fix ))
 					UtilsAudio.playBeep(1);
 				disableNetwork();
 				isFixed = true;

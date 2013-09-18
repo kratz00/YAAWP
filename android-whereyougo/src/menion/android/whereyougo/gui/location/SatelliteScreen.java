@@ -44,6 +44,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import org.yaawp.preferences.PreferenceFunc;
+import org.yaawp.preferences.PreferenceUtils;
 
 /**
  * @author menion
@@ -105,13 +106,12 @@ public class SatelliteScreen extends CustomActivity implements LocationEventList
 		});
         
         ToggleButton buttonCompass = (ToggleButton) findViewById(R.id.btn_compass_on_off);
-        buttonCompass.setChecked(Settings.getPrefBoolean(this, Settings.KEY_B_HARDWARE_COMPASS_SENSOR,
-        		Settings.DEFAULT_HARDWARE_COMPASS_SENSOR));
+        buttonCompass.setChecked(PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_hardware ));
         buttonCompass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				ManagerNotify.toastLongMessage(R.string.pref_sensors_compass_hardware_desc);
-				Settings.setPrefBoolean(SatelliteScreen.this, Settings.KEY_B_HARDWARE_COMPASS_SENSOR, isChecked);
-				SettingValues.SENSOR_HARDWARE_COMPASS = Utils.parseBoolean(isChecked);
+				// TODO Settings.setPrefBoolean(SatelliteScreen.this, Settings.KEY_B_HARDWARE_COMPASS_SENSOR, isChecked);
+				// TODO PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_hardware ) = Utils.parseBoolean(isChecked);
 				A.getRotator().manageSensors();
 			}
 		});

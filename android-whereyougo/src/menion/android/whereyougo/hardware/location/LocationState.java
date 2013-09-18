@@ -52,6 +52,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.yaawp.preferences.PreferenceFunc;
+import org.yaawp.preferences.PreferenceUtils;
 
 /**
  * @author menion
@@ -316,9 +317,8 @@ Logger.i(TAG, "removeLocationChangeListener(" + listener + "), actualSize:" + mL
     public static void onActivityPauseInstant(Context context) {
 		try {
 			boolean screenOff = (A.getApp() != null && ((MainApplication) A.getApp()).isScreenOff());
-			boolean disableWhenHide = context == null ? false : Settings.getPrefBoolean(context,
-					Settings.KEY_B_GPS_DISABLE_WHEN_HIDE, Settings.DEFAULT_GPS_DISABLE_WHEN_HIDE);
-
+			boolean disableWhenHide = context == null ? false : PreferenceUtils.getPrefBoolean( R.string.pref_gps_disable );
+					
 			// also disable wake-lock here
 			if (!Settings.existCurrentActivity() || screenOff) {
 				PreferenceFunc.disableWakeLock();
@@ -413,7 +413,7 @@ Logger.i(TAG, "removeLocationChangeListener(" + listener + "), actualSize:" + mL
 
 			if (location.getProvider().equals(LocationManager.GPS_PROVIDER)) {
 				// set altitude correction
-				location.setAltitude(location.getAltitude() + SettingValues.GPS_ALTITUDE_CORRECTION);
+				location.setAltitude(location.getAltitude() + PreferenceUtils.getPrefFloat( R.string.pref_gps_altitude_manual_correction) );
 			}
 
 			// finally set new location

@@ -8,15 +8,24 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.util.Log;
 import android.content.SharedPreferences;
 import menion.android.whereyougo.gui.extension.MainApplication;
+import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.utils.A;
+import menion.android.whereyougo.utils.Utils;
+import menion.android.whereyougo.utils.ManagerNotify;
 
 import org.yaawp.R;
+import org.yaawp.openwig.OpenWigHelper;
 import org.yaawp.preferences.PreferenceFunc;
+
+import cz.matejcik.openwig.WherigoLib;
 
 public class YaawpPreferenceActivity extends PreferenceActivity {
 
+	private static String TAG = "YaawpPreferenceActivity";
+	
 	@Override
 	@SuppressWarnings("deprecation")
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -64,13 +73,32 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
     private static final Preference.OnPreferenceChangeListener VALUE_CHANGE_LISTENER = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(final Preference preference, final Object value) {
-            String stringValue = value.toString();
+            boolean status = true;
             
             if (isPreference(preference, R.string.pref_highlight)) {
             	PreferenceFunc.enableWakeLock();
-            	preference.setSummary( stringValue );
+            	// TODO preference.setSummary( stringValue );
             }
-            
+            else if (isPreference(preference, R.string.pref_wherigo_engine_deviceid)) {
+            	OpenWigHelper.SetDeviceId(value.toString());           	
+            }
+            else if (isPreference(preference, R.string.pref_wherigo_engine_plattform)) {
+            	OpenWigHelper.SetPlatform(value.toString());         	
+            }
+            else if (isPreference(preference, R.string.pref_sensors_compass_hardware)) {
+            	// TODO check if new value already persisted
+            	A.getRotator().manageSensors();
+            }
+            else if (isPreference(preference, R.string.pref_sensors_compass_auto_change)) {
+            	// TODO check if new value already persisted
+            	A.getRotator().manageSensors();
+            }
+            else if (isPreference(preference, R.string.pref_sensors_compass_auto_change_value)) {
+				if ( Utils.parseInt(value) <= 0) {
+					ManagerNotify.toastShortMessage(R.string.invalid_value);
+					status = false;
+				}
+            }
             return true;
         }
     }; 

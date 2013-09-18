@@ -44,26 +44,9 @@ public class SettingValues {
 	// GPS
 	/** gps min time */
 	public static int GPS_MIN_TIME;
-	/** beep on gps fix */
-	public static boolean GPS_BEEP_ON_GPS_FIX;
-	/** altitude correction */
-	public static double GPS_ALTITUDE_CORRECTION;
-	
-	// SENSORS
-	/** use hardware compass */
-	public static boolean SENSOR_HARDWARE_COMPASS;
-	/** use hardware compass */
-	public static boolean SENSOR_HARDWARE_COMPASS_AUTO_CHANGE;
-	/** use hardware compass */
-	public static int SENSOR_HARDWARE_COMPASS_AUTO_CHANGE_VALUE;
-	/** use true bearing as orientation */
-	public static boolean SENSOR_BEARING_TRUE;
-	/** applied filter */
-	public static int SENSOR_ORIENT_FILTER;
-	
+
+
     // GUIDING
-    /** disable gps when screen off */
-    public static boolean GUIDING_GPS_REQUIRED;
     /** enable/disable guiding sounds */
     public static boolean GUIDING_SOUNDS;
     /** waypoint sound type */
@@ -71,24 +54,12 @@ public class SettingValues {
     /** waypoint sound distance */
     public static int GUIDING_WAYPOINT_SOUND_DISTANCE;
     
-    // WHERIGO
-    public static String WHEREIGO_ENGINE_DEVICEID;
-    public static String WHEREIGO_ENGINE_PLATTFORM;
-    public static String WHEREIGO_ENGINE_USERNAME;
-    public static boolean WHEREIGO_ENGINE_REPLACE_USERNAME;
+
     
 	public static void init(Context c) {
 		Logger.d(TAG, "init(" + c + ")");
 		
-		WHEREIGO_ENGINE_DEVICEID = getPrefString( c, KEY_B_WHERIGO_ENGINE_DEVICEID,
-		                DEFAULT_WHERIGO_ENGINE_DEVICEID );
-		WHEREIGO_ENGINE_PLATTFORM = getPrefString( c, KEY_B_WHERIGO_ENGINE_PLATTFORM,
-		                DEFAULT_WHERIGO_ENGINE_PLATTFORM );
-		WHEREIGO_ENGINE_USERNAME = getPrefString( c, KEY_B_WHERIGO_ENGINE_USERNAME,
-		                DEFAULT_WHERIGO_ENGINE_USERNAME );
-		WHEREIGO_ENGINE_REPLACE_USERNAME = getPrefBoolean( c, KEY_B_WHERIGO_ENGINE_REPLACE_USERNAME,
-		                DEFAULT_WHERIGO_ENGINE_REPLACE_USERNAME );
-			
+		
 		FORMAT_ALTITUDE = Utils.parseInt(getPrefString(c, KEY_S_UNITS_ALTITUDE, 
 				DEFAULT_UNITS_ALTITUDE));
 		FORMAT_ANGLE = Utils.parseInt(getPrefString(c, KEY_S_UNITS_ANGLE, 
@@ -102,29 +73,7 @@ public class SettingValues {
 		
 		GPS_MIN_TIME = Utils.parseInt(getPrefString(c, KEY_S_GPS_MIN_TIME_NOTIFICATION, 
 				DEFAULT_GPS_MIN_TIME_NOTIFICATION));
-		GPS_BEEP_ON_GPS_FIX = getPrefBoolean(c, KEY_B_GPS_BEEP_ON_GPS_FIX,
-				DEFAULT_GPS_BEEP_ON_GPS_FIX);
-		GPS_ALTITUDE_CORRECTION = Utils.parseDouble(getPrefString(c, 
-				KEY_S_GPS_ALTITUDE_MANUAL_CORRECTION, DEFAULT_GPS_ALTITUDE_MANUAL_CORRECTION));
-		
-		SENSOR_HARDWARE_COMPASS = getPrefBoolean(c, KEY_B_HARDWARE_COMPASS_SENSOR,
-				DEFAULT_HARDWARE_COMPASS_SENSOR);
-		SENSOR_HARDWARE_COMPASS_AUTO_CHANGE = getPrefBoolean(c, KEY_B_HARDWARE_COMPASS_AUTO_CHANGE,
-				DEFAULT_HARDWARE_COMPASS_AUTO_CHANGE);
-		SENSOR_HARDWARE_COMPASS_AUTO_CHANGE_VALUE = Utils.parseInt(getPrefString(c, KEY_S_HARDWARE_COMPASS_AUTO_CHANGE_VALUE,
-				DEFAULT_HARDWARE_COMPASS_AUTO_CHANGE_VALUE));
-		SENSOR_BEARING_TRUE = getPrefBoolean(c, KEY_B_SENSORS_BEARING_TRUE,
-				DEFAULT_SENSORS_BEARING_TRUE);
-		SENSOR_ORIENT_FILTER = Utils.parseInt(getPrefString(c, KEY_S_SENSORS_ORIENT_FILTER, 
-				DEFAULT_SENSORS_ORIENT_FILTER));
 
-    	GUIDING_GPS_REQUIRED = getPrefBoolean(c, KEY_B_GUIDING_GPS_REQUIRED,
-				DEFAULT_GUIDING_GPS_REQUIRED);
-    	GUIDING_SOUNDS = getPrefBoolean(c, KEY_B_GUIDING_COMPASS_SOUNDS,
-				DEFAULT_GUIDING_COMPASS_SOUNDS);
-    	GUIDING_WAYPOINT_SOUND = Utils.parseInt(getPrefString(c, KEY_S_GUIDING_WAYPOINT_SOUND,
-				DEFAULT_GUIDING_WAYPOINT_SOUND));
-    	GUIDING_WAYPOINT_SOUND_DISTANCE = Utils.parseInt(getPrefString(c, KEY_S_GUIDING_WAYPOINT_SOUND_DISTANCE,
-				DEFAULT_GUIDING_WAYPOINT_SOUND_DISTANCE));
+
 	}
 }
