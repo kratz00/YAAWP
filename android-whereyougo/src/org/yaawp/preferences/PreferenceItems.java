@@ -20,17 +20,17 @@ public class PreferenceItems {
 
 	public static int getUnitAltitude() {
 		if ( useImperalSystem() ) {
-			return Settings.VALUE_UNITS_ALTITUDE_METRES;			
+			return Settings.VALUE_UNITS_ALTITUDE_FEET;			
 		} else {
-			return Settings.VALUE_UNITS_ALTITUDE_FEET;
+			return Settings.VALUE_UNITS_ALTITUDE_METRES;
 		}		
 	}
 	
 	public static int getUnitVelocity() {
 		if ( useImperalSystem() ) {
-			return Settings.VALUE_UNITS_SPEED_KMH;			
+			return Settings.VALUE_UNITS_SPEED_MILH;			
 		} else {
-			return Settings.VALUE_UNITS_SPEED_MILH;
+			return Settings.VALUE_UNITS_SPEED_KMH;
 		}		
 	}
 	
