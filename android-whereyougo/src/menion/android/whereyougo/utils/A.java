@@ -25,6 +25,7 @@ import menion.android.whereyougo.guiding.GuidingContent;
 import menion.android.whereyougo.hardware.sensors.Orientation;
 import menion.android.whereyougo.utils.audio.ManagerAudio;
 import android.app.Application;
+import android.util.Log;
 
 /**
  * @author menion
@@ -72,6 +73,9 @@ public class A {
 	}
 	
 	public static Application getApp() {
+		if ( app == null ) {
+			Log.e(TAG, "application object is not set");
+		}
 		return app;
 	}
 	

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_highlight_strings">
+        <item name="0">@string/pref_highlight_off_text</item>
+        <item name="1">@string/pref_highlight_only_gps_text</item>
+        <item name="2">@string/pref_highlight_always_text</item>
+    </string-array>
+    <string-array name="pref_highlight_values">
+        <item name="0">0</item>
+        <item name="1">1</item>
+        <item name="2">2</item>
+    </string-array>
+
+    <string-array name="pref_sensors_orient_filter_strings">
+        <item name="0">@string/pref_sensors_orient_filter_no_filter</item>
+        <item name="1">@string/pref_sensors_orient_filter_ligth</item>
+        <item name="2">@string/pref_sensors_orient_filter_medium</item>
+        <item name="3">@string/pref_sensors_orient_filter_heavy</item>
+    </string-array>
+    <string-array name="pref_sensors_orient_filter_values">
+        <item name="0">0</item>
+        <item name="1">1</item>
+        <item name="2">2</item>
+        <item name="3">3</item>
+    </string-array>
+    
+    <string-array name="pref_language_strings">
+	    <item name="0">@string/pref_language_default</item>
+	    <item name="1">@string/pref_language_ar</item>
+	    <item name="2">@string/pref_language_cs</item>
+	    <item name="3">@string/pref_language_da</item>
+	    <item name="4">@string/pref_language_de</item>
+	    <item name="5">@string/pref_language_el</item>
+	    <item name="6">@string/pref_language_en</item>
+	    <item name="7">@string/pref_language_es</item>
+	    <item name="8">@string/pref_language_fi</item>
+	    <item name="9">@string/pref_language_fr</item>
+	    <item name="10">@string/pref_language_hu</item>
+	    <item name="11">@string/pref_language_it</item>
+	    <item name="12">@string/pref_language_ja</item>
+	    <item name="13">@string/pref_language_ko</item>
+	    <item name="14">@string/pref_language_nl</item>
+	    <item name="15">@string/pref_language_pl</item>
+	    <item name="16">@string/pref_language_pt</item>
+	    <item name="17">@string/pref_language_pt_br</item>
+	    <item name="18">@string/pref_language_ru</item>
+	    <item name="19">@string/pref_language_sk</item>        
+    </string-array>
+    <string-array name="pref_language_values">
+	    <item name="0">default</item>
+	    <item name="1">ar</item>
+	    <item name="2">cs</item>
+	    <item name="3">da</item>
+	    <item name="4">de</item>
+	    <item name="5">el</item>
+	    <item name="6">en</item>
+	    <item name="7">es</item>
+	    <item name="8">fi</item>
+	    <item name="9">fr</item>
+	    <item name="10">hu</item>
+	    <item name="11">it</item>
+	    <item name="12">ja</item>
+	    <item name="13">ko</item>
+	    <item name="14">nl</item>
+	    <item name="15">pl</item>
+	    <item name="16">pt</item>
+	    <item name="17">pt_br</item>
+	    <item name="18">ru</item>
+	    <item name="19">sk</item>        
+    </string-array>
+    
+    <string-array name="pref_units_coo_format_strings">
+        <item name="0">@string/pref_units_coo_latlon_dec</item>
+        <item name="1">@string/pref_units_coo_latlon_min</item>
+        <item name="2">@string/pref_units_coo_latlon_sec</item>
+    </string-array>
+    <string-array name="pref_units_coo_format_values">
+        <item name="0">0</item>
+        <item name="1">1</item>
+        <item name="2">2</item>
+    </string-array>
+    
+
+</resources>

@@ -1,5 +1,12 @@
 /*
-  * This file is part of WhereYouGo.
+                Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
+                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/bayern.map" );
+                int array[] = new int[YaawpAppData.GetInstance().mWigFiles.size()];
+                for (int i = 0; i < YaawpAppData.GetInstance().mWigFiles.size(); i++) {
+                	array[i]=i;
+                }
+                intent.putExtra( CartridgeMapActivity.CARTRIDGES, array);
+                startActivity(intent);   * This file is part of WhereYouGo.
   *
   * WhereYouGo is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
@@ -67,12 +74,16 @@ import org.yaawp.R;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.bl.CartridgeSessionListener;
+import org.yaawp.hmi.helper.CartridgeHelper;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.openwig.WSaveFile;
 import org.yaawp.openwig.WSeekableFile;
 import org.yaawp.openwig.WUI;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
+import org.yaawp.hmi.adapter.CartridgeListAdapter;
+import org.yaawp.hmi.activities.YaawpPreferenceActivity;
+import org.yaawp.hmi.helper.CartridgeHelper;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -89,15 +100,15 @@ public class Main extends CustomMain implements CartridgeSessionListener {
     private static final int CARTRIDGE_NOT_AVAILABLE = 2;	
 	
 	public static WUI wui = new WUI();
-	
-	
+		
 	public static CartridgeSession cartridgeSession = null;
 	
-	public static IconedListAdapter adapter = null;
+	public static CartridgeListAdapter adapter = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initCartridgeList();
     }
     
     @Override 
@@ -115,7 +126,18 @@ public class Main extends CustomMain implements CartridgeSessionListener {
             	ProgressDialogHelper.Show( "", "Loading Cartridges" ); 
                 break;
             case CARTRIDGE_LIST_UPDATED:
-                refreshCartridgeList();
+                // invalidateCartridgeList();
+            	final ListView listview = (ListView) findViewById(R.id.listView1); 
+                adapter = new CartridgeListAdapter( this, YaawpAppData.GetInstance().mWigFiles, null );    
+                adapter.setTextView02Visible(View.VISIBLE, false);
+                    
+                runOnUiThread( new Runnable() {
+                    public void run() {
+                        listview.setAdapter( adapter );
+                    }
+                }
+                );
+                    
         		ProgressDialogHelper.Hide();
                 break;
             case CARTRIDGE_NOT_AVAILABLE:   
@@ -128,82 +150,27 @@ public class Main extends CustomMain implements CartridgeSessionListener {
     }   
     
     private void invalidateCartridgeList() {
-        runOnUiThread( new Runnable() {
-            public void run() {
-            	final ListView listview = (ListView) findViewById(R.id.listView1); 
-                listview.invalidate();
-            }
-        });
+    	if ( adapter != null ) {
+	    	runOnUiThread( new Runnable() {
+	            public void run() {
+	            	Logger.i( TAG, "invalidateCartridgeList" );
+	            	adapter.notifyDataSetChanged(); 
+	            }
+	        });
+    	}
     }
     
-    
-    private void refreshCartridgeList() {
-               
-        adapter = new IconedListAdapter( this, new ArrayList<DataInfo>(), null );    
-   
-        final ListView listview = (ListView) findViewById(R.id.listView1);  
- 
-        try {             
-            final Location actLoc = LocationState.getLocation();
-            // TODO playerSession.sort( PlayerSession.comparatorDistance );
-    
-            YaawpAppData appdata = YaawpAppData.GetInstance();
-            // prepare list
-            ArrayList<DataInfo> data = new ArrayList<DataInfo>();
-            for (int i = 0; i < appdata.mWigFiles.size(); i++) {
-                CartridgeFile file = appdata.mWigFiles.get( i );
-                byte[] iconData = file.getFile(file.iconId);
-                Bitmap icon;
-                try {
-                    icon = BitmapFactory.decodeByteArray(iconData, 0, iconData.length);
-                } catch (Exception e) {
-                    icon = Images.getImageB(R.drawable.icon_gc_wherigo);
-                }
-                    
-                DataInfo di = new DataInfo(file.name, file.type +
-                        ", " + file.author + ", " + file.version, icon);
-                di.value01 = file.latitude;
-                di.value02 = file.longitude;
-                di.setDistAzi(actLoc);
-                
-                
-                try {
-                    if (file.getSavegame().exists()) {
-                        di.setImageRight( Images.getImageB(android.R.drawable.ic_menu_save) );
-                    }
-                } catch (Exception e) {
-                    Logger.e(TAG, "xxx() - xxxx", e);
-                }                        
-                
-                data.add(di);
-            }        
-
-            adapter = new IconedListAdapter( this, data, null );    
-            adapter.setTextView02Visible(View.VISIBLE, false);
-            
-
-            runOnUiThread( new Runnable() {
-                    public void run() {
-                        listview.setAdapter( adapter );
-                    }
-                }
-            );
-            
-
-            
-        } catch (Exception e) {
-            Logger.e(TAG, "createDialog()", e);
-        }                 
-        
-        adapter.notifyDataSetChanged();               
-        
+    private void initCartridgeList() {
+    	
+    	final ListView listview = (ListView) findViewById(R.id.listView1); 
+    	
         // set click listener
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 onListItemClicked(position);
             }
-        });      
+        }); 
         
         listview.setOnCreateContextMenuListener( new OnCreateContextMenuListener() {
             public void onCreateContextMenu( ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -216,7 +183,11 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                     
                     
                     menu.add( Menu.NONE, R.string.ctx_menu_send_game, 1, getString(R.string.ctx_menu_send_game) ); 
-                    menu.add( Menu.NONE, R.string.ctx_menu_show_on_map, 2, getString(R.string.ctx_menu_show_on_map) );
+                    
+                    if ( !CartridgeHelper.isPlayAnywhere(file.GetCartridge())) {
+                    	menu.add( Menu.NONE, R.string.ctx_menu_show_on_map, 2, getString(R.string.ctx_menu_show_on_map) );
+                    }
+                    
                     try {
                         if ( file.SaveGameExists() ) {
                             menu.add( Menu.NONE, R.string.ctx_menu_continue_game, 0, getString(R.string.ctx_menu_continue_game) );
@@ -237,8 +208,9 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                     }
                 }
             }
-        } );        
-
+        } ); 
+        
+             
     }
     
     @Override
@@ -256,6 +228,12 @@ public class Main extends CustomMain implements CartridgeSessionListener {
             case R.string.ctx_menu_send_game:
                 break;
             case R.string.ctx_menu_show_on_map:
+                Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
+                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
+                int array[] = new int[1];
+               	array[0]=info.position;
+                intent.putExtra( CartridgeMapActivity.CARTRIDGES, array);
+                startActivity(intent);            	
                 break;
             case R.string.ctx_menu_continue_game:
                 cartridgeSession.Continue();
@@ -267,7 +245,6 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                 try {
                     cartridgeSession.getSaveFile().delete();
                     invalidateCartridgeList();
-                    refreshCartridgeList(); // TODO remove it
                 } catch ( Exception e ) {  
                 }
                 break;
@@ -318,7 +295,6 @@ public class Main extends CustomMain implements CartridgeSessionListener {
         }
         cartridgeSession = new CartridgeSession( YaawpAppData.GetInstance().mWigFiles.get(position), this, wui );
         startCartridge();
-        // TODO playerSession.InvalidCartridgeStatus();
     }    
 	
 	@Override
@@ -361,6 +337,11 @@ public class Main extends CustomMain implements CartridgeSessionListener {
         
         switch (item.getItemId())
         { 
+        /*
+        	case R.id.menu_start:
+        		UtilsSettings.showSettings(Main.this);
+                break;
+        */        
             case R.id.menu_positioning:
                 Intent intent02 = new Intent(Main.this, SatelliteScreen.class);
                 startActivity(intent02);
@@ -368,11 +349,18 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                 
             case R.id.menu_map:
                 Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
+                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
+                int array[] = new int[YaawpAppData.GetInstance().mWigFiles.size()];
+                for (int i = 0; i < YaawpAppData.GetInstance().mWigFiles.size(); i++) {
+                	array[i]=i;
+                }
+                intent.putExtra( CartridgeMapActivity.CARTRIDGES, array);
                 startActivity(intent);              
                 break;
                 
 			case R.id.menu_preferences:
-                UtilsSettings.showSettings(Main.this);
+				Intent intent2 = new Intent( Main.this, YaawpPreferenceActivity.class );
+                startActivity(intent2); 				
                 break; 
 
             case R.id.menu_info:
@@ -396,8 +384,8 @@ public class Main extends CustomMain implements CartridgeSessionListener {
 	
 	@Override
     public void onResume() {
-    	super.onResume();	
-		refreshCartridgeList(); // TODO invalid ListAdpater at UI Thread
+    	super.onResume();
+    	invalidateCartridgeList(); 
     }
 	
 	@Override
@@ -407,7 +395,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
 	}
     
 	public static void setBitmapToImageView(Bitmap i, ImageView iv) {
-Logger.w(TAG, "setBitmapToImageView(), " + i.getWidth() + " x " + i.getHeight());
+		Logger.w(TAG, "setBitmapToImageView(), " + i.getWidth() + " x " + i.getHeight());
 		float width = i.getWidth() - 10;
 		float height = (Const.SCREEN_WIDTH / width) * i.getHeight();
 	

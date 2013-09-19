@@ -155,7 +155,7 @@ public class GuidingContent implements LocationEventListener {
 	
 	@Override
 	public boolean isRequired() {
-		return SettingValues.GUIDING_GPS_REQUIRED;
+		return true; // TODO SettingValues.GUIDING_GPS_REQUIRED;
 	}
 	
 	@Override

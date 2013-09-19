@@ -79,9 +79,9 @@
     <string name="pref_units_angle_desc">Angle units for display</string>
     <string name="pref_units_angle_mil">Angular mil</string>
     <string name="pref_units_coo_latlon">Lat/Lon format</string>
-    <string name="pref_units_coo_latlon_dec">14,94323°</string>
-    <string name="pref_units_coo_latlon_min">14° 52.123\'</string>
-    <string name="pref_units_coo_latlon_sec">14° 52\' 12.34\'\'</string>
+    <string name="pref_units_coo_latlon_dec">DDD,DDDDDD°</string>
+    <string name="pref_units_coo_latlon_min">DDD° MM.MMM\'</string>
+    <string name="pref_units_coo_latlon_sec">DDD° MM\' SS.SS\"</string>  
     <string name="pref_units_coo_latlon_desc">Coordinates (latitude/longitude) format for display</string>
     <string name="pref_units_length">Length units</string>
     <string name="pref_units_length_desc">Choose default display units</string>
@@ -90,6 +90,8 @@
     <string name="pref_units_length_na">Nautical</string>
     <string name="pref_units_speed">Speed units</string>
     <string name="pref_units_speed_desc">Choose default speed units</string>
+    <string name="pref_units_imperal_system">Imperal system</string>
+    <string name="pref_units_imperal_system_desc">Use the imperal unit system</string>
     <string name="pref_wherigo_engine">Wherigo Engine</string>
     <string name="pref_wherigo_engine_deviceid">Device identifier</string>
     <string name="pref_wherigo_engine_plattform">Name of the plattform</string>
@@ -100,4 +102,7 @@
     <string name="pref_wherigo_engine_username_desc">Choose your user name</string>
     <string name="pref_wherigo_engine_replace_username_desc">Replace the cartridge build-in username with custom user name</string>
     <string name="pref_fakekey_main_screen">0815</string>
+    <string name="pref_wherigo_engine_platform">android-openwig</string>
+    <string name="pref_wherigo_engine_platform_desc">Choose name of the platform</string>
+    <string name="pref_waypoints">Wegpunkte</string>
 </resources>

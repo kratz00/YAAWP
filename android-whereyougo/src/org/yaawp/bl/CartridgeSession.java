@@ -7,6 +7,8 @@ import java.io.IOException;
 import org.yaawp.bl.CartridgeSessionListener;
 import org.yaawp.openwig.WLocationService;
 import org.yaawp.openwig.WUI;
+import org.yaawp.R;
+import org.yaawp.preferences.PreferenceUtils;
 
 import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.utils.Logger;
@@ -106,9 +108,9 @@ public class CartridgeSession
     }
     
     protected  void ChangeUsername() {
-        if ( _cartridge != null && SettingValues.WHEREIGO_ENGINE_REPLACE_USERNAME ) {
+        if ( _cartridge != null && PreferenceUtils.getPrefBoolean( R.string.pref_wherigo_engine_replace_username ) ) {
             originalMember = _cartridge.member;
-            _cartridge.member = SettingValues.WHEREIGO_ENGINE_USERNAME;
+            _cartridge.member = PreferenceUtils.getPrefString( R.string.pref_wherigo_engine_username );
         }
     }
     

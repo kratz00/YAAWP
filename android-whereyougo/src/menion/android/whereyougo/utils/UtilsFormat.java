@@ -24,6 +24,9 @@ import java.text.DecimalFormatSymbols;
 import java.util.Date;
 import java.util.Locale;
 
+import org.yaawp.preferences.PreferenceUtils;
+import org.yaawp.preferences.PreferenceItems;
+
 import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.settings.Settings;
 
@@ -51,7 +54,7 @@ public class UtilsFormat {
     }
     
     public static double formatAltitudeValue(double altitude) {
-    	if (SettingValues.FORMAT_ALTITUDE == Settings.VALUE_UNITS_ALTITUDE_FEET) {
+    	if (PreferenceItems.getUnitAltitude() == Settings.VALUE_UNITS_ALTITUDE_FEET) {
             return altitude * 3.2808;
         } else {
             return altitude;
@@ -59,7 +62,7 @@ public class UtilsFormat {
     }
     
     public static String formatAltitudeUnits() {
-    	if (SettingValues.FORMAT_ALTITUDE == Settings.VALUE_UNITS_ALTITUDE_FEET) {
+    	if (PreferenceItems.getUnitAltitude() == Settings.VALUE_UNITS_ALTITUDE_FEET) {
             return "ft";
         } else {
             return "m";
@@ -75,7 +78,7 @@ public class UtilsFormat {
      */
     public static String formatDistance(double dist, boolean withoutUnits) {
     	String value = null;
-    	if (SettingValues.FORMAT_LENGTH == Settings.VALUE_UNITS_LENGTH_IM) {
+    	if ( PreferenceItems.getUnitLength() == Settings.VALUE_UNITS_LENGTH_IM) {
     		double feet = dist * 3.2808;
     		if (feet > 1000.0) {
     			double mi = dist / 1609.344;
@@ -92,7 +95,7 @@ public class UtilsFormat {
     			else
     				value = formatDouble(feet, 0); // to ft
     		}
-        } else if (SettingValues.FORMAT_LENGTH == Settings.VALUE_UNITS_LENGTH_NA) {
+        } else if (PreferenceItems.getUnitLength() == Settings.VALUE_UNITS_LENGTH_NA) {
             if (dist > 1852.0) {
                 double nmi = dist / 1852.0;
                 if (nmi > 100) {
@@ -126,14 +129,14 @@ public class UtilsFormat {
     }
     
     public static double formatDistanceValue(double dist) {
-    	if (SettingValues.FORMAT_LENGTH == Settings.VALUE_UNITS_LENGTH_IM) {
+    	if (PreferenceItems.getUnitLength() == Settings.VALUE_UNITS_LENGTH_IM) {
     		double feet = dist * 3.2808;
     		if (feet > 1000.0) {
     			return dist / 1609.344;
     		} else {
             	return feet;
     		}
-        } else if (SettingValues.FORMAT_LENGTH == Settings.VALUE_UNITS_LENGTH_NA) {
+        } else if (PreferenceItems.getUnitLength() == Settings.VALUE_UNITS_LENGTH_NA) {
             if (dist > 1852.0) {
                 return dist / 1852.0;
             } else {
@@ -149,14 +152,14 @@ public class UtilsFormat {
     }
     
     public static String formatDistanceUnits(double dist) {
-    	if (SettingValues.FORMAT_LENGTH == Settings.VALUE_UNITS_LENGTH_IM) {
+    	if (PreferenceItems.getUnitLength() == Settings.VALUE_UNITS_LENGTH_IM) {
     		double feet = dist * 3.2808;
     		if (feet > 1000.0) {
     			return "mi";    			
             } else {
                 return "ft";
             }
-        } else if (SettingValues.FORMAT_LENGTH == Settings.VALUE_UNITS_LENGTH_NA) {
+        } else if (PreferenceItems.getUnitLength() == Settings.VALUE_UNITS_LENGTH_NA) {
             if (dist > 1852.0) {
                 return "nmi";
             } else {
@@ -187,9 +190,9 @@ public class UtilsFormat {
     }
     
     public static double formatSpeedValue(double speed) {
-        if (SettingValues.FORMAT_SPEED == Settings.VALUE_UNITS_SPEED_MILH) {
+        if (PreferenceItems.getUnitVelocity() == Settings.VALUE_UNITS_SPEED_MILH) {
         	speed *= 2.237;
-        } else if (SettingValues.FORMAT_SPEED == Settings.VALUE_UNITS_SPEED_KNOTS) {
+        } else if (PreferenceItems.getUnitVelocity() == Settings.VALUE_UNITS_SPEED_KNOTS) {
         	speed *= (3.6 / 1.852);
         } else { // metric UNITS_LENGTH_METRIC
         	speed *= 3.6;
@@ -198,9 +201,9 @@ public class UtilsFormat {
     }
     
     public static String getSpeedUnits() {
-        if (SettingValues.FORMAT_SPEED == Settings.VALUE_UNITS_SPEED_MILH) {
+        if (PreferenceItems.getUnitVelocity() == Settings.VALUE_UNITS_SPEED_MILH) {
         	return "mi/h";
-        } else if (SettingValues.FORMAT_SPEED == Settings.VALUE_UNITS_SPEED_KNOTS) {
+        } else if (PreferenceItems.getUnitVelocity() == Settings.VALUE_UNITS_SPEED_KNOTS) {
         	return "nmi/h";
         } else { // metric UNITS_LENGTH_METRIC
         	return "km/h";        	
@@ -215,9 +218,9 @@ public class UtilsFormat {
     		if (angle > 360.0)
     			angle -= 360.0f;
     		
-    		if (SettingValues.FORMAT_ANGLE == Settings.VALUE_UNITS_ANGLE_DEGREE) {
+    		if ( PreferenceItems.getUnitAngle() == Settings.VALUE_UNITS_ANGLE_DEGREE) {
     			return formatDouble(angle, 0) + degree;
-    		} else if (SettingValues.FORMAT_ANGLE == Settings.VALUE_UNITS_ANGLE_MIL) {
+    		} else if ( PreferenceItems.getUnitAngle() == Settings.VALUE_UNITS_ANGLE_MIL) {
     			return formatDouble(angle * angleInMi, 0);
     		}
     	} catch (Exception e) {
@@ -263,18 +266,27 @@ public class UtilsFormat {
     
     private static void formatCooLatLon(StringBuffer out, double value, int minLen) {
 		try {
-	        if (SettingValues.FORMAT_COO_LATLON == Settings.VALUE_UNITS_COO_LATLON_DEC) {
-	        	out.append(formatDouble(value, Const.PRECISION, minLen)).append(degree);
-	        } else if (SettingValues.FORMAT_COO_LATLON == Settings.VALUE_UNITS_COO_LATLON_MIN) {
-	        	double deg = Math.floor(value);
-	            double min = (value - deg) * 60;
-	            out.append(formatDouble(deg, 0, 2)).append(degree).append(formatDouble(min, Const.PRECISION - 2, 2)).append("'");        	
-	        } else if (SettingValues.FORMAT_COO_LATLON == Settings.VALUE_UNITS_COO_LATLON_SEC) {
-	        	double deg = Math.floor(value);
-	            double min = Math.floor((value - deg) * 60.0);
-	            double sec = (value - deg - min / 60.0) * 3600.0;
-	            out.append(formatDouble(deg, 0, 2)).append(degree).append(formatDouble(min, 0, 2)).
-	            		append("'").append(formatDouble(sec, Const.PRECISION - 2)).append("''");
+			double deg = 0.0;
+			double min = 0.0;
+			double sec = 0.0;
+			switch( PreferenceItems.getLatLonFormat() )
+			{
+				case Settings.VALUE_UNITS_COO_LATLON_DEC:
+					out.append(formatDouble(value, Const.PRECISION, minLen)).append(degree);
+					break;
+				default:
+				case Settings.VALUE_UNITS_COO_LATLON_MIN:
+					deg = Math.floor(value);
+					min = (value - deg) * 60;
+					out.append(formatDouble(deg, 0, 2)).append(degree).append(formatDouble(min, Const.PRECISION - 2, 2)).append("'");  
+					break;
+				case Settings.VALUE_UNITS_COO_LATLON_SEC:
+		        	deg = Math.floor(value);
+		            min = Math.floor((value - deg) * 60.0);
+		            sec = (value - deg - min / 60.0) * 3600.0;
+		            out.append(formatDouble(deg, 0, 2)).append(degree).append(formatDouble(min, 0, 2)).
+		            		append("'").append(formatDouble(sec, Const.PRECISION - 2)).append("''");
+		           break; 
 	        }
 		} catch (Exception e) {
 			Logger.e(TAG, "formatCoordinates(" + out.toString() + ", " + value + ", " + minLen + "), e:" + e.toString());

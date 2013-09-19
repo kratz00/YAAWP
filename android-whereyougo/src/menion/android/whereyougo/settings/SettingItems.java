@@ -20,7 +20,6 @@
 package menion.android.whereyougo.settings;
 
 import static menion.android.whereyougo.settings.Settings.*;
-import cz.matejcik.openwig.WherigoLib;
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomPreferenceActivity;
 import menion.android.whereyougo.settings.SettingValues;
@@ -33,46 +32,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.text.InputType;
-import android.util.Log;
 
 public class SettingItems {
 	
 	private static final String TAG = "SettingItems";
 	
-	private static EditTextPreference prefWherigoCustomName = null;
+
 	/*****************************/
 	/*           GLOBAL          */
 	/*****************************/
 	// GLOBAL
 	
-	public static void addPrefFullscreen(CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-		activity.addCheckBoxPreference(category,
-				R.string.pref_fullscreen,
-				R.string.pref_fullscreen_desc,
-				Settings.KEY_B_FULLSCREEN,
-				Settings.DEFAULT_FULLSCREEN,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference preference, Object newValue) {
-						setPrefFullscreen(false, Utils.parseBoolean(newValue));
-						return true;
-					}
-				});
-	}
-	
-	public static void setPrefFullscreen(boolean saveToPref, boolean value) {
-		if (saveToPref) {
-			Settings.setPrefBoolean(Settings.KEY_B_FULLSCREEN, value);
-		}
-		SettingValues.GLOBAL_FULLSCREEN = value;
-	}
 	
 	public static void addPrefConfirmOnExit(CustomPreferenceActivity activity, 
 			PreferenceCategory category) {
@@ -83,326 +58,33 @@ public class SettingItems {
 				Settings.DEFAULT_CONFIRM_ON_EXIT);
 	}
 	
-	public static void addPrefHighlight(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		Loc.get(R.string.pref_highlight_off_text),
-        		Loc.get(R.string.pref_highlight_only_gps_text),
-        		Loc.get(R.string.pref_highlight_always_text)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_HIGHLIGHT_OFF),
-        		String.valueOf(Settings.VALUE_HIGHLIGHT_ONLY_GPS),
-        		String.valueOf(Settings.VALUE_HIGHLIGHT_ALWAYS)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_highlight,
-				R.string.pref_highlight_desc,
-				Settings.KEY_S_HIGHLIGHT,
-				Settings.DEFAULT_HIGHLIGHT,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.GLOBAL_HIGHLIGHT = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.GLOBAL_HIGHLIGHT, R.string.pref_highlight_desc);
-						Settings.enableWakeLock();
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.GLOBAL_HIGHLIGHT, R.string.pref_highlight_desc);
-	}
-	
+
 	/**************************/
 	/*           GPS          */
 	/**************************/
 	
-	public static void addPrefGpsAltitudeManualCorrection(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-		EditTextPreference pref = activity.addEditTextPreference(category,
-				R.string.pref_gps_altitude_manual_correction,
-				R.string.pref_gps_altitude_manual_correction_desc,
-				Settings.KEY_S_GPS_ALTITUDE_MANUAL_CORRECTION,
-				Settings.DEFAULT_GPS_ALTITUDE_MANUAL_CORRECTION,
-				InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL |
-				InputType.TYPE_NUMBER_FLAG_SIGNED,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.GPS_ALTITUDE_CORRECTION = Utils.parseDouble(newValue);
-						setEditTextPreference(activity, (EditTextPreference) pref,
-								UtilsFormat.formatDouble(SettingValues.GPS_ALTITUDE_CORRECTION, 2) + "m",
-								R.string.pref_gps_altitude_manual_correction_desc);
-						return true;
-					}
-				});
-		setEditTextPreference(activity, (EditTextPreference) pref,
-				UtilsFormat.formatDouble(SettingValues.GPS_ALTITUDE_CORRECTION, 2) + "m",
-				R.string.pref_gps_altitude_manual_correction_desc);
-	}
 
-	public static void addPrefGpsMinTime(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-		EditTextPreference pref = activity.addEditTextPreference(category,
-				R.string.pref_gps_min_time,
-				R.string.pref_gps_min_time_desc,
-				Settings.KEY_S_GPS_MIN_TIME_NOTIFICATION,
-				Settings.DEFAULT_GPS_MIN_TIME_NOTIFICATION,
-				InputType.TYPE_CLASS_NUMBER,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						int value = Utils.parseInt(newValue);
-						if (value >= 0) {
-							SettingValues.GPS_MIN_TIME = value;
-							activity.needGpsRestart = true;
-							setEditTextPreference(activity, (EditTextPreference) pref,
-									SettingValues.GPS_MIN_TIME + "s",
-									R.string.pref_gps_min_time_desc);
-							return true;
-						} else {
-							ManagerNotify.toastShortMessage(R.string.invalid_value);
-							return false;
-						}
-					}
-				});
-		setEditTextPreference(activity, (EditTextPreference) pref,
-				SettingValues.GPS_MIN_TIME + "s",
-				R.string.pref_gps_min_time_desc);
-	}
-	
-	public static void addPrefGpsBeepOnGpsFix(CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-		activity.addCheckBoxPreference(category,
-				R.string.pref_gps_beep_on_gps_fix,
-				R.string.pref_gps_beep_on_gps_fix_desc,
-				Settings.KEY_B_GPS_BEEP_ON_GPS_FIX,
-				Settings.DEFAULT_GPS_BEEP_ON_GPS_FIX,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference preference, Object newValue) {
-						SettingValues.GPS_BEEP_ON_GPS_FIX = Utils.parseBoolean(newValue);
-						return true;
-					}
-				});
-	}
-	
-	public static void addPrefGpsDisable(CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-		activity.addCheckBoxPreference(category,
-				R.string.pref_gps_disable,
-				R.string.pref_gps_disable_desc,
-				Settings.KEY_B_GPS_DISABLE_WHEN_HIDE,
-				Settings.DEFAULT_GPS_DISABLE_WHEN_HIDE);
-	}
 
-    /***************************/
-    /*     Wherigo Engine      */
-    /***************************/
-	public static void addPrefWherigoDeviceId(CustomPreferenceActivity activity, 
-	                PreferenceCategory category) {
-	    
-	    EditTextPreference pref = activity.addEditTextPreference( category,
-	                    R.string.pref_wherigo_engine_deviceid,
-	                    R.string.pref_wherigo_engine_deviceid_desc, 
-	                    Settings.KEY_B_WHERIGO_ENGINE_DEVICEID,
-	                    Settings.DEFAULT_WHERIGO_ENGINE_DEVICEID,
-	                    InputType.TYPE_CLASS_TEXT,
-	                    new Preference.OnPreferenceChangeListener() {
-                            @Override
-                            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                SettingValues.WHEREIGO_ENGINE_DEVICEID = Utils.parseString(newValue);
-                                Log.i( TAG, "set WherigoLib.DEVICE_ID = "+SettingValues.WHEREIGO_ENGINE_DEVICEID );
-                                WherigoLib.env.put(WherigoLib.DEVICE_ID, SettingValues.WHEREIGO_ENGINE_DEVICEID );
-                                return true;
-                            }
-                        });
-	       setPreferenceText(activity, pref, getPrefString(Settings.KEY_B_WHERIGO_ENGINE_DEVICEID, Settings.DEFAULT_WHERIGO_ENGINE_DEVICEID),
-	                       R.string.pref_wherigo_engine_deviceid_desc);
-	}
 	
-    public static void addPrefWherigoPlattform(CustomPreferenceActivity activity, 
-                    PreferenceCategory category) {
+
+
+
+	
+
         
-        EditTextPreference pref = activity.addEditTextPreference( category,
-                        R.string.pref_wherigo_engine_plattform,
-                        R.string.pref_wherigo_engine_plattform_desc, 
-                        Settings.KEY_B_WHERIGO_ENGINE_PLATTFORM,
-                        Settings.DEFAULT_WHERIGO_ENGINE_PLATTFORM,
-                        InputType.TYPE_CLASS_TEXT,
-                        new Preference.OnPreferenceChangeListener() {
-                            @Override
-                            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                SettingValues.WHEREIGO_ENGINE_PLATTFORM = Utils.parseString(newValue);
-                                Log.i( TAG, "set WherigoLib.PLATFORM = "+SettingValues.WHEREIGO_ENGINE_PLATTFORM );
-                                WherigoLib.env.put(WherigoLib.PLATFORM, SettingValues.WHEREIGO_ENGINE_PLATTFORM); 
-                                return true;
-                            }
-                        });
-        setPreferenceText(activity, pref, getPrefString(Settings.KEY_B_WHERIGO_ENGINE_PLATTFORM, Settings.DEFAULT_WHERIGO_ENGINE_PLATTFORM),
-                        R.string.pref_wherigo_engine_deviceid_desc);        
-    }
    
-    public static void addPrefWherigoUsername(CustomPreferenceActivity activity, 
-                    PreferenceCategory category) {
-        
-        prefWherigoCustomName = activity.addEditTextPreference( category,
-                        R.string.pref_wherigo_engine_username,
-                        R.string.pref_wherigo_engine_username_desc, // TODO ? dsc value
-                        Settings.KEY_B_WHERIGO_ENGINE_USERNAME,
-                        Settings.DEFAULT_WHERIGO_ENGINE_USERNAME,
-                        InputType.TYPE_CLASS_TEXT,
-                        new Preference.OnPreferenceChangeListener() {
-                            @Override
-                            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                SettingValues.WHEREIGO_ENGINE_USERNAME = Utils.parseString(newValue);
 
-                                setPreferenceText(A.getMain(), preference, getPrefString(Settings.KEY_B_WHERIGO_ENGINE_USERNAME, Settings.DEFAULT_WHERIGO_ENGINE_USERNAME),
-                                                R.string.pref_wherigo_engine_deviceid_desc);  
-                                
-                                return true;
-                            }
-                        });
-        
-        prefWherigoCustomName.setEnabled( SettingValues.WHEREIGO_ENGINE_REPLACE_USERNAME );
-        
-        setPreferenceText(activity, prefWherigoCustomName, getPrefString(Settings.KEY_B_WHERIGO_ENGINE_USERNAME, Settings.DEFAULT_WHERIGO_ENGINE_USERNAME),
-                        R.string.pref_wherigo_engine_deviceid_desc);   
-    } 
-    
-    public static void addPrefWherigoReplaceUsername(CustomPreferenceActivity activity, 
-                    PreferenceCategory category) {
-           CheckBoxPreference pref = activity.addCheckBoxPreference(category,
-                        R.string.pref_wherigo_engine_replace_username,
-                        R.string.pref_wherigo_engine_replace_username_desc,
-                        Settings.KEY_B_WHERIGO_ENGINE_REPLACE_USERNAME,
-                        Settings.DEFAULT_WHERIGO_ENGINE_REPLACE_USERNAME,
-                        new Preference.OnPreferenceChangeListener() {
-                            @Override
-                            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                SettingValues.WHEREIGO_ENGINE_REPLACE_USERNAME = Utils.parseBoolean(newValue);
-                                if ( prefWherigoCustomName != null ) {
-                                    prefWherigoCustomName.setEnabled( SettingValues.WHEREIGO_ENGINE_REPLACE_USERNAME );
-                                }
-                                return true;
-                            }
-                        });
-     }    
 	/***************************/
 	/*         SENSORS         */
 	/***************************/
 	
-	public static void addPrefSensorsCompassHardware(CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-		activity.addCheckBoxPreference(category,
-				R.string.pref_sensors_compass_hardware,
-				R.string.pref_sensors_compass_hardware_desc,
-				Settings.KEY_B_HARDWARE_COMPASS_SENSOR,
-				Settings.DEFAULT_HARDWARE_COMPASS_SENSOR,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference preference, Object newValue) {
-						SettingValues.SENSOR_HARDWARE_COMPASS = Utils.parseBoolean(newValue);
-						A.getRotator().manageSensors();
-						return true;
-					}
-				});
-	}
+
 	
-	public static void addPrefSensorsCompassAutoChange(CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-		activity.addCheckBoxPreference(category,
-				R.string.pref_sensors_compass_auto_change,
-				R.string.pref_sensors_compass_auto_change_desc,
-				Settings.KEY_B_HARDWARE_COMPASS_AUTO_CHANGE,
-				Settings.DEFAULT_HARDWARE_COMPASS_AUTO_CHANGE,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference preference, Object newValue) {
-						SettingValues.SENSOR_HARDWARE_COMPASS_AUTO_CHANGE = Utils.parseBoolean(newValue);
-						A.getRotator().manageSensors();
-						return true;
-					}
-				});
-	}
 	
-	public static void addPrefSensorsCompassAutoChangeValue(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-		EditTextPreference pref = activity.addEditTextPreference(category,
-				R.string.pref_sensors_compass_auto_change_value,
-				R.string.pref_sensors_compass_auto_change_value_desc,
-				Settings.KEY_S_HARDWARE_COMPASS_AUTO_CHANGE_VALUE,
-				Settings.DEFAULT_HARDWARE_COMPASS_AUTO_CHANGE_VALUE,
-				InputType.TYPE_CLASS_NUMBER,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						int value = Utils.parseInt(newValue);
-						if (value > 0) {
-							SettingValues.SENSOR_HARDWARE_COMPASS_AUTO_CHANGE_VALUE = value;
-							setEditTextPreference(activity, (EditTextPreference) pref,
-									SettingValues.SENSOR_HARDWARE_COMPASS_AUTO_CHANGE_VALUE + "m/s",
-									R.string.pref_sensors_compass_auto_change_value_desc);
-							return true;
-						} else {
-							ManagerNotify.toastShortMessage(R.string.invalid_value);
-							return false;
-						}
-					}
-				});
-		setEditTextPreference(activity, pref,
-				SettingValues.SENSOR_HARDWARE_COMPASS_AUTO_CHANGE_VALUE + "m/s",
-				R.string.pref_sensors_compass_auto_change_value_desc);
-	}
 	
-	public static void addPrefSensorsBearingTrue(CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-		activity.addCheckBoxPreference(category,
-				R.string.pref_bearing_true,
-				R.string.pref_bearing_true_desc,
-				Settings.KEY_B_SENSORS_BEARING_TRUE,
-				Settings.DEFAULT_SENSORS_BEARING_TRUE,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference preference, Object newValue) {
-						SettingValues.SENSOR_BEARING_TRUE = Utils.parseBoolean(newValue);
-						return true;
-					}
-				});
-	}
+
 	
-	public static void addPrefSensorsOrienFilter(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-		if (!Utils.isAndroid201OrMore())
-			return;
-        CharSequence[] entries = new CharSequence[] {
-        		Loc.get(R.string.pref_sensors_orient_filter_no_filter),
-        		Loc.get(R.string.pref_sensors_orient_filter_ligth),
-        		Loc.get(R.string.pref_sensors_orient_filter_medium),
-        		Loc.get(R.string.pref_sensors_orient_filter_heavy)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_SENSORS_ORIENT_FILTER_NO),
-        		String.valueOf(Settings.VALUE_SENSORS_ORIENT_FILTER_LIGHT),
-        		String.valueOf(Settings.VALUE_SENSORS_ORIENT_FILTER_MEDIUM),
-        		String.valueOf(Settings.VALUE_SENSORS_ORIENT_FILTER_HEAVY)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_sensors_orient_filter,
-				R.string.pref_sensors_orient_filter_desc,
-				Settings.KEY_S_SENSORS_ORIENT_FILTER,
-				Settings.DEFAULT_SENSORS_ORIENT_FILTER,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.SENSOR_ORIENT_FILTER = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.SENSOR_ORIENT_FILTER, R.string.pref_sensors_orient_filter_desc);
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.SENSOR_ORIENT_FILTER, R.string.pref_sensors_orient_filter_desc);
-	}
+
 	
 	/********************************/
 	/*            GUIDING           */
@@ -431,21 +113,6 @@ public class SettingItems {
 		SettingValues.GUIDING_SOUNDS = value;
 	}
 	
-	public static void addPrefGuidingGpsRequired(CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-		activity.addCheckBoxPreference(category,
-				R.string.pref_guiding,
-				R.string.pref_guiding_gps_required_desc,
-				Settings.KEY_B_GUIDING_GPS_REQUIRED,
-				Settings.DEFAULT_GUIDING_GPS_REQUIRED,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference preference, Object newValue) {
-						SettingValues.GUIDING_GPS_REQUIRED = Utils.parseBoolean(newValue);
-						return true;
-					}
-				});
-	}
 	
 	public static void addPrefGuidingWptSound(final CustomPreferenceActivity activity, 
 			PreferenceCategory category) {
@@ -527,70 +194,7 @@ public class SettingItems {
 	/*             UNITS            */
 	/********************************/
 	
-	public static void addPrefLocal(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		getLanguageText(VALUE_LANGUAGE_DEFAULT),
-        		getLanguageText(VALUE_LANGUAGE_AR),
-        		getLanguageText(VALUE_LANGUAGE_CZ),
-        		getLanguageText(VALUE_LANGUAGE_DA),
-        		getLanguageText(VALUE_LANGUAGE_DE),
-        		getLanguageText(VALUE_LANGUAGE_EL),
-        		getLanguageText(VALUE_LANGUAGE_EN),
-        		getLanguageText(VALUE_LANGUAGE_ES),
-        		getLanguageText(VALUE_LANGUAGE_FI),
-        		getLanguageText(VALUE_LANGUAGE_FR),
-        		getLanguageText(VALUE_LANGUAGE_HU),
-        		getLanguageText(VALUE_LANGUAGE_IT),
-        		getLanguageText(VALUE_LANGUAGE_JA),
-        		getLanguageText(VALUE_LANGUAGE_KO),
-        		getLanguageText(VALUE_LANGUAGE_NL),
-        		getLanguageText(VALUE_LANGUAGE_PL),
-        		getLanguageText(VALUE_LANGUAGE_PT),
-        		getLanguageText(VALUE_LANGUAGE_PT_BR),
-        		getLanguageText(VALUE_LANGUAGE_RU),
-        		getLanguageText(VALUE_LANGUAGE_SK)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		VALUE_LANGUAGE_DEFAULT,
-        		VALUE_LANGUAGE_AR,
-        		VALUE_LANGUAGE_CZ,
-        		VALUE_LANGUAGE_DA,
-        		VALUE_LANGUAGE_DE,
-        		VALUE_LANGUAGE_EL,
-        		VALUE_LANGUAGE_EN,
-        		VALUE_LANGUAGE_ES,
-        		VALUE_LANGUAGE_FI,
-        		VALUE_LANGUAGE_FR,
-        		VALUE_LANGUAGE_HU,
-        		VALUE_LANGUAGE_IT,
-        		VALUE_LANGUAGE_JA,
-        		VALUE_LANGUAGE_KO,
-        		VALUE_LANGUAGE_NL,
-        		VALUE_LANGUAGE_PL,
-        		VALUE_LANGUAGE_PT,
-        		VALUE_LANGUAGE_PT_BR,
-        		VALUE_LANGUAGE_RU,
-        		VALUE_LANGUAGE_SK};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_language,
-				R.string.pref_language_desc,
-				KEY_S_LANGUAGE,
-				DEFAULT_LANGUAGE,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						setPreferenceText(activity, pref,
-								getLanguageText(String.valueOf(newValue)),
-								R.string.pref_language_desc);
-						activity.needRestart = true;
-						return true;
-					}
-				});
-		setPreferenceText(activity, pref,
-				getLanguageText(getPrefString(Settings.KEY_S_LANGUAGE, Settings.DEFAULT_LANGUAGE)),
-				R.string.pref_language_desc);
-	}
+
 	
 	private static String getLanguageText(String value) {
 		if (value.equals(VALUE_LANGUAGE_DEFAULT)) {
@@ -638,146 +242,9 @@ public class SettingItems {
 		}
 	}
 	
-	public static void addPrefUnitsAngle(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		activity.getString(R.string.pref_units_angle_degree),
-        		activity.getString(R.string.pref_units_angle_mil)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_UNITS_ANGLE_DEGREE),
-        		String.valueOf(Settings.VALUE_UNITS_ANGLE_MIL)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_units_angle,
-				R.string.pref_units_angle_desc,
-				Settings.KEY_S_UNITS_ANGLE,
-				Settings.DEFAULT_UNITS_ANGLE,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.FORMAT_ANGLE = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.FORMAT_ANGLE, R.string.pref_units_angle_desc);
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.FORMAT_ANGLE, R.string.pref_units_angle_desc);
-	}
+
+
 	
-	public static void addPrefUnitsCooLatLon(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		Loc.get(R.string.pref_units_coo_latlon_dec),
-        		Loc.get(R.string.pref_units_coo_latlon_min),
-        		Loc.get(R.string.pref_units_coo_latlon_sec)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_UNITS_COO_LATLON_DEC),
-        		String.valueOf(Settings.VALUE_UNITS_COO_LATLON_MIN),
-        		String.valueOf(Settings.VALUE_UNITS_COO_LATLON_SEC)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_units_coo_latlon,
-				R.string.pref_units_coo_latlon_desc,
-				Settings.KEY_S_UNITS_COO_LATLON,
-				Settings.DEFAULT_UNITS_COO_LATLON,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.FORMAT_COO_LATLON = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.FORMAT_COO_LATLON, R.string.pref_units_coo_latlon_desc);
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.FORMAT_COO_LATLON, R.string.pref_units_coo_latlon_desc);
-	}
-	
-	public static void addPrefUnitsLength(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		Loc.get(R.string.pref_units_length_me),
-        		Loc.get(R.string.pref_units_length_im),
-        		Loc.get(R.string.pref_units_length_na)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_UNITS_LENGTH_ME),
-        		String.valueOf(Settings.VALUE_UNITS_LENGTH_IM),
-        		String.valueOf(Settings.VALUE_UNITS_LENGTH_NA)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_units_length,
-				R.string.pref_units_length_desc,
-				Settings.KEY_S_UNITS_LENGTH,
-				Settings.DEFAULT_UNITS_LENGTH,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.FORMAT_LENGTH = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.FORMAT_LENGTH, R.string.pref_units_length_desc);
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.FORMAT_LENGTH, R.string.pref_units_length_desc);
-	}
-	
-	public static void addPrefUnitsAltitude(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		Loc.get(R.string.metres),
-        		Loc.get(R.string.feet)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_UNITS_ALTITUDE_METRES),
-        		String.valueOf(Settings.VALUE_UNITS_ALTITUDE_FEET)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_units_altitude,
-				R.string.pref_units_altitude_desc,
-				Settings.KEY_S_UNITS_ALTITUDE,
-				Settings.DEFAULT_UNITS_ALTITUDE,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.FORMAT_ALTITUDE = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.FORMAT_ALTITUDE, R.string.pref_units_altitude_desc);
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.FORMAT_ALTITUDE, R.string.pref_units_altitude_desc);
-	}
-	
-	public static void addPrefUnitsSpeed(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		"km/h",
-        		"miles/h",
-        		"knots"};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_UNITS_SPEED_KMH),
-        		String.valueOf(Settings.VALUE_UNITS_SPEED_MILH),
-        		String.valueOf(Settings.VALUE_UNITS_SPEED_KNOTS)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_units_speed,
-				R.string.pref_units_speed_desc,
-				Settings.KEY_S_UNITS_SPEED,
-				Settings.DEFAULT_UNITS_SPEED,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.FORMAT_SPEED = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.FORMAT_SPEED, R.string.pref_units_speed_desc);
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.FORMAT_SPEED, R.string.pref_units_speed_desc);
-	}
 	
 	private static void setPreferenceText(Activity activity, Preference pref,
 			String value, int desc) {

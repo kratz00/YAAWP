@@ -22,6 +22,9 @@ package menion.android.whereyougo.hardware.sensors;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import org.yaawp.R;
+import org.yaawp.preferences.PreferenceUtils;
+
 import locus.api.objects.extra.Location;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
@@ -113,8 +116,8 @@ Logger.i(TAG, "removeListener(" + listener + "), listeners.size():" + listeners.
 			}
 
 			// get azimuth from GPS when enabled in settings or by auto-change
-			if (!SettingValues.SENSOR_HARDWARE_COMPASS ||
-					SettingValues.SENSOR_HARDWARE_COMPASS_AUTO_CHANGE) {
+			if (! PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_hardware ) ||
+				  PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_auto_change_value ) ) {
 				// register location listener
 				LocationState.addLocationChangeListener(this);
 				// set zero bearing, if previously was seted by sensor
@@ -139,7 +142,7 @@ Logger.i(TAG, "removeListener(" + listener + "), listeners.size():" + listeners.
             	float valueOr = event.values[SensorManager.DATA_X];
 //Logger.d(TAG, "sensorOrientation:" + valueOr + ", " + event.values[SensorManager.DATA_Y] + ", " + event.values[SensorManager.DATA_Z] + ", " + getDeclination());
             	// fix to true bearing
-            	if (SettingValues.SENSOR_BEARING_TRUE) {
+            	if ( PreferenceUtils.getPrefBoolean( R.string.pref_bearing_true ) ) {
             		valueOr += getDeclination();
             	}
             	orient = filterValue(valueOr, orient);
@@ -183,9 +186,9 @@ Logger.i(TAG, "removeListener(" + listener + "), listeners.size():" + listeners.
 
 	private void sendOrientation(float pitch, float roll) {
 		float usedOrient;
-		if (!SettingValues.SENSOR_HARDWARE_COMPASS_AUTO_CHANGE || 
-				LocationState.getLocation().getSpeed() < SettingValues.SENSOR_HARDWARE_COMPASS_AUTO_CHANGE_VALUE) {
-			if (!SettingValues.SENSOR_HARDWARE_COMPASS)
+		if (!PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_auto_change_value ) || 
+				LocationState.getLocation().getSpeed() < PreferenceUtils.getPrefInteger(R.string.pref_sensors_compass_auto_change_value) ) {
+			if (!PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_hardware ))
 				usedOrient = mLastAziGps;
 			else
 				usedOrient = mLastAziSensor;
@@ -241,7 +244,7 @@ Logger.i(TAG, "removeListener(" + listener + "), listeners.size():" + listeners.
 	}
 	
 	private float getFilter() {
-		switch (SettingValues.SENSOR_ORIENT_FILTER) {
+		switch (PreferenceUtils.getPrefInteger(R.string.pref_sensors_orient_filter)) {
 		case Settings.VALUE_SENSORS_ORIENT_FILTER_LIGHT:
 			return 0.20f;
 		case Settings.VALUE_SENSORS_ORIENT_FILTER_MEDIUM:
