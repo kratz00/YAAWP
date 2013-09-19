@@ -75,12 +75,13 @@ public class MainApplication extends Application {
         super.onCreate();
         Log.d(TAG, "onCreate()");
         
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        PreferenceUtils.SetContext( this );
+        
         Configuration config = getBaseContext().getResources().getConfiguration();
-        String lang = settings.getString(Settings.KEY_S_LANGUAGE,
-        		Settings.VALUE_LANGUAGE_DEFAULT);
-//Logger.d(TAG, "lang:" + lang + ", system:" + config.locale.getLanguage());
-        if (!lang.equals(Settings.VALUE_LANGUAGE_DEFAULT) &&
+        String lang = PreferenceUtils.getPrefString( R.string.pref_language );
+
+        //Logger.d(TAG, "lang:" + lang + ", system:" + config.locale.getLanguage());
+        if (!lang.equals("") && !lang.equals(Settings.VALUE_LANGUAGE_DEFAULT) &&
         		!config.locale.getLanguage().equals(lang)) {
         	ArrayList<String> loc = StringToken.parse(lang, "_");
         	if (loc.size() == 1) {
@@ -144,7 +145,7 @@ public class MainApplication extends Application {
     	// initialize DPI
     	Utils.getDpPixels(this, 1.0f);
     	
-    	PreferenceUtils.SetContext( this );
+    	
     	
     	// init openwig engine
     	OpenWigHelper.SetDeviceId( PreferenceUtils.getPrefString( R.string.pref_wherigo_engine_deviceid ) );

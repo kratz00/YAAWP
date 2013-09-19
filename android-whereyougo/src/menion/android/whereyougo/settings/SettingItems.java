@@ -20,7 +20,6 @@
 package menion.android.whereyougo.settings;
 
 import static menion.android.whereyougo.settings.Settings.*;
-import cz.matejcik.openwig.WherigoLib;
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomPreferenceActivity;
 import menion.android.whereyougo.settings.SettingValues;
@@ -33,19 +32,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.text.InputType;
-import android.util.Log;
 
 public class SettingItems {
 	
 	private static final String TAG = "SettingItems";
 	
-	private static EditTextPreference prefWherigoCustomName = null;
+
 	/*****************************/
 	/*           GLOBAL          */
 	/*****************************/
@@ -197,70 +194,7 @@ public class SettingItems {
 	/*             UNITS            */
 	/********************************/
 	
-	public static void addPrefLocal(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		getLanguageText(VALUE_LANGUAGE_DEFAULT),
-        		getLanguageText(VALUE_LANGUAGE_AR),
-        		getLanguageText(VALUE_LANGUAGE_CZ),
-        		getLanguageText(VALUE_LANGUAGE_DA),
-        		getLanguageText(VALUE_LANGUAGE_DE),
-        		getLanguageText(VALUE_LANGUAGE_EL),
-        		getLanguageText(VALUE_LANGUAGE_EN),
-        		getLanguageText(VALUE_LANGUAGE_ES),
-        		getLanguageText(VALUE_LANGUAGE_FI),
-        		getLanguageText(VALUE_LANGUAGE_FR),
-        		getLanguageText(VALUE_LANGUAGE_HU),
-        		getLanguageText(VALUE_LANGUAGE_IT),
-        		getLanguageText(VALUE_LANGUAGE_JA),
-        		getLanguageText(VALUE_LANGUAGE_KO),
-        		getLanguageText(VALUE_LANGUAGE_NL),
-        		getLanguageText(VALUE_LANGUAGE_PL),
-        		getLanguageText(VALUE_LANGUAGE_PT),
-        		getLanguageText(VALUE_LANGUAGE_PT_BR),
-        		getLanguageText(VALUE_LANGUAGE_RU),
-        		getLanguageText(VALUE_LANGUAGE_SK)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		VALUE_LANGUAGE_DEFAULT,
-        		VALUE_LANGUAGE_AR,
-        		VALUE_LANGUAGE_CZ,
-        		VALUE_LANGUAGE_DA,
-        		VALUE_LANGUAGE_DE,
-        		VALUE_LANGUAGE_EL,
-        		VALUE_LANGUAGE_EN,
-        		VALUE_LANGUAGE_ES,
-        		VALUE_LANGUAGE_FI,
-        		VALUE_LANGUAGE_FR,
-        		VALUE_LANGUAGE_HU,
-        		VALUE_LANGUAGE_IT,
-        		VALUE_LANGUAGE_JA,
-        		VALUE_LANGUAGE_KO,
-        		VALUE_LANGUAGE_NL,
-        		VALUE_LANGUAGE_PL,
-        		VALUE_LANGUAGE_PT,
-        		VALUE_LANGUAGE_PT_BR,
-        		VALUE_LANGUAGE_RU,
-        		VALUE_LANGUAGE_SK};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_language,
-				R.string.pref_language_desc,
-				KEY_S_LANGUAGE,
-				DEFAULT_LANGUAGE,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						setPreferenceText(activity, pref,
-								getLanguageText(String.valueOf(newValue)),
-								R.string.pref_language_desc);
-						activity.needRestart = true;
-						return true;
-					}
-				});
-		setPreferenceText(activity, pref,
-				getLanguageText(getPrefString(Settings.KEY_S_LANGUAGE, Settings.DEFAULT_LANGUAGE)),
-				R.string.pref_language_desc);
-	}
+
 	
 	private static String getLanguageText(String value) {
 		if (value.equals(VALUE_LANGUAGE_DEFAULT)) {
@@ -308,146 +242,9 @@ public class SettingItems {
 		}
 	}
 	
-	public static void addPrefUnitsAngle(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		activity.getString(R.string.pref_units_angle_degree),
-        		activity.getString(R.string.pref_units_angle_mil)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_UNITS_ANGLE_DEGREE),
-        		String.valueOf(Settings.VALUE_UNITS_ANGLE_MIL)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_units_angle,
-				R.string.pref_units_angle_desc,
-				Settings.KEY_S_UNITS_ANGLE,
-				Settings.DEFAULT_UNITS_ANGLE,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.FORMAT_ANGLE = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.FORMAT_ANGLE, R.string.pref_units_angle_desc);
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.FORMAT_ANGLE, R.string.pref_units_angle_desc);
-	}
+
+
 	
-	public static void addPrefUnitsCooLatLon(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		Loc.get(R.string.pref_units_coo_latlon_dec),
-        		Loc.get(R.string.pref_units_coo_latlon_min),
-        		Loc.get(R.string.pref_units_coo_latlon_sec)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_UNITS_COO_LATLON_DEC),
-        		String.valueOf(Settings.VALUE_UNITS_COO_LATLON_MIN),
-        		String.valueOf(Settings.VALUE_UNITS_COO_LATLON_SEC)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_units_coo_latlon,
-				R.string.pref_units_coo_latlon_desc,
-				Settings.KEY_S_UNITS_COO_LATLON,
-				Settings.DEFAULT_UNITS_COO_LATLON,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.FORMAT_COO_LATLON = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.FORMAT_COO_LATLON, R.string.pref_units_coo_latlon_desc);
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.FORMAT_COO_LATLON, R.string.pref_units_coo_latlon_desc);
-	}
-	
-	public static void addPrefUnitsLength(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		Loc.get(R.string.pref_units_length_me),
-        		Loc.get(R.string.pref_units_length_im),
-        		Loc.get(R.string.pref_units_length_na)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_UNITS_LENGTH_ME),
-        		String.valueOf(Settings.VALUE_UNITS_LENGTH_IM),
-        		String.valueOf(Settings.VALUE_UNITS_LENGTH_NA)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_units_length,
-				R.string.pref_units_length_desc,
-				Settings.KEY_S_UNITS_LENGTH,
-				Settings.DEFAULT_UNITS_LENGTH,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.FORMAT_LENGTH = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.FORMAT_LENGTH, R.string.pref_units_length_desc);
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.FORMAT_LENGTH, R.string.pref_units_length_desc);
-	}
-	
-	public static void addPrefUnitsAltitude(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		Loc.get(R.string.metres),
-        		Loc.get(R.string.feet)};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_UNITS_ALTITUDE_METRES),
-        		String.valueOf(Settings.VALUE_UNITS_ALTITUDE_FEET)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_units_altitude,
-				R.string.pref_units_altitude_desc,
-				Settings.KEY_S_UNITS_ALTITUDE,
-				Settings.DEFAULT_UNITS_ALTITUDE,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.FORMAT_ALTITUDE = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.FORMAT_ALTITUDE, R.string.pref_units_altitude_desc);
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.FORMAT_ALTITUDE, R.string.pref_units_altitude_desc);
-	}
-	
-	public static void addPrefUnitsSpeed(final CustomPreferenceActivity activity, 
-			PreferenceCategory category) {
-        CharSequence[] entries = new CharSequence[] {
-        		"km/h",
-        		"miles/h",
-        		"knots"};
-        CharSequence[] entryValues = new CharSequence[] {
-        		String.valueOf(Settings.VALUE_UNITS_SPEED_KMH),
-        		String.valueOf(Settings.VALUE_UNITS_SPEED_MILH),
-        		String.valueOf(Settings.VALUE_UNITS_SPEED_KNOTS)};
-		ListPreference pref = activity.addListPreference(category,
-				R.string.pref_units_speed,
-				R.string.pref_units_speed_desc,
-				Settings.KEY_S_UNITS_SPEED,
-				Settings.DEFAULT_UNITS_SPEED,
-				entries, entryValues,
-				new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference pref, Object newValue) {
-						SettingValues.FORMAT_SPEED = Utils.parseInt(newValue);
-						setListPreference(activity, (ListPreference) pref,
-								SettingValues.FORMAT_SPEED, R.string.pref_units_speed_desc);
-						return true;
-					}
-				});
-		setListPreference(activity, (ListPreference) pref,
-				SettingValues.FORMAT_SPEED, R.string.pref_units_speed_desc);
-	}
 	
 	private static void setPreferenceText(Activity activity, Preference pref,
 			String value, int desc) {

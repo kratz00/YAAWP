@@ -54,7 +54,6 @@ public class Settings {
 
 	// GENERAL
 	/** default language */
-	public static final String KEY_S_LANGUAGE = "KEY_S_LANGUAGE";
 	public static final String VALUE_LANGUAGE_DEFAULT = "default";
 	public static final String VALUE_LANGUAGE_AR = "ar";
 	public static final String VALUE_LANGUAGE_CZ = "cs";
@@ -75,7 +74,7 @@ public class Settings {
 	public static final String VALUE_LANGUAGE_PT_BR = "pt_BR";
 	public static final String VALUE_LANGUAGE_RU = "ru";
 	public static final String VALUE_LANGUAGE_SK = "sk";
-	public static final String DEFAULT_LANGUAGE = VALUE_LANGUAGE_DEFAULT;
+	// public static final String DEFAULT_LANGUAGE = VALUE_LANGUAGE_DEFAULT;
 	
 	/** confirmation on exit */
 	public static final String KEY_B_CONFIRM_ON_EXIT = "KEY_B_CONFIRM_ON_EXIT";
@@ -84,18 +83,6 @@ public class Settings {
 	public static final String KEY_I_GET_COORDINATES_LAST_INDEX = "KEY_I_GET_COORDINATES_LAST_INDEX";
 	public static final int DEFAULT_GET_COORDINATES_LAST_INDEX = 0;
 	
-	/** WHERIGO ENGINE */
-	public static final String KEY_B_WHERIGO_ENGINE_DEVICEID = "KEY_B_WHERIGO_ENGINE_DEVICEID";
-	public static final String DEFAULT_WHERIGO_ENGINE_DEVICEID = "android0815";
-
-    public static final String KEY_B_WHERIGO_ENGINE_PLATTFORM = "KEY_B_WHERIGO_ENGINE_PLATTFORM";
-    public static final String DEFAULT_WHERIGO_ENGINE_PLATTFORM = "android.openwig";
-	
-    public static final String KEY_B_WHERIGO_ENGINE_REPLACE_USERNAME = "KEY_B_WHERIGO_ENGINE_REPLACE_USERNAME";
-    public static final boolean DEFAULT_WHERIGO_ENGINE_REPLACE_USERNAME = false;
-    
-    public static final String KEY_B_WHERIGO_ENGINE_USERNAME = "KEY_B_WHERIGO_ENGINE_USERNAME";
-    public static final String DEFAULT_WHERIGO_ENGINE_USERNAME = "Max Mustermann";
 
 	// GPS & LOCATION
 	/** if GPS should start automatically after application start */
@@ -110,9 +97,7 @@ public class Settings {
 	/** last known altitude */
 	protected static final String KEY_F_LAST_KNOWN_LOCATION_ALTITUDE = "KEY_F_LAST_KNOWN_LOCATION_ALTITUDE";
 	protected static final float DEFAULT_LAST_KNOWN_LOCATION_ALTITUDE = 0.0f;
-	/** add manual correction to altitude */
-	public static final String KEY_S_GPS_ALTITUDE_MANUAL_CORRECTION = "KEY_S_GPS_ALTITUDE_MANUAL_CORRECTION";
-	public static final String DEFAULT_GPS_ALTITUDE_MANUAL_CORRECTION = String.valueOf(0.0);
+
 	/** minimum time for notification */
 	public static final String KEY_S_GPS_MIN_TIME_NOTIFICATION = "KEY_S_GPS_MIN_TIME_NOTIFICATION";
 	public static final String DEFAULT_GPS_MIN_TIME_NOTIFICATION = "0";
@@ -150,33 +135,25 @@ public class Settings {
 	
 	// UNITS PARAMETRES
 	/** default latitude/longitude format */
-	public static final String KEY_S_UNITS_COO_LATLON = "KEY_S_UNITS_COO_LATLON";
 	public static final int VALUE_UNITS_COO_LATLON_DEC = 0;
 	public static final int VALUE_UNITS_COO_LATLON_MIN = 1;
 	public static final int VALUE_UNITS_COO_LATLON_SEC = 2;	
-	public static final String DEFAULT_UNITS_COO_LATLON = String.valueOf(VALUE_UNITS_COO_LATLON_MIN);
+
 	/** default length format */
-	public static final String KEY_S_UNITS_LENGTH = "KEY_S_UNITS_LENGTH";
 	public static final int VALUE_UNITS_LENGTH_ME = 0;
 	public static final int VALUE_UNITS_LENGTH_IM = 1;
 	public static final int VALUE_UNITS_LENGTH_NA = 2;
-	public static final String DEFAULT_UNITS_LENGTH = String.valueOf(VALUE_UNITS_LENGTH_ME);
+
 	/** default height format */
-	public static final String KEY_S_UNITS_ALTITUDE = "KEY_S_UNITS_ALTITUDE";
 	public static final int VALUE_UNITS_ALTITUDE_METRES = 0;
 	public static final int VALUE_UNITS_ALTITUDE_FEET = 1;
-	public static final String DEFAULT_UNITS_ALTITUDE = String.valueOf(VALUE_UNITS_ALTITUDE_METRES);
 	/** default angle format */
-	public static final String KEY_S_UNITS_SPEED = "KEY_S_UNITS_SPEED";
 	public static final int VALUE_UNITS_SPEED_KMH = 0;
 	public static final int VALUE_UNITS_SPEED_MILH = 1;
 	public static final int VALUE_UNITS_SPEED_KNOTS = 2;
-	public static final String DEFAULT_UNITS_SPEED = String.valueOf(VALUE_UNITS_SPEED_KMH);
 	/** default angle format */
-	public static final String KEY_S_UNITS_ANGLE = "KEY_S_UNITS_ANGLE";
 	public static final int VALUE_UNITS_ANGLE_DEGREE = 0;
 	public static final int VALUE_UNITS_ANGLE_MIL = 1;
-	public static final String DEFAULT_UNITS_ANGLE = String.valueOf(VALUE_UNITS_ANGLE_DEGREE);
 
 	public static boolean getPrefBoolean(Context context, String key, boolean def) {
 //		Logger.v(TAG, "getPrefBoolean(" + key + ", " + def + ")");

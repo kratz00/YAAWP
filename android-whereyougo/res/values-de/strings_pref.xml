@@ -79,8 +79,8 @@
     <string name="pref_units_angle_mil">Winkel</string>
     <string name="pref_units_coo_latlon">Lat / Lon-Format</string>
     <string name="pref_units_coo_latlon_dec">DDD,DDDDDD°</string>
-    <string name="pref_units_coo_latlon_min">DDD° MM,MMM\\'</string>
-    <string name="pref_units_coo_latlon_sec">DDD° MM\\' SS.SS\\"</string>
+    <string name="pref_units_coo_latlon_min">DDD° MM,MMM\'</string>
+    <string name="pref_units_coo_latlon_sec">DDD° MM\' SS.SS\"</string>
     <string name="pref_units_coo_latlon_desc">Koordinaten-Format(Latitude/Longitude) fürs Display</string>
     <string name="pref_units_length">Längeneinheiten</string>
     <string name="pref_units_length_desc">Wählen Sie die standardmäßig angezeigten Einheiten</string>

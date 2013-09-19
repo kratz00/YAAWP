@@ -34,7 +34,12 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
 	    this.addPreferencesFromResource(R.xml.preferences);
 	    
 	    addOnPreferenceChangeListener( R.string.pref_highlight, VALUE_CHANGE_LISTENER );
-
+	    addOnPreferenceChangeListener( R.string.pref_wherigo_engine_deviceid, VALUE_CHANGE_LISTENER );
+	    addOnPreferenceChangeListener( R.string.pref_wherigo_engine_plattform, VALUE_CHANGE_LISTENER );
+	    addOnPreferenceChangeListener( R.string.pref_sensors_compass_hardware, VALUE_CHANGE_LISTENER );
+	    addOnPreferenceChangeListener( R.string.pref_sensors_compass_auto_change, VALUE_CHANGE_LISTENER );
+	    addOnPreferenceChangeListener( R.string.pref_sensors_compass_auto_change_value, VALUE_CHANGE_LISTENER );    
+	    
 	    initPreferences();
 	}
 	
@@ -98,6 +103,10 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
 					ManagerNotify.toastShortMessage(R.string.invalid_value);
 					status = false;
 				}
+            }
+            else if (isPreference(preference, R.string.pref_language)) {
+				// TODO activity.needRestart = true;
+				return true;
             }
             return true;
         }

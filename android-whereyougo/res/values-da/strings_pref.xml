@@ -79,8 +79,8 @@
     <string name="pref_units_angle_mil">Vinkel mil</string>
     <string name="pref_units_coo_latlon">Lat/Lon-format</string>
     <string name="pref_units_coo_latlon_dec">DDD,DDDDDD°</string>
-    <string name="pref_units_coo_latlon_min">DDD° MM,MMM\\'</string>
-    <string name="pref_units_coo_latlon_sec">DDD° MM\\' SS.SS\\"</string>
+    <string name="pref_units_coo_latlon_min">DDD° MM,MMM\'</string>
+    <string name="pref_units_coo_latlon_sec">DDD° MM\' SS.SS\"</string>
     <string name="pref_units_coo_latlon_desc">Koordinater (bredde/længde)-format til visning</string>
     <string name="pref_units_length">Længde enheder</string>
     <string name="pref_units_length_desc">Vælg standard display-enheder</string>

@@ -79,8 +79,8 @@
     <string name="pref_units_angle_mil">Mil angular (OTAN)</string>
     <string name="pref_units_coo_latlon">Formato de Latitud / Longitud</string>
     <string name="pref_units_coo_latlon_dec">DDD.DDDDDD°</string>
-    <string name="pref_units_coo_latlon_min">DDD° MM.MMM\\'</string>
-    <string name="pref_units_coo_latlon_sec">DDD° MM\\' SS.SS\\"</string>
+    <string name="pref_units_coo_latlon_min">DDD° MM.MMM\'</string>
+    <string name="pref_units_coo_latlon_sec">DDD° MM\' SS.SS\"</string>
     <string name="pref_units_coo_latlon_desc">Formato de coordenadas para mostrar (lat/long)</string>
     <string name="pref_units_length">Unidad de longitud</string>
     <string name="pref_units_length_desc">Seleccionar las unidades por defecto en pantalla</string>

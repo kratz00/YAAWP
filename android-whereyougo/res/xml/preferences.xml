@@ -47,7 +47,7 @@
 					android:title="@string/pref_gps_altitude_manual_correction"
 					android:summary="@string/pref_gps_altitude_manual_correction_desc"
 					android:dialogTitle="@string/pref_gps_altitude_manual_correction" 
-					android:dialogMessage="xxx"/>
+					android:dialogMessage="@string/pref_gps_altitude_manual_correction_desc"/>
 					<!-- TODO InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL |
 				InputType.TYPE_NUMBER_FLAG_SIGNED -->			    			    
 			    	<!-- 					public boolean onPreferenceChange(Preference pref, Object newValue) {
@@ -141,20 +141,32 @@
 			android:title="@string/pref_locale" >
 			
 			<PreferenceCategory android:title="@string/pref_language" >
-				<!-- 
-					SettingItems.addPrefLocal(activity, prefCatLang);
-				-->
-				<!--
-				-->
+				<ListPreference 
+           			android:key="@string/pref_language"
+            		android:title="@string/pref_language"
+            		android:summary="@string/pref_language_desc"
+            		android:defaultValue="default" 
+            		android:entries="@array/pref_language_strings"
+            		android:entryValues="@array/pref_language_values" />			    
 			</PreferenceCategory>
+			
+			
 			<PreferenceCategory android:title="@string/pref_units" >
-				<!--
-					SettingItems.addPrefUnitsCooLatLon(activity, prefCatLocale);
-					SettingItems.addPrefUnitsLength(activity, prefCatLocale);
-					SettingItems.addPrefUnitsAltitude(activity, prefCatLocale);
-					SettingItems.addPrefUnitsSpeed(activity, prefCatLocale);
-					SettingItems.addPrefUnitsAngle(activity, prefCatLocale);
-				-->
+			    
+				<ListPreference 
+           			android:key="@string/pref_units_coo_latlon"
+            		android:title="@string/pref_units_coo_latlon"
+            		android:summary="@string/pref_units_coo_latlon_desc"
+            		android:defaultValue="1" 
+            		android:entries="@array/pref_units_coo_format_strings"
+            		android:entryValues="@array/pref_units_coo_format_values" />	
+            		
+			    <CheckBoxPreference
+					android:defaultValue="false"
+					android:key="@string/pref_units_imperal_system"
+					android:summary="@string/pref_units_imperal_system_desc"
+					android:title="@string/pref_units_imperal_system" />
+			    						    
 			</PreferenceCategory>			
 
 		</PreferenceScreen>	

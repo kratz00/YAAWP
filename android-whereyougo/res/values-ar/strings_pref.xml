@@ -79,8 +79,8 @@
     <string name="pref_units_angle_mil">Angular mil</string>
     <string name="pref_units_coo_latlon">صيغة خط طول / خط عرض</string>
     <string name="pref_units_coo_latlon_dec">DDD.DDDDDD°</string>
-    <string name="pref_units_coo_latlon_min">DDD° MM.MMM\\'</string>
-    <string name="pref_units_coo_latlon_sec">DDD° MM\\' SS.SS\\"</string>
+    <string name="pref_units_coo_latlon_min">DDD° MM.MMM\'</string>
+    <string name="pref_units_coo_latlon_sec">DDD° MM\' SS.SS\"</string>
     <string name="pref_units_coo_latlon_desc">Coordinates (latitude/longitude) format for display</string>
     <string name="pref_units_length">واحدات الطول</string>
     <string name="pref_units_length_desc">اخيار واحدات العرض الافتراضية</string>

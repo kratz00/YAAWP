@@ -51,7 +51,7 @@ public class SettingScreens extends CustomPreferenceActivity {
 
 
 		root.addPreference(createPrefGuiding(activity, activity.getPreferenceManager()));
-		root.addPreference(createPrefLocale(activity, activity.getPreferenceManager()));
+
 
 		return root;
 	}
@@ -76,23 +76,4 @@ public class SettingScreens extends CustomPreferenceActivity {
         return init(preferenceGuiding);
 	}
 	
-	public static PreferenceScreen createPrefLocale(CustomPreferenceActivity activity,
-			PreferenceManager prefManager) {
-		PreferenceScreen preferenceLocale = prefManager.createPreferenceScreen(activity);
-		preferenceLocale.setTitle(R.string.pref_locale);
-		PreferenceCategory prefCatLang = 
-			addNewPreferenceCategory(activity, R.string.pref_language, preferenceLocale);
-		PreferenceCategory prefCatLocale = 
-			addNewPreferenceCategory(activity, R.string.pref_units, preferenceLocale);
-
-		SettingItems.addPrefLocal(activity, prefCatLang);
-        SettingItems.addPrefUnitsCooLatLon(activity, prefCatLocale);
-        SettingItems.addPrefUnitsLength(activity, prefCatLocale);
-        SettingItems.addPrefUnitsAltitude(activity, prefCatLocale);
-        SettingItems.addPrefUnitsSpeed(activity, prefCatLocale);
-        SettingItems.addPrefUnitsAngle(activity, prefCatLocale);
-        
-        return init(preferenceLocale);
-	}
-
 }

@@ -337,11 +337,11 @@ public class Main extends CustomMain implements CartridgeSessionListener {
         
         switch (item.getItemId())
         { 
+        /*
         	case R.id.menu_start:
-                Intent intent2 = new Intent( Main.this, YaawpPreferenceActivity.class );
-                startActivity(intent2); 
+        		UtilsSettings.showSettings(Main.this);
                 break;
-                
+        */        
             case R.id.menu_positioning:
                 Intent intent02 = new Intent(Main.this, SatelliteScreen.class);
                 startActivity(intent02);
@@ -359,7 +359,8 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                 break;
                 
 			case R.id.menu_preferences:
-				UtilsSettings.showSettings(Main.this);
+				Intent intent2 = new Intent( Main.this, YaawpPreferenceActivity.class );
+                startActivity(intent2); 				
                 break; 
 
             case R.id.menu_info:

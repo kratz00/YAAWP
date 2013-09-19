@@ -28,17 +28,6 @@ public class SettingValues {
 
 	private static final String TAG = "SettingValues";
 	
-	// global things
-	/** altitude format */
-	public static int FORMAT_ALTITUDE;
-	/** angle format */
-	public static int FORMAT_ANGLE;
-	/** latitude/longitude format */
-	public static int FORMAT_COO_LATLON;
-	/** distance format */
-	public static int FORMAT_LENGTH;
-	/** speed format */
-	public static int FORMAT_SPEED;
 	
 
 	// GPS
@@ -60,16 +49,7 @@ public class SettingValues {
 		Logger.d(TAG, "init(" + c + ")");
 		
 		
-		FORMAT_ALTITUDE = Utils.parseInt(getPrefString(c, KEY_S_UNITS_ALTITUDE, 
-				DEFAULT_UNITS_ALTITUDE));
-		FORMAT_ANGLE = Utils.parseInt(getPrefString(c, KEY_S_UNITS_ANGLE, 
-				DEFAULT_UNITS_ANGLE));
-		FORMAT_COO_LATLON = Utils.parseInt(getPrefString(c, KEY_S_UNITS_COO_LATLON, 
-				DEFAULT_UNITS_COO_LATLON));
-		FORMAT_LENGTH = Utils.parseInt(getPrefString(c, KEY_S_UNITS_LENGTH, 
-				DEFAULT_UNITS_LENGTH));
-		FORMAT_SPEED = Utils.parseInt(getPrefString(c, KEY_S_UNITS_SPEED, 
-				DEFAULT_UNITS_SPEED));
+	
 		
 		GPS_MIN_TIME = Utils.parseInt(getPrefString(c, KEY_S_GPS_MIN_TIME_NOTIFICATION, 
 				DEFAULT_GPS_MIN_TIME_NOTIFICATION));
