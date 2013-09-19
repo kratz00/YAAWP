@@ -82,7 +82,8 @@
             style="@style/PanelTopBelowShadow"
             android:layout_alignLeft="@+id/linear_layout_content"
             android:layout_alignRight="@+id/linear_layout_content"
-            android:layout_alignTop="@+id/linear_layout_content" />
+            android:layout_alignTop="@+id/linear_layout_content" 
+            android:orientation="vertical"/>
     </RelativeLayout>
 
     <include layout="@layout/include_bottom_panel" />

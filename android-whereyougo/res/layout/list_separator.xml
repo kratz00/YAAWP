@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/linear_layout_separator"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:minHeight="20dip"
+	android:padding="4dip"
+	android:gravity="center_vertical">
+
+
+		
+		<TextView
+			style="@style/TextStyle18" 
+			android:id="@+id/linearLayoutSeparatorHeadline"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:lines="1" />
+
+</LinearLayout>

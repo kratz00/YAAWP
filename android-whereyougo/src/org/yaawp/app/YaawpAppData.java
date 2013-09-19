@@ -2,13 +2,15 @@ package org.yaawp.app;
 
 import java.util.Vector;
 import cz.matejcik.openwig.formats.CartridgeFile;
+import org.yaawp.hmi.adapter.CartridgeListItem;
 
 public class YaawpAppData {
 	
 	private static YaawpAppData mInstance = null;
 	
 	private YaawpAppData() {
-		mWigFiles = new Vector<CartridgeFile>();
+		// mWigFiles = new Vector<CartridgeFile>();
+		mCartridgeListItems = new Vector<CartridgeListItem>();
 	}
 	
 	public static YaawpAppData GetInstance() {
@@ -20,5 +22,7 @@ public class YaawpAppData {
 	
 	/* ---------------------------------- */
 	
-	public Vector<CartridgeFile> mWigFiles;
+	// public Vector<CartridgeFile> mWigFiles;
+	
+	public Vector<CartridgeListItem> mCartridgeListItems;
 }

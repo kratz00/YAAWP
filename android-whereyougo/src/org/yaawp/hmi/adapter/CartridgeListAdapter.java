@@ -28,7 +28,7 @@ public class CartridgeListAdapter extends BaseAdapter {
 
 	private static String TAG = "CartridgeListAdapter";
 
-	Vector<CartridgeFile> mData;
+	Vector<CartridgeListItem> mData;
     
     private Context context;
     
@@ -53,7 +53,7 @@ public class CartridgeListAdapter extends BaseAdapter {
     
 //    public static final Drawable SEPARATOR = A.getApp().getResources().getDrawable(R.drawable.var_separator);
     
-	public CartridgeListAdapter(Context context, Vector<CartridgeFile> data, View view) {
+	public CartridgeListAdapter(Context context, Vector<CartridgeListItem> data, View view) {
     	this.mData = data;
     
 		if (view instanceof ListView) {
@@ -96,39 +96,99 @@ public class CartridgeListAdapter extends BaseAdapter {
 		return mData.get(position);
 	}
 	
-	/* public DataInfo getDataInfo(int position) {
-		return mData.get(position);
-	} */
-
 	@Override
 	public long getItemId(int position) {
 		return position;
 	}
 	
-	public static LinearLayout createEmptyView(Context context) {
-		return  (LinearLayout) LinearLayout.inflate(
-				context, R.layout.iconed_list_adapter, null);
+	public LinearLayout createEmptyView(Context context, boolean separator) {
+		if ( separator ) {	
+			return (LinearLayout) LinearLayout.inflate(
+					context, R.layout.list_separator, null);				
+		} else {
+			return  (LinearLayout) LinearLayout.inflate(
+					context, R.layout.iconed_list_adapter, null);
+		}		
+		
+
 	}
 	
 	@Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
     	if (convertView == null) {
-			convertView = createEmptyView(context);
+			convertView = createEmptyView(context, mData.get( position ).isSeparator() );
 		}
     	return getViewItem(position, convertView, true);
     }
     
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			convertView = createEmptyView(context);
+    	if (convertView == null) {
+			convertView = createEmptyView(context, mData.get( position ).isSeparator() );
 		}
 		return getViewItem(position, convertView, false);
 	}
 	
 	private View getViewItem(int position, View convertView, boolean dropDown) {
 		try {
-            CartridgeFile file = mData.get( position );
+			if ( mData.get( position ).isSeparator() ) {
+				return getViewItem_Separator( position, convertView, dropDown );
+			} else {
+				return getViewItem_Cartridge( position, convertView, dropDown );
+			}
+		} catch (Exception e) {
+			Logger.e(TAG, "getView(" + position + ", " + convertView + ")", e);
+		}
+		
+		convertView.forceLayout();
+		return convertView;		
+	}
+
+	private View getViewItem_Separator( int position, View convertView, boolean dropDown ) {
+		try {
+			CartridgeListSeparatorItem item = ((CartridgeListSeparatorItem)mData.get( position ));
+			
+			convertView.setBackgroundColor(Color.LTGRAY);
+			
+			View v = convertView.findViewById(R.id.linear_layout_separator);
+			LinearLayout llMain = (LinearLayout) v;
+			llMain.setPadding(PADDING, PADDING, PADDING, PADDING);
+			if (minHeight != Integer.MIN_VALUE) {
+				llMain.setMinimumHeight(minHeight);
+			}
+	
+			TextView tv01 = (TextView) convertView.findViewById(R.id.linearLayoutSeparatorHeadline);
+
+			
+			llMain.setOnClickListener(null);
+			llMain.setOnLongClickListener(null);
+			llMain.setLongClickable(false);			
+			
+			// set TextView top
+			tv01.setBackgroundColor(Color.TRANSPARENT);
+			tv01.setTextColor(Color.BLACK);
+	
+			if ( item.mHeadline == null) {
+				tv01.setVisibility(View.GONE);
+			} else {
+				tv01.setVisibility(View.VISIBLE);
+				tv01.setText(Html.fromHtml(item.mHeadline));
+			}
+			
+		
+			llMain.setBackgroundColor(Color.TRANSPARENT);
+		
+		} catch (Exception e) {
+			Logger.e(TAG, "getView(" + position + ", " + convertView + ")", e);
+		}
+		
+		convertView.forceLayout();
+		return convertView;		
+	}
+	
+	private View getViewItem_Cartridge( int position, View convertView, boolean dropDown ) {
+		try {
+			CartridgeFile file = ((CartridgeListGameItem)mData.get( position )).mCartridge;
             byte[] iconData = file.getFile(file.iconId);
             Bitmap iconLeft = null;
             try {
