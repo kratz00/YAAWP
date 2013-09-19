@@ -12,9 +12,9 @@ public class PreferenceItems {
 	
 	public static int getUnitLength() {
 		if ( useImperalSystem() ) {
-			return Settings.VALUE_UNITS_LENGTH_ME;			
+			return Settings.VALUE_UNITS_LENGTH_IM;			
 		} else {
-			return Settings.VALUE_UNITS_LENGTH_IM;
+			return Settings.VALUE_UNITS_LENGTH_ME;
 		}
 	}
 
