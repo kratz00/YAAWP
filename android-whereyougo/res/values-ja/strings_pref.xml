@@ -78,7 +78,7 @@
     <string name="pref_units_angle_desc">表示される角度単位</string>
     <string name="pref_units_angle_mil">ミル(角度)</string>
     <string name="pref_units_coo_latlon">緯度/経度の形式</string>
-    <string name="pref_units_coo_latlon_dec">14,94323°</string>
+    <string name="pref_units_coo_latlon_dec">DDD,DDDDDD°</string>
     <string name="pref_units_coo_latlon_min">14° 52.123\'</string>
     <string name="pref_units_coo_latlon_sec">14° 52\' 12.34\'\'</string>
     <string name="pref_units_coo_latlon_desc">座標（緯度/経度）の表示形式</string>
