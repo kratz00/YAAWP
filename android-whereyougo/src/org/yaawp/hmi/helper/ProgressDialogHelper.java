@@ -20,24 +20,31 @@ public class ProgressDialogHelper {
 	public static void Show( int headline, int message ) {
 	}	
 	
-	public static void Show( String headline, String message ) {		
+	public static void Show( final String headline, final String message ) {		
 		Logger.i(TAG, "Show()");
 		
-		if (progressDialog != null) {
-			Logger.w(TAG, "progress dialog shows twice");
-            progressDialog.dismiss();    
-		}
-        
-        progressDialog = new ProgressDialog(((CustomActivity) A.getMain()));
-        progressDialog.setMessage(message);
-        progressDialog.setTitle( headline );
-        progressDialog.show();  		
+        ((CustomActivity) A.getMain()).runOnUiThread(new Runnable() {
+            public void run() {		
+            	Logger.i(TAG, "Show() - UIThread context");
+        		if (progressDialog != null) {
+        			Logger.w(TAG, "progress dialog shows twice");
+                    progressDialog.dismiss();    
+        		}
+        		
+            	progressDialog = new ProgressDialog(((CustomActivity) A.getMain()));
+            	progressDialog.setMessage(message);
+            	progressDialog.setTitle( headline );
+            	progressDialog.show();  	
+            }
+        });
 	}
 	
 	public static void Hide() {
+		Logger.i(TAG, "Hide()");
+		
         ((CustomActivity) A.getMain()).runOnUiThread(new Runnable() {
             public void run() {
-            	Logger.i(TAG, "Hide()");
+            	Logger.i(TAG, "Hide() - UIThread context");
                 if (progressDialog != null) {
                     progressDialog.dismiss();   
                 	progressDialog = null;

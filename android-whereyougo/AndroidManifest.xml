@@ -91,6 +91,12 @@
 			android:screenOrientation="portrait"
 			android:theme="@style/ThemeSettings" />
 		
+		<activity
+		    android:name="org.yaawp.hmi.activities.YaawpPreferenceActivity"
+		    android:screenOrientation="portrait" />
+		<activity
+		    android:name="org.yaawp.maps.mapsforge.CartridgeMapActivity"
+		    android:screenOrientation="portrait" />		
 		<service android:name="menion.android.whereyougo.hardware.location.GpsConnectionService" />
 		<service android:name="menion.android.whereyougo.utils.audio.AudioPlayService" />
 		

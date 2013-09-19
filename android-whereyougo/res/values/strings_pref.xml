@@ -99,4 +99,5 @@
     <string name="pref_wherigo_engine_plattform_desc">Choose name of the plattform</string>
     <string name="pref_wherigo_engine_username_desc">Choose your user name</string>
     <string name="pref_wherigo_engine_replace_username_desc">Replace the cartridge build-in username with custom user name</string>
+    <string name="pref_fakekey_main_screen">0815</string>
 </resources>
