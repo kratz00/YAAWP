@@ -35,7 +35,7 @@ public class UtilsFormat {
 	private static final String TAG = "UtilsFormat";
 	
 	// degree sign
-	public static String degree = "°";
+	public static String degree = "¡";
 	// angle mi value
     private static double angleInMi = (2 * Math.PI * 1000.0 / 360.0);
 
