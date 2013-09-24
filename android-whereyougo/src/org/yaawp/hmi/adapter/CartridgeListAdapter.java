@@ -34,12 +34,6 @@ public class CartridgeListAdapter extends BaseAdapter {
     
     private ListView listView;
     
-    public static final int TYPE_LIST_VIEW = 0;
-    public static final int TYPE_SPINNER_VIEW = 1;
-    public static final int TYPE_OTHER = 2;
-    
-    private int type = TYPE_LIST_VIEW;
-
     private static final int PADDING = (int) Utils.getDpPixels(4.0f);
     
     /** visibility of bottom view */
@@ -53,21 +47,12 @@ public class CartridgeListAdapter extends BaseAdapter {
     
 //    public static final Drawable SEPARATOR = A.getApp().getResources().getDrawable(R.drawable.var_separator);
     
-	public CartridgeListAdapter(Context context, Vector<CartridgeListItem> data, View view) {
-    	this.mData = data;
+	public CartridgeListAdapter(Context context, Vector<CartridgeListItem> data, View view) {	
+		this.mData = data;
     
-		if (view instanceof ListView) {
-			this.listView = (ListView) view;
-			this.listView.setBackgroundColor(Color.WHITE);
-			this.type = TYPE_LIST_VIEW;
-		} else if (view instanceof Spinner) {
-			this.type = TYPE_SPINNER_VIEW;
-		} else {
-			setTextView02Visible(View.GONE, true);
-			
-			this.type = TYPE_OTHER;
-		}
-
+		this.listView = (ListView) view;
+		this.listView.setBackgroundColor(Color.WHITE);
+	
 		this.context = context;
     }
 
@@ -115,26 +100,22 @@ public class CartridgeListAdapter extends BaseAdapter {
 	
 	@Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-    	if (convertView == null) {
-			convertView = createEmptyView(context, mData.get( position ).isSeparator() );
-		}
+		convertView = createEmptyView(context, mData.get( position ).isSeparator() );
     	return getViewItem(position, convertView, true);
     }
-    
+	   
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-    	if (convertView == null) {
-			convertView = createEmptyView(context, mData.get( position ).isSeparator() );
-		}
-		return getViewItem(position, convertView, false);
+		convertView = createEmptyView(context, mData.get( position ).isSeparator() );
+		return getViewItem( position, convertView, false);
 	}
 	
 	private View getViewItem(int position, View convertView, boolean dropDown) {
 		try {
 			if ( mData.get( position ).isSeparator() ) {
-				return getViewItem_Separator( position, convertView, dropDown );
+				return getViewItem_Separator( position, convertView );
 			} else {
-				return getViewItem_Cartridge( position, convertView, dropDown );
+				return getViewItem_Cartridge( position, convertView );
 			}
 		} catch (Exception e) {
 			Logger.e(TAG, "getView(" + position + ", " + convertView + ")", e);
@@ -144,20 +125,20 @@ public class CartridgeListAdapter extends BaseAdapter {
 		return convertView;		
 	}
 
-	private View getViewItem_Separator( int position, View convertView, boolean dropDown ) {
+	private View getViewItem_Separator( int position, View view ) {
 		try {
 			CartridgeListSeparatorItem item = ((CartridgeListSeparatorItem)mData.get( position ));
 			
-			convertView.setBackgroundColor(Color.LTGRAY);
+			view.setBackgroundColor(Color.LTGRAY);
 			
-			View v = convertView.findViewById(R.id.linear_layout_separator);
+			View v = view.findViewById(R.id.linear_layout_separator);
 			LinearLayout llMain = (LinearLayout) v;
 			llMain.setPadding(PADDING, PADDING, PADDING, PADDING);
 			if (minHeight != Integer.MIN_VALUE) {
 				llMain.setMinimumHeight(minHeight);
 			}
 	
-			TextView tv01 = (TextView) convertView.findViewById(R.id.linearLayoutSeparatorHeadline);
+			TextView tv01 = (TextView) view.findViewById(R.id.linearLayoutSeparatorHeadline);
 
 			
 			llMain.setOnClickListener(null);
@@ -179,14 +160,14 @@ public class CartridgeListAdapter extends BaseAdapter {
 			llMain.setBackgroundColor(Color.TRANSPARENT);
 		
 		} catch (Exception e) {
-			Logger.e(TAG, "getView(" + position + ", " + convertView + ")", e);
+			Logger.e(TAG, "getView(" + position + ", " + view + ")", e);
 		}
 		
-		convertView.forceLayout();
-		return convertView;		
+		view.forceLayout();
+		return view;		
 	}
 	
-	private View getViewItem_Cartridge( int position, View convertView, boolean dropDown ) {
+	private View getViewItem_Cartridge( int position, View view ) {
 		try {
 			CartridgeFile file = ((CartridgeListGameItem)mData.get( position )).mCartridge;
             byte[] iconData = file.getFile(file.iconId);
@@ -218,16 +199,16 @@ public class CartridgeListAdapter extends BaseAdapter {
             
             /* -------- */
 			
-			LinearLayout llMain = (LinearLayout) convertView.findViewById(R.id.linear_layout_main);
+			LinearLayout llMain = (LinearLayout) view.findViewById(R.id.linear_layout_main);
 			llMain.setPadding(PADDING, PADDING, PADDING, PADDING);
 			if (minHeight != Integer.MIN_VALUE) {
 				llMain.setMinimumHeight(minHeight);
 			}
 	
-			TextView tv01 = (TextView) convertView.findViewById(R.id.layoutIconedListAdapterTextView01);
-			TextView tv02 = (TextView) convertView.findViewById(R.id.layoutIconedListAdapterTextView02);
-	    	ImageView iv01 = (ImageView) convertView.findViewById(R.id.layoutIconedListAdapterImageView01);
-			ImageView iv02 = (ImageView) convertView.findViewById(R.id.layoutIconedListAdapterImageView02);
+			TextView tv01 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView01);
+			TextView tv02 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView02);
+	    	ImageView iv01 = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView01);
+			ImageView iv02 = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView02);
 			
 			// set TextView top
 			tv01.setBackgroundColor(Color.TRANSPARENT);
@@ -265,18 +246,6 @@ public class CartridgeListAdapter extends BaseAdapter {
 
 			// compute MULTI
 			float multi = 1.0f;
-			if (type == TYPE_SPINNER_VIEW && !dropDown) {
-				multi = 0.75f;
-			} else if (type == TYPE_SPINNER_VIEW && dropDown) {
-				multi = 1.25f;
-				// hack to fix spinnerView
-				tv01.setHeight((int) (multi * Images.SIZE_BIG));
-			} else if (type == TYPE_LIST_VIEW) {
-				multi = 1.0f;
-			} else if (type == TYPE_OTHER) {
-				// for dialogs and similar things
-				multi = 1.0f;
-			}
 			multi *= multiplyImageSize;
 			
 			// set ImageView left
@@ -311,7 +280,7 @@ public class CartridgeListAdapter extends BaseAdapter {
 	        iv01.setVisibility(View.VISIBLE);
 			
 			// set ImageView right
-			iv02 = (ImageView) convertView.findViewById(R.id.layoutIconedListAdapterImageView02);
+			iv02 = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView02);
 			iv02.setVisibility(View.GONE);
 			
 			if ( iconRight != null){
@@ -325,11 +294,11 @@ public class CartridgeListAdapter extends BaseAdapter {
 			else
 				llMain.setBackgroundColor(Color.LTGRAY);
 		} catch (Exception e) {
-			Logger.e(TAG, "getView(" + position + ", " + convertView + ")", e);
+			Logger.e(TAG, "getView(" + position + ", " + view + ")", e);
 		}
 
-		convertView.forceLayout();
-		return convertView;
+		view.forceLayout();
+		return view;
 	}
 	
 	public void setTextView02Visible(int visibility, boolean hideIfEmpty) {
