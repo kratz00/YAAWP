@@ -35,7 +35,7 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
 	    
 	    addOnPreferenceChangeListener( R.string.pref_highlight, VALUE_CHANGE_LISTENER );
 	    addOnPreferenceChangeListener( R.string.pref_wherigo_engine_deviceid, VALUE_CHANGE_LISTENER );
-	    addOnPreferenceChangeListener( R.string.pref_wherigo_engine_plattform, VALUE_CHANGE_LISTENER );
+	    addOnPreferenceChangeListener( R.string.pref_wherigo_engine_platform, VALUE_CHANGE_LISTENER );
 	    addOnPreferenceChangeListener( R.string.pref_sensors_compass_hardware, VALUE_CHANGE_LISTENER );
 	    addOnPreferenceChangeListener( R.string.pref_sensors_compass_auto_change, VALUE_CHANGE_LISTENER );
 	    addOnPreferenceChangeListener( R.string.pref_sensors_compass_auto_change_value, VALUE_CHANGE_LISTENER );    
@@ -87,7 +87,7 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
             else if (isPreference(preference, R.string.pref_wherigo_engine_deviceid)) {
             	OpenWigHelper.SetDeviceId(value.toString());           	
             }
-            else if (isPreference(preference, R.string.pref_wherigo_engine_plattform)) {
+            else if (isPreference(preference, R.string.pref_wherigo_engine_platform)) {
             	OpenWigHelper.SetPlatform(value.toString());         	
             }
             else if (isPreference(preference, R.string.pref_sensors_compass_hardware)) {

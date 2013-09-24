@@ -149,7 +149,7 @@ public class MainApplication extends Application {
     	
     	// init openwig engine
     	OpenWigHelper.SetDeviceId( PreferenceUtils.getPrefString( R.string.pref_wherigo_engine_deviceid ) );
-    	OpenWigHelper.SetPlatform( PreferenceUtils.getPrefString( R.string.pref_wherigo_engine_plattform ) );
+    	OpenWigHelper.SetPlatform( PreferenceUtils.getPrefString( R.string.pref_wherigo_engine_platform ) );
 	}
 	
     private static Timer mTimer;
