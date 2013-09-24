@@ -27,13 +27,13 @@
 
 	<application android:icon="@drawable/icon"
 		android:label="Yaawp"
-		android:name="menion.android.whereyougo.gui.extension.MainApplication"
-		android:theme="@style/AppTheme">
-		
+		android:name="menion.android.whereyougo.gui.extension.MainApplication" >
+	
 		<activity 
-		        android:name="menion.android.whereyougo.Main" 
+		    android:name="menion.android.whereyougo.Main" 
 			android:label="Yaawp" 
-			android:screenOrientation="portrait">
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -89,7 +89,7 @@
 		<activity
 			android:name="menion.android.whereyougo.gui.SettingScreens"
 			android:screenOrientation="portrait"
-			android:theme="@style/ThemeSettings" />
+			/> <!-- android:theme="@style/ThemeSettings" /> -->
 		
 		<activity
 		    android:name="org.yaawp.hmi.activities.YaawpPreferenceActivity"
