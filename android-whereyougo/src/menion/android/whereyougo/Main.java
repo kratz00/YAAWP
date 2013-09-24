@@ -167,7 +167,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                     	return;
                     }
                     
-                    CartridgeSession file = new CartridgeSession( ((CartridgeListGameItem)item).mCartridge, null, wui );
+                    CartridgeSession file = new CartridgeSession( ((CartridgeListGameItem)item).mCartridge, null, wui ); 
                     menu.setHeaderTitle( file.GetCartridge().name );
                     // menu.setHeaderIcon( file.GetCartridge().iconId );
                     
@@ -295,7 +295,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
         	return;
         }
         
-        cartridgeSession = new CartridgeSession( ((CartridgeListGameItem)item).mCartridge, null, wui );
+        cartridgeSession = new CartridgeSession( ((CartridgeListGameItem)item).mCartridge, this, wui );
         startCartridge();
     }    
 	
@@ -387,13 +387,12 @@ public class Main extends CustomMain implements CartridgeSessionListener {
 	@Override
     public void onResume() {
     	super.onResume();
-    	invalidateCartridgeList(); 
+    	fetchCartridgeFiles();
     }
 	
 	@Override
 	public void onStart() {
 		super.onStart();
-		fetchCartridgeFiles();
 	}
     
 	public static void setBitmapToImageView(Bitmap i, ImageView iv) {
@@ -439,6 +438,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
     public void fetchCartridgeFiles() {
 
     	if ( YaawpAppData.GetInstance().mCartridgeListItems.size() > 0 ) {
+    		invalidateCartridgeList(); 
     		return;
     	}
     	
