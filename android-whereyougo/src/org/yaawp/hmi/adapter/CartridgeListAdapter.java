@@ -31,9 +31,7 @@ public class CartridgeListAdapter extends BaseAdapter {
 	Vector<CartridgeListItem> mData;
     
     private Context context;
-    
-    private ListView listView;
-    
+       
     private static final int PADDING = (int) Utils.getDpPixels(4.0f);
     
     /** visibility of bottom view */
@@ -44,15 +42,9 @@ public class CartridgeListAdapter extends BaseAdapter {
     private int minHeight = Integer.MIN_VALUE;
     // rescale image size
     private float multiplyImageSize = 1.0f;
-    
-//    public static final Drawable SEPARATOR = A.getApp().getResources().getDrawable(R.drawable.var_separator);
-    
+       
 	public CartridgeListAdapter(Context context, Vector<CartridgeListItem> data, View view) {	
 		this.mData = data;
-    
-		this.listView = (ListView) view;
-		this.listView.setBackgroundColor(Color.WHITE);
-	
 		this.context = context;
     }
 
