@@ -81,11 +81,12 @@ public class CartridgeMapActivity extends MapActivity {
         
         if ( array.length > 0) {
         	
+        	boolean init = false;
 	        for (int i = 0; i < array.length; i++) {
 	        	
 	            // create a GeoPoint with the latitude and longitude coordinates
 	        	
-                CartridgeListItem listitem = YaawpAppData.GetInstance().mCartridgeListItems.get(i);
+                CartridgeListItem listitem = YaawpAppData.GetInstance().mCartridgeListItems.get(array[i]);
                 if ( listitem.isSeparator() == true ) {
                 	continue;
                 }
@@ -100,18 +101,19 @@ public class CartridgeMapActivity extends MapActivity {
 					continue;
 	        	}
 	        	
-	        	if ( i == 0 ) {
+	        	if ( !init ) {
 	        		latmin = wigfile.latitude;
 	        		latmax = wigfile.latitude;
 	        		lonmin = wigfile.longitude;
 	        		lonmax = wigfile.longitude;
+	        		init = true;
+	        	} else {	
+		        	latmin = Math.min(latmin,wigfile.latitude);
+		        	latmax = Math.max(latmax,wigfile.latitude);
+		        	lonmin = Math.min(lonmin,wigfile.longitude);
+		        	lonmax = Math.max(lonmax,wigfile.longitude);	        	
 	        	}
 	        	
-	        	latmin = Math.min(latmin,wigfile.latitude);
-	        	latmax = Math.max(latmax,wigfile.latitude);
-	        	lonmin = Math.min(lonmin,wigfile.longitude);
-	        	lonmax = Math.max(lonmax,wigfile.longitude);	        	
-	        		
 	            geoPoint = new GeoPoint(wigfile.latitude, wigfile.longitude);
 	
 	            // create an OverlayItem with title and description
