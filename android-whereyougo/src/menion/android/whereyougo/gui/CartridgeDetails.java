@@ -40,7 +40,7 @@ import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import cz.matejcik.openwig.formats.CartridgeFile;
+import cz.matejcik.openwig.formats.ICartridge;
 import org.yaawp.bl.CartridgeSession;
 
 public class CartridgeDetails extends CustomActivity {
@@ -50,7 +50,7 @@ public class CartridgeDetails extends CustomActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		CartridgeFile cartridgeFile = Main.cartridgeSession.GetCartridge();
+		ICartridge cartridgeFile = Main.cartridgeSession.GetCartridge();
 		
 		setContentView(R.layout.layout_details);
 
@@ -103,11 +103,11 @@ public class CartridgeDetails extends CustomActivity {
 		getString(R.string.navigate), new CustomDialog.OnClickListener() {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
-			    CartridgeFile cartridgeFile = Main.cartridgeSession.GetCartridge();
+			    ICartridge cartridge = Main.cartridgeSession.GetCartridge();
 				Location loc = new Location(TAG);
-				loc.setLatitude(cartridgeFile.getLatitude());
-				loc.setLongitude(cartridgeFile.getLongitude());
-				Waypoint wpt = new Waypoint(cartridgeFile.getName(), loc);
+				loc.setLatitude(cartridge.getLatitude());
+				loc.setLongitude(cartridge.getLongitude());
+				Waypoint wpt = new Waypoint(cartridge.getName(), loc);
 				A.getGuidingContent().guideStart(wpt);
 				Main.callGudingScreen(CartridgeDetails.this);
 				CartridgeDetails.this.finish();

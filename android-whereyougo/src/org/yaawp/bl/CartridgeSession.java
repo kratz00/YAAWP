@@ -13,13 +13,13 @@ import org.yaawp.preferences.PreferenceUtils;
 import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.utils.Logger;
 import cz.matejcik.openwig.Engine;
-import cz.matejcik.openwig.formats.CartridgeFile;
+import cz.matejcik.openwig.formats.ICartridge;
 
 public class CartridgeSession
 {
     private static final String TAG = "CartridgeSession";
     
-    private CartridgeFile _cartridge = null;
+    private ICartridge _cartridge = null;
     
     private CartridgeSessionListener _listener = null;
     
@@ -88,12 +88,12 @@ public class CartridgeSession
         
         _listener.UpdatedCartridgeSession( msgid, _cartridge );
     }
-    public CartridgeSession( CartridgeFile cartridge, CartridgeSessionListener listener, WUI wui ) {
+    public CartridgeSession( ICartridge cartridge, CartridgeSessionListener listener, WUI wui ) {
         _cartridge = cartridge;
         _wui = wui;
         _listener = listener;
-        new CFile( cartridge.filename, "ows" );
-        new CFile( cartridge.filename, "gwl" );
+        new CFile( cartridge.getFilename(), "ows" );
+        new CFile( cartridge.getFilename(), "gwl" );
     }
     
     public void EndSession() {
@@ -103,7 +103,7 @@ public class CartridgeSession
         }
     }
     
-    public CartridgeFile GetCartridge() {
+    public ICartridge GetCartridge() {
         return _cartridge;
     }
     
@@ -121,7 +121,7 @@ public class CartridgeSession
         }
         
         try {
-            File file = new File( _cartridge.filename.substring(0, _cartridge.filename.length() - 3) + "ows");
+            File file = new File( _cartridge.getFilename().substring(0, _cartridge.getFilename().length() - 3) + "ows");
             return file;
         } catch (SecurityException e) {
             Logger.e(TAG, "getSaveFile()", e);
@@ -156,7 +156,7 @@ public class CartridgeSession
         }        
         
         try {
-            File file = new File( _cartridge.filename.substring(0, _cartridge.filename.length() - 3) + "gwl");
+            File file = new File( _cartridge.getFilename().substring(0, _cartridge.getFilename().length() - 3) + "gwl");
             return file;
         } catch (SecurityException e) {
             Logger.e(TAG, "getLogFile()", e);

@@ -21,7 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Vector;
-import cz.matejcik.openwig.formats.CartridgeFile;
+import cz.matejcik.openwig.formats.ICartridge;
 
 
 public class CartridgeListAdapter extends BaseAdapter {
@@ -161,7 +161,7 @@ public class CartridgeListAdapter extends BaseAdapter {
 	
 	private View getViewItem_Cartridge( int position, View view ) {
 		try {
-			CartridgeFile file = ((CartridgeListGameItem)mData.get( position )).mCartridge;
+			ICartridge file = ((CartridgeListGameItem)mData.get( position )).mCartridge;
             byte[] iconData = file.getFile(file.getIconId());
             Bitmap iconLeft = null;
             try {

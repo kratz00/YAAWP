@@ -15,15 +15,13 @@ import org.mapsforge.android.maps.overlay.OverlayItem;
 import org.mapsforge.core.GeoPoint;
 import org.yaawp.R;
 import org.yaawp.app.YaawpAppData;
-import org.yaawp.bl.CartridgeSession;
 import org.yaawp.hmi.adapter.CartridgeListGameItem;
 import org.yaawp.hmi.adapter.CartridgeListItem;
 import org.yaawp.hmi.helper.CartridgeHelper;
 
-import cz.matejcik.openwig.formats.CartridgeFile;
+import cz.matejcik.openwig.formats.ICartridge;
 
 import android.graphics.drawable.Drawable;
-import cz.matejcik.openwig.formats.CartridgeFile;
 import org.yaawp.maps.YGeoPoint;
 
 public class CartridgeMapActivity extends MapActivity {
@@ -91,33 +89,33 @@ public class CartridgeMapActivity extends MapActivity {
                 	continue;
                 }
                 
-                CartridgeFile wigfile = ((CartridgeListGameItem)listitem).mCartridge;
-                if ( wigfile == null ) {
+                ICartridge cartridge = ((CartridgeListGameItem)listitem).mCartridge;
+                if ( cartridge == null ) {
                 	continue;
                 }
                 
 				// remove location less
-	        	if (CartridgeHelper.isPlayAnywhere(wigfile)) {
+	        	if (CartridgeHelper.isPlayAnywhere(cartridge)) {
 					continue;
 	        	}
 	        	
 	        	if ( !init ) {
-	        		latmin = wigfile.getLatitude();
-	        		latmax = wigfile.getLatitude();
-	        		lonmin = wigfile.getLongitude();
-	        		lonmax = wigfile.getLongitude();
+	        		latmin = cartridge.getLatitude();
+	        		latmax = cartridge.getLatitude();
+	        		lonmin = cartridge.getLongitude();
+	        		lonmax = cartridge.getLongitude();
 	        		init = true;
 	        	} else {	
-		        	latmin = Math.min(latmin,wigfile.getLatitude());
-		        	latmax = Math.max(latmax,wigfile.getLatitude());
-		        	lonmin = Math.min(lonmin,wigfile.getLongitude());
-		        	lonmax = Math.max(lonmax,wigfile.getLongitude());	        	
+		        	latmin = Math.min(latmin,cartridge.getLatitude());
+		        	latmax = Math.max(latmax,cartridge.getLatitude());
+		        	lonmin = Math.min(lonmin,cartridge.getLongitude());
+		        	lonmax = Math.max(lonmax,cartridge.getLongitude());	        	
 	        	}
 	        	
-	            geoPoint = new GeoPoint(wigfile.getLatitude(), wigfile.getLongitude());
+	            geoPoint = new GeoPoint(cartridge.getLatitude(), cartridge.getLongitude());
 	
 	            // create an OverlayItem with title and description
-	            OverlayItem item = new OverlayItem(geoPoint, wigfile.getName(),
+	            OverlayItem item = new OverlayItem(geoPoint, cartridge.getName(),
 	                    "Hier kšnnte ihre Werbung stehen!");
 	
 	            // add the OverlayItem to the ArrayItemizedOverlay

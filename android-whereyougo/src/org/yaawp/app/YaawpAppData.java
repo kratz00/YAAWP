@@ -1,7 +1,7 @@
 package org.yaawp.app;
 
 import java.util.Vector;
-import cz.matejcik.openwig.formats.CartridgeFile;
+import cz.matejcik.openwig.formats.ICartridge;
 import org.yaawp.hmi.adapter.CartridgeListItem;
 
 public class YaawpAppData {

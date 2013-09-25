@@ -51,6 +51,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import cz.matejcik.openwig.formats.ICartridge;
 import cz.matejcik.openwig.formats.CartridgeFile;
 import org.yaawp.R;
 import org.yaawp.app.YaawpAppData;
@@ -96,7 +97,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
     }
     
     @Override 
-    public void UpdatedCartridgeSession( int msgid, CartridgeFile cartridge ) {
+    public void UpdatedCartridgeSession( int msgid, ICartridge cartridge ) {
         switch( msgid) {
             case CartridgeSessionListener.CARTRIDGE_SESSION_LOADINING:
             	ProgressDialogHelper.Show( "", "Starting Cartridges" ); // TODO use string id
@@ -456,10 +457,9 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                     for (File file : files) {
                         try {
                             // actualFile = file;
-                            CartridgeFile cart = CartridgeFile.read(new WSeekableFile(file), new WSaveFile(file));
+                            CartridgeFile cart = CartridgeFile.read(file.getAbsolutePath(), new WSeekableFile(file), new WSaveFile(file));
                             
                             if (cart != null) {               
-                                cart.filename = file.getAbsolutePath();
                                 YaawpAppData.GetInstance().mCartridgeListItems.add( new CartridgeListGameItem(cart) );
                             }
                         } catch (Exception e) {
