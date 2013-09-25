@@ -17,7 +17,7 @@ public class CartridgeFile implements ICartridge {
 
 	private static final int CACHE_LIMIT = 128000; // in kB
 	
-	private SeekableFile source;
+	protected SeekableFile source;
 
 	protected Savegame savegame;
 	
@@ -33,7 +33,7 @@ public class CartridgeFile implements ICartridge {
 	
 	protected CartridgeFile() { }
 	
-	private boolean fileOk () throws IOException {
+	protected boolean fileOk () throws IOException {
 		byte[] buf = new byte[CART_ID.length];
 		source.seek(0);
 		source.readFully(buf);
@@ -64,7 +64,7 @@ public class CartridgeFile implements ICartridge {
 		return cf;
 	}
 	
-	private void scanOffsets () throws IOException {
+	protected void scanOffsets () throws IOException {
 		files = source.readShort();
 		offsets = new int[files];
 		ids = new int[files];
@@ -74,7 +74,7 @@ public class CartridgeFile implements ICartridge {
 		}
 	}
 	
-	private void scanHeader () throws IOException {
+	protected void scanHeader () throws IOException {
 		source.readInt(); // header length
 
 		latitude = source.readDouble();
