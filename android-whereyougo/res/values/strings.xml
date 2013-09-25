@@ -84,5 +84,6 @@
     <string name="ctx_menu_del_saved_game">Delete saved game</string>
     <string name="ctx_menu_play">Play</string>
     <string name="ctx_menu_delete_log_file">Delete log file</string>
-    <string name="ctx_menu_send_log_file">Send log file</string>   
+    <string name="ctx_menu_send_log_file">Send log file</string> 
+    <string name="err_none">OK</string>  
 </resources>

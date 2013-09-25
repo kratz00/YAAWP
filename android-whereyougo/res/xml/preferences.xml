@@ -7,11 +7,20 @@
 	? src\menion\android\whereyougo\settings\UtilsSettings.java
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yaawp="http://schemas.android.com/apk/res/org.yaawp"
     android:key="@string/pref_fakekey_main_screen" >
 
 	<PreferenceCategory 
 	    android:title="@string/settings" >
 	
+		<!--
+		<org.yaawp.preferences.InfoPreference
+			android:text="XXXXX"
+			android:title="Title"
+			yaawp:url="http://keine.ahnung.de"
+			yaawp:urlButton="Click" /> 
+	    -->
+	    
 		<PreferenceScreen
 			
 			android:title="@string/pref_global" >
