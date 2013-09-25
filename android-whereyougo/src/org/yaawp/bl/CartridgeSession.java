@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.yaawp.bl.CartridgeSessionListener;
 import org.yaawp.openwig.WLocationService;
 import org.yaawp.openwig.WUI;
 import org.yaawp.R;
@@ -20,9 +19,7 @@ public class CartridgeSession
     private static final String TAG = "CartridgeSession";
     
     private YCartridge _cartridge = null;
-    
-    private CartridgeSessionListener _listener = null;
-    
+       
     public static WLocationService wLocationService = new WLocationService();
     
     public static WUI _wui = null;
@@ -79,19 +76,12 @@ public class CartridgeSession
     public CartridgeSession() {
         _cartridge = null;
         _wui = null;
-        _listener = null;
     }
     
-    private void NotifyListener( int msgid ) {
-        if ( _listener == null )
-            return;
-        
-        _listener.UpdatedCartridgeSession( msgid, _cartridge );
-    }
-    public CartridgeSession( YCartridge cartridge, CartridgeSessionListener listener, WUI wui ) {
+
+    public CartridgeSession( YCartridge cartridge, WUI wui ) {
         _cartridge = cartridge;
         _wui = wui;
-        _listener = listener;
         new CFile( cartridge.getFilename(), "ows" );
         new CFile( cartridge.getFilename(), "gwl" );
     }
@@ -181,7 +171,9 @@ public class CartridgeSession
             }              
             
             FileOutputStream log = new FileOutputStream(fileLog);
-            NotifyListener( CartridgeSessionListener.CARTRIDGE_SESSION_LOADINING ); // TODO WUI.startProgressDialog();
+            if ( _wui != null ) {
+            	_wui.loadCartridge();
+            }
             ChangeUsername();
             Engine.newInstance( _cartridge, log, _wui, wLocationService).start();
         } catch (Exception e) {
@@ -205,7 +197,9 @@ public class CartridgeSession
             
             FileOutputStream log = new FileOutputStream(file);
             ChangeUsername();
-            NotifyListener( CartridgeSessionListener.CARTRIDGE_SESSION_LOADINING ); // WUI.startProgressDialog();
+            if ( _wui != null ) {
+            	_wui.loadCartridge();
+            }
             Engine.newInstance( _cartridge, log, _wui, wLocationService).restore();
         } catch (Exception e) {
             Logger.e(TAG, "restoreCartridge() - create empty saveGame file", e);

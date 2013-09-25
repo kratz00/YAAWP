@@ -56,7 +56,6 @@ import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
-import org.yaawp.bl.CartridgeSessionListener;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.openwig.WSaveFile;
@@ -75,7 +74,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 
-public class Main extends CustomMain implements CartridgeSessionListener {
+public class Main extends CustomMain {
 
 	private static final String TAG = "Main";
 	
@@ -95,15 +94,6 @@ public class Main extends CustomMain implements CartridgeSessionListener {
         initCartridgeList();
     }
     
-    @Override 
-    public void UpdatedCartridgeSession( int msgid, ICartridge cartridge ) {
-        switch( msgid) {
-            case CartridgeSessionListener.CARTRIDGE_SESSION_LOADINING:
-            	ProgressDialogHelper.Show( "", "Starting Cartridges" ); // TODO use string id
-                break;
-        }
-    }
-
     public void fetchCartridgeFilesNotification( int msgid ) {
         switch( msgid) {
             case CARTRIDGE_LIST_UPDATING:
@@ -167,7 +157,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                     	return;
                     }
                     
-                    CartridgeSession file = new CartridgeSession( ((CartridgeListGameItem)item).mCartridge, null, wui ); 
+                    CartridgeSession file = new CartridgeSession( ((CartridgeListGameItem)item).mCartridge, wui ); 
                     menu.setHeaderTitle( file.GetCartridge().getName() );
                     // menu.setHeaderIcon( file.GetCartridge().iconId );
                     
@@ -217,7 +207,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
         	return false;
         }
         
-        cartridgeSession = new CartridgeSession( ((CartridgeListGameItem)citem).mCartridge, this, wui );
+        cartridgeSession = new CartridgeSession( ((CartridgeListGameItem)citem).mCartridge, wui );
         
         switch( index )
         {
@@ -295,7 +285,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
         	return;
         }
         
-        cartridgeSession = new CartridgeSession( ((CartridgeListGameItem)item).mCartridge, this, wui );
+        cartridgeSession = new CartridgeSession( ((CartridgeListGameItem)item).mCartridge, wui );
         startCartridge();
     }    
 	

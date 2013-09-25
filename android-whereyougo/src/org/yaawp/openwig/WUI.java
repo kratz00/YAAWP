@@ -85,7 +85,7 @@ public class WUI implements UI {
 
 	public void pushDialog(String[] texts, Media[] media, String button1,
 			String button2, LuaClosure callback) {
-Logger.w(TAG, "pushDialog(" + texts + ", " + media + ", " + button1 + ", " + button2 + ", " + callback + ")");
+		Logger.w(TAG, "pushDialog(" + texts + ", " + media + ", " + button1 + ", " + button2 + ", " + callback + ")");
 
 		Activity activity = ScreenHelper.getParentActivity();
 		PushDialog.setDialog(texts, media, button1, button2, callback);
@@ -98,7 +98,7 @@ Logger.w(TAG, "pushDialog(" + texts + ", " + media + ", " + button1 + ", " + but
 	}
 
 	public void pushInput(EventTable input) {
-Logger.w(TAG, "pushInput(" + input + ")");
+		Logger.w(TAG, "pushInput(" + input + ")");
 		Activity activity = ScreenHelper.getParentActivity();
 		InputScreen.setInput(input);
 		Intent intent = new Intent(activity, InputScreen.class);
@@ -107,14 +107,14 @@ Logger.w(TAG, "pushInput(" + input + ")");
 	}
 
 	public void refresh() {
-Logger.w(TAG, "refresh(), currentActivity:" + Settings.getCurrentActivity());
+		Logger.w(TAG, "refresh(), currentActivity:" + Settings.getCurrentActivity());
 		if (Settings.getCurrentActivity() != null && Settings.getCurrentActivity() instanceof Refreshable) {
 			((Refreshable) Settings.getCurrentActivity()).refresh();
 		}
 	}
 
 	public void setStatusText(final String text) {
-Logger.w(TAG, "setStatus(" + text + ")");
+		Logger.w(TAG, "setStatus(" + text + ")");
 		if (text == null || text.length() == 0)
 			return;
 		
@@ -132,6 +132,10 @@ Logger.w(TAG, "setStatus(" + text + ")");
 
 	public void showScreen(int screenId, EventTable details) {
 		ScreenHelper.activateScreen( screenId, details );
+	}
+	
+	public void loadCartridge() {
+    	ProgressDialogHelper.Show( "", "Starting Cartridges" ); // TODO use string id
 	}
 	
 	public void start() {

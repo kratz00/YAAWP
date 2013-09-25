@@ -18,10 +18,7 @@ public class YCartridge extends CartridgeFile {
 		filename = _filename;
 	}
 	
-	public boolean isPlayAnywhere() {
-    	return ( latitude % 360.0 == 0 && longitude % 360.0 == 0);
-	}
-	
+
 	/** Read the specified file and return a corresponding CartridgeFile object.
 	 *
 	 * @param source file representing the cartridge
@@ -29,8 +26,7 @@ public class YCartridge extends CartridgeFile {
 	 * @return a CartridgeFile object corresponding to source
 	 * @throws IOException
 	 */
-	public static YCartridge read ( String filename, SeekableFile source, FileHandle savefile)
-	throws IOException {
+	public static YCartridge read ( String filename, SeekableFile source, FileHandle savefile) throws IOException {
 		YCartridge cf = new YCartridge( filename, source, savefile );
 		return cf;
 	}	
@@ -38,4 +34,9 @@ public class YCartridge extends CartridgeFile {
 	public String getFilename() {
 		return filename;
 	} 	
+
+	public boolean isPlayAnywhere() {
+    	return ( latitude % 360.0 == 0 && longitude % 360.0 == 0);
+	}
+	
 }
