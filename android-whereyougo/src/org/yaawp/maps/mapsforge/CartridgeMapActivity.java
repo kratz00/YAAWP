@@ -17,7 +17,7 @@ import org.yaawp.R;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.adapter.CartridgeListGameItem;
 import org.yaawp.hmi.adapter.CartridgeListItem;
-import org.yaawp.hmi.helper.CartridgeHelper;
+import org.yaawp.YCartridge;
 
 import cz.matejcik.openwig.formats.ICartridge;
 
@@ -89,13 +89,13 @@ public class CartridgeMapActivity extends MapActivity {
                 	continue;
                 }
                 
-                ICartridge cartridge = ((CartridgeListGameItem)listitem).mCartridge;
+                YCartridge cartridge = ((CartridgeListGameItem)listitem).mCartridge;
                 if ( cartridge == null ) {
                 	continue;
                 }
                 
 				// remove location less
-	        	if (CartridgeHelper.isPlayAnywhere(cartridge)) {
+	        	if (cartridge.isPlayAnywhere()) {
 					continue;
 	        	}
 	        	

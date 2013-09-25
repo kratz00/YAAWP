@@ -1,4 +1,4 @@
-package org.yaawp.hmi.helper;
+/* package org.yaawp.hmi.helper;
 
 import cz.matejcik.openwig.formats.ICartridge;
 
@@ -9,3 +9,4 @@ public class CartridgeHelper {
 	}
 	
 }
+*/

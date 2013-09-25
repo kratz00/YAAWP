@@ -52,12 +52,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import cz.matejcik.openwig.formats.ICartridge;
-import cz.matejcik.openwig.formats.CartridgeFile;
 import org.yaawp.R;
+import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.bl.CartridgeSessionListener;
-import org.yaawp.hmi.helper.CartridgeHelper;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.openwig.WSaveFile;
@@ -175,7 +174,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                     
                     menu.add( Menu.NONE, R.string.ctx_menu_send_game, 1, getString(R.string.ctx_menu_send_game) ); 
                     
-                    if ( !CartridgeHelper.isPlayAnywhere(file.GetCartridge())) {
+                    if ( !file.GetCartridge().isPlayAnywhere()) {
                     	menu.add( Menu.NONE, R.string.ctx_menu_show_on_map, 2, getString(R.string.ctx_menu_show_on_map) );
                     }
                     
@@ -457,7 +456,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                     for (File file : files) {
                         try {
                             // actualFile = file;
-                            CartridgeFile cart = CartridgeFile.read(file.getAbsolutePath(), new WSeekableFile(file), new WSaveFile(file));
+                            YCartridge cart = YCartridge.read(file.getAbsolutePath(), new WSeekableFile(file), new WSaveFile(file));
                             
                             if (cart != null) {               
                                 YaawpAppData.GetInstance().mCartridgeListItems.add( new CartridgeListGameItem(cart) );

@@ -13,13 +13,13 @@ import org.yaawp.preferences.PreferenceUtils;
 import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.utils.Logger;
 import cz.matejcik.openwig.Engine;
-import cz.matejcik.openwig.formats.ICartridge;
+import org.yaawp.YCartridge;
 
 public class CartridgeSession
 {
     private static final String TAG = "CartridgeSession";
     
-    private ICartridge _cartridge = null;
+    private YCartridge _cartridge = null;
     
     private CartridgeSessionListener _listener = null;
     
@@ -88,7 +88,7 @@ public class CartridgeSession
         
         _listener.UpdatedCartridgeSession( msgid, _cartridge );
     }
-    public CartridgeSession( ICartridge cartridge, CartridgeSessionListener listener, WUI wui ) {
+    public CartridgeSession( YCartridge cartridge, CartridgeSessionListener listener, WUI wui ) {
         _cartridge = cartridge;
         _wui = wui;
         _listener = listener;
@@ -103,7 +103,7 @@ public class CartridgeSession
         }
     }
     
-    public ICartridge GetCartridge() {
+    public YCartridge GetCartridge() {
         return _cartridge;
     }
     

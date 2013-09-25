@@ -1,17 +1,17 @@
 package org.yaawp.hmi.adapter;
 
 import org.yaawp.hmi.adapter.CartridgeListItem;
-import cz.matejcik.openwig.formats.ICartridge;
+import org.yaawp.YCartridge;
 
 public class CartridgeListGameItem implements CartridgeListItem {
 
-	public ICartridge mCartridge = null;
+	public YCartridge mCartridge = null;
 	
 	public boolean isSeparator() {
 		return false;
 	}
 	
-	public CartridgeListGameItem( ICartridge c ) {
+	public CartridgeListGameItem( YCartridge c ) {
 		mCartridge = c;
 	}
 }
