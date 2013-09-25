@@ -12,7 +12,7 @@ public interface ICartridge {
 	
 	public String getDescription();
 	
-	public String getFilename(); // TODO
+	// public String getFilename(); // TODO
 	
 	public int getIconId();
 	

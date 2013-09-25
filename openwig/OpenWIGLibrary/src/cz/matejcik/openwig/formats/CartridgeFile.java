@@ -29,9 +29,21 @@ public class CartridgeFile implements ICartridge {
 	protected String type, member, name, description, startdesc, version, author, url, device, code;
 	protected int iconId, splashId;	
 	
-	protected String filename;
+	
 	
 	protected CartridgeFile() { }
+	
+	protected CartridgeFile( SeekableFile source, FileHandle savefile) throws IOException {
+		CartridgeFile cf = new CartridgeFile();
+		cf.source = source;
+
+		if (!cf.fileOk()) throw new IOException("invalid cartridge file");
+		
+		cf.scanOffsets();
+		cf.scanHeader();
+
+		cf.savegame = new Savegame(savefile);
+	}	
 	
 	protected boolean fileOk () throws IOException {
 		byte[] buf = new byte[CART_ID.length];
@@ -48,19 +60,9 @@ public class CartridgeFile implements ICartridge {
 	 * @return a CartridgeFile object corresponding to source
 	 * @throws IOException
 	 */
-	public static CartridgeFile read ( String filename, SeekableFile source, FileHandle savefile)
+	public static CartridgeFile read ( SeekableFile source, FileHandle savefile)
 	throws IOException {
-		CartridgeFile cf = new CartridgeFile();
-		cf.source = source;
-
-		if (!cf.fileOk()) throw new IOException("invalid cartridge file");
-		
-		cf.filename = filename;
-		cf.scanOffsets();
-		cf.scanHeader();
-
-		cf.savegame = new Savegame(savefile);
-			
+		CartridgeFile cf = new CartridgeFile( source, savefile );
 		return cf;
 	}
 	
@@ -119,10 +121,6 @@ public class CartridgeFile implements ICartridge {
 	@Override
 	public String getDescription() {
 		return description;
-	}
-	
-	public String getFilename() {
-		return filename;
 	}
 	
 	@Override

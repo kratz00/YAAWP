@@ -9,7 +9,14 @@ import cz.matejcik.openwig.platform.SeekableFile;
 
 public class YCartridge extends CartridgeFile {
 
+	private String filename;
+	
 	private YCartridge() { }
+	
+	private YCartridge( String _filename, SeekableFile source, FileHandle savefile ) throws IOException {
+		super(source,savefile);
+		filename = _filename;
+	}
 	
 	public boolean isPlayAnywhere() {
     	return ( latitude % 360.0 == 0 && longitude % 360.0 == 0);
@@ -24,17 +31,11 @@ public class YCartridge extends CartridgeFile {
 	 */
 	public static YCartridge read ( String filename, SeekableFile source, FileHandle savefile)
 	throws IOException {
-		YCartridge cf = new YCartridge();
-		cf.source = source;
-
-		if (!cf.fileOk()) throw new IOException("invalid cartridge file");
-		
-		cf.filename = filename;
-		cf.scanOffsets();
-		cf.scanHeader();
-
-		cf.savegame = new Savegame(savefile);
-			
+		YCartridge cf = new YCartridge( filename, source, savefile );
 		return cf;
 	}	
+	
+	public String getFilename() {
+		return filename;
+	} 	
 }
