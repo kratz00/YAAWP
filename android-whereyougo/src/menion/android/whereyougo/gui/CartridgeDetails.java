@@ -50,7 +50,7 @@ public class CartridgeDetails extends CustomActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		ICartridge cartridgeFile = Main.cartridgeSession.GetCartridge();
+		ICartridge cartridgeFile = Main.currentCartridge;
 		
 		setContentView(R.layout.layout_details);
 
@@ -96,14 +96,14 @@ public class CartridgeDetails extends CustomActivity {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
 				CartridgeDetails.this.finish();
-				Main.cartridgeSession.Start(); 
+				CartridgeSession.Start( Main.currentCartridge, Main.wui ); 
 				return true;
 			}
 		}, null, null,
 		getString(R.string.navigate), new CustomDialog.OnClickListener() {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
-			    ICartridge cartridge = Main.cartridgeSession.GetCartridge();
+			    ICartridge cartridge = Main.currentCartridge;
 				Location loc = new Location(TAG);
 				loc.setLatitude(cartridge.getLatitude());
 				loc.setLongitude(cartridge.getLongitude());

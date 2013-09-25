@@ -1,5 +1,6 @@
 package org.yaawp;
 
+import java.io.File;
 import java.io.IOException;
 
 import cz.matejcik.openwig.formats.CartridgeFile;
@@ -39,4 +40,31 @@ public class YCartridge extends CartridgeFile {
     	return ( latitude % 360.0 == 0 && longitude % 360.0 == 0);
 	}
 	
+	public String getLogFileName() {
+		return filename.substring(0,filename.length() - 3) + "gwl";
+	}
+	
+	public String getSaveFileName() {
+		return filename.substring(0,filename.length() - 3) + "ows";
+	}
+	
+	public boolean existsLogFile() {
+        boolean status = false;
+		try {
+            File fileLog = new File( getLogFileName() );
+            status = fileLog.exists();
+		} catch( Exception e ) {
+        }
+        return status;
+	}
+	
+	public boolean existsSaveFile() {
+        boolean status = false;
+		try {
+            File fileLog = new File( getSaveFileName() );
+            status = fileLog.exists();
+		} catch( Exception e ) {
+        }
+        return status;
+	}	
 }

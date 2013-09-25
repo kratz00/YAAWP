@@ -18,155 +18,33 @@ public class CartridgeSession
 {
     private static final String TAG = "CartridgeSession";
     
-    private YCartridge _cartridge = null;
        
     public static WLocationService wLocationService = new WLocationService();
     
-    public static WUI _wui = null;
     
-    private String originalMember;
     
-    public class CFile {
-        private File _file;
-        
-        CFile() {
-            _file = null;
-        }
-        
-        CFile( String cartridgeFile, String extention  ) {
-            _file = new File( cartridgeFile.substring(0, cartridgeFile.length() - 3) + extention );
-        }
-        
-        public boolean CreateNew() {
-            if ( _file == null ) {
-                return false;
-            }
-            try {
-                
-                return _file.createNewFile(); 
-            } catch( Exception e ) {
-                return false;
-            }            
-        }
-        
-        public boolean Exists2() {
-            if ( _file == null ) {
-                return false;
-            }
-            return _file.exists();
-        }
-        
-        public boolean Exists() {
-            if ( _file == null ) {
-                return false;
-            }
-            try {
-                
-                return _file.delete();
-            } catch( Exception e ) {
-                return false;
-            }
-        }
-        
-        public File GetFile() {
-            return _file;
-        }
-    };
-    
-    public CartridgeSession() {
-        _cartridge = null;
-        _wui = null;
+    private CartridgeSession() {
     }
     
 
-    public CartridgeSession( YCartridge cartridge, WUI wui ) {
-        _cartridge = cartridge;
-        _wui = wui;
-        new CFile( cartridge.getFilename(), "ows" );
-        new CFile( cartridge.getFilename(), "gwl" );
-    }
-    
-    public void EndSession() {
-        if ( _cartridge != null ) {
-            // TODO CHANGEUSERNAME _cartridge.member = originalMember;
-            _cartridge = null;
-        }
-    }
-    
-    public YCartridge GetCartridge() {
-        return _cartridge;
-    }
-    
-    protected  void ChangeUsername() {
-        if ( _cartridge != null && PreferenceUtils.getPrefBoolean( R.string.pref_wherigo_engine_replace_username ) ) {
-        	// TODO CHANGEUSERNAME originalMember = _cartridge.member;
-        	// TODO CHANGEUSERNAME _cartridge.member = PreferenceUtils.getPrefString( R.string.pref_wherigo_engine_username );
-        }
-    }
-    
-    public File getSaveFile() throws IOException {
-        
-        if ( _cartridge == null ) {
-            return null;
-        }
-        
-        try {
-            File file = new File( _cartridge.getFilename().substring(0, _cartridge.getFilename().length() - 3) + "ows");
-            return file;
-        } catch (SecurityException e) {
-            Logger.e(TAG, "getSaveFile()", e);
-            return null;
-        }
-    }   
 
-    public boolean SaveGameExists() {
-        try {
-            if (getSaveFile().exists()) {
-                return true;
-            }
-        } catch( Exception e ) {
-        }
-        return false;
-    }
     
-    public boolean LogFileExists() {
-        try {
-            if (getLogFile().exists()) {
-                return true;
-            }
-        } catch( Exception e ) {
-        }
-        return false;
-    }    
+  
     
-    public File getLogFile() throws IOException {
+    static public boolean Start( YCartridge cartridge, WUI _wui ) { // this method replaces Main.loadCartridge
         
-        if ( _cartridge == null ) {
-            return null;
-        }        
-        
-        try {
-            File file = new File( _cartridge.getFilename().substring(0, _cartridge.getFilename().length() - 3) + "gwl");
-            return file;
-        } catch (SecurityException e) {
-            Logger.e(TAG, "getLogFile()", e);
-            return null;
-        }
-    }   
-    
-    public boolean Start() { // this method replaces Main.loadCartridge
-        if ( _cartridge == null ) {
+    	if ( cartridge == null ) {
             return false;
         }   
         
         try {
-            File fileLog = getLogFile();
+            File fileLog = new File( cartridge.getLogFileName() );
             if (!fileLog.exists()) {
                 fileLog.createNewFile();
             }
             
-            File fileSave = getSaveFile();
-            if (!fileSave.exists()) {
+            File fileSave = new File( cartridge.getSaveFileName() );
+            if ( fileSave.exists() ) {
                 fileSave.delete();
             }              
             
@@ -174,8 +52,8 @@ public class CartridgeSession
             if ( _wui != null ) {
             	_wui.loadCartridge();
             }
-            ChangeUsername();
-            Engine.newInstance( _cartridge, log, _wui, wLocationService).start();
+
+            Engine.newInstance( cartridge, log, _wui, wLocationService).start();
         } catch (Exception e) {
             Logger.e(TAG, "loadCartridge() - create empy saveGame file", e);
         }
@@ -183,24 +61,25 @@ public class CartridgeSession
         return true;
     }
       
-    public boolean Continue() {
-        Logger.w(TAG, "Restart()");
-        if ( _cartridge == null ) {
+    public static boolean Continue( YCartridge cartridge, WUI _wui ) {
+        
+    	Logger.w(TAG, "Continue()");
+        if ( cartridge == null ) {
             return false;
         }   
         
         try {
-            File file = getLogFile();
-            if (!file.exists()) {
-                file.createNewFile();
+        	File fileLog = new File( cartridge.getLogFileName() );
+            if (!fileLog.exists()) {
+                fileLog.createNewFile();
             }
             
-            FileOutputStream log = new FileOutputStream(file);
-            ChangeUsername();
+            FileOutputStream log = new FileOutputStream(fileLog);
             if ( _wui != null ) {
             	_wui.loadCartridge();
             }
-            Engine.newInstance( _cartridge, log, _wui, wLocationService).restore();
+            
+            Engine.newInstance( cartridge, log, _wui, wLocationService).restore();
         } catch (Exception e) {
             Logger.e(TAG, "restoreCartridge() - create empty saveGame file", e);
         }
