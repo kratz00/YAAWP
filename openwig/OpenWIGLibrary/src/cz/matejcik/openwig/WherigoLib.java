@@ -168,7 +168,7 @@ public class WherigoLib implements JavaFunction {
 			String key = (String)e.nextElement();
 			envtable.rawset(key, env.get(key));
 		}
-		envtable.rawset("Device", Engine.instance.gwcfile.device);
+		envtable.rawset("Device", Engine.instance.gwcfile.getDevice());
 		environment.rawset("Env", envtable);
 
 		Cartridge.register();

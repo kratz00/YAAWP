@@ -1,6 +1,7 @@
 package cz.matejcik.openwig;
 
-import cz.matejcik.openwig.formats.*;
+import cz.matejcik.openwig.formats.ICartridge;
+import cz.matejcik.openwig.formats.Savegame;
 import cz.matejcik.openwig.platform.*;
 import se.krka.kahlua.vm.*;
 
@@ -47,7 +48,7 @@ public class Engine implements Runnable {
 	public static LocationService gps;
 
 	/** reference to source file */
-	public CartridgeFile gwcfile;
+	public ICartridge gwcfile;
 	/** reference to save file */
 	public Savegame savegame = null;
 	/** reference to log stream */
@@ -73,17 +74,17 @@ public class Engine implements Runnable {
 	private Thread thread = null;
 
 	/** creates a new global Engine instance */
-	public static Engine newInstance (CartridgeFile cf, OutputStream log, UI ui, LocationService service) throws IOException {
+	public static Engine newInstance ( ICartridge c, OutputStream log, UI ui, LocationService service) throws IOException {
 		ui.debugMsg("Creating engine...\n");
 		Engine.ui = ui;
 		Engine.gps = service;
-		instance = new Engine(cf, log);
+		instance = new Engine(c, log);
 		return instance;
 	}
 
-	protected Engine (CartridgeFile cf, OutputStream out) throws IOException {
-		gwcfile = cf;
-		savegame = cf.getSavegame();
+	protected Engine ( ICartridge c, OutputStream out) throws IOException {
+		gwcfile = c;
+		savegame = c.getSavegame();
 		if (out != null) log = new PrintStream(out);
 	}
 
@@ -155,8 +156,8 @@ public class Engine implements Runnable {
 		if (gwcfile == null) throw new IOException("invalid cartridge file");
 				
 		ui.debugMsg("pre-setting properties...");
-		player.rawset("CompletionCode", gwcfile.code);
-		player.rawset("Name", gwcfile.member);
+		player.rawset("CompletionCode", gwcfile.getCode() );
+		player.rawset("Name", gwcfile.getMember() );
 
 		ui.debugMsg("loading code...");
 		byte[] lbc = gwcfile.getBytecode();
@@ -202,7 +203,7 @@ public class Engine implements Runnable {
 	/** thread's run() method that does all the work in the right order */
 	public void run () {
 		try {
-			if (log != null) log.println("-------------------\ncartridge " + gwcfile.name + " started (openWIG r" + VERSION + ")\n-------------------");
+			if (log != null) log.println("-------------------\ncartridge " + gwcfile.getName() + " started (openWIG r" + VERSION + ")\n-------------------");
 			prepareState ();
 
 			if (doRestore) restoreGame();

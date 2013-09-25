@@ -55,17 +55,17 @@ public class CartridgeDetails extends CustomActivity {
 		setContentView(R.layout.layout_details);
 
 		TextView tvName = (TextView) findViewById(R.id.layoutDetailsTextViewName);
-		tvName.setText(Html.fromHtml(cartridgeFile.name));
+		tvName.setText(Html.fromHtml(cartridgeFile.getName()));
 		
 		TextView tvState = (TextView) findViewById(R.id.layoutDetailsTextViewState);
-		tvState.setText(Html.fromHtml(Loc.get(R.string.author) + ": " + cartridgeFile.author));
+		tvState.setText(Html.fromHtml(Loc.get(R.string.author) + ": " + cartridgeFile.getAuthor()));
 
 		TextView tvDescription = (TextView) findViewById(R.id.layoutDetailsTextViewDescription);
-		tvDescription.setText(Html.fromHtml(cartridgeFile.description));
+		tvDescription.setText(Html.fromHtml(cartridgeFile.getDescription()));
 		
 		ImageView ivImage = (ImageView) findViewById(R.id.layoutDetailsImageViewImage);
 		try {
-			byte[] is = cartridgeFile.getFile(cartridgeFile.splashId);
+			byte[] is = cartridgeFile.getFile(cartridgeFile.getSplashId());
 			Bitmap i = BitmapFactory.decodeByteArray(is, 0, is.length);
 			Main.setBitmapToImageView(i, ivImage);
 		} catch (Exception e) {}
@@ -76,18 +76,18 @@ public class CartridgeDetails extends CustomActivity {
 		TextView tvDistance = (TextView) findViewById(R.id.layoutDetailsTextViewDistance);
 
 		Location loc = new Location(TAG);
-		loc.setLatitude(cartridgeFile.latitude);
-		loc.setLongitude(cartridgeFile.longitude);
+		loc.setLatitude(cartridgeFile.getLatitude());
+		loc.setLongitude(cartridgeFile.getLongitude());
 
 		StringBuffer buff = new StringBuffer();
 		buff.append(Loc.get(R.string.distance)).append(": ").append("<b>").
 		append(UtilsFormat.formatDistance(LocationState.getLocation().distanceTo(loc), false)).
 		append("</b>").append("<br />").
 		append(Loc.get(R.string.latitude)).append(": ").
-		append(UtilsFormat.formatLatitude(cartridgeFile.latitude)).
+		append(UtilsFormat.formatLatitude(cartridgeFile.getLatitude())).
 		append("<br />").
 		append(Loc.get(R.string.longitude)).append(": ").
-		append(UtilsFormat.formatLongitude(cartridgeFile.longitude));
+		append(UtilsFormat.formatLongitude(cartridgeFile.getLongitude()));
 		
 		tvDistance.setText(Html.fromHtml(buff.toString()));
 		
@@ -105,9 +105,9 @@ public class CartridgeDetails extends CustomActivity {
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
 			    CartridgeFile cartridgeFile = Main.cartridgeSession.GetCartridge();
 				Location loc = new Location(TAG);
-				loc.setLatitude(cartridgeFile.latitude);
-				loc.setLongitude(cartridgeFile.longitude);
-				Waypoint wpt = new Waypoint(cartridgeFile.name, loc);
+				loc.setLatitude(cartridgeFile.getLatitude());
+				loc.setLongitude(cartridgeFile.getLongitude());
+				Waypoint wpt = new Waypoint(cartridgeFile.getName(), loc);
 				A.getGuidingContent().guideStart(wpt);
 				Main.callGudingScreen(CartridgeDetails.this);
 				CartridgeDetails.this.finish();

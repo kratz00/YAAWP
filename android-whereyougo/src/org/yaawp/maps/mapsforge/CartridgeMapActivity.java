@@ -102,22 +102,22 @@ public class CartridgeMapActivity extends MapActivity {
 	        	}
 	        	
 	        	if ( !init ) {
-	        		latmin = wigfile.latitude;
-	        		latmax = wigfile.latitude;
-	        		lonmin = wigfile.longitude;
-	        		lonmax = wigfile.longitude;
+	        		latmin = wigfile.getLatitude();
+	        		latmax = wigfile.getLatitude();
+	        		lonmin = wigfile.getLongitude();
+	        		lonmax = wigfile.getLongitude();
 	        		init = true;
 	        	} else {	
-		        	latmin = Math.min(latmin,wigfile.latitude);
-		        	latmax = Math.max(latmax,wigfile.latitude);
-		        	lonmin = Math.min(lonmin,wigfile.longitude);
-		        	lonmax = Math.max(lonmax,wigfile.longitude);	        	
+		        	latmin = Math.min(latmin,wigfile.getLatitude());
+		        	latmax = Math.max(latmax,wigfile.getLatitude());
+		        	lonmin = Math.min(lonmin,wigfile.getLongitude());
+		        	lonmax = Math.max(lonmax,wigfile.getLongitude());	        	
 	        	}
 	        	
-	            geoPoint = new GeoPoint(wigfile.latitude, wigfile.longitude);
+	            geoPoint = new GeoPoint(wigfile.getLatitude(), wigfile.getLongitude());
 	
 	            // create an OverlayItem with title and description
-	            OverlayItem item = new OverlayItem(geoPoint, wigfile.name,
+	            OverlayItem item = new OverlayItem(geoPoint, wigfile.getName(),
 	                    "Hier kšnnte ihre Werbung stehen!");
 	
 	            // add the OverlayItem to the ArrayItemizedOverlay

@@ -162,7 +162,7 @@ public class CartridgeListAdapter extends BaseAdapter {
 	private View getViewItem_Cartridge( int position, View view ) {
 		try {
 			CartridgeFile file = ((CartridgeListGameItem)mData.get( position )).mCartridge;
-            byte[] iconData = file.getFile(file.iconId);
+            byte[] iconData = file.getFile(file.getIconId());
             Bitmap iconLeft = null;
             try {
             	iconLeft = BitmapFactory.decodeByteArray(iconData, 0, iconData.length);
@@ -170,8 +170,8 @@ public class CartridgeListAdapter extends BaseAdapter {
             	iconLeft = Images.getImageB(R.drawable.icon_gc_wherigo);
             }
             
-            String name = file.name;
-            String description = file.type + ", " + file.author + ", " + file.version;
+            String name = file.getName();
+            String description = file.getType() + ", " + file.getAuthor() + ", " + file.getVersion();
             
             /* DataInfo di = new DataInfo(file.name, , icon);
             di.value01 = file.latitude;

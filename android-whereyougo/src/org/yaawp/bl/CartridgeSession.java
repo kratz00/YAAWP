@@ -98,7 +98,7 @@ public class CartridgeSession
     
     public void EndSession() {
         if ( _cartridge != null ) {
-            _cartridge.member = originalMember;
+            // TODO CHANGEUSERNAME _cartridge.member = originalMember;
             _cartridge = null;
         }
     }
@@ -109,8 +109,8 @@ public class CartridgeSession
     
     protected  void ChangeUsername() {
         if ( _cartridge != null && PreferenceUtils.getPrefBoolean( R.string.pref_wherigo_engine_replace_username ) ) {
-            originalMember = _cartridge.member;
-            _cartridge.member = PreferenceUtils.getPrefString( R.string.pref_wherigo_engine_username );
+        	// TODO CHANGEUSERNAME originalMember = _cartridge.member;
+        	// TODO CHANGEUSERNAME _cartridge.member = PreferenceUtils.getPrefString( R.string.pref_wherigo_engine_username );
         }
     }
     

@@ -168,7 +168,7 @@ public class Main extends CustomMain implements CartridgeSessionListener {
                     }
                     
                     CartridgeSession file = new CartridgeSession( ((CartridgeListGameItem)item).mCartridge, null, wui ); 
-                    menu.setHeaderTitle( file.GetCartridge().name );
+                    menu.setHeaderTitle( file.GetCartridge().getName() );
                     // menu.setHeaderIcon( file.GetCartridge().iconId );
                     
                     

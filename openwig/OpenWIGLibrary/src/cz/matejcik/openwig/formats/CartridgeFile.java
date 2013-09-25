@@ -3,13 +3,14 @@ package cz.matejcik.openwig.formats;
 import cz.matejcik.openwig.platform.FileHandle;
 import cz.matejcik.openwig.platform.SeekableFile;
 import java.io.*;
+import cz.matejcik.openwig.formats.ICartridge;
 
 /** Implementation of the GWC cartridge format.
  * <p>
  * This class handles reading the GWC file format, extracting information
  * from its header and reading individual files stored inside.
  */
-public class CartridgeFile {
+public class CartridgeFile implements ICartridge {
 	
 	private static final byte[] CART_ID = { 0x02, 0x0a, 0x43, 0x41, 0x52, 0x54, 0x00 };
 			// 02 0a CART 00
@@ -24,10 +25,10 @@ public class CartridgeFile {
 	private int[] offsets;
 	private int[] ids;
 	
-	public double latitude, longitude;
-	public String type, member, name, description, startdesc, version, author, url, device, code;
-	public int iconId, splashId;
-
+	protected double latitude, longitude;
+	protected String type, member, name, description, startdesc, version, author, url, device, code;
+	protected int iconId, splashId;	
+	
 	public String filename;
 	
 	protected CartridgeFile() { }
@@ -98,6 +99,78 @@ public class CartridgeFile {
 		// assert source.position() ==
 	}
 
+	/* ------------------------------ */
+	@Override
+	public String getAuthor() {
+		return author;
+	}
+	
+	@Override
+	public String getCode() {
+		return code;
+	}
+	
+	@Override
+	public String getDevice() {
+		return device;
+	}
+	
+	@Override
+	public String getDescription() {
+		return description;
+	}
+	
+	@Override
+	public int getIconId() {
+		return iconId;
+	}
+	
+	@Override
+	public double getLatitude() {
+		return latitude;
+	}
+	
+	@Override
+	public double getLongitude() {
+		return longitude;
+	}
+	
+	@Override
+	public String getMember() {
+		return member;
+	}
+	
+	@Override
+	public String getName() {
+		return name;
+	}
+	
+	@Override
+	public String getType() {
+		return type;
+	}
+	
+	@Override
+	public int getSplashId() {
+		return splashId;
+	}
+
+	@Override
+	public String getStartDescription() {
+		return startdesc;
+	}
+	
+	@Override
+	public String getUrl() {
+		return url;
+	}
+
+	@Override
+	public String getVersion() {
+		return version;
+	}
+	
+	
 	/** Return the Lua bytecode for this cartridge. */
 	public byte[] getBytecode () throws IOException {
 		source.seek(offsets[0]);
