@@ -33,16 +33,15 @@ public class CartridgeFile implements ICartridge {
 	
 	protected CartridgeFile() { }
 	
-	protected CartridgeFile( SeekableFile source, FileHandle savefile) throws IOException {
-		CartridgeFile cf = new CartridgeFile();
-		cf.source = source;
+	protected CartridgeFile( SeekableFile _source, FileHandle savefile) throws IOException {
+		source = _source;
 
-		if (!cf.fileOk()) throw new IOException("invalid cartridge file");
+		if (!fileOk()) throw new IOException("invalid cartridge file");
 		
-		cf.scanOffsets();
-		cf.scanHeader();
+		scanOffsets();
+		scanHeader();
 
-		cf.savegame = new Savegame(savefile);
+		savegame = new Savegame(savefile);
 	}	
 	
 	protected boolean fileOk () throws IOException {
