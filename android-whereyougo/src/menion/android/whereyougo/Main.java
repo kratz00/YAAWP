@@ -92,6 +92,8 @@ public class Main extends CustomMain {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initCartridgeList();
+        
+        // fetchCartridgeFilesNotification( Main.CARTRIDGE_LIST_UPDATED );
     }
     
     public void fetchCartridgeFilesNotification( int msgid ) {
@@ -224,21 +226,23 @@ public class Main extends CustomMain {
                 CartridgeSession.Start( currentCartridge, wui );
                 break;
             case R.string.ctx_menu_del_saved_game:
-                try {
-                    // CartridgeSession.getSaveFile().delete(); // TODO
-                    invalidateCartridgeList();
-                } catch ( Exception e ) {  
+        		try {
+                    File file = new File( currentCartridge.getSaveFileName() );
+                    file.delete();
+        		} catch( Exception e ) {
                 }
                 break;
             case R.string.ctx_menu_play:
             	onListItemClicked( currentCartridge );
                 break;
             case R.string.ctx_menu_delete_log_file:
-                try {
-                    // CartridgeSession.getLogFile().delete(); // TODO
-                } catch ( Exception e ) {  
-                }                
+        		try {
+                    File file = new File( currentCartridge.getLogFileName() );
+                    file.delete();
+        		} catch( Exception e ) {
+                }
                 break;
+
             case R.string.ctx_menu_send_log_file:
                 break;
             default:

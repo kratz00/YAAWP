@@ -29,6 +29,17 @@
 		android:label="Yaawp"
 		android:name="menion.android.whereyougo.gui.extension.MainApplication" >
 	
+	    <!--  
+	    <activity 
+	        android:name="org.yaawp.hmi.activities.SplashscreenActivity"
+	        android:screenOrientation="portrait">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		-->
+			        
 		<activity 
 		    android:name="menion.android.whereyougo.Main" 
 			android:label="Yaawp" 

@@ -7,11 +7,13 @@
 	android:background="@drawable/var_custom_screen_bg">
 	
 	<LinearLayout
-		android:id="@+id/linearLayoutCompass"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_above="@+id/linear_layout_bottom"
-		android:gravity="center">
+	    android:id="@+id/linearLayoutCompass"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_above="@+id/linear_layout_bottom"
+	    android:gravity="center"
+	    android:orientation="vertical" >
+
 	</LinearLayout>
 	
 	<LinearLayout 
