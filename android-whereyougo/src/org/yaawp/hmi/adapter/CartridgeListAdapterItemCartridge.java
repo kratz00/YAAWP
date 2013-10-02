@@ -1,9 +1,9 @@
 package org.yaawp.hmi.adapter;
 
-import menion.android.whereyougo.utils.Const;
-import menion.android.whereyougo.utils.Images;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.Utils;
+import locus.api.objects.extra.Location;
+import menion.android.whereyougo.hardware.location.LocationState;
+import menion.android.whereyougo.settings.Loc;
+import menion.android.whereyougo.utils.UtilsFormat;
 
 import org.yaawp.R;
 
@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.yaawp.YCartridge;
+import menion.android.whereyougo.utils.UtilsFormat;
+import menion.android.whereyougo.utils.*;
 
 public class CartridgeListAdapterItemCartridge implements CartridgeListAdapterItem {
 
@@ -54,8 +56,19 @@ public class CartridgeListAdapterItemCartridge implements CartridgeListAdapterIt
             }
             
             String name = mCartridge.getName();
-            String description = mCartridge.getType() + ", " + mCartridge.getAuthor() + ", " + mCartridge.getVersion();
-                       
+            String description = "";
+            
+            if ( !mCartridge.isPlayAnywhere() ) {
+        		Location loc = new Location(TAG);
+        		loc.setLatitude(mCartridge.getLatitude());
+        		loc.setLongitude(mCartridge.getLongitude());
+ 
+        		description += (description.length()>0 ? ", " : "") + UtilsFormat.formatDistance(LocationState.getLocation().distanceTo(loc), false);
+            }
+           
+            description += (description.length()>0 ? ", " : "") + mCartridge.getAuthor();
+            description += (description.length()>0 ? ", " : "") + mCartridge.getVersion();
+            
             Bitmap iconRight = null;
             try {
                 if (mCartridge.getSavegame().exists()) {
@@ -65,7 +78,7 @@ public class CartridgeListAdapterItemCartridge implements CartridgeListAdapterIt
                 Logger.e(TAG, "xxx() - xxxx", e);
             }   
 
-            
+            // description += "\n\r\n"+mCartridge.getDescription();
             /* -------- */
 			
 			LinearLayout llMain = (LinearLayout) view.findViewById(R.id.linear_layout_main);

@@ -41,6 +41,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cz.matejcik.openwig.formats.ICartridge;
+
+import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 
 public class CartridgeDetails extends CustomActivity {
@@ -50,7 +52,7 @@ public class CartridgeDetails extends CustomActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		ICartridge cartridgeFile = Main.currentCartridge;
+		ICartridge cartridgeFile = YaawpAppData.GetInstance().mCurrentCartridge;
 		
 		setContentView(R.layout.layout_details);
 
@@ -96,14 +98,14 @@ public class CartridgeDetails extends CustomActivity {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
 				CartridgeDetails.this.finish();
-				CartridgeSession.Start( Main.currentCartridge, Main.wui ); 
+				CartridgeSession.Start( YaawpAppData.GetInstance().mCurrentCartridge, Main.wui ); 
 				return true;
 			}
 		}, null, null,
 		getString(R.string.navigate), new CustomDialog.OnClickListener() {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
-			    ICartridge cartridge = Main.currentCartridge;
+			    ICartridge cartridge = YaawpAppData.GetInstance().mCurrentCartridge;
 				Location loc = new Location(TAG);
 				loc.setLatitude(cartridge.getLatitude());
 				loc.setLongitude(cartridge.getLongitude());

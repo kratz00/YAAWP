@@ -17,6 +17,7 @@ import menion.android.whereyougo.utils.Utils;
 import menion.android.whereyougo.utils.ManagerNotify;
 
 import org.yaawp.R;
+import org.yaawp.app.YaawpAppData;
 import org.yaawp.openwig.OpenWigHelper;
 import org.yaawp.preferences.PreferenceFunc;
 
@@ -38,7 +39,8 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
 	    addOnPreferenceChangeListener( R.string.pref_wherigo_engine_platform, VALUE_CHANGE_LISTENER );
 	    addOnPreferenceChangeListener( R.string.pref_sensors_compass_hardware, VALUE_CHANGE_LISTENER );
 	    addOnPreferenceChangeListener( R.string.pref_sensors_compass_auto_change, VALUE_CHANGE_LISTENER );
-	    addOnPreferenceChangeListener( R.string.pref_sensors_compass_auto_change_value, VALUE_CHANGE_LISTENER );    
+	    addOnPreferenceChangeListener( R.string.pref_sensors_compass_auto_change_value, VALUE_CHANGE_LISTENER );
+	    addOnPreferenceChangeListener( R.string.pref_cartridgelist_sorting, VALUE_CHANGE_LISTENER );
 	    
 	    initPreferences();
 	}
@@ -107,6 +109,9 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
             else if (isPreference(preference, R.string.pref_language)) {
 				// TODO activity.needRestart = true;
 				return true;
+            }
+            else if (isPreference(preference, R.string.pref_cartridgelist_sorting)) {
+            	YaawpAppData.GetInstance().mRefreshCartridgeList = true;
             }
             return true;
         }

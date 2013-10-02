@@ -11,6 +11,8 @@ public class YaawpAppData {
 	private YaawpAppData() {
 		mCartridges = new Vector<YCartridge>();
 		mData = new Vector<CartridgeListAdapterItem>();
+		mCurrentCartridge = null;
+		mRefreshCartridgeList = true;
 	}
 	
 	public static YaawpAppData GetInstance() {
@@ -25,4 +27,8 @@ public class YaawpAppData {
 	public Vector<YCartridge> mCartridges;
 	
 	public Vector<CartridgeListAdapterItem> mData;
+	
+	public YCartridge mCurrentCartridge;
+	
+	public boolean mRefreshCartridgeList;
 }
