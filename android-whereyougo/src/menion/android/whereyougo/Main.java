@@ -111,12 +111,22 @@ public class Main extends CustomMain {
             	
             	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
             		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
-            		data.add( new CartridgeListAdapterItemCartridge( cartridge ) );
+            		if ( !cartridge.isPlayAnywhere() ) {
+            			data.add( new CartridgeListAdapterItemCartridge( cartridge ) );
+            		}
             	}
             	
-           		
+            	data.add( new CartridgeListAdapterItemHeader("Cartridge - location less") );
+            	
+            	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
+            		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
+            		if ( cartridge.isPlayAnywhere() ) {
+            			data.add( new CartridgeListAdapterItemCartridge( cartridge ) );
+            		}
+            	}
+            	
                 adapter = new CartridgeListAdapter( this, data, null );    
-                // TODO adapter.setTextView02Visible(View.VISIBLE, false);
+
                     
                 runOnUiThread( new Runnable() {
 	                    public void run() {
@@ -166,9 +176,7 @@ public class Main extends CustomMain {
                     AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
                     
                     CartridgeListAdapterItem item = YaawpAppData.GetInstance().mData.get(info.position);
-                    /* if ( item.isSeparator() == true ) {
-                    	return;
-                    } */
+
                     
                     YCartridge cartridge = ((CartridgeListAdapterItemCartridge)item).mCartridge;
                     menu.setHeaderTitle( cartridge.getName() );
@@ -329,11 +337,7 @@ public class Main extends CustomMain {
         
         switch (item.getItemId())
         { 
-        /*
-        	case R.id.menu_start:
-        		UtilsSettings.showSettings(Main.this);
-                break;
-        */        
+        
             case R.id.menu_positioning:
                 Intent intent02 = new Intent(Main.this, SatelliteScreen.class);
                 startActivity(intent02);

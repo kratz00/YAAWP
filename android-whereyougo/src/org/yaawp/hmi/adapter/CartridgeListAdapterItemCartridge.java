@@ -55,13 +55,7 @@ public class CartridgeListAdapterItemCartridge implements CartridgeListAdapterIt
             
             String name = mCartridge.getName();
             String description = mCartridge.getType() + ", " + mCartridge.getAuthor() + ", " + mCartridge.getVersion();
-            
-            /* DataInfo di = new DataInfo(file.name, , icon);
-            di.value01 = file.latitude;
-            di.value02 = file.longitude;
-            // TODO di.setDistAzi(actLoc);
-            */
-            
+                       
             Bitmap iconRight = null;
             try {
                 if (mCartridge.getSavegame().exists()) {
@@ -126,12 +120,6 @@ public class CartridgeListAdapterItemCartridge implements CartridgeListAdapterIt
 			// set ImageView left
 			int iv01Width = (int) (multi * Images.SIZE_BIG);
 			
-			/*
-			if (di.getImage() != -1) {
-				iv01.setImageResource(di.getImage());
-			} else if (di.getImageD() != null) {
-				iv01.setImageDrawable(di.getImageD());
-			} else */
 			if ( iconLeft != null) {
 				// resize image if is too width
 				Bitmap bitmap = iconLeft;
@@ -163,11 +151,8 @@ public class CartridgeListAdapterItemCartridge implements CartridgeListAdapterIt
 				iv02.setImageBitmap(iconRight);
 			}
 			
-			// now set enabled
-			if ( true /* TODO di.enabled */ )
-				llMain.setBackgroundColor(Color.TRANSPARENT);
-			else
-				llMain.setBackgroundColor(Color.LTGRAY);
+			llMain.setBackgroundColor(Color.TRANSPARENT);
+
 		} catch (Exception e) {
 			Logger.e(TAG, "getView( " + view + " )", e);
 		}

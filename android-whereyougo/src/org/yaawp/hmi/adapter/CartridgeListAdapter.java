@@ -69,7 +69,7 @@ public class CartridgeListAdapter extends BaseAdapter {
 
     @Override
 	public Object getItem(int position) {
-		return mAdapterItems.get(position); // TODO
+		return mAdapterItems.get(position); 
 	}
 	
 	@Override

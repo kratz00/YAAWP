@@ -18,17 +18,8 @@ public class CartridgeListAdapterItemHeader implements CartridgeListAdapterItem 
 
 	private static String TAG = "CartridgeListAdapterItemHeader";
     
-    private static final int PADDING = (int) Utils.getDpPixels(4.0f);
+    private static final int PADDING = (int) Utils.getDpPixels(2.0f);
     
-    /** visibility of bottom view */
-    private int textView02Visibility = View.VISIBLE;
-    /** hide bottom view if no text is available */
-    private boolean textView02HideIfEmpty = false;
-    /* min height for line */
-    private int minHeight = Integer.MIN_VALUE;
-    // rescale image size
-    private float multiplyImageSize = 1.0f;		
-	
     private String mTitle;
     
     public CartridgeListAdapterItemHeader( String title ) {
@@ -41,41 +32,22 @@ public class CartridgeListAdapterItemHeader implements CartridgeListAdapterItem 
 		
 		try {
 			
+			view.setPadding(PADDING, PADDING, PADDING, PADDING);
+			view.setOnClickListener(null);
+			view.setOnLongClickListener(null);
+			view.setLongClickable(false);			
 			view.setBackgroundColor(Color.LTGRAY);
-			
-			View v = view.findViewById(R.id.linear_layout_separator);
-			LinearLayout llMain = (LinearLayout) v;
-			llMain.setPadding(PADDING, PADDING, PADDING, PADDING);
-			if (minHeight != Integer.MIN_VALUE) {
-				llMain.setMinimumHeight(minHeight);
-			}
-	
-			TextView tv01 = (TextView) view.findViewById(R.id.linearLayoutSeparatorHeadline);
-
-			
-			llMain.setOnClickListener(null);
-			llMain.setOnLongClickListener(null);
-			llMain.setLongClickable(false);			
-			
-			// set TextView top
-			tv01.setBackgroundColor(Color.TRANSPARENT);
-			tv01.setTextColor(Color.BLACK);
-	
-			if ( mTitle == null) {
-				tv01.setVisibility(View.GONE);
-			} else {
-				tv01.setVisibility(View.VISIBLE);
-				tv01.setText(Html.fromHtml(mTitle));
-			}
-			
-		
-			llMain.setBackgroundColor(Color.TRANSPARENT);
+				
+			TextView tv = (TextView) view.findViewById(R.id.linearLayoutSeparatorHeadline);
+			tv.setBackgroundColor(Color.TRANSPARENT);
+			tv.setTextColor(Color.BLACK);
+			tv.setVisibility(View.VISIBLE);
+			tv.setText(Html.fromHtml(mTitle));
 		
 		} catch (Exception e) {
 			Logger.e(TAG, "getView(" + view + ")", e);
 		}
 		
-		view.forceLayout(); // TODO was macht forceLayout?
 		return view;		
 	}	
 }
