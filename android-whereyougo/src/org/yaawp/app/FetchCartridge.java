@@ -1,6 +1,7 @@
 package org.yaawp.app;
 
 import java.io.File;
+import java.io.FilenameFilter;
 
 import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.utils.FileSystem;
@@ -12,8 +13,9 @@ import org.yaawp.YCartridge;
 import org.yaawp.openwig.WSaveFile;
 import org.yaawp.openwig.WSeekableFile;
 import java.util.Vector;
+import android.os.Environment;
 
-public class FetchCartridge {
+public class FetchCartridge implements FilenameFilter {
 
 	private static final String TAG = "FetchCartrdige";
 	
@@ -21,51 +23,81 @@ public class FetchCartridge {
 	private static Vector<YCartridge> mCartridges;
 	private static String mRoot;
 		
-	public static void startFetchingThread( FetchCartridgeListener listener, String root, Vector<YCartridge> cartridges ) {
+	public void startFetchingThread( FetchCartridgeListener listener, String root, Vector<YCartridge> cartridges ) {
 		mListener = listener;
 		mCartridges = cartridges;
 		mRoot = root;
 		new Thread( new Runnable() { 
         	public void run() {
-        		startFetching( mListener, mRoot, mCartridges );
+        		startFetching();
         	}
         } ).start();
 	}
 	
-	private static void startFetching( final FetchCartridgeListener listener, String root, Vector<YCartridge> cartridges ) {
+	private void startFetching() {
 
-		listener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_START, "" );
+		mListener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_START, "" );
 		
-		FetchCartridge.FetchCartridgeX( listener, root, cartridges );
+		mCartridges.clear(); 
+		
+		File rootX = Environment.getExternalStorageDirectory();
+		// String rootPath= rootX.getPath();
+		FetchCartridgeX( rootX );
 
         if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
-        	listener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_END,"" );            
+        	mListener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_END,"" );            
         } else {
-        	listener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_EMPTY,"" );
+        	mListener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_EMPTY,"" );
         }		
 	}
 	
-	private static void FetchCartridgeX( FetchCartridgeListener listener, String root, Vector<YCartridge> cartridges ) {
+	public boolean accept(File dir, String name) {
+		File f;
+        if(name.endsWith(".gwc")){
+        return true;
+        }
+
+    	if ( mListener != null ) {
+    		mListener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_UPDATE, dir.getAbsolutePath()+"/"+name );
+    	}        
+        
+        f = new File(dir.getAbsolutePath()+"/"+name);
+
+        return f.isDirectory();
+    }
+	
+	private void FetchCartridgeX( File parent ) {
     
-        File[] files = FileSystem.getFiles(root, "gwc");
-        cartridges.clear(); 
+    	if ( mListener != null ) {
+    		mListener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_UPDATE, parent.getAbsolutePath() );
+    	}
+		
+        String files[] = parent.list(this);
+        
+        
         
         if (files != null) {
-            for (File file : files) {
+            for (String filename : files) {
                 try {
-                	if ( listener != null ) {
-                		listener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_UPDATE, file.getAbsolutePath() );
+                	File file = new File( parent.getAbsolutePath()+"/"+filename);
+                	if ( mListener != null ) {
+                		mListener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_UPDATE, file.getAbsolutePath() );
                 	}
                 	
-                    // actualFile = file;
-                    YCartridge cart = YCartridge.read(file.getAbsolutePath(), new WSeekableFile(file), new WSaveFile(file));
-                    
-                    if (cart != null) {               
-                        cartridges.add( cart );
-                    }
+                	if ( file.isDirectory() ) {
+                		FetchCartridgeX( file );
+                	} else {
+                	
+	                    // actualFile = file;
+	                    YCartridge cart = YCartridge.read(file.getAbsolutePath(), new WSeekableFile(file), new WSaveFile(file));
+	                    
+	                    if (cart != null) {               
+	                        mCartridges.add( cart );
+	                    }
+                	}
                 } catch (Exception e) {
-                    Logger.w(TAG, "updateCartridgeList(), file:" + file + ", e:" + e.toString());
-                    ManagerNotify.toastShortMessage(Loc.get(R.string.invalid_cartridge, file.getName()));
+                    // Logger.w(TAG, "updateCartridgeList(), file:" + file + ", e:" + e.toString());
+                    // ManagerNotify.toastShortMessage(Loc.get(R.string.invalid_cartridge, file.getName()));
                 }
             }
         }

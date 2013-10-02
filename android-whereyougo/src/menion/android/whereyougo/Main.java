@@ -215,7 +215,7 @@ public class Main extends CustomMain implements FetchCartridgeListener {
 	public void UpdateFetchCartridge( int msgid, String msg ) {
         switch( msgid) {
             case FETCH_CARTRIDGES_START:
-            	ProgressDialogHelper.Show( "", "Loading Cartridges" ); 
+            	ProgressDialogHelper.Show( "Scanning for Cartridges", "" ); 
                 break;
             case FETCH_CARTRIDGES_END:
             	YaawpAppData.GetInstance().mRefreshCartridgeList = true;
@@ -525,7 +525,11 @@ public class Main extends CustomMain implements FetchCartridgeListener {
     		return;
     	}
     	
-    	FetchCartridge.startFetchingThread( this, FileSystem.ROOT, YaawpAppData.GetInstance().mCartridges );
+    	
+    	
+    	FetchCartridge fc = new FetchCartridge();
+    	
+    	fc.startFetchingThread( this, FileSystem.ROOT, YaawpAppData.GetInstance().mCartridges );
     }
    
 }
