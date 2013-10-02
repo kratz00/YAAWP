@@ -152,7 +152,7 @@ public class SatelliteScreen extends CustomActivity implements LocationEventList
 						.setText(UtilsFormat.formatDistance(location.getAccuracy(), false));
 				((TextView) findViewById(R.id.text_view_speed))
 						.setText(UtilsFormat.formatSpeed(location.getSpeed(), false));
-				((TextView) findViewById(R.id.text_view_declination))
+				((TextView) findViewById(R.id.text_view_progress))
 						.setText(UtilsFormat.formatAngle(Orientation.getDeclination()));
 				long lastFix = LocationState.getLastFixTime();
 				if (lastFix > 0) {

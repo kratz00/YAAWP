@@ -40,7 +40,30 @@
             		android:defaultValue="0" 
             		android:entries="@array/pref_highlight_strings"
             		android:entryValues="@array/pref_highlight_values" />
-		
+			</PreferenceCategory>
+			
+			<PreferenceCategory android:title="Cartridge List" > <!--  TODO replace const text  -->
+				    
+				<ListPreference 
+	        		android:key="@string/pref_cartridgelist_sorting"
+	           		android:title="@string/pref_cartridgelist_sorting"
+	           		android:summary="@string/pref_cartridgelist_sorting_desc"
+	           		android:defaultValue="0" 
+	           		android:entries="@array/pref_cartridgelist_sorting_strings"
+	           		android:entryValues="@array/pref_cartridgelist_sorting_values" />				    
+			    
+				<CheckBoxPreference
+					android:defaultValue="true"
+					android:key="@string/pref_cartridgelist_anywhere_first"
+					android:summary="@string/pref_cartridgelist_anywhere_first_desc"
+					android:title="@string/pref_cartridgelist_anywhere_first" />	
+	
+				<CheckBoxPreference
+					android:defaultValue="false"
+					android:key="@string/pref_cartridgelist_show_description"
+					android:summary="@string/pref_cartridgelist_show_description_desc"
+					android:title="@string/pref_cartridgelist_show_description" />
+																				
 			</PreferenceCategory>
 			
 		</PreferenceScreen>	

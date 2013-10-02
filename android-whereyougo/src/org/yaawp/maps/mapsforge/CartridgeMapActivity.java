@@ -15,8 +15,6 @@ import org.mapsforge.android.maps.overlay.OverlayItem;
 import org.mapsforge.core.GeoPoint;
 import org.yaawp.R;
 import org.yaawp.app.YaawpAppData;
-import org.yaawp.hmi.adapter.CartridgeListGameItem;
-import org.yaawp.hmi.adapter.CartridgeListItem;
 import org.yaawp.YCartridge;
 
 import cz.matejcik.openwig.formats.ICartridge;
@@ -84,15 +82,7 @@ public class CartridgeMapActivity extends MapActivity {
 	        	
 	            // create a GeoPoint with the latitude and longitude coordinates
 	        	
-                CartridgeListItem listitem = YaawpAppData.GetInstance().mCartridgeListItems.get(array[i]);
-                if ( listitem.isSeparator() == true ) {
-                	continue;
-                }
-                
-                YCartridge cartridge = ((CartridgeListGameItem)listitem).mCartridge;
-                if ( cartridge == null ) {
-                	continue;
-                }
+                YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(array[i]);
                 
 				// remove location less
 	        	if (cartridge.isPlayAnywhere()) {

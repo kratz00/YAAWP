@@ -1,15 +1,16 @@
 package org.yaawp.app;
 
 import java.util.Vector;
-import org.yaawp.hmi.adapter.CartridgeListItem;
+import org.yaawp.YCartridge;
+import org.yaawp.hmi.adapter.CartridgeListAdapterItem;
 
 public class YaawpAppData {
 	
 	private static YaawpAppData mInstance = null;
 	
 	private YaawpAppData() {
-		// mWigFiles = new Vector<CartridgeFile>();
-		mCartridgeListItems = new Vector<CartridgeListItem>();
+		mCartridges = new Vector<YCartridge>();
+		mData = new Vector<CartridgeListAdapterItem>();
 	}
 	
 	public static YaawpAppData GetInstance() {
@@ -20,8 +21,8 @@ public class YaawpAppData {
 	}
 	
 	/* ---------------------------------- */
+		
+	public Vector<YCartridge> mCartridges;
 	
-	// public Vector<CartridgeFile> mWigFiles;
-	
-	public Vector<CartridgeListItem> mCartridgeListItems;
+	public Vector<CartridgeListAdapterItem> mData;
 }

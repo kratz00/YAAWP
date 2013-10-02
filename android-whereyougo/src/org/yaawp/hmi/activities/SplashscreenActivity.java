@@ -15,8 +15,6 @@ import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
-import org.yaawp.hmi.adapter.CartridgeListGameItem;
-import org.yaawp.hmi.adapter.CartridgeListSeparatorItem;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.openwig.WSaveFile;
@@ -77,10 +75,12 @@ public class SplashscreenActivity extends Activity {
     
     public void fetchCartridgeFiles() {
 
-    	if ( YaawpAppData.GetInstance().mCartridgeListItems.size() > 0 ) {
+    	/* 
+    	 * if ( YaawpAppData.GetInstance().mCartridgeListItems.size() > 0 ) {
+    	 
     		// invalidateCartridgeList(); 
     		return;
-    	}
+    	} */
     	
         new Thread( new Runnable() { 
         	public void run() {
@@ -89,8 +89,8 @@ public class SplashscreenActivity extends Activity {
         		
                 // load cartridge files
                 File[] files = FileSystem.getFiles(FileSystem.ROOT, "gwc");
-                YaawpAppData.GetInstance().mCartridgeListItems.clear(); 
-                YaawpAppData.GetInstance().mCartridgeListItems.add( new CartridgeListSeparatorItem("Cartridges") );
+                // YaawpAppData.GetInstance().mCartridgeListItems.clear(); 
+                // YaawpAppData.GetInstance().mCartridgeListItems.add( new CartridgeListSeparatorItem("Cartridges") );
                 
                 if (files != null) {
                     for (File file : files) {
@@ -103,7 +103,7 @@ public class SplashscreenActivity extends Activity {
                             YCartridge cart = YCartridge.read(file.getAbsolutePath(), new WSeekableFile(file), new WSaveFile(file));
                             
                             if (cart != null) {               
-                                YaawpAppData.GetInstance().mCartridgeListItems.add( new CartridgeListGameItem(cart) );
+                                // YaawpAppData.GetInstance().mCartridgeListItems.add( new CartridgeListGameItem(cart) );
                             }
                         } catch (Exception e) {
                             Logger.w(TAG, "updateCartridgeList(), file:" + file + ", e:" + e.toString());

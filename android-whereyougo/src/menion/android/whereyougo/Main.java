@@ -63,16 +63,16 @@ import org.yaawp.openwig.WSeekableFile;
 import org.yaawp.openwig.WUI;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
-import org.yaawp.hmi.adapter.CartridgeListGameItem;
-import org.yaawp.hmi.adapter.CartridgeListItem;
-import org.yaawp.hmi.adapter.CartridgeListSeparatorItem;
 import org.yaawp.hmi.activities.YaawpPreferenceActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-
+import java.util.Vector;
+import org.yaawp.hmi.adapter.CartridgeListAdapterItem;
+import org.yaawp.hmi.adapter.CartridgeListAdapterItemHeader;
+import org.yaawp.hmi.adapter.CartridgeListAdapterItemCartridge;
 
 public class Main extends CustomMain {
 
@@ -104,14 +104,25 @@ public class Main extends CustomMain {
             case CARTRIDGE_LIST_UPDATED:
                 // invalidateCartridgeList();
             	final ListView listview = (ListView) findViewById(R.id.listView1); 
-                adapter = new CartridgeListAdapter( this, YaawpAppData.GetInstance().mCartridgeListItems, null );    
-                adapter.setTextView02Visible(View.VISIBLE, false);
+            	
+            	Vector<CartridgeListAdapterItem> data = YaawpAppData.GetInstance().mData;
+            	data.clear();
+            	data.add( new CartridgeListAdapterItemHeader("Cartridge") );
+            	
+            	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
+            		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
+            		data.add( new CartridgeListAdapterItemCartridge( cartridge ) );
+            	}
+            	
+           		
+                adapter = new CartridgeListAdapter( this, data, null );    
+                // TODO adapter.setTextView02Visible(View.VISIBLE, false);
                     
                 runOnUiThread( new Runnable() {
-                    public void run() {
-                        listview.setAdapter( adapter );
-                    }
-                }
+	                    public void run() {
+	                        listview.setAdapter( adapter );
+	                    }
+	                }
                 );
                     
         		ProgressDialogHelper.Hide();
@@ -154,12 +165,12 @@ public class Main extends CustomMain {
                 if ( v.getId()==R.id.listView1) {
                     AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
                     
-                    CartridgeListItem item = YaawpAppData.GetInstance().mCartridgeListItems.get(info.position);
-                    if ( item.isSeparator() == true ) {
+                    CartridgeListAdapterItem item = YaawpAppData.GetInstance().mData.get(info.position);
+                    /* if ( item.isSeparator() == true ) {
                     	return;
-                    }
+                    } */
                     
-                    YCartridge cartridge = ((CartridgeListGameItem)item).mCartridge;
+                    YCartridge cartridge = ((CartridgeListAdapterItemCartridge)item).mCartridge;
                     menu.setHeaderTitle( cartridge.getName() );
                                        
                     menu.add( Menu.NONE, R.string.ctx_menu_send_game, 1, getString(R.string.ctx_menu_send_game) ); 
@@ -200,12 +211,8 @@ public class Main extends CustomMain {
         
         currentCartridge = null;
         
-        CartridgeListItem citem = YaawpAppData.GetInstance().mCartridgeListItems.get(info.position);
-        if ( citem.isSeparator() == true ) {
-        	return false;
-        }
-        
-        currentCartridge = ((CartridgeListGameItem)citem).mCartridge;
+        CartridgeListAdapterItem itemX = YaawpAppData.GetInstance().mData.get(info.position);       
+        currentCartridge = ((CartridgeListAdapterItemCartridge)itemX).mCartridge;        
         
         switch( index )
         {
@@ -253,12 +260,8 @@ public class Main extends CustomMain {
     }
             
     private void onListItemClicked(int position) {       
-        CartridgeListItem item = YaawpAppData.GetInstance().mCartridgeListItems.get(position);
-        if ( item.isSeparator() == true ) {
-        	return;
-        }
-        
-        currentCartridge = ((CartridgeListGameItem)item).mCartridge;
+        CartridgeListAdapterItem itemX = YaawpAppData.GetInstance().mData.get(position);       
+        currentCartridge = ((CartridgeListAdapterItemCartridge)itemX).mCartridge;      	
         onListItemClicked( currentCartridge );
     }
     
@@ -338,9 +341,9 @@ public class Main extends CustomMain {
                 
             case R.id.menu_map:
                 Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
-                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
-                int array[] = new int[YaawpAppData.GetInstance().mCartridgeListItems.size()];
-                for (int i = 0; i < YaawpAppData.GetInstance().mCartridgeListItems.size(); i++) {
+                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );      
+                int array[] = new int[YaawpAppData.GetInstance().mCartridges.size()];
+                for (int i = 0; i < YaawpAppData.GetInstance().mCartridges.size(); i++) {
                 	array[i]=i;
                 }
                 intent.putExtra( CartridgeMapActivity.CARTRIDGES, array);
@@ -424,7 +427,7 @@ public class Main extends CustomMain {
 	
     public void fetchCartridgeFiles() {
 
-    	if ( YaawpAppData.GetInstance().mCartridgeListItems.size() > 0 ) {
+    	if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
     		invalidateCartridgeList(); 
     		return;
     	}
@@ -436,8 +439,8 @@ public class Main extends CustomMain {
         		
                 // load cartridge files
                 File[] files = FileSystem.getFiles(FileSystem.ROOT, "gwc");
-                YaawpAppData.GetInstance().mCartridgeListItems.clear(); 
-                YaawpAppData.GetInstance().mCartridgeListItems.add( new CartridgeListSeparatorItem("Cartridges") );
+                YaawpAppData.GetInstance().mCartridges.clear(); 
+                // TODO YaawpAppData.GetInstance().mCartridgeListItems.add( new CartridgeListSeparatorItem("Cartridges") );
                 
                 if (files != null) {
                     for (File file : files) {
@@ -446,7 +449,7 @@ public class Main extends CustomMain {
                             YCartridge cart = YCartridge.read(file.getAbsolutePath(), new WSeekableFile(file), new WSaveFile(file));
                             
                             if (cart != null) {               
-                                YaawpAppData.GetInstance().mCartridgeListItems.add( new CartridgeListGameItem(cart) );
+                                YaawpAppData.GetInstance().mCartridges.add( cart );
                             }
                         } catch (Exception e) {
                             Logger.w(TAG, "updateCartridgeList(), file:" + file + ", e:" + e.toString());
@@ -455,7 +458,7 @@ public class Main extends CustomMain {
                     }
                 }
 
-                if ( YaawpAppData.GetInstance().mCartridgeListItems.size() > 0 ) {
+                if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
                 	fetchCartridgeFilesNotification( CARTRIDGE_LIST_UPDATED );            
                 } else {
                 	fetchCartridgeFilesNotification( CARTRIDGE_NOT_AVAILABLE );

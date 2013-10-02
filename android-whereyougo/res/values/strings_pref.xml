@@ -103,4 +103,10 @@
     <string name="pref_wherigo_engine_platform">android-openwig</string>
     <string name="pref_wherigo_engine_platform_desc">Choose name of the platform</string>
     <string name="pref_waypoints">Wegpunkte</string>
+    <string name="pref_cartridgelist_sorting">Cartridge List Sorting</string>
+    <string name="pref_cartridgelist_sorting_desc">Sorting of the cartridge list</string>
+    <string name="pref_cartridgelist_anywhere_first">Anywhere cartridge first</string>
+    <string name="pref_cartridgelist_anywhere_first_desc">Sorting play anywhere cartridges at the beginning of the cartridge list</string>
+	<string name="pref_cartridgelist_show_description">Show cartridge description</string>
+	<string name="pref_cartridgelist_show_description_desc">Show cartridge description at cartridge list</string>
 </resources>
