@@ -139,13 +139,26 @@ public class Main extends CustomMain {
     	data.clear();
     	
     	if ( YaawpAppData.GetInstance().mCurrentCartridge != null  ) {
-        	data.add( new CartridgeListAdapterItemHeader("Last game") );
+        	data.add( new CartridgeListAdapterItemHeader("Last game","") );
         	data.add( new CartridgeListAdapterItemCartridge( YaawpAppData.GetInstance().mCurrentCartridge ) );   		
     	}
     	
     	/* --------------------------------------------- */
     	
-    	
+    	if ( PreferenceUtils.getPrefBoolean(R.string.pref_cartridgelist_anywhere_first ) ) {
+        	if ( sorting==2 || sorting==3 ) {
+    	    	Vector<CartridgeListAdapterItem> localData2 = new Vector<CartridgeListAdapterItem>();
+    	    	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
+    	    		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
+    	    		if ( cartridge.isPlayAnywhere() ) {
+    	    			localData2.add( new CartridgeListAdapterItemCartridge( cartridge ) );
+    	    		}
+    	    	}
+    	    	Collections.sort(localData2, comparator2 );
+    	    	data.add( new CartridgeListAdapterItemHeader("Cartridge", "location less") );
+    	    	Append( data, localData2 );
+        	}    		
+    	}
     	
     	Vector<CartridgeListAdapterItem> localData = new Vector<CartridgeListAdapterItem>();
     	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
@@ -166,23 +179,25 @@ public class Main extends CustomMain {
     		}    		
     	}
     	Collections.sort(localData, comparator1 );
-    	data.add( new CartridgeListAdapterItemHeader("Cartridge "+headerRight) );
+    	data.add( new CartridgeListAdapterItemHeader("Cartridge", headerRight) );
     	Append( data, localData );
 
        	/* --------------------------------------------- */
-   
-    	if ( sorting==2 || sorting==3 ) {
-	    	Vector<CartridgeListAdapterItem> localData2 = new Vector<CartridgeListAdapterItem>();
-	    	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
-	    		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
-	    		if ( cartridge.isPlayAnywhere() ) {
-	    			localData2.add( new CartridgeListAdapterItemCartridge( cartridge ) );
-	    		}
-	    	}
-	    	Collections.sort(localData2, comparator2 );
-	    	data.add( new CartridgeListAdapterItemHeader("Cartridge - location less") );
-	    	Append( data, localData2 );
-    	}
+    	if ( !(PreferenceUtils.getPrefBoolean(R.string.pref_cartridgelist_anywhere_first )) ) {
+        	if ( sorting==2 || sorting==3 ) {
+    	    	Vector<CartridgeListAdapterItem> localData2 = new Vector<CartridgeListAdapterItem>();
+    	    	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
+    	    		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
+    	    		if ( cartridge.isPlayAnywhere() ) {
+    	    			localData2.add( new CartridgeListAdapterItemCartridge( cartridge ) );
+    	    		}
+    	    	}
+    	    	Collections.sort(localData2, comparator2 );
+    	    	data.add( new CartridgeListAdapterItemHeader("Cartridge", "location less") );
+    	    	Append( data, localData2 );
+        	}    		
+    	}   
+
     	/* --------------------------------------------- */
     	
         adapter = new CartridgeListAdapter( this, data, null );    

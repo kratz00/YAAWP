@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/linear_layout_separator"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:minHeight="20dip"
-	android:padding="4dip"
-	android:gravity="center_vertical">
-
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_layout_separator"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="20dip"
+    android:orientation="horizontal"
+    android:padding="4dip" >
 		
-		<TextView
-			style="@style/TextStyle18" 
-			android:id="@+id/linearLayoutSeparatorHeadline"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:lines="1" />
+    <LinearLayout style="@style/CustomScreenBottomInfo" >
 
-</LinearLayout>
+ 			<TextView
+				style="@style/TextStyle18" 
+				android:id="@+id/linearLayoutSeparatorHeadline"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:lines="1"
+				android:layout_weight="1"
+				android:gravity="left"/>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/CustomScreenBottomInfo" >
+
+			<TextView
+				style="@style/TextStyle18" 
+				android:id="@+id/linearLayoutSeparatorHeadline2"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:lines="1"
+				android:layout_weight="1" 
+				android:gravity="right"/>
+
+        </LinearLayout>
+
+        
+</LinearLayout>    

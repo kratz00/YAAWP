@@ -21,9 +21,11 @@ public class CartridgeListAdapterItemHeader implements CartridgeListAdapterItem 
     private static final int PADDING = (int) Utils.getDpPixels(2.0f);
     
     private String mTitle;
+    private String mTitleRight;
     
-    public CartridgeListAdapterItemHeader( String title ) {
+    public CartridgeListAdapterItemHeader( String title, String right ) {
     	mTitle = title;
+    	mTitleRight = right;
     }    
     
 	public LinearLayout createView( Context context ) {
@@ -43,6 +45,13 @@ public class CartridgeListAdapterItemHeader implements CartridgeListAdapterItem 
 			tv.setTextColor(Color.BLACK);
 			tv.setVisibility(View.VISIBLE);
 			tv.setText(Html.fromHtml(mTitle));
+			
+			TextView tvR = (TextView) view.findViewById(R.id.linearLayoutSeparatorHeadline2);
+			tvR.setBackgroundColor(Color.TRANSPARENT);
+			tvR.setTextColor(Color.BLACK);
+			tvR.setVisibility(View.VISIBLE);
+			tvR.setText(Html.fromHtml(mTitleRight));
+		
 		
 		} catch (Exception e) {
 			Logger.e(TAG, "getView(" + view + ")", e);
