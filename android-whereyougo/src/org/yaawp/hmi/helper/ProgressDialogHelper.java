@@ -11,6 +11,7 @@ public class ProgressDialogHelper {
 	
 	private static ProgressDialog progressDialog;
 	
+	/*
 	public static void Show( String headline, int message ) {
 	}
 
@@ -19,6 +20,7 @@ public class ProgressDialogHelper {
 	
 	public static void Show( int headline, int message ) {
 	}	
+	*/
 	
 	public static void Show( final String headline, final String message ) {		
 		Logger.i(TAG, "Show()");

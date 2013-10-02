@@ -67,13 +67,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.ArrayList;
 
-public class Main extends CustomMain {
+import org.yaawp.app.FetchCartridgeListener;
+
+public class Main extends CustomMain implements FetchCartridgeListener {
 
 	private static final String TAG = "Main";
 	
-    private static final int CARTRIDGE_LIST_UPDATING = 0;
-    private static final int CARTRIDGE_LIST_UPDATED = 1;
-    private static final int CARTRIDGE_NOT_AVAILABLE = 2;	
+
 	
 	public static WUI wui = new WUI();
 		
@@ -96,7 +96,7 @@ public class Main extends CustomMain {
     public void updateCartridgeList() {
         
     	if ( !YaawpAppData.GetInstance().mRefreshCartridgeList ) {
-    	// 	return;
+    	 	return;
     	}
     		
     	YaawpAppData.GetInstance().mRefreshCartridgeList = false;
@@ -210,16 +210,22 @@ public class Main extends CustomMain {
         );    	
     }
     
-    public void fetchCartridgeFilesNotification( int msgid ) {
+  
+    
+	public void UpdateFetchCartridge( int msgid, String msg ) {
         switch( msgid) {
-            case CARTRIDGE_LIST_UPDATING:
+            case FETCH_CARTRIDGES_START:
             	ProgressDialogHelper.Show( "", "Loading Cartridges" ); 
                 break;
-            case CARTRIDGE_LIST_UPDATED:
+            case FETCH_CARTRIDGES_END:
+            	YaawpAppData.GetInstance().mRefreshCartridgeList = true;
             	updateCartridgeList();
         		ProgressDialogHelper.Hide();
                 break;
-            case CARTRIDGE_NOT_AVAILABLE:   
+            case FETCH_CARTRIDGES_UPDATE:
+            	ProgressDialogHelper.Update(msg);
+            	break;
+            case FETCH_CARTRIDGES_EMPTY:   
             	ProgressDialogHelper.Hide();
                 UtilsGUI.showDialogInfo(Main.this, 
                                 getString(R.string.no_wherigo_cartridge_available,
@@ -519,20 +525,7 @@ public class Main extends CustomMain {
     		return;
     	}
     	
-        new Thread( new Runnable() { 
-        	public void run() {
-        		
-        		fetchCartridgeFilesNotification( CARTRIDGE_LIST_UPDATING );
-        		
-        		FetchCartridge.FetchCartridgeX( FileSystem.ROOT, YaawpAppData.GetInstance().mCartridges );
-
-                if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
-                	fetchCartridgeFilesNotification( CARTRIDGE_LIST_UPDATED );            
-                } else {
-                	fetchCartridgeFilesNotification( CARTRIDGE_NOT_AVAILABLE );
-                }        		
-        	}
-        } ).start();
+    	FetchCartridge.startFetchingThread( this, FileSystem.ROOT, YaawpAppData.GetInstance().mCartridges );
     }
    
 }

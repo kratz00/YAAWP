@@ -17,14 +17,46 @@ public class FetchCartridge {
 
 	private static final String TAG = "FetchCartrdige";
 	
-	public static void FetchCartridgeX( String root, Vector<YCartridge> cartridges ) {
-        // load cartridge files
+	private static FetchCartridgeListener mListener;
+	private static Vector<YCartridge> mCartridges;
+	private static String mRoot;
+		
+	public static void startFetchingThread( FetchCartridgeListener listener, String root, Vector<YCartridge> cartridges ) {
+		mListener = listener;
+		mCartridges = cartridges;
+		mRoot = root;
+		new Thread( new Runnable() { 
+        	public void run() {
+        		startFetching( mListener, mRoot, mCartridges );
+        	}
+        } ).start();
+	}
+	
+	private static void startFetching( final FetchCartridgeListener listener, String root, Vector<YCartridge> cartridges ) {
+
+		listener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_START, "" );
+		
+		FetchCartridge.FetchCartridgeX( listener, root, cartridges );
+
+        if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
+        	listener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_END,"" );            
+        } else {
+        	listener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_EMPTY,"" );
+        }		
+	}
+	
+	private static void FetchCartridgeX( FetchCartridgeListener listener, String root, Vector<YCartridge> cartridges ) {
+    
         File[] files = FileSystem.getFiles(root, "gwc");
         cartridges.clear(); 
         
         if (files != null) {
             for (File file : files) {
                 try {
+                	if ( listener != null ) {
+                		listener.UpdateFetchCartridge( FetchCartridgeListener.FETCH_CARTRIDGES_UPDATE, file.getAbsolutePath() );
+                	}
+                	
                     // actualFile = file;
                     YCartridge cart = YCartridge.read(file.getAbsolutePath(), new WSeekableFile(file), new WSaveFile(file));
                     
