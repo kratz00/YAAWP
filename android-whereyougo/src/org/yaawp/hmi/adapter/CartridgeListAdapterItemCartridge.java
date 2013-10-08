@@ -1,24 +1,39 @@
 package org.yaawp.hmi.adapter;
 
+import java.io.File;
+
 import locus.api.objects.extra.Location;
+import menion.android.whereyougo.Main;
+import menion.android.whereyougo.gui.extension.UtilsGUI;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.settings.Loc;
+import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.UtilsFormat;
 
 import org.yaawp.R;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.text.Html;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.yaawp.YCartridge;
-import menion.android.whereyougo.utils.UtilsFormat;
+import org.yaawp.app.YaawpAppData;
+import org.yaawp.bl.CartridgeSession;
+import org.yaawp.hmi.helper.ScreenHelper;
+import org.yaawp.maps.mapsforge.CartridgeMapActivity;
+
 import menion.android.whereyougo.utils.*;
 
 public class CartridgeListAdapterItemCartridge implements CartridgeListAdapterItem {
@@ -172,5 +187,114 @@ public class CartridgeListAdapterItemCartridge implements CartridgeListAdapterIt
 
 		view.forceLayout();
 		return view;
-	}	
+	}
+	
+	public boolean createContextMenu( Activity activity, ContextMenu menu ) {
+        YCartridge cartridge = mCartridge;
+        menu.setHeaderTitle( cartridge.getName() );
+                           
+        menu.add( Menu.NONE, R.string.ctx_menu_send_game, 1, activity.getString(R.string.ctx_menu_send_game) ); 
+        
+        if ( !cartridge.isPlayAnywhere()) {
+        	menu.add( Menu.NONE, R.string.ctx_menu_show_on_map, 2, activity.getString(R.string.ctx_menu_show_on_map) );
+        }
+        
+        try {
+            if ( cartridge.existsSaveFile() ) {
+                menu.add( Menu.NONE, R.string.ctx_menu_continue_game, 0, activity.getString(R.string.ctx_menu_continue_game) );
+                menu.add( Menu.NONE, R.string.ctx_menu_restart_game, 0, activity.getString(R.string.ctx_menu_restart_game) );
+                menu.add( Menu.NONE, R.string.ctx_menu_del_saved_game, 3, activity.getString(R.string.ctx_menu_del_saved_game) );
+            } else {
+                menu.add( Menu.NONE, R.string.ctx_menu_play, 0, activity.getString(R.string.ctx_menu_play) );
+            }
+            
+            if ( cartridge.existsLogFile() ) {
+                menu.add( Menu.NONE, R.string.ctx_menu_delete_log_file, 5, activity.getString(R.string.ctx_menu_delete_log_file) );
+                menu.add( Menu.NONE, R.string.ctx_menu_send_log_file, 6, activity.getString(R.string.ctx_menu_send_log_file) );
+            } else {
+                
+            }
+        } catch (Exception e) {
+            Logger.e(TAG, "onResume() - create empty saveGame file", e);
+        }
+        
+        return true;
+	}
+	
+	public boolean onContextItemSelected( Activity activity, MenuItem item, int index ) {
+        YCartridge cartridge = mCartridge;   
+        
+        switch( index )
+        {
+            case R.string.ctx_menu_send_game:
+                break;
+            case R.string.ctx_menu_show_on_map:
+                Intent intent = new Intent( activity, CartridgeMapActivity.class );
+                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
+                int array[] = new int[1];
+               	array[0]=0; // TODO info.position;
+                intent.putExtra( CartridgeMapActivity.CARTRIDGES, array);
+                activity.startActivity(intent);            	
+                break;
+            case R.string.ctx_menu_continue_game:
+                CartridgeSession.Continue( cartridge, YaawpAppData.GetInstance().mWui );
+                break;
+            case R.string.ctx_menu_restart_game:
+                CartridgeSession.Start( cartridge, YaawpAppData.GetInstance().mWui );
+                break;
+            case R.string.ctx_menu_del_saved_game:
+        		try {
+                    File file = new File( cartridge.getSaveFileName() );
+                    file.delete();
+        		} catch( Exception e ) {
+                }
+                break;
+            case R.string.ctx_menu_play:
+            	onListItemClicked( activity, cartridge );
+                break;
+            case R.string.ctx_menu_delete_log_file:
+        		try {
+                    File file = new File( cartridge.getLogFileName() );
+                    file.delete();
+        		} catch( Exception e ) {
+                }
+                break;
+
+            case R.string.ctx_menu_send_log_file:
+                break;
+            default:
+                break;    
+        }
+        return true;
+	}
+	
+    public void onListItemClicked( Activity activity ) {           	
+        onListItemClicked( activity, mCartridge );
+    }
+    
+    private void onListItemClicked( Activity activity, final YCartridge cartridge ) {
+    	
+        
+        if ( cartridge.existsSaveFile() ) {
+            UtilsGUI.showDialogQuestion( activity,
+                    R.string.resume_previous_cartridge,
+                    new DialogInterface.OnClickListener() {
+        
+                @Override
+                public void onClick(DialogInterface dialog, int btn) {
+                    CartridgeSession.Continue( cartridge, YaawpAppData.GetInstance().mWui );
+                }
+            }, new DialogInterface.OnClickListener() {
+                
+                @Override
+                public void onClick(DialogInterface dialog, int btn) {
+                	YaawpAppData.GetInstance().mCurrentCartridge = cartridge;
+                    ScreenHelper.activateScreen(ScreenHelper.SCREEN_CART_DETAIL, null);
+                }
+            });
+        } else {
+        	YaawpAppData.GetInstance().mCurrentCartridge = cartridge;
+        	ScreenHelper.activateScreen(ScreenHelper.SCREEN_CART_DETAIL, null);
+        }
+    }    	
 }

@@ -78,7 +78,7 @@ public class Main extends CustomMain {
 	
 
 	
-	public static WUI wui = new WUI();
+	// public static WUI wui = new WUI();
 		
 	public static CartridgeListAdapter adapter = null;
 	
@@ -270,35 +270,7 @@ public class Main extends CustomMain {
                     AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
                     
                     CartridgeListAdapterItem item = YaawpAppData.GetInstance().mData.get(info.position);
-
-                    
-                    YCartridge cartridge = ((CartridgeListAdapterItemCartridge)item).mCartridge;
-                    menu.setHeaderTitle( cartridge.getName() );
-                                       
-                    menu.add( Menu.NONE, R.string.ctx_menu_send_game, 1, getString(R.string.ctx_menu_send_game) ); 
-                    
-                    if ( !cartridge.isPlayAnywhere()) {
-                    	menu.add( Menu.NONE, R.string.ctx_menu_show_on_map, 2, getString(R.string.ctx_menu_show_on_map) );
-                    }
-                    
-                    try {
-                        if ( cartridge.existsSaveFile() ) {
-                            menu.add( Menu.NONE, R.string.ctx_menu_continue_game, 0, getString(R.string.ctx_menu_continue_game) );
-                            menu.add( Menu.NONE, R.string.ctx_menu_restart_game, 0, getString(R.string.ctx_menu_restart_game) );
-                            menu.add( Menu.NONE, R.string.ctx_menu_del_saved_game, 3, getString(R.string.ctx_menu_del_saved_game) );
-                        } else {
-                            menu.add( Menu.NONE, R.string.ctx_menu_play, 0, getString(R.string.ctx_menu_play) );
-                        }
-                        
-                        if ( cartridge.existsLogFile() ) {
-                            menu.add( Menu.NONE, R.string.ctx_menu_delete_log_file, 5, getString(R.string.ctx_menu_delete_log_file) );
-                            menu.add( Menu.NONE, R.string.ctx_menu_send_log_file, 6, getString(R.string.ctx_menu_send_log_file) );
-                        } else {
-                            
-                        }
-                    } catch (Exception e) {
-                        Logger.e(TAG, "onResume() - create empty saveGame file", e);
-                    }
+                    item.createContextMenu( Main.this, menu );
                 }
             }
         } ); 
@@ -311,86 +283,18 @@ public class Main extends CustomMain {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         int index = item.getItemId();
                
-        CartridgeListAdapterItem itemX = YaawpAppData.GetInstance().mData.get(info.position);       
-        YCartridge cartridge = ((CartridgeListAdapterItemCartridge)itemX).mCartridge;   
-        
-        switch( index )
-        {
-            case R.string.ctx_menu_send_game:
-                break;
-            case R.string.ctx_menu_show_on_map:
-                Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
-                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
-                int array[] = new int[1];
-               	array[0]=info.position;
-                intent.putExtra( CartridgeMapActivity.CARTRIDGES, array);
-                startActivity(intent);            	
-                break;
-            case R.string.ctx_menu_continue_game:
-                CartridgeSession.Continue( cartridge, wui );
-                break;
-            case R.string.ctx_menu_restart_game:
-                CartridgeSession.Start( cartridge, wui );
-                break;
-            case R.string.ctx_menu_del_saved_game:
-        		try {
-                    File file = new File( cartridge.getSaveFileName() );
-                    file.delete();
-        		} catch( Exception e ) {
-                }
-                break;
-            case R.string.ctx_menu_play:
-            	onListItemClicked( cartridge );
-                break;
-            case R.string.ctx_menu_delete_log_file:
-        		try {
-                    File file = new File( cartridge.getLogFileName() );
-                    file.delete();
-        		} catch( Exception e ) {
-                }
-                break;
+        CartridgeListAdapterItem itemX = YaawpAppData.GetInstance().mData.get(info.position);  
+        boolean status = itemX.onContextItemSelected( this, item, index );
 
-            case R.string.ctx_menu_send_log_file:
-                break;
-            default:
-                break;    
-        }
-
-        return true;
+        return status;
     }
             
     private void onListItemClicked(int position) {       
-        CartridgeListAdapterItem itemX = YaawpAppData.GetInstance().mData.get(position);       
-        YCartridge cartridge = ((CartridgeListAdapterItemCartridge)itemX).mCartridge;      	
-        onListItemClicked( cartridge );
+        CartridgeListAdapterItem itemX = YaawpAppData.GetInstance().mData.get(position);    
+        itemX.onListItemClicked( this );
     }
     
-    private void onListItemClicked( final YCartridge cartridge ) {
-    	
-        
-        if ( cartridge.existsSaveFile() ) {
-            UtilsGUI.showDialogQuestion(this,
-                    R.string.resume_previous_cartridge,
-                    new DialogInterface.OnClickListener() {
-        
-                @Override
-                public void onClick(DialogInterface dialog, int btn) {
-                    CartridgeSession.Continue( cartridge, wui );
-                }
-            }, new DialogInterface.OnClickListener() {
-                
-                @Override
-                public void onClick(DialogInterface dialog, int btn) {
-                	YaawpAppData.GetInstance().mCurrentCartridge = cartridge;
-                    ScreenHelper.activateScreen(ScreenHelper.SCREEN_CART_DETAIL, null);
-                }
-            });
-        } else {
-        	YaawpAppData.GetInstance().mCurrentCartridge = cartridge;
-        	ScreenHelper.activateScreen(ScreenHelper.SCREEN_CART_DETAIL, null);
-        }
-    }    
-	
+
 	@Override
 	protected void eventFirstInit() {
     	// call after start actions here

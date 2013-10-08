@@ -98,7 +98,7 @@ public class CartridgeDetails extends CustomActivity {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
 				CartridgeDetails.this.finish();
-				CartridgeSession.Start( YaawpAppData.GetInstance().mCurrentCartridge, Main.wui ); 
+				CartridgeSession.Start( YaawpAppData.GetInstance().mCurrentCartridge, YaawpAppData.GetInstance().mWui ); 
 				return true;
 			}
 		}, null, null,

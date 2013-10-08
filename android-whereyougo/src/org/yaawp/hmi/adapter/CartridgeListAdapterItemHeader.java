@@ -7,9 +7,12 @@ import org.yaawp.R;
 
 import cz.matejcik.openwig.formats.ICartridge;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Html;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,6 +30,18 @@ public class CartridgeListAdapterItemHeader implements CartridgeListAdapterItem 
     	mTitle = title;
     	mTitleRight = right;
     }    
+    
+	public boolean createContextMenu( Activity activity, ContextMenu menu ) {
+		return true;
+	}
+	
+	public boolean onContextItemSelected( Activity activity, MenuItem item, int index ) {
+		return true;
+	}
+	
+	public void onListItemClicked( Activity activity ) {
+		return;
+	}    
     
 	public LinearLayout createView( Context context ) {
 

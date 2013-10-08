@@ -3,6 +3,7 @@ package org.yaawp.app;
 import java.util.Vector;
 import org.yaawp.YCartridge;
 import org.yaawp.hmi.adapter.CartridgeListAdapterItem;
+import org.yaawp.openwig.WUI;
 
 public class YaawpAppData {
 	
@@ -13,6 +14,7 @@ public class YaawpAppData {
 		mData = new Vector<CartridgeListAdapterItem>();
 		mCurrentCartridge = null;
 		mRefreshCartridgeList = true;
+		mWui = new WUI();
 	}
 	
 	public static YaawpAppData GetInstance() {
@@ -31,4 +33,6 @@ public class YaawpAppData {
 	public YCartridge mCurrentCartridge;
 	
 	public boolean mRefreshCartridgeList;
+	
+	public WUI mWui;
 }
