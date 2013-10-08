@@ -64,16 +64,15 @@ import java.util.Vector;
 import org.yaawp.hmi.adapter.*;
 
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.ArrayList;
 
-import org.yaawp.app.FetchCartridgeListener;
 import org.yaawp.utils.FileCollector;
-import org.yaawp.utils.FileCollectorCartridgeFilter;
-import org.yaawp.utils.FileCollectorFilter;
 import org.yaawp.utils.FileCollectorListener;
+import org.yaawp.utils.FileCollectorFilter;
+import org.yaawp.utils.FileCollectorCartridgeFilter;
 
-public class Main extends CustomMain implements FileCollectorListener {
+
+
+public class Main extends CustomMain {
 
 	private static final String TAG = "Main";
 	
@@ -87,8 +86,6 @@ public class Main extends CustomMain implements FileCollectorListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initCartridgeList();
-        
-        // fetchCartridgeFilesNotification( Main.CARTRIDGE_LIST_UPDATED );
     }
     
     private void Append( Vector<CartridgeListAdapterItem> first, Vector<CartridgeListAdapterItem> second ) {
@@ -214,27 +211,33 @@ public class Main extends CustomMain implements FileCollectorListener {
         );    	
     }
     
-	public boolean Begin( final File uri ) {
-		ProgressDialogHelper.Show( "Scanning for Cartridges", "" ); 
-		return FileCollector.CONTINUE;
-	}
-	
-	public void End( final boolean abort ) {
-    	YaawpAppData.GetInstance().mRefreshCartridgeList = true;
-    	updateCartridgeList();
-		ProgressDialogHelper.Hide();
-		
-		if ( YaawpAppData.GetInstance().mCartridges.size() <= 0 ) {
-            UtilsGUI.showDialogInfo(Main.this, 
-                    getString(R.string.no_wherigo_cartridge_available,
-                            FileSystem.ROOT, MainApplication.APP_NAME));  			
+    class CartridgeCollectorListener implements FileCollectorListener {
+    	
+		public boolean Begin( final File uri ) {
+			ProgressDialogHelper.Show( "Scanning for Cartridges", "" ); 
+			return FileCollector.CONTINUE;
 		}
-	}
-	
-	public boolean Update( final File uri ) {
-		ProgressDialogHelper.Update( uri.getAbsolutePath() );
-		return FileCollector.CONTINUE;
-	}
+		
+		public void End( final boolean abort ) {
+	    	YaawpAppData.GetInstance().mRefreshCartridgeList = true;
+	    	updateCartridgeList();
+			ProgressDialogHelper.Hide();
+			
+			if ( YaawpAppData.GetInstance().mCartridges.size() <= 0 ) {
+	            UtilsGUI.showDialogInfo(Main.this, 
+	                    getString(R.string.no_wherigo_cartridge_available,
+	                            FileSystem.ROOT, MainApplication.APP_NAME));  			
+			}
+		}
+		
+		public boolean Update( final File uri ) {
+			ProgressDialogHelper.Update( uri.getAbsolutePath() );
+			return FileCollector.CONTINUE;
+		}
+    };
+    
+    FileCollectorListener mCartridgeCollectorListener = new CartridgeCollectorListener();
+    
     
     
     private void invalidateCartridgeList() {
@@ -529,7 +532,7 @@ public class Main extends CustomMain implements FileCollectorListener {
 	    	FileCollectorFilter filter = new FileCollectorCartridgeFilter( YaawpAppData.GetInstance().mCartridges );
 	    	
 	    	YaawpAppData.GetInstance().mCartridges.clear();
-	    	FileCollector fc = new FileCollector( parentDir, filter, true, this );
+	    	FileCollector fc = new FileCollector( parentDir, filter, true, mCartridgeCollectorListener );
 	    	fc.startAsyncronCollecting();
     	}
     }
