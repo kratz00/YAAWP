@@ -2,16 +2,6 @@ package org.yaawp.utils;
 
 import java.io.File;
 
-import java.util.Vector;
-
-import org.yaawp.YCartridge;
-import org.yaawp.app.FetchCartridgeListener;
-import org.yaawp.app.YaawpAppData;
-import org.yaawp.openwig.WSaveFile;
-import org.yaawp.openwig.WSeekableFile;
-
-import android.os.Environment;
-
 public class FileCollector {
 
 	private static final String TAG = "FileCollector";
