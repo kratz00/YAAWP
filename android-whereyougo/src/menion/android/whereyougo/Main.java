@@ -54,9 +54,9 @@ import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
 import org.yaawp.hmi.activities.YaawpPreferenceActivity;
-import org.yaawp.app.FetchCartridge;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -68,8 +68,12 @@ import java.util.Comparator;
 import java.util.ArrayList;
 
 import org.yaawp.app.FetchCartridgeListener;
+import org.yaawp.utils.FileCollector;
+import org.yaawp.utils.FileCollectorCartridgeFilter;
+import org.yaawp.utils.FileCollectorFilter;
+import org.yaawp.utils.FileCollectorListener;
 
-public class Main extends CustomMain implements FetchCartridgeListener {
+public class Main extends CustomMain implements FileCollectorListener {
 
 	private static final String TAG = "Main";
 	
@@ -210,29 +214,28 @@ public class Main extends CustomMain implements FetchCartridgeListener {
         );    	
     }
     
-  
+	public boolean Begin( final File uri ) {
+		ProgressDialogHelper.Show( "Scanning for Cartridges", "" ); 
+		return FileCollector.CONTINUE;
+	}
+	
+	public void End( final boolean abort ) {
+    	YaawpAppData.GetInstance().mRefreshCartridgeList = true;
+    	updateCartridgeList();
+		ProgressDialogHelper.Hide();
+		
+		if ( YaawpAppData.GetInstance().mCartridges.size() <= 0 ) {
+            UtilsGUI.showDialogInfo(Main.this, 
+                    getString(R.string.no_wherigo_cartridge_available,
+                            FileSystem.ROOT, MainApplication.APP_NAME));  			
+		}
+	}
+	
+	public boolean Update( final File uri ) {
+		ProgressDialogHelper.Update( uri.getAbsolutePath() );
+		return FileCollector.CONTINUE;
+	}
     
-	public void UpdateFetchCartridge( int msgid, String msg ) {
-        switch( msgid) {
-            case FETCH_CARTRIDGES_START:
-            	ProgressDialogHelper.Show( "Scanning for Cartridges", "" ); 
-                break;
-            case FETCH_CARTRIDGES_END:
-            	YaawpAppData.GetInstance().mRefreshCartridgeList = true;
-            	updateCartridgeList();
-        		ProgressDialogHelper.Hide();
-                break;
-            case FETCH_CARTRIDGES_UPDATE:
-            	ProgressDialogHelper.Update(msg);
-            	break;
-            case FETCH_CARTRIDGES_EMPTY:   
-            	ProgressDialogHelper.Hide();
-                UtilsGUI.showDialogInfo(Main.this, 
-                                getString(R.string.no_wherigo_cartridge_available,
-                                        FileSystem.ROOT, MainApplication.APP_NAME));            
-                break;
-        }
-    }   
     
     private void invalidateCartridgeList() {
     	if ( adapter != null ) {
@@ -520,16 +523,15 @@ public class Main extends CustomMain implements FetchCartridgeListener {
     public void fetchCartridgeFiles() {
 
     	if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
-    		// invalidateCartridgeList(); 
     	   	updateCartridgeList();
-    		return;
+    	} else {
+	    	File parentDir = Environment.getExternalStorageDirectory();
+	    	FileCollectorFilter filter = new FileCollectorCartridgeFilter( YaawpAppData.GetInstance().mCartridges );
+	    	
+	    	YaawpAppData.GetInstance().mCartridges.clear();
+	    	FileCollector fc = new FileCollector( parentDir, filter, true, this );
+	    	fc.startAsyncronCollecting();
     	}
-    	
-    	
-    	
-    	FetchCartridge fc = new FetchCartridge();
-    	
-    	fc.startFetchingThread( this, FileSystem.ROOT, YaawpAppData.GetInstance().mCartridges );
     }
    
 }
