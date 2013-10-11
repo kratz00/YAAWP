@@ -119,6 +119,6 @@
 	<string name="pref_exclude_hidden_dirs_desc">Exclude hidden directories</string>
 	<string name="pref_scan_external_storage">Scan complete external storage</string>
 	<string name="pref_scan_external_storage_desc">Scans the complete external storage (SDCard) for Wherigo cartridges</string>        
-	<string name="pref_exclude_whereyougo">Exclude WhereYouGo directory</string>
-	<string name="pref_exclude_whereyougo_desc">Exclude WhereYouGo directory</string>	
+	<string name="pref_exclude_whereyougo_dir">Exclude WhereYouGo directory</string>
+	<string name="pref_exclude_whereyougo_dir_desc">Exclude WhereYouGo directory</string>	
 </resources>

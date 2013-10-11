@@ -77,9 +77,9 @@
 				<CheckBoxPreference
 					android:defaultValue="false"
 					android:dependency="@string/pref_scan_external_storage"
-					android:key="@string/pref_exclude_whereyougo"
-				    android:summary="@string/pref_exclude_whereyougo_desc"
-					android:title="@string/pref_exclude_whereyougo" />
+					android:key="@string/pref_exclude_whereyougo_dir"
+				    android:summary="@string/pref_exclude_whereyougo_dir_desc"
+					android:title="@string/pref_exclude_whereyougo_dir" />
 				               
 				<CheckBoxPreference
 					android:defaultValue="true"
