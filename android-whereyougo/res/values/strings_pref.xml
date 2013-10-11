@@ -109,4 +109,16 @@
     <string name="pref_cartridgelist_anywhere_first_desc">Sorting play anywhere cartridges at the beginning of the cartridge list</string>
 	<string name="pref_cartridgelist_show_description">Show cartridge description</string>
 	<string name="pref_cartridgelist_show_description_desc">Show cartridge description at cartridge list</string>
+	<string name="pref_info_dropbox">Info about Dropbox</string>
+	<string name="pref_info_dropbox_text">Durchsucht den offline Cache der Dropbox Anwendung. Dropbox speichert Dateien auf dem Gerät, wenn man sie als Favorit markiert.</string>
+	<string name="pref_include_dropbox_dir">Include Dropbox favorites</string>
+	<string name="pref_include_dropbox_dir_desc">Include Dropbox offline cache</string>
+	<string name="pref_exclude_android_dir">Exclude Android directory</string>
+	<string name="pref_exclude_android_dir_desc">Exclude Android directory</string>
+	<string name="pref_exclude_hidden_dirs">Exclude hidden directories</string>
+	<string name="pref_exclude_hidden_dirs_desc">Exclude hidden directories</string>
+	<string name="pref_scan_external_storage">Scan complete external storage</string>
+	<string name="pref_scan_external_storage_desc">Scans the complete external storage (SDCard) for Wherigo cartridges</string>        
+	<string name="pref_exclude_whereyougo">Exclude WhereYouGo directory</string>
+	<string name="pref_exclude_whereyougo_desc">Exclude WhereYouGo directory</string>	
 </resources>

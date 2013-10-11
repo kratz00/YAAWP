@@ -66,6 +66,48 @@
 																				
 			</PreferenceCategory>
 			
+			<PreferenceCategory android:title="Cartridge Search">
+			    
+			    <CheckBoxPreference
+	                android:defaultValue="true"
+	                android:key="@string/pref_scan_external_storage"
+	                android:summary="@string/pref_scan_external_storage_desc"
+	                android:title="@string/pref_scan_external_storage" />
+               
+				<CheckBoxPreference
+					android:defaultValue="false"
+					android:dependency="@string/pref_scan_external_storage"
+					android:key="@string/pref_exclude_whereyougo"
+				    android:summary="@string/pref_exclude_whereyougo_desc"
+					android:title="@string/pref_exclude_whereyougo" />
+				               
+				<CheckBoxPreference
+					android:defaultValue="true"
+					android:dependency="@string/pref_scan_external_storage"
+					android:key="@string/pref_exclude_hidden_dirs"
+					android:summary="@string/pref_exclude_hidden_dirs_desc"
+					android:title="@string/pref_exclude_hidden_dirs" />
+				 
+				<CheckBoxPreference
+					android:defaultValue="true"
+					android:dependency="@string/pref_scan_external_storage"
+					android:key="@string/pref_exclude_android_dir"
+					android:summary="@string/pref_exclude_android_dir_desc"
+					android:title="@string/pref_exclude_android_dir" />
+				                               
+				<org.yaawp.preferences.InfoPreference
+					android:dependency="@string/pref_scan_external_storage"
+					android:text="@string/pref_info_dropbox_text"
+				 	android:title="@string/pref_info_dropbox" />
+           
+				<CheckBoxPreference
+					android:defaultValue="true"
+					android:dependency="@string/pref_scan_external_storage"
+					android:key="@string/pref_include_dropbox_dir"
+					android:summary="@string/pref_include_dropbox_dir_desc"
+					android:title="@string/pref_include_dropbox_dir" />
+			</PreferenceCategory>
+			
 		</PreferenceScreen>	
 
 		<PreferenceScreen
