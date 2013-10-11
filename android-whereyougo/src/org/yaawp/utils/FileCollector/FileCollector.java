@@ -1,6 +1,7 @@
 package org.yaawp.utils.FileCollector;
 
 import java.io.File;
+import java.util.Vector;
 
 
 public class FileCollector {
@@ -10,17 +11,24 @@ public class FileCollector {
 	public final static boolean CONTINUE = false;
 	public final static boolean ABORT = true;
 	
-	private File mStartDirectory;
+	private Vector<String> mDirectories;
 	private FileCollectorFilter mFilter;
 	private boolean mRecursive;
 	private FileCollectorListener mListener;
 	private boolean mAbort;
 	
-	public FileCollector( File startDirectory, FileCollectorFilter filter, boolean recursive, FileCollectorListener listener ) {
-		mStartDirectory = startDirectory;
+	public FileCollector( String directory, FileCollectorFilter filter, boolean recursive, FileCollectorListener listener ) {
+		mDirectories.add(directory);
 		mFilter = filter;
 		mRecursive = recursive;
-		mListener = listener;
+		mListener = listener;		
+	}
+	
+	public FileCollector( Vector<String> directories, FileCollectorFilter filter, boolean recursive, FileCollectorListener listener ) {
+		mDirectories = directories;
+		mFilter = filter;
+		mRecursive = recursive;
+		mListener = listener;		
 	}
 	
 	public boolean startAsyncronCollecting() {
@@ -44,19 +52,25 @@ public class FileCollector {
 		mAbort = false;
 		
 		if ( mFilter != null ) {
-			if ( mListener != null ) {
-				mAbort = mListener.Begin( mStartDirectory );
-			}
 			
-			if ( !mAbort ) {
-				mFilter.setListener( mListener );
-				mAbort = X( mStartDirectory );
-				mFilter.setListener( null );
+			for ( int i=0; i<mDirectories.size(); i++ ) {
+				File parent = new File( mDirectories.get(i) );
+				
+				if ( mListener != null ) {
+					mAbort = mListener.Begin( parent );
+				}
+				
+				if ( !mAbort ) {
+					mFilter.setListener( mListener );
+					mAbort = X( parent );
+					mFilter.setListener( null );
+				}
+			
+				if ( mListener != null ) {
+					mListener.End( mAbort );
+				}				
 			}
-		
-			if ( mListener != null ) {
-				mListener.End( mAbort );
-			}
+
 		}
 		return mAbort;
 	}

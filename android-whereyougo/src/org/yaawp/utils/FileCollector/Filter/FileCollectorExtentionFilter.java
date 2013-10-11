@@ -9,6 +9,7 @@ public class FileCollectorExtentionFilter implements FileCollectorFilter {
 
 	String mExtention;
 	FileCollectorListener mListener;
+	boolean mHidden = true;
 	
 	public FileCollectorExtentionFilter( String extention ) {
 		mExtention = extention;
@@ -18,11 +19,17 @@ public class FileCollectorExtentionFilter implements FileCollectorFilter {
 		mListener = listener;
 	}
 	
+	public void acceptHiddenFiles( boolean hidden ) {
+		mHidden = hidden;
+	}
+	
 	public boolean accept(File dir, String name) {
 		File f;
 		boolean status = false;
 		
-        if(name.endsWith( mExtention )){
+		if( ( mHidden == false ) && name.startsWith(".")){
+			status = false;
+		} else if (name.endsWith( mExtention )){
         	status = true;
         } else { 
 	        try {

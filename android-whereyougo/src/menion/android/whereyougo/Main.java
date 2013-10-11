@@ -61,6 +61,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import java.util.Vector;
+import java.util.Arrays;
 import org.yaawp.hmi.adapter.*;
 
 import java.util.Collections;
@@ -436,11 +437,42 @@ public class Main extends CustomMain {
     	if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
     	   	updateCartridgeList();
     	} else {
-	    	File parentDir = Environment.getExternalStorageDirectory();
-	    	FileCollectorFilter filter = new FileCollectorCartridgeFilter( YaawpAppData.GetInstance().mCartridges );
+
+	    	FileCollectorCartridgeFilter filter = new FileCollectorCartridgeFilter( YaawpAppData.GetInstance().mCartridges );	
+	    	filter.acceptHiddenFiles(true);
+
+	    	Vector<String> excludePaths = new Vector<String>();
+	    	Vector<String> includePaths = new Vector<String>();
+	    	boolean fullScan = PreferenceUtils.getPrefBoolean(R.string.pref_scan_external_storage);
 	    	
+		    	
+	    	// include paths
+    		if (fullScan) {
+    			includePaths.add(FileSystem.getExternalStorageDir());
+    			
+    	    	if (	PreferenceUtils.getPrefBoolean(R.string.pref_exclude_android_dir)
+    	    		&&	PreferenceUtils.getPrefBoolean(R.string.pref_include_dropbox_dir) ) {
+    	    		includePaths.add("/mnt/sdcard/Android/data/com.dropbox.android/files/scratch");
+    	    	}	
+    	    	
+    	    	if (PreferenceUtils.getPrefBoolean(R.string.pref_exclude_android_dir)) {
+    	    		excludePaths.add("");
+    	    	}
+    	    	if (PreferenceUtils.getPrefBoolean(R.string.pref_exclude_whereyougo_dir)) {
+    	    		excludePaths.add("");
+    	    	}    	    	
+    			
+    	    	filter.acceptHiddenFiles(!PreferenceUtils.getPrefBoolean(R.string.pref_exclude_hidden_dirs));
+    	    	
+    		} else {
+    			includePaths.add(FileSystem.ROOT);
+    		}
+    		
+	    	    	
+	    	FileCollector fc = new FileCollector( includePaths, filter, true, mCartridgeCollectorListener );
+	    	
+
 	    	YaawpAppData.GetInstance().mCartridges.clear();
-	    	FileCollector fc = new FileCollector( parentDir, filter, true, mCartridgeCollectorListener );
 	    	fc.startAsyncronCollecting();
     	}
     }
