@@ -65,10 +65,10 @@ import org.yaawp.hmi.adapter.*;
 
 import java.util.Collections;
 
-import org.yaawp.utils.FileCollector;
-import org.yaawp.utils.FileCollectorListener;
-import org.yaawp.utils.FileCollectorFilter;
-import org.yaawp.utils.FileCollectorCartridgeFilter;
+import org.yaawp.utils.FileCollector.FileCollector;
+import org.yaawp.utils.FileCollector.FileCollectorFilter;
+import org.yaawp.utils.FileCollector.FileCollectorListener;
+import org.yaawp.utils.FileCollector.Filter.FileCollectorCartridgeFilter;
 
 
 

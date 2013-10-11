@@ -1,4 +1,4 @@
-package org.yaawp.utils;
+package org.yaawp.utils.FileCollector.Filter;
 
 import java.io.File;
 import java.util.Vector;

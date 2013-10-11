@@ -1,6 +1,9 @@
-package org.yaawp.utils;
+package org.yaawp.utils.FileCollector.Filter;
 
 import java.io.File;
+
+import org.yaawp.utils.FileCollector.FileCollectorFilter;
+import org.yaawp.utils.FileCollector.FileCollectorListener;
 
 public class FileCollectorExtentionFilter implements FileCollectorFilter {
 

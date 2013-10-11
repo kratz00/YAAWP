@@ -1,6 +1,7 @@
-package org.yaawp.utils;
+package org.yaawp.utils.FileCollector;
 
 import java.io.File;
+
 
 public class FileCollector {
 
