@@ -43,6 +43,12 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
 	    addOnPreferenceChangeListener( R.string.pref_cartridgelist_sorting, VALUE_CHANGE_LISTENER );
 	    addOnPreferenceChangeListener( R.string.pref_cartridgelist_anywhere_first, VALUE_CHANGE_LISTENER );
 	    
+	    addOnPreferenceChangeListener( R.string.pref_scan_external_storage, VALUE_CHANGE_LISTENER );
+	    addOnPreferenceChangeListener( R.string.pref_exclude_android_dir, VALUE_CHANGE_LISTENER );
+	    addOnPreferenceChangeListener( R.string.pref_exclude_hidden_dirs, VALUE_CHANGE_LISTENER );
+	    addOnPreferenceChangeListener( R.string.pref_exclude_whereyougo_dir, VALUE_CHANGE_LISTENER );
+	    addOnPreferenceChangeListener( R.string.pref_include_dropbox_dir, VALUE_CHANGE_LISTENER );
+	    
 	    initPreferences();
 	}
 	
@@ -117,6 +123,22 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
             else if (isPreference(preference, R.string.pref_cartridgelist_anywhere_first)) {
             	YaawpAppData.GetInstance().mRefreshCartridgeList = true;
             }            
+            else if (isPreference(preference, R.string.pref_scan_external_storage)) {
+            	YaawpAppData.GetInstance().mCartridges.clear();
+            }            
+            else if (isPreference(preference, R.string.pref_exclude_android_dir)) {
+            	YaawpAppData.GetInstance().mCartridges.clear();
+            }
+            else if (isPreference(preference, R.string.pref_exclude_hidden_dirs)) {
+            	YaawpAppData.GetInstance().mCartridges.clear();
+            }
+            else if (isPreference(preference, R.string.pref_exclude_whereyougo_dir)) {
+            	YaawpAppData.GetInstance().mCartridges.clear();
+            }
+            else if (isPreference(preference, R.string.pref_include_dropbox_dir)) {
+            	YaawpAppData.GetInstance().mCartridges.clear();
+            }            
+           
             
             return true;
         }
