@@ -107,29 +107,34 @@ public class Main extends CustomMain {
     	CartridgeListAdapterItemComparator comparator1 = null;
     	CartridgeListAdapterItemComparator comparator2 = null;
     	
-    	String headerRight = "";
+    	String headerRight1 = "";
+    	String headerRight2 = "";
     	int sorting = PreferenceUtils.getPrefInteger(R.string.pref_cartridgelist_sorting);
     	switch (sorting)
 		{
 			case 0:
 				comparator1 = new CartridgeComparatorNameAtoZ();
 				comparator2 = comparator1;
-				headerRight = "A-Z";
+				headerRight1 = "A-Z";
+				headerRight2 = headerRight1;
 				break;
 			case 1:
 				comparator1 = new CartridgeComparatorNameZtoA();
 				comparator2 = comparator1;
-				headerRight = "Z-A";
+				headerRight1 = "Z-A";
+				headerRight2 = headerRight1;
 				break;			
 			case 2:
 				comparator1 = new CartridgeComparatorDistanceNear();
 				comparator2 = new CartridgeComparatorNameAtoZ();
-				headerRight = "near";
+				headerRight1 = "near";
+				headerRight2 = "A-Z";
 				break;
 			case 3:
 				comparator1 = new CartridgeComparatorDistanceFar();
 				comparator2 = new CartridgeComparatorNameAtoZ();
-				headerRight = "far";
+				headerRight1 = "far";
+				headerRight2 = "A-Z";
 				break;
 		}		
 
@@ -156,7 +161,7 @@ public class Main extends CustomMain {
     	    		}
     	    	}
     	    	Collections.sort(localData2, comparator2 );
-    	    	data.add( new CartridgeListAdapterItemHeader("Cartridge", "location less") );
+    	    	data.add( new CartridgeListAdapterItemHeader("Cartridge - location less", headerRight2 ) );
     	    	Append( data, localData2 );
         	}    		
     	}
@@ -180,7 +185,7 @@ public class Main extends CustomMain {
     		}    		
     	}
     	Collections.sort(localData, comparator1 );
-    	data.add( new CartridgeListAdapterItemHeader("Cartridge", headerRight) );
+    	data.add( new CartridgeListAdapterItemHeader("Cartridge", headerRight1) );
     	Append( data, localData );
 
        	/* --------------------------------------------- */
@@ -194,7 +199,7 @@ public class Main extends CustomMain {
     	    		}
     	    	}
     	    	Collections.sort(localData2, comparator2 );
-    	    	data.add( new CartridgeListAdapterItemHeader("Cartridge", "location less") );
+    	    	data.add( new CartridgeListAdapterItemHeader("Cartridge - location less", headerRight2 ) );
     	    	Append( data, localData2 );
         	}    		
     	}   
@@ -263,15 +268,14 @@ public class Main extends CustomMain {
             }
         }); 
         
+        // set long press listener
         listview.setOnCreateContextMenuListener( new OnCreateContextMenuListener() {
             public void onCreateContextMenu( ContextMenu menu, View v, ContextMenuInfo menuInfo) {
                 
-                if ( v.getId()==R.id.listView1) {
-                    AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
                     
-                    CartridgeListAdapterItem item = YaawpAppData.GetInstance().mData.get(info.position);
-                    item.createContextMenu( Main.this, menu );
-                }
+                CartridgeListAdapterItem item = YaawpAppData.GetInstance().mData.get(info.position);
+                item.createContextMenu( Main.this, menu );
             }
         } ); 
         
