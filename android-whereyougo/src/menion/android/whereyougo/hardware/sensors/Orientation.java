@@ -116,8 +116,8 @@ Logger.i(TAG, "removeListener(" + listener + "), listeners.size():" + listeners.
 			}
 
 			// get azimuth from GPS when enabled in settings or by auto-change
-			if (! PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_hardware ) ||
-				  PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_auto_change_value ) ) {
+			if (  PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_hardware ) == false ||
+				  PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_auto_change ) == true ) {
 				// register location listener
 				LocationState.addLocationChangeListener(this);
 				// set zero bearing, if previously was seted by sensor
@@ -186,7 +186,7 @@ Logger.i(TAG, "removeListener(" + listener + "), listeners.size():" + listeners.
 
 	private void sendOrientation(float pitch, float roll) {
 		float usedOrient;
-		if (!PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_auto_change_value ) || 
+		if (!PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_auto_change ) || 
 				LocationState.getLocation().getSpeed() < PreferenceUtils.getPrefInteger(R.string.pref_sensors_compass_auto_change_value) ) {
 			if (!PreferenceUtils.getPrefBoolean( R.string.pref_sensors_compass_hardware ))
 				usedOrient = mLastAziGps;
