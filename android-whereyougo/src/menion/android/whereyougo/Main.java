@@ -52,8 +52,9 @@ import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.openwig.WUI;
 import org.yaawp.preferences.PreferenceUtils;
-import org.yaawp.maps.MapCartridge;
+import org.yaawp.maps.MapOverlayFactory;
 import org.yaawp.maps.MapOverlays;
+import org.yaawp.maps.MapWaypoint;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
 import org.yaawp.hmi.activities.YaawpPreferenceActivity;
@@ -358,7 +359,7 @@ public class Main extends CustomMain {
                 for (int i = 0; i < YaawpAppData.GetInstance().mCartridges.size(); i++) {
                 	YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
                 	if ( cartridge.isPlayAnywhere() == false ) {
-                    	MapCartridge mapCartridge = new MapCartridge( cartridge );
+                    	MapWaypoint mapCartridge = MapOverlayFactory.createWaypoint( cartridge );
                     	mapCartridge.setMarker( defaultMarker );
                 		MapOverlays.mWaypoints.add( mapCartridge );  
                 	}

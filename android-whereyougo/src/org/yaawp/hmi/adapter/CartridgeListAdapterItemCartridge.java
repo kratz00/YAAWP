@@ -33,8 +33,9 @@ import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.hmi.helper.ScreenHelper;
+import org.yaawp.maps.MapWaypoint;
 import org.yaawp.maps.MapOverlays;
-import org.yaawp.maps.MapCartridge;
+import org.yaawp.maps.MapOverlayFactory;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 
 import menion.android.whereyougo.utils.*;
@@ -236,7 +237,7 @@ public class CartridgeListAdapterItemCartridge implements CartridgeListAdapterIt
                 intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
                 Drawable defaultMarker = activity.getResources().getDrawable(R.drawable.icon_gc_wherigo);
                 MapOverlays.clear();
-            	MapCartridge mapCartridge = new MapCartridge( cartridge );
+            	MapWaypoint mapCartridge = MapOverlayFactory.createWaypoint( cartridge );
             	mapCartridge.setMarker( defaultMarker );
         		MapOverlays.mWaypoints.add( mapCartridge );                  
                 activity.startActivity(intent);            	

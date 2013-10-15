@@ -7,15 +7,16 @@ import org.mapsforge.core.GeoPoint;
 import org.yaawp.maps.MapWaypoint;
 
 import android.graphics.drawable.Drawable;
+import org.yaawp.maps.mapsforge.MfMapOverlay;
 
 
-
-public class MfWaypoint extends MapWaypoint {
+public class MfWaypoint extends MapWaypoint implements MfMapOverlay  {
 
 	MfWaypoint( MapWaypoint wpt ) {
 		super(wpt);
 	}
 	
+	// @Override
 	OverlayItem getOverlayItem() {
 		GeoPoint point = new GeoPoint( mLatitude, mLongitude );
 		OverlayItem item = new OverlayItem( point, mName, "n/a" );

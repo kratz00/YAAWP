@@ -1,8 +1,9 @@
 package org.yaawp.maps;
 
 import android.graphics.drawable.Drawable;
+import org.yaawp.maps.MapOverlay;
 
-public class MapWaypoint {
+public class MapWaypoint implements MapOverlay {
 
 	protected String mName = "";
 	protected double mLatitude = 0.0;
