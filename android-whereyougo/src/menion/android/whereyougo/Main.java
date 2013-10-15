@@ -35,6 +35,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ContextMenu;
 import android.view.ContextMenu.*;
@@ -51,6 +52,8 @@ import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.openwig.WUI;
 import org.yaawp.preferences.PreferenceUtils;
+import org.yaawp.maps.MapCartridge;
+import org.yaawp.maps.MapOverlays;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
 import org.yaawp.hmi.activities.YaawpPreferenceActivity;
@@ -348,12 +351,19 @@ public class Main extends CustomMain {
                 
             case R.id.menu_map:
                 Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
-                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );      
-                int array[] = new int[YaawpAppData.GetInstance().mCartridges.size()];
+                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" ); 
+                
+                Drawable defaultMarker = getResources().getDrawable(R.drawable.icon_gc_wherigo);
+                MapOverlays.clear();               
                 for (int i = 0; i < YaawpAppData.GetInstance().mCartridges.size(); i++) {
-                	array[i]=i;
+                	YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
+                	if ( cartridge.isPlayAnywhere() == false ) {
+                    	MapCartridge mapCartridge = new MapCartridge( cartridge );
+                    	mapCartridge.setMarker( defaultMarker );
+                		MapOverlays.mWaypoints.add( mapCartridge );  
+                	}
+
                 }
-                intent.putExtra( CartridgeMapActivity.CARTRIDGES, array);
                 startActivity(intent);              
                 break;
                 

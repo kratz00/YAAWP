@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -32,6 +33,8 @@ import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.hmi.helper.ScreenHelper;
+import org.yaawp.maps.MapOverlays;
+import org.yaawp.maps.MapCartridge;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 
 import menion.android.whereyougo.utils.*;
@@ -231,9 +234,11 @@ public class CartridgeListAdapterItemCartridge implements CartridgeListAdapterIt
             case R.string.ctx_menu_show_on_map:
                 Intent intent = new Intent( activity, CartridgeMapActivity.class );
                 intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
-                int array[] = new int[1];
-               	array[0]=0; // TODO info.position;
-                intent.putExtra( CartridgeMapActivity.CARTRIDGES, array);
+                Drawable defaultMarker = activity.getResources().getDrawable(R.drawable.icon_gc_wherigo);
+                MapOverlays.clear();
+            	MapCartridge mapCartridge = new MapCartridge( cartridge );
+            	mapCartridge.setMarker( defaultMarker );
+        		MapOverlays.mWaypoints.add( mapCartridge );                  
                 activity.startActivity(intent);            	
                 break;
             case R.string.ctx_menu_continue_game:
