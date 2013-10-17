@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/lgpl.html/>.
  */
 
-package locus.api.objects;
+package org.yaawp.extra;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -26,10 +26,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import locus.api.objects.extra.ExtraData;
-import locus.api.objects.extra.ExtraStyle;
-import locus.api.utils.Log;
-import locus.api.utils.Utils;
+import org.yaawp.extra.ExtraData;
+import org.yaawp.extra.ExtraStyle;
+import org.yaawp.extra.Log;
+import org.yaawp.extra.Utils;
 
 public abstract class GeoData extends Storable {
 

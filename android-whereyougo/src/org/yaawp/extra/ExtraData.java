@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/lgpl.html/>.
  */
 
-package locus.api.objects.extra;
+package org.yaawp.extra;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import locus.api.objects.Storable;
-import locus.api.utils.Log;
+import org.yaawp.extra.Storable;
+import org.yaawp.extra.Log;
 
 public class ExtraData extends Storable {
 

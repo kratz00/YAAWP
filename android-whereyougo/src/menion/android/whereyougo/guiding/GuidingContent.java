@@ -21,8 +21,9 @@ package menion.android.whereyougo.guiding;
 
 import java.util.ArrayList;
 
-import locus.api.objects.extra.Location;
-import locus.api.objects.extra.Waypoint;
+import org.yaawp.extra.Location;
+import org.yaawp.extra.Waypoint;
+
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;

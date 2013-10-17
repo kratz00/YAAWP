@@ -2,7 +2,6 @@ package org.yaawp.hmi.adapter;
 
 import java.io.File;
 
-import locus.api.objects.extra.Location;
 import menion.android.whereyougo.Main;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
 import menion.android.whereyougo.hardware.location.LocationState;
@@ -32,6 +31,7 @@ import android.widget.TextView;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
+import org.yaawp.extra.Location;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.maps.MapWaypoint;
 import org.yaawp.maps.MapOverlays;

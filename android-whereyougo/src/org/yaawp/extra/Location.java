@@ -18,14 +18,15 @@
  * <http://www.gnu.org/licenses/lgpl.html/>.
  */
 
-package locus.api.objects.extra;
+package org.yaawp.extra;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import locus.api.objects.Storable;
-import locus.api.utils.Utils;
+import org.yaawp.extra.Storable;
+import org.yaawp.extra.LocationCompute;
+import org.yaawp.extra.Utils;
 
 public class Location extends Storable {
 

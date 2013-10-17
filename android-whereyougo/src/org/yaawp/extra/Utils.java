@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/lgpl.html/>.
  */
 
-package locus.api.utils;
+package org.yaawp.extra;
 
 import java.io.Closeable;
 import java.lang.reflect.Field;

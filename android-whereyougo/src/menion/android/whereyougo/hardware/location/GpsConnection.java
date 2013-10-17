@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import locus.api.android.utils.LocusUtils;
-import locus.api.objects.extra.Location;
 import org.yaawp.R;
+import org.yaawp.extra.Location;
+import org.yaawp.extra.LocusUtils;
 import org.yaawp.preferences.PreferenceUtils;
 
 import menion.android.whereyougo.gui.extension.UtilsGUI;

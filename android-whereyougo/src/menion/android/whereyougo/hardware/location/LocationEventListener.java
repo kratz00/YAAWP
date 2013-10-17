@@ -21,7 +21,8 @@ package menion.android.whereyougo.hardware.location;
 
 import java.util.ArrayList;
 
-import locus.api.objects.extra.Location;
+import org.yaawp.extra.Location;
+
 
 import android.os.Bundle;
 

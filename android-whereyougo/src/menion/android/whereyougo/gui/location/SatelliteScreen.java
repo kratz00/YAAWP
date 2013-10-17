@@ -21,7 +21,6 @@ package menion.android.whereyougo.gui.location;
 
 import java.util.ArrayList;
 
-import locus.api.objects.extra.Location;
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
@@ -29,8 +28,6 @@ import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
 import menion.android.whereyougo.hardware.sensors.Orientation;
-import menion.android.whereyougo.settings.SettingValues;
-import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.ManagerNotify;
@@ -43,6 +40,8 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import org.yaawp.extra.Location;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 

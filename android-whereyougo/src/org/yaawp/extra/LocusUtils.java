@@ -1,9 +1,10 @@
-package locus.api.android.utils;
+package org.yaawp.extra;
 
-import locus.api.android.ActionTools;
-import locus.api.objects.extra.Location;
-import locus.api.objects.extra.Waypoint;
-import locus.api.utils.Log;
+
+// import locus.api.android.ActionTools;
+// import locus.api.android.utils.LocusConst;
+// import locus.api.android.utils.RequiredVersionMissingException;
+// import locus.api.utils.Log;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -174,23 +175,25 @@ public class LocusUtils {
 		}
 	 */
 	
+	/*
 	public static boolean isIntentGetLocation(Intent intent) {
 		return isRequiredAction(intent, LocusConst.INTENT_ITEM_GET_LOCATION);
 	}
-	
+	*/
+	/*
 	public interface OnIntentGetLocation {
 		/**
 		 * Handle received request
 		 * @param locGps if GPS is enabled, location is included (may be null)
 		 * @param locMapCenter center location of displayed map (may be null)
 		 */
-		public void onReceived(Location locGps, Location locMapCenter);
+		// public void onReceived(Location locGps, Location locMapCenter);
 		/**
 		 * If intent is not INTENT_GET_LOCATION intent or other problem occur
 		 */
-		public void onFailed();
-	}
-	
+		// public void onFailed();
+	// }
+	/*
 	public static void handleIntentGetLocation(Context context, Intent intent,
 			OnIntentGetLocation handler) throws NullPointerException {
 		// check source data
@@ -207,7 +210,8 @@ public class LocusUtils {
 				getLocationFromIntent(intent, LocusConst.INTENT_EXTRA_LOCATION_GPS),
 				getLocationFromIntent(intent, LocusConst.INTENT_EXTRA_LOCATION_MAP_CENTER));
 	}
-	
+	*/
+	/*
 	public static boolean sendGetLocationData(Activity activity, String name, Location loc) {
 		if (loc == null) {
 			return false;
@@ -222,7 +226,7 @@ public class LocusUtils {
 			return true;
 		}
 	}
-	
+	*/
 	/*
 	   Add action under point sub-menu
 	  -------------------------------
@@ -258,7 +262,7 @@ public class LocusUtils {
         	}
 		}
 	 */
-	
+	/*
 	public static boolean isIntentPointTools(Intent intent) {
 		return isRequiredAction(intent, LocusConst.INTENT_ITEM_POINT_TOOLS);
 	}
@@ -269,7 +273,7 @@ public class LocusUtils {
 		if (wptId < 0) {
 			return null;
 		} else {
-			return ActionTools.getLocusWaypoint(context, wptId);
+			return null; // ActionTools.getLocusWaypoint(context, wptId);
 		}
 	}
 	
@@ -297,7 +301,7 @@ public class LocusUtils {
 			// more below ...
 		}
 	 */
-
+/*
 	public static boolean isIntentMainFunction(Intent intent) {
 		return isRequiredAction(intent, LocusConst.INTENT_ITEM_MAIN_FUNCTION);
 	}
@@ -341,7 +345,7 @@ public class LocusUtils {
 		 * @param locGps if gpsEnabled is true, variable contain location, otherwise null
 		 * @param locMapCenter contain current map center location
 		 */
-		public void onReceived(Location locGps, Location locMapCenter);
+		/* public void onReceived(Location locGps, Location locMapCenter);
 		public void onFailed();
 	}
 	
@@ -383,7 +387,7 @@ public class LocusUtils {
 		check sample application, where this functionality is implemented
 
 	 */
-	
+	/*
 	public static boolean isIntentReceiveLocation(Intent intent) {
 		return isRequiredAction(intent, LocusConst.ACTION_RECEIVE_LOCATION);
 	}
@@ -391,7 +395,7 @@ public class LocusUtils {
 	/**************************************************/
 	/*              SOME HANDY FUNCTIONS              */
 	/**************************************************/
-	
+	/*
 	private static boolean isRequiredAction(Intent intent, String action) {
 		return intent != null && intent.getAction() != null &&
 				intent.getAction().equals(action);

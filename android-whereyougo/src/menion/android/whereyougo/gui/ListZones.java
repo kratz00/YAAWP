@@ -22,9 +22,9 @@ package menion.android.whereyougo.gui;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import org.yaawp.extra.Location;
 import org.yaawp.hmi.helper.ScreenHelper;
 
-import locus.api.objects.extra.Location;
 import menion.android.whereyougo.Main;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;

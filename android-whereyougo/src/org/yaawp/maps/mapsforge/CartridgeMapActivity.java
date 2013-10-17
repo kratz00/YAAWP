@@ -10,7 +10,6 @@ import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import locus.api.objects.extra.Location;
 import menion.android.whereyougo.gui.CartridgeMainMenu;
 import menion.android.whereyougo.gui.Refreshable;
 import menion.android.whereyougo.gui.extension.CustomDialog;
@@ -32,6 +31,7 @@ import org.yaawp.R;
 
 import android.graphics.drawable.Drawable;
 
+import org.yaawp.extra.Location;
 import org.yaawp.maps.MapOverlays;
 import org.yaawp.maps.MapPoint;
 import org.mapsforge.android.maps.overlay.OverlayWay;

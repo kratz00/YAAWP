@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/lgpl.html/>.
  */
 
-package locus.api.objects.extra;
+package org.yaawp.extra;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -26,11 +26,13 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import locus.api.objects.GeoData;
-import locus.api.objects.Storable;
-import locus.api.objects.geocaching.GeocachingData;
-import locus.api.utils.Log;
-import locus.api.utils.Utils;
+
+import org.yaawp.extra.GeoData;
+import org.yaawp.extra.Storable;
+import org.yaawp.extra.ExtraData;
+// import locus.api.objects.geocaching.GeocachingData;
+import org.yaawp.extra.Log;
+import org.yaawp.extra.Utils;
 
 public class Waypoint extends GeoData {
 	
@@ -40,7 +42,7 @@ public class Waypoint extends GeoData {
 	Location loc;
 	
 	/* additional geoCaching data */
-	public GeocachingData gcData;
+	// public GeocachingData gcData;
 
 	public Waypoint(String name, Location loc) {
 		super();
@@ -85,7 +87,7 @@ public class Waypoint extends GeoData {
 		readStyles(dis);
 		
 		// read geocaching
-		readGeocachingData(dis);
+		// readGeocachingData(dis);
 		
 		// version 1 extension
 		if (version >= 1) {
@@ -104,7 +106,7 @@ public class Waypoint extends GeoData {
 		writeStyles(dos);
 
 		// write geocaching data
-		writeGeocachingData(dos);
+		// writeGeocachingData(dos);
 		
 		// version 1 extension
 		dos.writeLong(timeCreated);
@@ -118,12 +120,13 @@ public class Waypoint extends GeoData {
 		extraData = null;
 		styleNormal = null;
 		styleHighlight = null;
-		gcData = null;
+		// gcData = null;
 		
 		// version 1 extension
 		timeCreated = System.currentTimeMillis();
 	}
 	
+	/*
 	protected void readGeocachingData(DataInputStream dis) throws IOException {
 		if (dis.readBoolean()) {
 			gcData = new GeocachingData();
@@ -139,7 +142,7 @@ public class Waypoint extends GeoData {
 			dos.writeBoolean(false);
 		}
 	}
-
+*/
     /*******************************************/
     /*             GET & SET PART              */
     /*******************************************/
@@ -249,11 +252,12 @@ public class Waypoint extends GeoData {
 		addParameter(ExtraData.PAR_INTENT_EXTRA_ON_DISPLAY, "clear");
 	}
 
+	/*
 	public byte[] getGeocachingData() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(baos);
 		try {
-			writeGeocachingData(dos);
+			// writeGeocachingData(dos);
 			return baos.toByteArray();
 		} catch (IOException e) {
 			Log.e(TAG, "getGeocachingDataRaw()", e);
@@ -267,12 +271,13 @@ public class Waypoint extends GeoData {
 		DataInputStream dis = null;
 		try {
 			dis = new DataInputStream(new ByteArrayInputStream(data));
-			readGeocachingData(dis);
+			// readGeocachingData(dis);
 		} catch (Exception e) {
 			Log.e(TAG, "setGeocachingData(" + data + ")", e);
-			gcData = null;
+			// gcData = null;
 		} finally {
 			Utils.closeStream(dis);
 		}
 	}
+	*/
 }

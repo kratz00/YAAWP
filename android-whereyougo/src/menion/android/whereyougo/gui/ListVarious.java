@@ -23,8 +23,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import locus.api.objects.extra.Location;
 import org.yaawp.R;
+import org.yaawp.extra.Location;
+
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.gui.extension.DataInfo;

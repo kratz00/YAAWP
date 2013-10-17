@@ -18,17 +18,17 @@
  * <http://www.gnu.org/licenses/lgpl.html/>.
  */
 
-package locus.api.objects.extra;
+package org.yaawp.extra;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import locus.api.objects.Storable;
-import locus.api.objects.extra.ExtraStyle.LineStyle.ColorStyle;
-import locus.api.objects.extra.ExtraStyle.LineStyle.Units;
-import locus.api.utils.Log;
+import org.yaawp.extra.Storable;
+// import locus.api.objects.extra.ExtraStyle.LineStyle.ColorStyle;
+// import locus.api.objects.extra.ExtraStyle.LineStyle.Units;
+import org.yaawp.extra.Log;
 
 public class ExtraStyle extends Storable {
 
@@ -152,7 +152,7 @@ public class ExtraStyle extends Storable {
 			iconStyle.scale = dis.readFloat();
 			iconStyle.heading = dis.readFloat();
 			iconStyle.iconHref = readStringUTF(dis);
-			iconStyle.hotSpot = KmlVec2.read(dis);
+			// iconStyle.hotSpot = KmlVec2.read(dis);
 		}
 				
 		// label style
@@ -310,7 +310,7 @@ public class ExtraStyle extends Storable {
     	iconStyle.heading = heading;
     	iconStyle.scale = scale;
     	// set hot spot
-    	setIconStyleHotSpot(HOTSPOT_BOTTOM_CENTER);
+    	// setIconStyleHotSpot(HOTSPOT_BOTTOM_CENTER);
     }
 	
 	// definition of hotSpot of icon to bottom center
@@ -318,6 +318,7 @@ public class ExtraStyle extends Storable {
 	public static final int HOTSPOT_TOP_LEFT = 1;
 	public static final int HOTSPOT_CENTER_CENTER = 2;
 
+	/*
 	public void setIconStyleHotSpot(int hotspot) {
 		if (iconStyle == null) {
 			Log.e(TAG, "setIconStyleHotSpot(" + hotspot + "), " +
@@ -352,7 +353,7 @@ public class ExtraStyle extends Storable {
 		
 		iconStyle.hotSpot = vec2;
 	}
-	
+	*/
 	// LINE STYLE
 
 	public LineStyle getLineStyle() {
@@ -364,7 +365,7 @@ public class ExtraStyle extends Storable {
     }
 
     public void setLineStyle(int color, float width) {
-    	setLineStyle(ColorStyle.SIMPLE, color, width, Units.PIXELS);
+    	// setLineStyle(ColorStyle.SIMPLE, color, width, Units.PIXELS);
     }
     
     public void setLineStyle(LineStyle.ColorStyle style, int color,
@@ -467,7 +468,7 @@ public class ExtraStyle extends Storable {
 		public float scale;
 		public float heading;
 		public String iconHref;
-		public KmlVec2 hotSpot;
+		// public KmlVec2 hotSpot;
 		
 		// temporary variables for Locus usage that are not serialized
 		// and are for private Locus usage only
@@ -487,7 +488,7 @@ public class ExtraStyle extends Storable {
 			sb.append(", scale:").append(scale);
 			sb.append(", heading:").append(heading);
 			sb.append(", iconHref:").append(iconHref);
-			sb.append(", hotSpot:").append(hotSpot);
+			// sb.append(", hotSpot:").append(hotSpot);
 			sb.append(", icon:").append(icon);
 			sb.append(", iconW:").append(iconW);
 			sb.append(", iconH:").append(iconH);
@@ -506,7 +507,7 @@ public class ExtraStyle extends Storable {
 			scale = 1.0f;
 			heading = 0.0f;
 			iconHref = null;
-			hotSpot = generateDefaultHotSpot();
+			// hotSpot = generateDefaultHotSpot();
 			icon = null;
 			iconW = -1;
 			iconH = -1;
@@ -519,7 +520,7 @@ public class ExtraStyle extends Storable {
 			scale = dis.readFloat();
 			heading = dis.readFloat();
 			iconHref = readStringUTF(dis);
-			hotSpot = KmlVec2.read(dis);
+			// hotSpot = KmlVec2.read(dis);
 		}
 		
 		@Override
@@ -528,7 +529,7 @@ public class ExtraStyle extends Storable {
 			dos.writeFloat(scale);
 			dos.writeFloat(heading);
 			writeStringUTF(dos, iconHref);
-			hotSpot.write(dos);
+			// hotSpot.write(dos);
 		}
 	}
 	

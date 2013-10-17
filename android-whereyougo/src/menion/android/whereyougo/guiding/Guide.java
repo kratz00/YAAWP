@@ -19,8 +19,9 @@
 
 package menion.android.whereyougo.guiding;
 
-import locus.api.objects.extra.Location;
-import locus.api.objects.extra.Waypoint;
+import org.yaawp.extra.Location;
+import org.yaawp.extra.Waypoint;
+
 
 /**
  * @author menion

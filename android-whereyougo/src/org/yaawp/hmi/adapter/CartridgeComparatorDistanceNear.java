@@ -2,11 +2,11 @@ package org.yaawp.hmi.adapter;
 
 import java.util.Comparator;
 
-import locus.api.objects.extra.Location;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.UtilsFormat;
 import org.yaawp.YCartridge;
+import org.yaawp.extra.Location;
 
 public class CartridgeComparatorDistanceNear extends CartridgeListAdapterItemComparator {
  

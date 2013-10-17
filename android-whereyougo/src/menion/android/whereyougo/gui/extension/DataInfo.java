@@ -19,7 +19,8 @@
 
 package menion.android.whereyougo.gui.extension;
 
-import locus.api.objects.extra.Location;
+import org.yaawp.extra.Location;
+
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 

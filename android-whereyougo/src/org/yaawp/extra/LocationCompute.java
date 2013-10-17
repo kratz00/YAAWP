@@ -1,4 +1,6 @@
-package locus.api.objects.extra;
+package org.yaawp.extra;
+
+import org.yaawp.extra.Location;
 
 public class LocationCompute {
 

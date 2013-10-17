@@ -22,9 +22,10 @@ package menion.android.whereyougo.guiding;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import locus.api.objects.extra.Location;
-import locus.api.objects.extra.Waypoint;
 import org.yaawp.R;
+import org.yaawp.extra.Location;
+import org.yaawp.extra.Waypoint;
+
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.settings.Settings;

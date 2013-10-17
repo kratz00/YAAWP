@@ -26,12 +26,9 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import locus.api.android.utils.LocusUtils;
-import locus.api.objects.extra.Location;
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.gui.location.SatelliteScreen;
-import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Const;
@@ -51,6 +48,9 @@ import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.yaawp.extra.Location;
+import org.yaawp.extra.LocusUtils;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 

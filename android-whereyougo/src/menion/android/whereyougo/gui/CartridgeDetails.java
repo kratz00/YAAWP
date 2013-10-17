@@ -22,8 +22,6 @@ package menion.android.whereyougo.gui;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import locus.api.objects.extra.Location;
-import locus.api.objects.extra.Waypoint;
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
@@ -44,6 +42,8 @@ import cz.matejcik.openwig.formats.ICartridge;
 
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
+import org.yaawp.extra.Location;
+import org.yaawp.extra.Waypoint;
 
 public class CartridgeDetails extends CustomActivity {
 	

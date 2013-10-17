@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import org.yaawp.R;
+import org.yaawp.extra.Location;
 import org.yaawp.preferences.PreferenceUtils;
 
-import locus.api.objects.extra.Location;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;

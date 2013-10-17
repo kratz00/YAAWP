@@ -22,11 +22,6 @@ package menion.android.whereyougo.gui;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import locus.api.android.ActionTools;
-import locus.api.android.utils.LocusUtils;
-import locus.api.android.utils.RequiredVersionMissingException;
-import locus.api.objects.extra.Location;
-import locus.api.objects.extra.Waypoint;
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
 
@@ -55,6 +50,7 @@ import cz.matejcik.openwig.Task;
 import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
+import org.yaawp.extra.Location;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.maps.MapOverlayFactory;
 import org.yaawp.maps.MapOverlays;
