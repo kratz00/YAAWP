@@ -25,7 +25,6 @@ import java.util.TimerTask;
 
 import org.yaawp.R;
 import org.yaawp.extra.Location;
-import org.yaawp.extra.LocusUtils;
 import org.yaawp.preferences.PreferenceUtils;
 
 import menion.android.whereyougo.gui.extension.UtilsGUI;
@@ -182,12 +181,37 @@ public class GpsConnection {
 		}
 	}
 	
+	/**
+	 * Convert a Location object from Android to Locus format
+	 * @param oldLoc
+	 * @return
+	 */
+	public static Location convertToL(android.location.Location oldLoc) {
+		Location loc = new Location(oldLoc.getProvider());
+		loc.setLongitude(oldLoc.getLongitude());
+		loc.setLatitude(oldLoc.getLatitude());
+		loc.setTime(oldLoc.getTime());
+		if (oldLoc.hasAccuracy()) {
+			loc.setAccuracy(oldLoc.getAccuracy());
+		}
+		if (oldLoc.hasAltitude()) {
+			loc.setAltitude(oldLoc.getAltitude());
+		}
+		if (oldLoc.hasBearing()) {
+			loc.setBearing(oldLoc.getBearing());
+		}
+		if (oldLoc.hasSpeed()) {
+			loc.setSpeed(oldLoc.getSpeed());
+		}
+		return loc;
+	}	
+	
 	private class MyLocationListener implements LocationListener {
 		
 		public MyLocationListener() {}
 		
 		public void onLocationChanged(android.location.Location location) {
-			handleOnLocationChanged(LocusUtils.convertToL(location));
+			handleOnLocationChanged(convertToL(location));
 		}
 
 		public void onProviderDisabled(String provider) {

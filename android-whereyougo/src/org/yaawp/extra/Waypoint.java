@@ -25,9 +25,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 
-import org.yaawp.extra.GeoData;
 
-public class Waypoint extends GeoData {
+public class Waypoint {
 	
 	private static final String TAG = "Waypoint";
 	
@@ -39,7 +38,7 @@ public class Waypoint extends GeoData {
 
 	public Waypoint(String name, Location loc) {
 		super();
-		setName(name);
+		// setName(name);
 		this.loc = loc;
 	}
 	
@@ -53,11 +52,11 @@ public class Waypoint extends GeoData {
 	}
 	
 	public Waypoint(DataInputStream dis) throws IOException {
-		super(dis);
+		// super(dis);
 	}
 	
 	public Waypoint(byte[] data) throws IOException {
-		super(data);
+		// super(data);
 	}
 	
 

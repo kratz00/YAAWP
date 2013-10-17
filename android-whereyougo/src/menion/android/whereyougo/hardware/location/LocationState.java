@@ -50,7 +50,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.yaawp.extra.Location;
-import org.yaawp.extra.LocusUtils;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 
@@ -242,6 +241,36 @@ public class LocationState {
     	return mSource == GPS_ON && location.getProvider().equals(LocationManager.NETWORK_PROVIDER);
     }
     
+    
+	/**************************************************/
+	/*               LOCATION CONVERSION              */
+	/**************************************************/
+	
+	/**
+	 * Convert a Location object from Android to Locus format
+	 * @param oldLoc
+	 * @return
+	 */
+	public static Location convertToL(android.location.Location oldLoc) {
+		Location loc = new Location(oldLoc.getProvider());
+		loc.setLongitude(oldLoc.getLongitude());
+		loc.setLatitude(oldLoc.getLatitude());
+		loc.setTime(oldLoc.getTime());
+		if (oldLoc.hasAccuracy()) {
+			loc.setAccuracy(oldLoc.getAccuracy());
+		}
+		if (oldLoc.hasAltitude()) {
+			loc.setAltitude(oldLoc.getAltitude());
+		}
+		if (oldLoc.hasBearing()) {
+			loc.setBearing(oldLoc.getBearing());
+		}
+		if (oldLoc.hasSpeed()) {
+			loc.setSpeed(oldLoc.getSpeed());
+		}
+		return loc;
+	}
+	    
     /*
      * Returns the last known location of the device using its GPS and network location providers.
      * May be null if location access is disabled, or if the location providers don't exist.
@@ -251,7 +280,7 @@ public class LocationState {
                 = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
         Location gpsLocation = null;
         try {
-            gpsLocation = LocusUtils.convertToL(
+            gpsLocation = convertToL(
             		lm.getLastKnownLocation(LocationManager.GPS_PROVIDER));
         } catch (SecurityException e) {
             Logger.w(TAG, "Failed to retrieve location: access appears to be disabled.");
@@ -261,7 +290,7 @@ public class LocationState {
         
         Location networkLocation = null;
         try {
-            networkLocation = LocusUtils.convertToL(
+            networkLocation = convertToL(
             		lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER));
         } catch (SecurityException e) {
         	Logger.w(TAG, "Failed to retrieve location: access appears to be disabled.");
