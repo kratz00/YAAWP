@@ -119,7 +119,7 @@ public class WUI implements UI {
 			return;
 		
 		try {
-			final CustomActivity activity = ScreenHelper.getParentActivity();
+			final Activity activity = ScreenHelper.getParentActivity();
 			activity.runOnUiThread(new Runnable() {
 				public void run() {
 					Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();	

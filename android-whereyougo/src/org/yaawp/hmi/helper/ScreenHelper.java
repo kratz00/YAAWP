@@ -102,8 +102,8 @@ public class ScreenHelper {
 		}
 	}	
 	
-	public static CustomActivity getParentActivity() {
-		CustomActivity activity = (CustomActivity) Settings.getCurrentActivity();
+	public static Activity getParentActivity() {
+		Activity activity = Settings.getCurrentActivity();
 
 		if (activity == null)
 			activity = (CustomActivity) A.getMain();

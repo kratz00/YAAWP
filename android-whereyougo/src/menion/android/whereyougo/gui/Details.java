@@ -39,8 +39,10 @@ import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.UtilsFormat;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -54,6 +56,11 @@ import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
 import org.yaawp.hmi.helper.ScreenHelper;
+import org.yaawp.maps.MapOverlayFactory;
+import org.yaawp.maps.MapOverlays;
+import org.yaawp.maps.MapWaypoint;
+import org.yaawp.maps.MapOverlay;
+import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 
 // ADD locationListener to update UpdateNavi
 public class Details extends CustomActivity implements Refreshable, LocationEventListener {
@@ -210,15 +217,25 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 				@Override
 				public boolean onClick(CustomDialog dialog, View v, int btn) {
 					try {
-						Waypoint wpt = getTargetWaypoint();
-						if (wpt != null) {
-							ActionTools.actionStartGuiding(Details.this, wpt);
-						} else {
-							Logger.d(TAG, "enableGuideOnEventTable(), waypoint 'null'");
-						}
-					} catch (RequiredVersionMissingException e) {
-						Logger.e(TAG, "btn02.click() - missing locus version", e);
-						LocusUtils.callInstallLocus(Details.this);
+				        Intent intent = new Intent( Details.this, CartridgeMapActivity.class );
+				        intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
+				        // Drawable defaultMarker = activity.getResources().getDrawable(R.drawable.icon_gc_wherigo);
+				        MapOverlays.clear(); 
+				        
+						if (et == null || !et.isLocated())
+							return false;
+						
+				    	if (et instanceof Zone) {
+				    		Zone z = ((Zone) et);
+				    		MapOverlays.mPolygons.add( MapOverlayFactory.createPolygon( z ) );
+				    	} else {
+				    		MapWaypoint mapCartridge = new MapWaypoint(et.name,et.position.latitude,et.position.longitude);
+				    		Drawable defaultMarker = Details.this.getResources().getDrawable(R.drawable.icon_gc_wherigo);
+				    		mapCartridge.setMarker( defaultMarker );
+				    		MapOverlays.mWaypoints.add( mapCartridge ); 
+				    	}
+				    
+				        startActivity(intent);  
 					} catch (Exception e) {
 						Logger.e(TAG, "btn02.click() - unknown problem", e);
 					}
@@ -312,32 +329,42 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 	}
 	
 	private void enableGuideOnEventTable() {
+
+        Intent intent = new Intent( this, CartridgeMapActivity.class );
+        intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
+        // Drawable defaultMarker = activity.getResources().getDrawable(R.drawable.icon_gc_wherigo);
+        MapOverlays.clear();
+    	// MapWaypoint mapCartridge = MapOverlayFactory.createWaypoint( cartridge );
+    	// mapCartridge.setMarker( defaultMarker );
+		// MapOverlays.mWaypoints.add( mapCartridge );   
+        
+		if (et == null || !et.isLocated())
+			return;
+		
+    	if (et instanceof Zone) {
+    		Zone z = ((Zone) et);
+    		MapOverlays.mPolygons.add( MapOverlayFactory.createPolygon( z ) );
+    	} else {
+    		MapWaypoint mapCartridge = new MapWaypoint(et.name,et.position.latitude,et.position.longitude);
+    		Drawable defaultMarker = this.getResources().getDrawable(R.drawable.icon_gc_wherigo);
+    		mapCartridge.setMarker( defaultMarker );
+    		MapOverlays.mWaypoints.add( mapCartridge ); 
+    	}
+    	
+        
+        startActivity(intent);    
+        
+		/*
 		Waypoint wpt = getTargetWaypoint();
 		if (wpt != null) {
 			A.getGuidingContent().guideStart(wpt);
 		} else {
 			Logger.d(TAG, "enableGuideOnEventTable(), waypoint 'null'");
 		}
+		*/
 	}
 	
-	private Waypoint getTargetWaypoint() {
-		if (et == null || !et.isLocated())
-			return null;
-		
-    	if (et instanceof Zone) {
-    		Zone z = ((Zone) et);
-    		Location loc = new Location(TAG);
-    		loc.setLatitude(z.nearestPoint.latitude);
-    		loc.setLongitude(z.nearestPoint.longitude);
-			return new Waypoint(et.name, loc);
-    	} else {
-    		Location loc = new Location(TAG);
-    		loc.setLatitude(et.position.latitude);
-    		loc.setLongitude(et.position.longitude);
-			return new Waypoint(et.name, loc);
-    	}
-	}
-	
+
 	public void onStart() {
 		super.onStart();
 		if (et instanceof Zone)

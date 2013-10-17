@@ -10,9 +10,9 @@ import android.graphics.drawable.Drawable;
 import org.yaawp.maps.mapsforge.MfMapOverlay;
 
 
-public class MfWaypoint extends MapWaypoint implements MfMapOverlay  {
+public class MfMapWaypoint extends MapWaypoint implements MfMapOverlay  {
 
-	MfWaypoint( MapWaypoint wpt ) {
+	MfMapWaypoint( MapWaypoint wpt ) {
 		super(wpt);
 	}
 	
