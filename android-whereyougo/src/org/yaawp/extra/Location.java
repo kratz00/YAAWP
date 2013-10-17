@@ -24,11 +24,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.yaawp.extra.Storable;
 import org.yaawp.extra.LocationCompute;
 import org.yaawp.extra.Utils;
 
-public class Location extends Storable {
+public class Location {
 
 	// location unique ID
 	private long id;
@@ -94,7 +93,7 @@ public class Location extends Storable {
         }
     }
     
-    private static class ExtraSensor extends Storable implements Cloneable {
+    private static class ExtraSensor implements Cloneable {
 
     	boolean hasHr;
     	int hr;
@@ -122,7 +121,7 @@ public class Location extends Storable {
         }
         
         public ExtraSensor(DataInputStream dis) throws IOException {
-        	super(dis);
+        	// super(dis);
         }
         
         @Override
@@ -152,67 +151,6 @@ public class Location extends Storable {
         			hasTemperature;
         }
 
-		@Override
-		protected int getVersion() {
-			return 1;
-		}
-
-		@Override
-		protected void readObject(int version, DataInputStream dis)
-				throws IOException {
-			hasHr = dis.readBoolean();
-			hr = dis.readInt();
-			hasCadence = dis.readBoolean();
-			cadence = dis.readInt();
-			hasSpeed = dis.readBoolean();
-			speed = dis.readFloat();
-			hasPower = dis.readBoolean();
-			power = dis.readFloat();
-			hasStrides = dis.readBoolean();
-			strides = dis.readInt();
-			hasBattery = dis.readBoolean();
-			battery = dis.readInt();
-			if (version >= 1) {
-				hasTemperature = dis.readBoolean();
-				temperature = dis.readFloat();
-			}
-		}
-
-		@Override
-		protected void writeObject(DataOutputStream dos) throws IOException {
-			dos.writeBoolean(hasHr);
-			dos.writeInt(hr);
-			dos.writeBoolean(hasCadence);
-			dos.writeInt(cadence);
-			dos.writeBoolean(hasSpeed);
-			dos.writeFloat(speed);
-			dos.writeBoolean(hasPower);
-			dos.writeFloat(power);
-			dos.writeBoolean(hasStrides);
-			dos.writeInt(strides);
-			dos.writeBoolean(hasBattery);
-			dos.writeInt(battery);
-			dos.writeBoolean(hasTemperature);
-			dos.writeFloat(temperature);
-		}
-
-		@Override
-		public void reset() {
-        	hasHr = false;
-        	hr = 0;
-        	hasCadence = false;
-        	cadence = 0;
-            hasSpeed = false;
-            speed = 0.0f;
-            hasPower = false;
-            power = 0.0f;
-            hasStrides = false;
-            strides = 0;
-            hasBattery = false;
-            battery = 0;
-            hasTemperature = false;
-            temperature = 0;
-		}
 		
         @Override
         public String toString() {
@@ -247,7 +185,7 @@ public class Location extends Storable {
     }
     
     public Location(DataInputStream dis) throws IOException {
-        super(dis);
+        // super(dis);
     }
 
     public Location(Location loc) {
@@ -255,7 +193,7 @@ public class Location extends Storable {
     }
     
     public Location(byte[] data) throws IOException {
-        super(data);
+        // super(data);
     }
 
     /**
@@ -291,112 +229,7 @@ public class Location extends Storable {
         }
     }
 
-    /*******************************************/
-    /*             OVERWRITE PART              */
-    /*******************************************/
-    
-	@Override
-	protected int getVersion() {
-		return 2;
-	}
 
-	@Override
-	protected void readObject(int version, DataInputStream dis) throws IOException {
-		id = dis.readLong();
-		provider = readStringUTF(dis);
-		time = dis.readLong();
-		latitude = dis.readDouble();
-		longitude = dis.readDouble();
-		hasAltitude = dis.readBoolean();
-		altitude = dis.readDouble();
-
-		// red basic data
-		if (dis.readBoolean()) {
-			extraBasic = new ExtraBasic();
-			extraBasic.hasAccuracy = dis.readBoolean();
-			extraBasic.accuracy = dis.readFloat();
-			extraBasic.hasBearing = dis.readBoolean();
-			extraBasic.bearing = dis.readFloat();
-			extraBasic.hasSpeed = dis.readBoolean();
-			extraBasic.speed = dis.readFloat();
-	    	if (!extraBasic.hasData()) {
-	    		extraBasic = null;
-	    	}
-		}
-		
-		// end VERSION 0
-		if (version < 1) {
-			return;
-		}
-	
-		// read sensor data
-		if (dis.readBoolean()) {
-			if (version == 1) {
-				readSensorVersion1(dis);
-			} else {
-				extraSensor = new ExtraSensor(dis);
-			}
-		}
-	}
-	
-	private void readSensorVersion1(DataInputStream dis) throws IOException {
-		extraSensor = new ExtraSensor();
-		extraSensor.hasHr = dis.readBoolean();
-		extraSensor.hr = dis.readInt();
-		extraSensor.hasCadence = dis.readBoolean();
-		extraSensor.cadence = dis.readInt();
-		extraSensor.hasSpeed = dis.readBoolean();
-		extraSensor.speed = dis.readFloat();
-		extraSensor.hasPower = dis.readBoolean();
-		extraSensor.power = dis.readFloat();
-            
-		if (!extraSensor.hasData()) {
-			extraSensor = null;
-		}
-	}
-	
-	@Override
-	protected void writeObject(DataOutputStream dos) throws IOException {
-		dos.writeLong(id);
-		writeStringUTF(dos, provider);
-		dos.writeLong(time);
-		dos.writeDouble(latitude);
-		dos.writeDouble(longitude);
-		dos.writeBoolean(hasAltitude);
-		dos.writeDouble(altitude);
-
-		// write basic data
-		if (extraBasic == null || !extraBasic.hasData()) {
-			dos.writeBoolean(false);
-		} else {
-			dos.writeBoolean(true);
-			dos.writeBoolean(extraBasic.hasAccuracy);
-			dos.writeFloat(extraBasic.accuracy);
-			dos.writeBoolean(extraBasic.hasBearing);
-			dos.writeFloat(extraBasic.bearing);
-			dos.writeBoolean(extraBasic.hasSpeed);
-			dos.writeFloat(extraBasic.speed);
-		}
-		
-		// write ant data (version 1+)
-		if (extraSensor == null || !extraSensor.hasData()) {
-			dos.writeBoolean(false);
-		} else {
-			dos.writeBoolean(true);
-			extraSensor.write(dos);
-		}
-	}
-	
-    @Override
-    public void reset() {
-    	id = -1L;
-        provider = null;
-        time = 0L;
-        latitude = 0.0;
-        longitude = 0.0;
-        extraBasic = null;
-        extraSensor = null;
-    }
     
     /**************************************************/
     /*                 GETTER & SETTERS               */

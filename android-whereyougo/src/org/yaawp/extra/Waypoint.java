@@ -20,19 +20,12 @@
 
 package org.yaawp.extra;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 
 import org.yaawp.extra.GeoData;
-import org.yaawp.extra.Storable;
-import org.yaawp.extra.ExtraData;
-// import locus.api.objects.geocaching.GeocachingData;
-import org.yaawp.extra.Log;
-import org.yaawp.extra.Utils;
 
 public class Waypoint extends GeoData {
 	
@@ -67,82 +60,7 @@ public class Waypoint extends GeoData {
 		super(data);
 	}
 	
-    /*******************************************/
-    /*             STORABLE PART               */
-    /*******************************************/
-	
-	@Override
-	protected int getVersion() {
-		return 1;
-	}
 
-	@Override
-	protected void readObject(int version, DataInputStream dis) throws IOException {
-		id = dis.readLong();
-		name = readStringUTF(dis);
-		loc = new Location(dis);
-		
-		// read extra data
-		readExtraData(dis);
-		readStyles(dis);
-		
-		// read geocaching
-		// readGeocachingData(dis);
-		
-		// version 1 extension
-		if (version >= 1) {
-			timeCreated = dis.readLong();
-		}
-	}
-
-	@Override
-	protected void writeObject(DataOutputStream dos) throws IOException {
-		dos.writeLong(id);
-		writeStringUTF(dos, name);
-		loc.write(dos);
-
-		// write extra data
-		writeExtraData(dos);
-		writeStyles(dos);
-
-		// write geocaching data
-		// writeGeocachingData(dos);
-		
-		// version 1 extension
-		dos.writeLong(timeCreated);
-	}
-
-	@Override
-	public void reset() {
-		id = -1;
-		name = "";
-		loc = null;
-		extraData = null;
-		styleNormal = null;
-		styleHighlight = null;
-		// gcData = null;
-		
-		// version 1 extension
-		timeCreated = System.currentTimeMillis();
-	}
-	
-	/*
-	protected void readGeocachingData(DataInputStream dis) throws IOException {
-		if (dis.readBoolean()) {
-			gcData = new GeocachingData();
-			gcData.read(dis);
-		}
-	}
-	
-	protected void writeGeocachingData(DataOutputStream dos) throws IOException {
-		if (gcData != null) {
-			dos.writeBoolean(true);
-			gcData.write(dos);
-		} else {
-			dos.writeBoolean(false);
-		}
-	}
-*/
     /*******************************************/
     /*             GET & SET PART              */
     /*******************************************/
@@ -154,12 +72,6 @@ public class Waypoint extends GeoData {
 		return loc;
 	}
 	
-	public String getExtraCallback() {
-		if (extraData != null) {
-			return extraData.getParameter(ExtraData.PAR_INTENT_EXTRA_CALLBACK);
-		}
-		return null;
-	}
 	
 	/**
 	 * Simply allow set callback value on point. This appear when you click on point
@@ -187,7 +99,7 @@ public class Waypoint extends GeoData {
 		buff.append(className).append(";");
 		buff.append(returnDataName).append(";");
 		buff.append(returnDataValue).append(";");
-		addParameter(ExtraData.PAR_INTENT_EXTRA_CALLBACK, buff.toString());
+		// addParameter(ExtraData.PAR_INTENT_EXTRA_CALLBACK, buff.toString());
 	}
 	
 	/**
@@ -200,13 +112,10 @@ public class Waypoint extends GeoData {
 	 * completely all data 
 	 */
 	public void removeExtraCallback() {
-		addParameter(ExtraData.PAR_INTENT_EXTRA_CALLBACK, "clear");
+		// addParameter(ExtraData.PAR_INTENT_EXTRA_CALLBACK, "clear");
 	}
 	
 	public String getExtraOnDisplay() {
-		if (extraData != null) {
-			return extraData.getParameter(ExtraData.PAR_INTENT_EXTRA_ON_DISPLAY);
-		}
 		return null;
 	}
 	
@@ -236,7 +145,7 @@ public class Waypoint extends GeoData {
 		buff.append(className).append(";");
 		buff.append(returnDataName).append(";");
 		buff.append(returnDataValue).append(";");
-		addParameter(ExtraData.PAR_INTENT_EXTRA_ON_DISPLAY, buff.toString());
+		// addParameter(ExtraData.PAR_INTENT_EXTRA_ON_DISPLAY, buff.toString());
 	}
 	
 	/**
@@ -249,7 +158,7 @@ public class Waypoint extends GeoData {
 	 * completely all data 
 	 */
 	public void removeExtraOnDisplay() {
-		addParameter(ExtraData.PAR_INTENT_EXTRA_ON_DISPLAY, "clear");
+		// addParameter(ExtraData.PAR_INTENT_EXTRA_ON_DISPLAY, "clear");
 	}
 
 	/*

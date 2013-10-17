@@ -26,12 +26,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.yaawp.extra.ExtraData;
-import org.yaawp.extra.ExtraStyle;
 import org.yaawp.extra.Log;
 import org.yaawp.extra.Utils;
 
-public abstract class GeoData extends Storable {
+public abstract class GeoData  {
 
 	private static final String TAG = "GeoData";
 	
@@ -44,15 +42,6 @@ public abstract class GeoData extends Storable {
 	// time the data was created
 	protected long timeCreated;
 	
-    // EXTRA CONTAINERS
-    
-	/* extra data */
-	public ExtraData extraData;
-	
-	/* extra style for normal state */
-	public ExtraStyle styleNormal;
-	/* extra style for highlight state */
-	public ExtraStyle styleHighlight;
 	
 	// PRIVATE PART
 	
@@ -79,59 +68,11 @@ public abstract class GeoData extends Storable {
 	}
 	
 	public GeoData(DataInputStream dis) throws IOException {
-		super(dis);
 	}
 	
 	public GeoData(byte[] data) throws IOException {
-		super(data);
 	}
 	
-    /*******************************************/
-    /*             STORABLE PART               */
-    /*******************************************/
-	
-	protected void readExtraData(DataInputStream dis) throws IOException {
-		if (dis.readBoolean()) {
-			extraData = new ExtraData();
-			extraData.read(dis);
-		}
-	}
-	
-	protected void writeExtraData(DataOutputStream dos) throws IOException {
-		if (extraData != null && extraData.getCount() > 0) {
-			dos.writeBoolean(true);
-			extraData.write(dos);
-		} else {
-			dos.writeBoolean(false);
-		}
-	}
-	
-	protected void readStyles(DataInputStream dis) throws IOException {
-		if (dis.readBoolean()) {
-			styleNormal = new ExtraStyle("");
-			styleNormal.read(dis);
-		}
-		if (dis.readBoolean()) {
-			styleHighlight = new ExtraStyle("");
-			styleHighlight.read(dis);
-		}
-	}
-	
-	protected void writeStyles(DataOutputStream dos) throws IOException {
-		if (styleNormal != null) {
-			dos.writeBoolean(true);
-			styleNormal.write(dos);
-		} else {
-			dos.writeBoolean(false);
-		}
-		
-		if (styleHighlight != null) {
-			dos.writeBoolean(true);
-			styleHighlight.write(dos);
-		} else {
-			dos.writeBoolean(false);
-		}
-	}
 	
 	/**************************************/
 	/*       MAIN GETTERS & SETTERS       */
@@ -157,17 +98,11 @@ public abstract class GeoData extends Storable {
 		this.timeCreated = timeCreated;
 	}
 	
-	// EXTRA DATA
-
-	public boolean hasExtraData() {
-		return extraData != null;
-	}
-	
 	public byte[] getExtraData() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(baos);
 		try {
-			writeExtraData(dos);
+			// writeExtraData(dos);
 			dos.flush();
 			return baos.toByteArray();
 		} catch (IOException e) {
@@ -178,143 +113,4 @@ public abstract class GeoData extends Storable {
 		}
 	}
 	
-	public void setExtraData(byte[] data) {
-		DataInputStream dis = null;
-		try {
-			dis = new DataInputStream(new ByteArrayInputStream(data));
-			readExtraData(dis);
-		} catch (Exception e) {
-			Log.e(TAG, "setExtraData(" + data + ")", e);
-			extraData = null;
-		} finally {
-			Utils.closeStream(dis);
-		}
-	}
-	
-	// EXTRA DATA - PARAMETERS
-	// these are helper functions for more quick access
-	// to parameter values without need to check state
-	// of ExtraData object
-	
-	public boolean addParameter(int paramId, String param) {
-		if (extraData == null) {
-			extraData = new ExtraData();
-		}
-		return extraData.addParameter(paramId, param);
-	}
-	
-	public String getParameter(int paramId) {
-		if (extraData == null) {
-			return null;
-		}
-		return extraData.getParameter(paramId);
-	}
-	
-	public boolean hasParameter(int paramId) {
-		if (extraData == null) {
-			return false;
-		}
-		return extraData.hasParameter(paramId);		
-	}
-	
-	public String removeParameter(int paramId) {
-		if (extraData == null) {
-			return null;
-		}
-		return extraData.removeParameter(paramId);
-	}
-
-	// SHORTCUTS FOR MOST USEFUL PARAMS
-	
-	public void setParameterSource(int source) {
-		addParameter(ExtraData.PAR_SOURCE, String.valueOf(source));
-	}
-	
-	public int getParameterSource() {
-		if (extraData == null) {
-			return ExtraData.SOURCE_UNKNOWN;
-		}
-		String res = extraData.getParameter(ExtraData.PAR_SOURCE);
-		try {
-			return Integer.parseInt(res);
-		} catch (Exception e) {
-			return ExtraData.SOURCE_UNKNOWN;
-		}
-	}
-	
-	public void setParameterStyleName(String style) {
-		addParameter(ExtraData.PAR_STYLE_NAME, style);
-	}
-	
-	public String getParameterStyleName() {
-		if (extraData == null) {
-			return "";
-		}
-		return extraData.getParameter(ExtraData.PAR_STYLE_NAME);
-	}
-
-	public void addEmail(String email) {
-		if (extraData == null) {
-			extraData = new ExtraData();
-		}
-		extraData.addEmail(email);
-	}
-	
-	public void addPhone(String phone) {
-		if (extraData == null) {
-			extraData = new ExtraData();
-		}
-		extraData.addPhone(phone);
-	}
-	
-	public void addUrl(String url) {
-		if (extraData == null) {
-			extraData = new ExtraData();
-		}
-		extraData.addUrl(url);
-	}
-	
-	public void addUrl(String label, String url) {
-		if (extraData == null) {
-			extraData = new ExtraData();
-		}
-		extraData.addUrl(label, url);
-	}
-	
-	public void addPhoto(String url) {
-		if (extraData == null) {
-			extraData = new ExtraData();
-		}
-		extraData.addPhoto(url);
-	}
-	
-	// STYLES
-	
-	public byte[] getStyles() {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		DataOutputStream dos = new DataOutputStream(baos);
-		try {
-			writeStyles(dos);
-			dos.flush();
-			return baos.toByteArray();
-		} catch (IOException e) {
-			Log.e(TAG, "getStylesRaw()", e);
-			return null;
-		} finally {
-			Utils.closeStream(dos);
-		}
-	}
-
-	public void setStyles(byte[] data) {
-		DataInputStream dis = null;
-		try {
-			dis = new DataInputStream(new ByteArrayInputStream(data));
-			readStyles(dis);
-		} catch (Exception e) {
-			Log.e(TAG, "setExtraStyle(" + data + ")", e);
-			extraData = null;
-		} finally {
-			Utils.closeStream(dis);
-		}
-	}
 }
