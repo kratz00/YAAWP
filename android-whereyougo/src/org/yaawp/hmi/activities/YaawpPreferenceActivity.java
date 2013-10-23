@@ -10,9 +10,12 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.content.SharedPreferences;
+import menion.android.whereyougo.gui.extension.CustomActivity;
+import menion.android.whereyougo.gui.extension.CustomMain;
 import menion.android.whereyougo.gui.extension.MainApplication;
-import menion.android.whereyougo.settings.SettingValues;
+import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.utils.A;
+import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.Utils;
 import menion.android.whereyougo.utils.ManagerNotify;
 
@@ -49,8 +52,73 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
 	    addOnPreferenceChangeListener( R.string.pref_exclude_whereyougo_dir, VALUE_CHANGE_LISTENER );
 	    addOnPreferenceChangeListener( R.string.pref_include_dropbox_dir, VALUE_CHANGE_LISTENER );
 	    
-	    initPreferences();
 	}
+	
+	/*
+	public void onCreate(Bundle savedInstanceState) {
+		try {
+			super.onCreate(savedInstanceState);
+			CustomActivity.customOnCreate(this);
+		} catch (Exception e) {
+			Logger.e(getLocalClassName(), "onCreate()", e);
+		}
+	}
+	
+	public void onStart() {
+		try {
+			super.onStart();
+			CustomActivity.customOnStart(this);
+			
+			needRestart = false;
+			needRestartFactoryReset = false;
+			needGpsRestart = false;
+		} catch (Exception e) {
+			Logger.e(getLocalClassName(), "onStart()", e);
+		}
+	}
+	
+	protected void onResume() {
+		try {
+			super.onResume();
+			CustomActivity.customOnResume(this);
+		} catch (Exception e) {
+			Logger.e(getLocalClassName(), "onResume()", e);
+		}
+	}
+	
+	protected void onPause() {
+		try {
+			super.onPause();
+			CustomActivity.customOnPause(this);
+		} catch (Exception e) {
+			Logger.e(getLocalClassName(), "onPause()", e);
+		}
+	}
+	
+	public void onDestroy() {
+		try {
+			super.onDestroy();
+			if (needRestartFactoryReset) {
+	    		A.getMain().showDialogFinish(CustomMain.FINISH_RESTART_FACTORY_RESET);
+	    	} else if (needRestart) {
+	    		A.getMain().showDialogFinish(CustomMain.FINISH_RESTART);
+	    	}
+			
+			if (needGpsRestart) {
+				if (LocationState.isActuallyHardwareGpsOn()) {
+					LocationState.setGpsOff(CustomPreferenceActivity.this);
+					LocationState.setGpsOn(CustomPreferenceActivity.this);
+				}
+			}
+		} catch (Exception e) {
+			Logger.e(getLocalClassName(), "onDestroy()", e);
+		}
+	}
+	 */
+	
+	/*
+	 *  ----
+	 */
 	
 	private void addOnPreferenceChangeListener( int key, Preference.OnPreferenceChangeListener listener ) {
 	    
@@ -62,15 +130,6 @@ public class YaawpPreferenceActivity extends PreferenceActivity {
 	    // listener.onPreferenceChange(preference, value);
 	}
 	
-	/* @Override
-	protected void onPause() {
-	    super.onPause();
-	}*/
-	
-	private void initPreferences() {
-	}
-	
-
     @SuppressWarnings("deprecation")
     public static Preference findPreference(final PreferenceActivity preferenceActivity, final CharSequence key) {
         return preferenceActivity.findPreference(key);

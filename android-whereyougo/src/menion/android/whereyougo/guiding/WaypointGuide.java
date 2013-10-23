@@ -27,7 +27,6 @@ import org.yaawp.extra.Location;
 import org.yaawp.extra.Waypoint;
 
 import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
@@ -108,6 +107,7 @@ public class WaypointGuide implements Guide {
 	@Override
 	public void manageDistanceSoundsBeeping(double distance) {
 		try {
+			/* TODO
 			switch (SettingValues.GUIDING_WAYPOINT_SOUND) {
 			case Settings.VALUE_GUIDING_WAYPOINT_SOUND_BEEP_ON_DISTANCE:
 				if (distance < SettingValues.GUIDING_WAYPOINT_SOUND_DISTANCE &&
@@ -141,17 +141,20 @@ public class WaypointGuide implements Guide {
 					mAlreadyBeeped = true;
 				}
 				break;
-			}
+			} */
 		} catch (Exception e) {
 			Logger.e(TAG, "manageDistanceSounds(" + distance + "), e:" + e.toString());
 		}
 	}
 	
 	private long getSonarTimeout(double distance) {
+		/* TODO
 		if (distance < SettingValues.GUIDING_WAYPOINT_SOUND_DISTANCE) {
 			return (long) (distance * 1000 / 33);
 		} else {
 			return Long.MAX_VALUE;
 		}
+		*/
+		return Long.MAX_VALUE;
 	}
 }

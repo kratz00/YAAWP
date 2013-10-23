@@ -30,7 +30,6 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.view.Window;
 import android.view.WindowManager;
-import menion.android.whereyougo.gui.extension.CustomPreferenceActivity;
 import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.utils.A;
@@ -329,19 +328,20 @@ Logger.w(TAG, "getLanguageCode() - " + lang);
     	Settings.currentActivity = activity;
     }
     
+
     public static boolean setScreenBasic(Activity activity) {
     	try {
 //Logger.w(TAG, "setFullscreen(" + activity.getLocalClassName() + ")");
 			// hide title
-    		if (!(activity instanceof CustomPreferenceActivity)) {
+    		// if (!(activity instanceof CustomPreferenceActivity)) {
    				activity.requestWindowFeature(Window.FEATURE_NO_TITLE);	
-    		}
+    		// }
     		return true;
     	} catch (Exception e) {
     		Logger.e(TAG, "setFullScreen(" + activity + ")", e);
     	}
     	return false;
     }
-      
+    
 
 }

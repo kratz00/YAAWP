@@ -27,7 +27,6 @@ import org.yaawp.extra.Waypoint;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
-import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.utils.Logger;
 import android.os.Bundle;
 
@@ -83,9 +82,11 @@ public class GuidingContent implements LocationEventListener {
 			public void run() {
 				try {
 					while (mGuide != null) {
+						/* TODO SettingsValue
 						if (SettingValues.GUIDING_SOUNDS) {
 							mGuide.manageDistanceSoundsBeeping(mDistanceToTarget);
 						}
+						*/
 						Thread.sleep(100);
 					}
 				} catch (Exception e) {

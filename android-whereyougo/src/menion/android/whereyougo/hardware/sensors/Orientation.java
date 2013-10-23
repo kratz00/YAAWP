@@ -29,7 +29,6 @@ import org.yaawp.preferences.PreferenceUtils;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
-import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;

@@ -27,7 +27,6 @@ import java.util.TimerTask;
 import org.yaawp.R;
 
 import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.FileSystem;
 import menion.android.whereyougo.utils.Logger;
@@ -138,8 +137,7 @@ public class MainApplication extends Application {
 		
     	// initialize root directory
 		FileSystem.createRoot(APP_NAME);
-		// set basic settings values
-		SettingValues.init(this);
+
 		// set location state
 		LocationState.init(this);
     	// initialize DPI

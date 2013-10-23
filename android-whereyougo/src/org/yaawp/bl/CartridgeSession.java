@@ -10,7 +10,6 @@ import org.yaawp.openwig.WUI;
 import org.yaawp.R;
 import org.yaawp.preferences.PreferenceUtils;
 
-import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.utils.Logger;
 import cz.matejcik.openwig.Engine;
 import org.yaawp.YCartridge;

@@ -28,7 +28,6 @@ import org.yaawp.extra.Location;
 import org.yaawp.preferences.PreferenceUtils;
 
 import menion.android.whereyougo.gui.extension.UtilsGUI;
-import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.ManagerNotify;
@@ -87,8 +86,9 @@ public class GpsConnection {
 		// add new listeners NETWORK
 		if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
 			try {
+				// TODO SettingsValues - extend preferences
 				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-						SettingValues.GPS_MIN_TIME * 1000, 0, llNetwork);
+						/* SettingValues.GPS_MIN_TIME * 1000 */ 0, 0, llNetwork);
 				networkProviderEnabled = true;
 			} catch (Exception e) {
 				Logger.w(TAG, "problem adding 'network' provider, e:" + e);
@@ -99,8 +99,9 @@ public class GpsConnection {
 		// add new listener GPS
 		if (providers.contains(LocationManager.GPS_PROVIDER)) {
 			try {
+				// TODO SettingsValues - extend preferences
 				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-						SettingValues.GPS_MIN_TIME * 1000, 0, llGPS);	
+						/* SettingValues.GPS_MIN_TIME * 1000 */ 0, 0, llGPS);	
 			} catch (Exception e) {
 				Logger.w(TAG, "problem adding 'GPS' provider, e:" + e);
 			}

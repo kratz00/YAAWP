@@ -1,8 +1,6 @@
 package org.yaawp.preferences;
 
-import menion.android.whereyougo.gui.extension.CustomPreferenceActivity;
 import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 
@@ -21,17 +19,15 @@ public class PreferenceFunc {
 	
     public static void setScreenFullscreen(Activity activity) {
     	try {
-    		if (!(activity instanceof CustomPreferenceActivity)) {
-    			
-    			boolean x = PreferenceUtils.getPrefBoolean( R.string.pref_fullscreen );
-    			
-        		if (x) {
-    				activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-    						WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    			} else {
-    				activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    			}
-    		}
+			boolean fullScreen = PreferenceUtils.getPrefBoolean( R.string.pref_fullscreen );
+			
+    		if (fullScreen) {
+				activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+						WindowManager.LayoutParams.FLAG_FULLSCREEN);
+			} else {
+				activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+			}
+
     	} catch (Exception e) {
     		Logger.e(TAG, "setScreenFullScreen(" + activity + ")", e);
     	}

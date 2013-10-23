@@ -27,7 +27,6 @@ import java.util.Locale;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.PreferenceItems;
 
-import menion.android.whereyougo.settings.SettingValues;
 import menion.android.whereyougo.settings.Settings;
 
 public class UtilsFormat {
