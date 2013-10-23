@@ -1,6 +1,6 @@
 package org.yaawp.hmi.helper;
 
-import org.yaawp.hmi.activities.CartridgeMainMenu;
+import org.yaawp.hmi.activities.WigMainMenuActivity;
 import org.yaawp.hmi.activities.GuidingActivity;
 
 import menion.android.whereyougo.gui.CartridgeDetails;
@@ -45,7 +45,7 @@ public class ScreenHelper {
 		
 		switch (screenId) {
 			case SCREEN_MAINSCREEN:
-				Intent intent01 = new Intent(activity, CartridgeMainMenu.class);
+				Intent intent01 = new Intent(activity, WigMainMenuActivity.class);
 				activity.startActivity(intent01);
 				return;
 			case SCREEN_CART_DETAIL:

@@ -55,7 +55,7 @@
 			android:name="menion.android.whereyougo.gui.CartridgeDetails"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name="org.yaawp.hmi.activities.CartridgeMainMenu"
+			android:name="org.yaawp.hmi.activities.WigMainMenuActivity"
 			android:launchMode="singleTask"
 			android:screenOrientation="portrait"/>
 		<activity

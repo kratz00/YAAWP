@@ -49,7 +49,7 @@ import cz.matejcik.openwig.EventTable;
 import cz.matejcik.openwig.Media;
 import cz.matejcik.openwig.platform.UI;
 
-import org.yaawp.hmi.activities.CartridgeMainMenu;
+import org.yaawp.hmi.activities.WigMainMenuActivity;
 import org.yaawp.hmi.activities.GuidingActivity;
 import org.yaawp.hmi.helper.AudioHelper;
 import org.yaawp.hmi.helper.ProgressDialogHelper;

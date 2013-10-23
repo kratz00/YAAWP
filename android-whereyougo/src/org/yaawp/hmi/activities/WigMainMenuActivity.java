@@ -50,7 +50,7 @@ import cz.matejcik.openwig.Task;
 import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
-public class CartridgeMainMenu extends CustomActivity implements Refreshable {
+public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 
 	private static final String TAG = "CartridgeMainMenu";
 	
@@ -96,7 +96,7 @@ public class CartridgeMainMenu extends CustomActivity implements Refreshable {
 				getString(R.string.gps), new CustomDialog.OnClickListener() {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
-				Intent intent = new Intent(CartridgeMainMenu.this, SatelliteScreenActivity.class);
+				Intent intent = new Intent(WigMainMenuActivity.this, SatelliteScreenActivity.class);
 				startActivity(intent);
 				return true;
 			}
@@ -132,13 +132,13 @@ public class CartridgeMainMenu extends CustomActivity implements Refreshable {
 						getVisibleTasksDescription(), R.drawable.icon_tasks);
 				data.add(diTasks);
 				
-				ListView lv = new ListView(CartridgeMainMenu.this);
-				IconedListAdapter adapter = new IconedListAdapter(CartridgeMainMenu.this, data, lv);
+				ListView lv = new ListView(WigMainMenuActivity.this);
+				IconedListAdapter adapter = new IconedListAdapter(WigMainMenuActivity.this, data, lv);
 				adapter.setMinHeight((int) Utils.getDpPixels(70));
 				adapter.setTextView02Visible(View.VISIBLE, true);
 				lv.setAdapter(adapter);
 				lv.setOnItemClickListener(listClick);
-				CustomDialog.setContent(CartridgeMainMenu.this, lv, 0, true, false);
+				CustomDialog.setContent(WigMainMenuActivity.this, lv, 0, true, false);
 			}
 		});		
 	}
@@ -146,7 +146,7 @@ public class CartridgeMainMenu extends CustomActivity implements Refreshable {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 Logger.d(TAG, "onKeyDown(" + keyCode + ", " + event + ")");
 		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-	    	AlertDialog.Builder b = new AlertDialog.Builder(CartridgeMainMenu.this);
+	    	AlertDialog.Builder b = new AlertDialog.Builder(WigMainMenuActivity.this);
 	    	b.setCancelable(true);
 	    	b.setTitle(R.string.question);
 	    	b.setMessage(R.string.save_game_before_exit);
@@ -168,7 +168,7 @@ Logger.d(TAG, "onKeyDown(" + keyCode + ", " + event + ")");
 	    		public void onClick(DialogInterface dialog, int which) {
 					Engine.kill();
 					// Main.currentCartridge = null;
-					CartridgeMainMenu.this.finish();
+					WigMainMenuActivity.this.finish();
 	    		}
 	    	});
 			b.show();
@@ -186,7 +186,7 @@ Logger.d(TAG, "onKeyDown(" + keyCode + ", " + event + ")");
 		
 		@Override
 		protected void onPreExecute () {
-			dialog = ProgressDialog.show(CartridgeMainMenu.this, null, getString(R.string.working));
+			dialog = ProgressDialog.show(WigMainMenuActivity.this, null, getString(R.string.working));
 		}
 		
 		@Override
@@ -211,7 +211,7 @@ Logger.d(TAG, "onKeyDown(" + keyCode + ", " + event + ")");
 				Logger.w(TAG, "onPostExecute(), e:" + e.toString());
 			}
 			Engine.kill();
-			CartridgeMainMenu.this.finish();
+			WigMainMenuActivity.this.finish();
 		}
 		
 	}
