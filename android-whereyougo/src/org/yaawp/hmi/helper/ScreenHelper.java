@@ -1,9 +1,9 @@
 package org.yaawp.hmi.helper;
 
+import org.yaawp.hmi.activities.CartridgeMainMenu;
 import org.yaawp.hmi.activities.GuidingActivity;
 
 import menion.android.whereyougo.gui.CartridgeDetails;
-import menion.android.whereyougo.gui.CartridgeMainMenu;
 import menion.android.whereyougo.gui.Details;
 import menion.android.whereyougo.gui.ListActions;
 import menion.android.whereyougo.gui.ListTargets;

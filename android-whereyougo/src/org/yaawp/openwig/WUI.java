@@ -24,7 +24,6 @@ import java.io.ByteArrayInputStream;
 
 import menion.android.whereyougo.Main;
 import menion.android.whereyougo.gui.CartridgeDetails;
-import menion.android.whereyougo.gui.CartridgeMainMenu;
 import menion.android.whereyougo.gui.Details;
 import menion.android.whereyougo.gui.InputScreen;
 import menion.android.whereyougo.gui.ListActions;
@@ -50,6 +49,7 @@ import cz.matejcik.openwig.EventTable;
 import cz.matejcik.openwig.Media;
 import cz.matejcik.openwig.platform.UI;
 
+import org.yaawp.hmi.activities.CartridgeMainMenu;
 import org.yaawp.hmi.activities.GuidingActivity;
 import org.yaawp.hmi.helper.AudioHelper;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
