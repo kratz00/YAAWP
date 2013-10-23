@@ -23,10 +23,17 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import org.yaawp.R;
+import org.yaawp.YCartridge;
+import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.helper.ScreenHelper;
+import org.yaawp.maps.MapOverlayFactory;
+import org.yaawp.maps.MapOverlays;
+import org.yaawp.maps.MapWaypoint;
+import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.openwig.WUI;
 
 import menion.android.whereyougo.gui.Refreshable;
+import menion.android.whereyougo.gui.dialogs.DialogMain;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.gui.extension.DataInfo;
@@ -37,9 +44,13 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -107,6 +118,53 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		refresh();
 	}
 	
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate( R.menu.menu, menu);
+        return true;
+    }	
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        boolean status = true;
+        
+        switch (item.getItemId())
+        { 
+        
+            case R.id.menu_positioning:
+                Intent intent02 = new Intent( this, SatelliteActivity.class);
+                startActivity(intent02);
+                break;
+                
+            case R.id.menu_map:
+                Intent intent = new Intent( this, CartridgeMapActivity.class );
+                intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" ); 
+                startActivity(intent);              
+                break;
+                
+			case R.id.menu_preferences:
+				Intent intent2 = new Intent( this, YaawpPreferenceActivity.class );
+                startActivity(intent2); 				
+                break; 
+
+            case R.id.menu_info:
+                getSupportFragmentManager().
+                    beginTransaction().
+                    add(new DialogMain(), "DIALOG_TAG_MAIN").
+                    commitAllowingStateLoss();
+                break;
+                
+            default:
+                status = super.onOptionsItemSelected(item);
+                break;
+        }
+    
+        return status;
+    }            
+    
 	public void refresh() {
 		runOnUiThread(new Runnable() {
 			public void run() {
