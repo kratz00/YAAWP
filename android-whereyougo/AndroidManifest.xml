@@ -92,7 +92,7 @@
 			android:name="menion.android.whereyougo.gui.OnlineChooser"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name="menion.android.whereyougo.guiding.GuidingScreen"
+			android:name="org.yaawp.hmi.activities.GuidingActivity"
 			android:screenOrientation="portrait" />
 		<activity
 			android:name="org.yaawp.hmi.activities.SatelliteScreenActivity"

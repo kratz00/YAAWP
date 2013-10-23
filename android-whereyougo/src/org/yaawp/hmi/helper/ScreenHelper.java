@@ -1,5 +1,7 @@
 package org.yaawp.hmi.helper;
 
+import org.yaawp.hmi.activities.GuidingActivity;
+
 import menion.android.whereyougo.gui.CartridgeDetails;
 import menion.android.whereyougo.gui.CartridgeMainMenu;
 import menion.android.whereyougo.gui.Details;
@@ -10,7 +12,6 @@ import menion.android.whereyougo.gui.ListThings;
 import menion.android.whereyougo.gui.ListZones;
 import menion.android.whereyougo.gui.PushDialog;
 import menion.android.whereyougo.gui.extension.CustomActivity;
-import menion.android.whereyougo.guiding.GuidingScreen;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
@@ -97,7 +98,7 @@ public class ScreenHelper {
 	
 	public static void closeActivity(Activity activity) {
 		if (activity instanceof PushDialog ||
-				activity instanceof GuidingScreen) {
+				activity instanceof GuidingActivity) {
 			activity.finish();
 		}
 	}	

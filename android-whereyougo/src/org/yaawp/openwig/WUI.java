@@ -36,7 +36,6 @@ import menion.android.whereyougo.gui.PushDialog;
 import menion.android.whereyougo.gui.Refreshable;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
-import menion.android.whereyougo.guiding.GuidingScreen;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
@@ -50,6 +49,8 @@ import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.EventTable;
 import cz.matejcik.openwig.Media;
 import cz.matejcik.openwig.platform.UI;
+
+import org.yaawp.hmi.activities.GuidingActivity;
 import org.yaawp.hmi.helper.AudioHelper;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.helper.ScreenHelper;

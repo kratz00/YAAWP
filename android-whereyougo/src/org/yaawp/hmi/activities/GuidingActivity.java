@@ -17,12 +17,15 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.guiding;
+package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
 import org.yaawp.extra.Location;
+import org.yaawp.hmi.views.CompassView;
 
 import menion.android.whereyougo.gui.extension.CustomActivity;
+import menion.android.whereyougo.guiding.Guide;
+import menion.android.whereyougo.guiding.GuidingListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.sensors.OrientationListener;
 import menion.android.whereyougo.utils.A;
@@ -36,7 +39,7 @@ import android.widget.TextView;
  * @author menion
  * @since 25.1.2010 2010
  */
-public class GuidingScreen extends CustomActivity implements GuidingListener, OrientationListener {
+public class GuidingActivity extends CustomActivity implements GuidingListener, OrientationListener {
 
 //	private static final String TAG = "GuidingScreen";
 	

@@ -25,7 +25,6 @@ import menion.android.whereyougo.gui.dialogs.DialogMain;
 import menion.android.whereyougo.gui.extension.CustomMain;
 import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
-import menion.android.whereyougo.guiding.GuidingScreen;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.FileSystem;
@@ -56,6 +55,7 @@ import org.yaawp.maps.MapOverlays;
 import org.yaawp.maps.MapWaypoint;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
+import org.yaawp.hmi.activities.GuidingActivity;
 import org.yaawp.hmi.activities.SatelliteScreenActivity;
 import org.yaawp.hmi.activities.YaawpPreferenceActivity;
 
@@ -423,7 +423,7 @@ public class Main extends CustomMain {
 	 * @return true if internal activity was called. False if external by intent.
 	 */
 	public static boolean callGudingScreen(Activity activity) {
-		Intent intent = new Intent(activity, GuidingScreen.class);
+		Intent intent = new Intent(activity, GuidingActivity.class);
 		activity.startActivity(intent);
 		return true;
 	}
