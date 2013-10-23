@@ -26,6 +26,8 @@ import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.helper.ScreenHelper;
+import org.yaawp.hmi.helper.I18N;
+import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.maps.MapOverlayFactory;
 import org.yaawp.maps.MapOverlays;
 import org.yaawp.maps.MapWaypoint;
@@ -40,6 +42,7 @@ import menion.android.whereyougo.gui.extension.DataInfo;
 import menion.android.whereyougo.gui.extension.IconedListAdapter;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.Utils;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -102,12 +105,20 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		
 		CustomDialog.setTitle(this, Engine.instance.cartridge.name,
 				null, CustomDialog.NO_IMAGE, null);
+		
 		CustomDialog.setBottom(this,
 				getString(R.string.gps), new CustomDialog.OnClickListener() {
 			@Override
-			public boolean onClick(CustomDialog dialog, View v, int btn) {
-				Intent intent = new Intent(WigMainMenuActivity.this, SatelliteActivity.class);
-				startActivity(intent);
+			public boolean onClick(CustomDialog dialog, View v, int btn) {			
+		    	new Thread(new Runnable() {
+					public void run() {
+						// TODO I18N use string id for headline
+						ProgressDialogHelper.Show( WigMainMenuActivity.this, "Save game", I18N.get(R.string.working) );
+						Engine.instance.store();
+						ProgressDialogHelper.Hide();
+					}
+				}).start();
+		    	
 				return true;
 			}
 		}, null, null, null, null);

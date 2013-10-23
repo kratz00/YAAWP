@@ -1,9 +1,9 @@
 package org.yaawp.hmi.helper;
 
-import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import android.app.ProgressDialog;
+import android.app.Activity;
 
 public class ProgressDialogHelper {
 
@@ -22,10 +22,13 @@ public class ProgressDialogHelper {
 	}	
 	*/
 	
-	public static void Show( final String headline, final String message ) {		
+	public static void Show( final String headline, final String message ) {
+		Show( ((Activity) A.getMain()), headline, message );
+	}
+	public static void Show( final Activity context, final String headline, final String message ) {		
 		Logger.i(TAG, "Show()");
 		
-        ((CustomActivity) A.getMain()).runOnUiThread(new Runnable() {
+        context.runOnUiThread(new Runnable() {
             public void run() {		
             	Logger.i(TAG, "Show() - UIThread context");
         		if (progressDialog != null) {
@@ -33,7 +36,7 @@ public class ProgressDialogHelper {
                     progressDialog.dismiss();    
         		}
         		
-            	progressDialog = new ProgressDialog(((CustomActivity) A.getMain()));
+            	progressDialog = new ProgressDialog( context );
             	progressDialog.setMessage(message);
             	progressDialog.setTitle( headline );
             	progressDialog.show();  	
@@ -44,7 +47,7 @@ public class ProgressDialogHelper {
 	public static void Hide() {
 		Logger.i(TAG, "Hide()");
 		
-        ((CustomActivity) A.getMain()).runOnUiThread(new Runnable() {
+        ((Activity) A.getMain()).runOnUiThread(new Runnable() {
             public void run() {
             	Logger.i(TAG, "Hide() - UIThread context");
                 if (progressDialog != null) {
@@ -56,7 +59,7 @@ public class ProgressDialogHelper {
 	}
 	
 	public static void Update( final String message ) {
-        ((CustomActivity) A.getMain()).runOnUiThread(new Runnable() {
+        ((Activity) A.getMain()).runOnUiThread(new Runnable() {
             public void run() {
             	Logger.i(TAG, "Update(" + message + ")");
                 if (progressDialog != null) {
