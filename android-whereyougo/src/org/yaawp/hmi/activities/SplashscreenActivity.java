@@ -3,7 +3,6 @@ package org.yaawp.hmi.activities;
 import java.io.File;
 import android.os.SystemClock;
 
-import menion.android.whereyougo.Main;
 import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
 import menion.android.whereyougo.utils.FileSystem;
@@ -112,7 +111,7 @@ public class SplashscreenActivity extends Activity {
                     }
                 }
 
-                Intent intent = new Intent( SplashscreenActivity.this, Main.class );
+                Intent intent = new Intent( SplashscreenActivity.this, CartridgeListActivity.class );
                 startActivity(intent);                 
                 
        		

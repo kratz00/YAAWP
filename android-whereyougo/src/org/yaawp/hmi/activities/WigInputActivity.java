@@ -19,7 +19,6 @@
 
 package org.yaawp.hmi.activities;
 
-import menion.android.whereyougo.Main;
 import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
 
@@ -79,7 +78,7 @@ public class WigInputActivity extends CustomActivity {
 				try {
 					byte[] is = Engine.mediaFile(m);
 					Bitmap i = BitmapFactory.decodeByteArray(is, 0, is.length);
-					Main.setBitmapToImageView(i, ivImage);
+					CartridgeListActivity.setBitmapToImageView(i, ivImage);
 				} catch (Exception e) { }
 			} else {
 				ivImage.setImageBitmap(Images.IMAGE_EMPTY_B);

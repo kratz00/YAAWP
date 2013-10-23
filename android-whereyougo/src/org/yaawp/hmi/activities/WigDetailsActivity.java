@@ -22,7 +22,6 @@ package org.yaawp.hmi.activities;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import menion.android.whereyougo.Main;
 import org.yaawp.R;
 
 import menion.android.whereyougo.gui.ListActions;
@@ -125,7 +124,7 @@ public class WigDetailsActivity extends CustomActivity implements Refreshable, L
 					try {
 						byte[] is = Engine.mediaFile(m);
 						Bitmap i = BitmapFactory.decodeByteArray(is, 0, is.length);
-						Main.setBitmapToImageView(i, ivImage);
+						CartridgeListActivity.setBitmapToImageView(i, ivImage);
 					} catch (Exception e) {
 						Logger.e(TAG, "refresh()", e);
 					}
@@ -201,7 +200,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 				public boolean onClick(CustomDialog dialog, View v, int btn) {
 					try {
 						enableGuideOnEventTable();
-						Main.callGudingScreen(WigDetailsActivity.this);
+						CartridgeListActivity.callGudingScreen(WigDetailsActivity.this);
 					} catch (Exception e) {
 						Logger.w(TAG, "btn01.click() - unknown problem");
 					}

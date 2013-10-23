@@ -1,6 +1,6 @@
 package org.yaawp.hmi.helper;
 
-import org.yaawp.hmi.activities.CartridgeDetails;
+import org.yaawp.hmi.activities.CartridgeDetailsActivity;
 import org.yaawp.hmi.activities.WigDetailsActivity;
 import org.yaawp.hmi.activities.WigPushDialogActivity;
 import org.yaawp.hmi.activities.WigMainMenuActivity;
@@ -49,7 +49,7 @@ public class ScreenHelper {
 				activity.startActivity(intent01);
 				return;
 			case SCREEN_CART_DETAIL:
-				Intent intent02 = new Intent(activity, CartridgeDetails.class);
+				Intent intent02 = new Intent(activity, CartridgeDetailsActivity.class);
 				activity.startActivity(intent02);
 				return;
 			case SCREEN_DETAILSCREEN:

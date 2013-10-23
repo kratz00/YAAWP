@@ -22,7 +22,6 @@ package org.yaawp.hmi.activities;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import menion.android.whereyougo.Main;
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
@@ -45,7 +44,7 @@ import org.yaawp.extra.Location;
 import org.yaawp.extra.Waypoint;
 import org.yaawp.hmi.helper.I18N;
 
-public class CartridgeDetails extends CustomActivity {
+public class CartridgeDetailsActivity extends CustomActivity {
 	
 	private static final String TAG = "CartridgeDetails";
 	
@@ -69,7 +68,7 @@ public class CartridgeDetails extends CustomActivity {
 		try {
 			byte[] is = cartridgeFile.getFile(cartridgeFile.getSplashId());
 			Bitmap i = BitmapFactory.decodeByteArray(is, 0, is.length);
-			Main.setBitmapToImageView(i, ivImage);
+			CartridgeListActivity.setBitmapToImageView(i, ivImage);
 		} catch (Exception e) {}
 		
 		TextView tvText = (TextView) findViewById(R.id.layoutDetailsTextViewImageText);
@@ -97,7 +96,7 @@ public class CartridgeDetails extends CustomActivity {
 				getString(R.string.start), new CustomDialog.OnClickListener() {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
-				CartridgeDetails.this.finish();
+				CartridgeDetailsActivity.this.finish();
 				CartridgeSession.Start( YaawpAppData.GetInstance().mCurrentCartridge, YaawpAppData.GetInstance().mWui ); 
 				return true;
 			}
@@ -111,8 +110,8 @@ public class CartridgeDetails extends CustomActivity {
 				loc.setLongitude(cartridge.getLongitude());
 				Waypoint wpt = new Waypoint(cartridge.getName(), loc);
 				A.getGuidingContent().guideStart(wpt);
-				Main.callGudingScreen(CartridgeDetails.this);
-				CartridgeDetails.this.finish();
+				CartridgeListActivity.callGudingScreen(CartridgeDetailsActivity.this);
+				CartridgeDetailsActivity.this.finish();
 				return true;
 			}
 		});

@@ -50,7 +50,7 @@ import org.yaawp.preferences.PreferenceUtils;
  * @author menion
  * @since 25.1.2010 2010
  */
-public class SatelliteScreenActivity extends CustomActivity implements LocationEventListener {
+public class SatelliteActivity extends CustomActivity implements LocationEventListener {
 
 	private static final String TAG = "SatelliteScreen";
 	
@@ -74,7 +74,7 @@ public class SatelliteScreenActivity extends CustomActivity implements LocationE
         llSkyplot.removeAllViews();
         
         // return and add view to first linearLayout
-        satelliteView = new Satellite2DView(SatelliteScreenActivity.this);
+        satelliteView = new Satellite2DView(SatelliteActivity.this);
         llSkyplot.addView(satelliteView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
     	// change colors for 3.0+
@@ -91,13 +91,13 @@ public class SatelliteScreenActivity extends CustomActivity implements LocationE
         	@Override
         	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (!isChecked) {
-					LocationState.setGpsOff(SatelliteScreenActivity.this);
+					LocationState.setGpsOff(SatelliteActivity.this);
 					
 					// disable satellites on screen
 					satellites.clear();
 					satelliteView.invalidate();
 				} else {
-					LocationState.setGpsOn(SatelliteScreenActivity.this);
+					LocationState.setGpsOn(SatelliteActivity.this);
 				}
 				
 				onGpsStatusChanged(0, null);

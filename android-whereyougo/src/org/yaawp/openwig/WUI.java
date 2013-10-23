@@ -22,7 +22,6 @@ package org.yaawp.openwig;
 import java.io.ByteArrayInputStream;
 
 
-import menion.android.whereyougo.Main;
 import menion.android.whereyougo.gui.ListActions;
 import menion.android.whereyougo.gui.ListTargets;
 import menion.android.whereyougo.gui.ListTasks;
@@ -45,7 +44,8 @@ import cz.matejcik.openwig.EventTable;
 import cz.matejcik.openwig.Media;
 import cz.matejcik.openwig.platform.UI;
 
-import org.yaawp.hmi.activities.CartridgeDetails;
+import org.yaawp.hmi.activities.CartridgeDetailsActivity;
+import org.yaawp.hmi.activities.CartridgeListActivity;
 import org.yaawp.hmi.activities.WigInputActivity;
 import org.yaawp.hmi.activities.WigDetailsActivity;
 import org.yaawp.hmi.activities.WigPushDialogActivity;

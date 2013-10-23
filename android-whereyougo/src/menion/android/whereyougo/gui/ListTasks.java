@@ -21,8 +21,8 @@ package menion.android.whereyougo.gui;
 
 import java.util.Vector;
 
-import menion.android.whereyougo.Main;
 import org.yaawp.R;
+import org.yaawp.hmi.activities.CartridgeListActivity;
 import org.yaawp.hmi.helper.ScreenHelper;
 
 import menion.android.whereyougo.utils.Images;

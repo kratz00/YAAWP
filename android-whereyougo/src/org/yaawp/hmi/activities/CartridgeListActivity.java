@@ -17,20 +17,19 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo;
+package org.yaawp.hmi.activities;
 
 import java.io.File;
 
+import menion.android.whereyougo.MainAfterStart;
 import menion.android.whereyougo.gui.dialogs.DialogMain;
 import menion.android.whereyougo.gui.extension.CustomMain;
 import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
-import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.FileSystem;
 import menion.android.whereyougo.utils.Logger;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -45,39 +44,30 @@ import android.widget.TextView;
 import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
-import org.yaawp.bl.CartridgeSession;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
-import org.yaawp.hmi.helper.ScreenHelper;
-import org.yaawp.openwig.WUI;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.maps.MapOverlayFactory;
 import org.yaawp.maps.MapOverlays;
 import org.yaawp.maps.MapWaypoint;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
-import org.yaawp.hmi.activities.GuidingActivity;
-import org.yaawp.hmi.activities.SatelliteScreenActivity;
-import org.yaawp.hmi.activities.YaawpPreferenceActivity;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import java.util.Vector;
-import java.util.Arrays;
 import org.yaawp.hmi.adapter.*;
 
 import java.util.Collections;
 
 import org.yaawp.utils.FileCollector.FileCollector;
-import org.yaawp.utils.FileCollector.FileCollectorFilter;
 import org.yaawp.utils.FileCollector.FileCollectorListener;
 import org.yaawp.utils.FileCollector.Filter.FileCollectorCartridgeFilter;
 
 
 
-public class Main extends CustomMain {
+public class CartridgeListActivity extends CustomMain {
 
 	private static final String TAG = "Main";
 	
@@ -234,7 +224,7 @@ public class Main extends CustomMain {
 			ProgressDialogHelper.Hide();
 			
 			if ( YaawpAppData.GetInstance().mCartridges.size() <= 0 ) {
-	            UtilsGUI.showDialogInfo(Main.this, 
+	            UtilsGUI.showDialogInfo(CartridgeListActivity.this, 
 	                    getString(R.string.no_wherigo_cartridge_available,
 	                            FileSystem.ROOT, MainApplication.APP_NAME));  			
 			}
@@ -280,7 +270,7 @@ public class Main extends CustomMain {
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
                     
                 CartridgeListAdapterItem item = YaawpAppData.GetInstance().mData.get(info.position);
-                item.createContextMenu( Main.this, menu );
+                item.createContextMenu( CartridgeListActivity.this, menu );
             }
         } ); 
         
@@ -346,12 +336,12 @@ public class Main extends CustomMain {
         { 
         
             case R.id.menu_positioning:
-                Intent intent02 = new Intent(Main.this, SatelliteScreenActivity.class);
+                Intent intent02 = new Intent(CartridgeListActivity.this, SatelliteActivity.class);
                 startActivity(intent02);
                 break;
                 
             case R.id.menu_map:
-                Intent intent = new Intent( Main.this, CartridgeMapActivity.class );
+                Intent intent = new Intent( CartridgeListActivity.this, CartridgeMapActivity.class );
                 intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" ); 
                 
                 Drawable defaultMarker = getResources().getDrawable(R.drawable.icon_gc_wherigo);
@@ -369,7 +359,7 @@ public class Main extends CustomMain {
                 break;
                 
 			case R.id.menu_preferences:
-				Intent intent2 = new Intent( Main.this, YaawpPreferenceActivity.class );
+				Intent intent2 = new Intent( CartridgeListActivity.this, YaawpPreferenceActivity.class );
                 startActivity(intent2); 				
                 break; 
 

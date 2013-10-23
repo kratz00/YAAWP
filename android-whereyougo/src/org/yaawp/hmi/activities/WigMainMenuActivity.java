@@ -22,7 +22,6 @@ package org.yaawp.hmi.activities;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import menion.android.whereyougo.Main;
 import org.yaawp.R;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.openwig.WUI;
@@ -96,7 +95,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 				getString(R.string.gps), new CustomDialog.OnClickListener() {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
-				Intent intent = new Intent(WigMainMenuActivity.this, SatelliteScreenActivity.class);
+				Intent intent = new Intent(WigMainMenuActivity.this, SatelliteActivity.class);
 				startActivity(intent);
 				return true;
 			}

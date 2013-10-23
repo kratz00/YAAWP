@@ -41,7 +41,7 @@
 		-->
 			        
 		<activity 
-		    android:name="menion.android.whereyougo.Main" 
+		    android:name="org.yaawp.hmi.activities.CartridgeListActivity" 
 			android:label="Yaawp" 
 			android:screenOrientation="portrait"
 			android:theme="@style/AppTheme">
@@ -52,7 +52,7 @@
 		</activity>
 
 		<activity
-			android:name="org.yaawp.hmi.activities.CartridgeDetails"
+			android:name="org.yaawp.hmi.activities.CartridgeDetailsActivity"
 			android:screenOrientation="portrait"/>
 		<activity
 			android:name="org.yaawp.hmi.activities.WigMainMenuActivity"
@@ -95,7 +95,7 @@
 			android:name="org.yaawp.hmi.activities.GuidingActivity"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name="org.yaawp.hmi.activities.SatelliteScreenActivity"
+			android:name="org.yaawp.hmi.activities.SatelliteActivity"
 			android:screenOrientation="portrait" />
 		<activity
 			android:name="menion.android.whereyougo.gui.SettingScreens"

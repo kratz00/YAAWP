@@ -49,7 +49,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.yaawp.extra.Location;
-import org.yaawp.hmi.activities.SatelliteScreenActivity;
+import org.yaawp.hmi.activities.SatelliteActivity;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 
@@ -196,8 +196,8 @@ public class LocationState {
 		    }
     		
     		if (gpsNotEnabled) {
-    			if (context instanceof SatelliteScreenActivity) {
-    				((SatelliteScreenActivity) context).notifyGpsDisable();	
+    			if (context instanceof SatelliteActivity) {
+    				((SatelliteActivity) context).notifyGpsDisable();	
     			}
     			setLocation(context, GPS_OFF, null, true, null);
     		}

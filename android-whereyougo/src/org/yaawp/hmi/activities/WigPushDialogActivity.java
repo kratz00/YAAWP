@@ -19,7 +19,6 @@
 
 package org.yaawp.hmi.activities;
 
-import menion.android.whereyougo.Main;
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
@@ -125,7 +124,7 @@ Logger.d(TAG, "nextpage() - page:" + page + ", texts:" + texts.length + ", callb
 		if (m != null) {
 			try {
 				byte[] img = Engine.mediaFile(m);
-				Main.setBitmapToImageView(BitmapFactory.decodeByteArray(img, 0, img.length), ivImage);
+				CartridgeListActivity.setBitmapToImageView(BitmapFactory.decodeByteArray(img, 0, img.length), ivImage);
 			} catch (Exception e) {
 				tvImageText.setText(m.altText);
 			}
