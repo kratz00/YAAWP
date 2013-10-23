@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.gui;
+package org.yaawp.hmi.activities;
 
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
@@ -34,7 +34,7 @@ import android.widget.TextView;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Media;
 
-public class PushDialog extends CustomActivity {
+public class WigPushDialogActivity extends CustomActivity {
 
 	private static final String TAG = "PushDialog";
 	
@@ -49,10 +49,10 @@ public class PushDialog extends CustomActivity {
 
 	public static void setDialog(String[] texts, Media[] media,
 			String button1, String button2, LuaClosure callback) {
-		PushDialog.texts = texts;
-		PushDialog.media = media;
-		PushDialog.callback = callback;
-		PushDialog.page = -1;
+		WigPushDialogActivity.texts = texts;
+		WigPushDialogActivity.media = media;
+		WigPushDialogActivity.callback = callback;
+		WigPushDialogActivity.page = -1;
 		
 		if (button1 == null)
 			button1 = "OK";
@@ -96,7 +96,7 @@ Logger.d(TAG, "setDialog() - finish, callBack:" + (callback != null));
 				if (callback != null)
 					Engine.invokeCallback(callback, "Button2");
 				callback = null;
-				PushDialog.this.finish();
+				WigPushDialogActivity.this.finish();
 				return true;
 			}
 		});
@@ -115,7 +115,7 @@ Logger.d(TAG, "nextpage() - page:" + page + ", texts:" + texts.length + ", callb
 				callback = null;
 				Engine.invokeCallback(call, "Button1");
 			}
-			PushDialog.this.finish();
+			WigPushDialogActivity.this.finish();
 			return;
 		}
 		

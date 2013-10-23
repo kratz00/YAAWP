@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.gui;
+package org.yaawp.hmi.activities;
 
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
@@ -44,7 +44,7 @@ import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.EventTable;
 import cz.matejcik.openwig.Media;
 
-public class InputScreen extends CustomActivity {
+public class WigInputActivity extends CustomActivity {
 
 	private static final String TAG = "InputScreen";
 	
@@ -62,7 +62,7 @@ public class InputScreen extends CustomActivity {
 	}
 	
 	public static void setInput(EventTable input) {
-		InputScreen.input = input;
+		WigInputActivity.input = input;
 	}
 	
 	public void onResume() {
@@ -132,7 +132,7 @@ public class InputScreen extends CustomActivity {
 							} else {
 								Engine.callEvent(input, "OnGetInput", null);
 							}
-							InputScreen.this.finish();
+							WigInputActivity.this.finish();
 							return true;
 						}
 					}, null, null, null, null);
@@ -144,7 +144,7 @@ public class InputScreen extends CustomActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
 			Engine.callEvent(input, "OnGetInput", null);
-			InputScreen.this.finish();
+			WigInputActivity.this.finish();
 			return true;
 		} else {
 			return super.onKeyDown(keyCode, event);
@@ -152,6 +152,6 @@ public class InputScreen extends CustomActivity {
 	}
 	
 	public static void reset(EventTable input) {
-		InputScreen.input = input;
+		WigInputActivity.input = input;
 	}
 }

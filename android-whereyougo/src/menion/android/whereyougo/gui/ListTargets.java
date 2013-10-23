@@ -21,8 +21,8 @@ package menion.android.whereyougo.gui;
 
 import java.util.Vector;
 
-import menion.android.whereyougo.Main;
 import org.yaawp.R;
+import org.yaawp.hmi.activities.WigDetailsActivity;
 import org.yaawp.hmi.helper.ScreenHelper;
 
 import menion.android.whereyougo.gui.extension.UtilsGUI;
@@ -82,7 +82,7 @@ public class ListTargets extends ListVarious {
 	
 	@Override
 	protected void callStuff(Object what) {
-		ScreenHelper.activateScreen(ScreenHelper.SCREEN_DETAILSCREEN, Details.et);
+		ScreenHelper.activateScreen(ScreenHelper.SCREEN_DETAILSCREEN, WigDetailsActivity.et);
 		String eventName = "On" + action.getName();
 		Engine.callEvent(action.getActor(), eventName, (Thing) what);
 	}

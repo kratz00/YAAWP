@@ -23,15 +23,11 @@ import java.io.ByteArrayInputStream;
 
 
 import menion.android.whereyougo.Main;
-import menion.android.whereyougo.gui.CartridgeDetails;
-import menion.android.whereyougo.gui.Details;
-import menion.android.whereyougo.gui.InputScreen;
 import menion.android.whereyougo.gui.ListActions;
 import menion.android.whereyougo.gui.ListTargets;
 import menion.android.whereyougo.gui.ListTasks;
 import menion.android.whereyougo.gui.ListThings;
 import menion.android.whereyougo.gui.ListZones;
-import menion.android.whereyougo.gui.PushDialog;
 import menion.android.whereyougo.gui.Refreshable;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
@@ -49,6 +45,10 @@ import cz.matejcik.openwig.EventTable;
 import cz.matejcik.openwig.Media;
 import cz.matejcik.openwig.platform.UI;
 
+import org.yaawp.hmi.activities.CartridgeDetails;
+import org.yaawp.hmi.activities.WigInputActivity;
+import org.yaawp.hmi.activities.WigDetailsActivity;
+import org.yaawp.hmi.activities.WigPushDialogActivity;
 import org.yaawp.hmi.activities.WigMainMenuActivity;
 import org.yaawp.hmi.activities.GuidingActivity;
 import org.yaawp.hmi.helper.AudioHelper;
@@ -89,8 +89,8 @@ public class WUI implements UI {
 		Logger.w(TAG, "pushDialog(" + texts + ", " + media + ", " + button1 + ", " + button2 + ", " + callback + ")");
 
 		Activity activity = ScreenHelper.getParentActivity();
-		PushDialog.setDialog(texts, media, button1, button2, callback);
-		Intent intent = new Intent(activity, PushDialog.class);
+		WigPushDialogActivity.setDialog(texts, media, button1, button2, callback);
+		Intent intent = new Intent(activity, WigPushDialogActivity.class);
 		activity.startActivity(intent);
 		ScreenHelper.closeActivity(activity);
 					
@@ -101,8 +101,8 @@ public class WUI implements UI {
 	public void pushInput(EventTable input) {
 		Logger.w(TAG, "pushInput(" + input + ")");
 		Activity activity = ScreenHelper.getParentActivity();
-		InputScreen.setInput(input);
-		Intent intent = new Intent(activity, InputScreen.class);
+		WigInputActivity.setInput(input);
+		Intent intent = new Intent(activity, WigInputActivity.class);
 		activity.startActivity(intent);
 		ScreenHelper.closeActivity(activity);
 	}

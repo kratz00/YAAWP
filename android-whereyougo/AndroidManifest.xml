@@ -52,17 +52,17 @@
 		</activity>
 
 		<activity
-			android:name="menion.android.whereyougo.gui.CartridgeDetails"
+			android:name="org.yaawp.hmi.activities.CartridgeDetails"
 			android:screenOrientation="portrait"/>
 		<activity
 			android:name="org.yaawp.hmi.activities.WigMainMenuActivity"
 			android:launchMode="singleTask"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name="menion.android.whereyougo.gui.Details"
+			android:name="org.yaawp.hmi.activities.WigDetailsActivity"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name="menion.android.whereyougo.gui.InputScreen"
+			android:name="org.yaawp.hmi.activities.WigInputActivity"
 			android:screenOrientation="portrait"/>
 		<activity
 			android:name="menion.android.whereyougo.gui.ListActions"
@@ -86,7 +86,7 @@
 			android:name="menion.android.whereyougo.gui.MapScreen"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name="menion.android.whereyougo.gui.PushDialog" 
+			android:name="org.yaawp.hmi.activities.WigPushDialogActivity" 
 			android:screenOrientation="portrait"/>
 		<activity
 			android:name="menion.android.whereyougo.gui.OnlineChooser"

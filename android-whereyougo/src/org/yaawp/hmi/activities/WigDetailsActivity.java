@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.gui;
+package org.yaawp.hmi.activities;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -25,6 +25,8 @@ import java.util.Vector;
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
 
+import menion.android.whereyougo.gui.ListActions;
+import menion.android.whereyougo.gui.Refreshable;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
@@ -59,7 +61,7 @@ import org.yaawp.maps.MapOverlay;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 
 // ADD locationListener to update UpdateNavi
-public class Details extends CustomActivity implements Refreshable, LocationEventListener {
+public class WigDetailsActivity extends CustomActivity implements Refreshable, LocationEventListener {
 
 	private static final String TAG = "Details";
 	
@@ -95,7 +97,7 @@ public class Details extends CustomActivity implements Refreshable, LocationEven
 			tvDistance = (TextView) findViewById(R.id.layoutDetailsTextViewDistance);
 		} else {
 			Logger.i(TAG, "onCreate(), et == null, end!");
-			Details.this.finish();
+			WigDetailsActivity.this.finish();
 		}
 		
 		refresh();
@@ -109,7 +111,7 @@ public class Details extends CustomActivity implements Refreshable, LocationEven
 			public void run() {
 				if (!stillValid()) {
 					Logger.d(TAG, "refresh(), not valid anymore");
-					Details.this.finish();
+					WigDetailsActivity.this.finish();
 					return;
 				}
 				
@@ -199,7 +201,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 				public boolean onClick(CustomDialog dialog, View v, int btn) {
 					try {
 						enableGuideOnEventTable();
-						Main.callGudingScreen(Details.this);
+						Main.callGudingScreen(WigDetailsActivity.this);
 					} catch (Exception e) {
 						Logger.w(TAG, "btn01.click() - unknown problem");
 					}
@@ -213,7 +215,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 				@Override
 				public boolean onClick(CustomDialog dialog, View v, int btn) {
 					try {
-				        Intent intent = new Intent( Details.this, CartridgeMapActivity.class );
+				        Intent intent = new Intent( WigDetailsActivity.this, CartridgeMapActivity.class );
 				        intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
 				        // Drawable defaultMarker = activity.getResources().getDrawable(R.drawable.icon_gc_wherigo);
 				        MapOverlays.clear(); 
@@ -226,7 +228,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 				    		MapOverlays.mPolygons.add( MapOverlayFactory.createPolygon( z ) );
 				    	} else {
 				    		MapWaypoint mapCartridge = new MapWaypoint(et.name,et.position.latitude,et.position.longitude);
-				    		Drawable defaultMarker = Details.this.getResources().getDrawable(R.drawable.icon_gc_wherigo);
+				    		Drawable defaultMarker = WigDetailsActivity.this.getResources().getDrawable(R.drawable.icon_gc_wherigo);
 				    		mapCartridge.setMarker( defaultMarker );
 				    		MapOverlays.mWaypoints.add( mapCartridge ); 
 				    	}
@@ -250,7 +252,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 					public boolean onClick(CustomDialog dialog, View v, int btn) {
 				    	ListActions.reset((Thing) et);
 				    	ScreenHelper.activateScreen(ScreenHelper.SCREEN_ACTIONS, et);
-				    	Details.this.finish();						
+				    	WigDetailsActivity.this.finish();						
 				    	return true;
 					}
 				};
@@ -265,7 +267,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 							public boolean onClick(CustomDialog dialog, View v, int btn) {
 								ListActions.reset((Thing) et);
 								ListActions.callAction(action);
-								Details.this.finish();
+								WigDetailsActivity.this.finish();
 								return true;
 							}
 						};
@@ -278,7 +280,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 							public boolean onClick(CustomDialog dialog, View v, int btn) {
 								ListActions.reset((Thing) et);
 								ListActions.callAction(action);
-								Details.this.finish();
+								WigDetailsActivity.this.finish();
 								return true;
 							}
 						};
@@ -291,7 +293,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 							public boolean onClick(CustomDialog dialog, View v, int btn) {
 								ListActions.reset((Thing) et);
 								ListActions.callAction(action);
-								Details.this.finish();
+								WigDetailsActivity.this.finish();
 								return true;
 							}
 						};
@@ -303,7 +305,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 						public boolean onClick(CustomDialog dialog, View v, int btn) {
 					    	ListActions.reset((Thing) et);
 					    	ScreenHelper.activateScreen(ScreenHelper.SCREEN_ACTIONS, et);
-					    	Details.this.finish();
+					    	WigDetailsActivity.this.finish();
 					    	return true;
 						}
 					};

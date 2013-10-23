@@ -1,16 +1,16 @@
 package org.yaawp.hmi.helper;
 
+import org.yaawp.hmi.activities.CartridgeDetails;
+import org.yaawp.hmi.activities.WigDetailsActivity;
+import org.yaawp.hmi.activities.WigPushDialogActivity;
 import org.yaawp.hmi.activities.WigMainMenuActivity;
 import org.yaawp.hmi.activities.GuidingActivity;
 
-import menion.android.whereyougo.gui.CartridgeDetails;
-import menion.android.whereyougo.gui.Details;
 import menion.android.whereyougo.gui.ListActions;
 import menion.android.whereyougo.gui.ListTargets;
 import menion.android.whereyougo.gui.ListTasks;
 import menion.android.whereyougo.gui.ListThings;
 import menion.android.whereyougo.gui.ListZones;
-import menion.android.whereyougo.gui.PushDialog;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
@@ -53,8 +53,8 @@ public class ScreenHelper {
 				activity.startActivity(intent02);
 				return;
 			case SCREEN_DETAILSCREEN:
-				Details.et = details;
-				Intent intent03 = new Intent(activity, Details.class);
+				WigDetailsActivity.et = details;
+				Intent intent03 = new Intent(activity, WigDetailsActivity.class);
 				activity.startActivity(intent03);
 				return;
 			case SCREEN_INVENTORYSCREEN:
@@ -97,7 +97,7 @@ public class ScreenHelper {
 	}	
 	
 	public static void closeActivity(Activity activity) {
-		if (activity instanceof PushDialog ||
+		if (activity instanceof WigPushDialogActivity ||
 				activity instanceof GuidingActivity) {
 			activity.finish();
 		}

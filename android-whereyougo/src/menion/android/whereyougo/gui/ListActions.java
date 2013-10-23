@@ -26,6 +26,7 @@ import cz.matejcik.openwig.Action;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Thing;
 
+import org.yaawp.hmi.activities.WigDetailsActivity;
 import org.yaawp.hmi.helper.ScreenHelper;
 
 public class ListActions extends ListVarious {
@@ -51,11 +52,11 @@ public class ListActions extends ListVarious {
 				ListTargets.reset(thing.name + ": " + z.text, z, thing);
 				ScreenHelper.activateScreen( ScreenHelper.SCREEN_TARGETS, null);
 			} else {
-				ScreenHelper.activateScreen( ScreenHelper.SCREEN_DETAILSCREEN, Details.et);
+				ScreenHelper.activateScreen( ScreenHelper.SCREEN_DETAILSCREEN, WigDetailsActivity.et);
 				Engine.callEvent(z.getActor(), eventName, thing);
 			}
 		} else {
-			ScreenHelper.activateScreen( ScreenHelper.SCREEN_DETAILSCREEN, Details.et);
+			ScreenHelper.activateScreen( ScreenHelper.SCREEN_DETAILSCREEN, WigDetailsActivity.et);
 			Engine.callEvent(thing, eventName, null);
 		}
 	}
