@@ -186,7 +186,8 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 	Location mLocation = null;
 	
 	public void onLocationChanged(Location location) {
-		if (   ( mLocation.getLongitude() != location.getLongitude() ) 
+		if (   ( mLocation == null )
+			|| ( mLocation.getLongitude() != location.getLongitude() ) 
 			|| ( mLocation.getLatitude()  != location.getLatitude() )
 			|| ( mLocation.getBearing()   != location.getBearing() ) )
 		{
