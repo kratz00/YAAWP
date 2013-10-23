@@ -21,7 +21,6 @@
 package org.yaawp.extra;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.yaawp.extra.LocationCompute;
@@ -121,7 +120,6 @@ public class Location {
         }
         
         public ExtraSensor(DataInputStream dis) throws IOException {
-        	// super(dis);
         }
         
         @Override
