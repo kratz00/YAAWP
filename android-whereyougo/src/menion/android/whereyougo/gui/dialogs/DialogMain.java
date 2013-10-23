@@ -2,7 +2,8 @@ package menion.android.whereyougo.gui.dialogs;
 
 import menion.android.whereyougo.MainAfterStart;
 import org.yaawp.R;
-import menion.android.whereyougo.settings.Loc;
+import org.yaawp.hmi.helper.I18N;
+
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import android.app.AlertDialog;
@@ -24,7 +25,7 @@ public class DialogMain extends DialogFragmentEx {
 		buffer.append("<b>Wherigo player for Android device</b><br /><br />");
 		try {
 			PackageManager pm = getActivity().getPackageManager();
-			buffer.append(Loc.get(R.string.version) + "<br />&nbsp;&nbsp;<b>" + 
+			buffer.append(I18N.get(R.string.version) + "<br />&nbsp;&nbsp;<b>" + 
 					pm.getPackageInfo(getActivity().getPackageName(), 0).versionName + "</b><br /><br />");
 		} catch (Exception e) {}
 		buffer.append(getString(R.string.author) + "<br />&nbsp;&nbsp;<b>Menion Asamm</b><br /><br />");

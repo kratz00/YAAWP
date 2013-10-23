@@ -6,7 +6,6 @@ import android.os.SystemClock;
 import menion.android.whereyougo.Main;
 import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
-import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.utils.FileSystem;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.ManagerNotify;
@@ -15,6 +14,7 @@ import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
+import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.openwig.WSaveFile;
@@ -107,7 +107,7 @@ public class SplashscreenActivity extends Activity {
                             }
                         } catch (Exception e) {
                             Logger.w(TAG, "updateCartridgeList(), file:" + file + ", e:" + e.toString());
-                            ManagerNotify.toastShortMessage(Loc.get(R.string.invalid_cartridge, file.getName()));
+                            ManagerNotify.toastShortMessage(I18N.get(R.string.invalid_cartridge, file.getName()));
                         }
                     }
                 }

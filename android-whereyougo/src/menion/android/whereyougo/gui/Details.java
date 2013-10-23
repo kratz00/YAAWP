@@ -30,7 +30,6 @@ import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
-import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.UtilsFormat;
@@ -51,6 +50,7 @@ import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
 import org.yaawp.extra.Location;
+import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.maps.MapOverlayFactory;
 import org.yaawp.maps.MapOverlays;
@@ -65,8 +65,8 @@ public class Details extends CustomActivity implements Refreshable, LocationEven
 	
 	public static EventTable et;
 
-	private static final String[] taskStates = {Loc.get(R.string.pending),
-		Loc.get(R.string.finished), Loc.get(R.string.failed)};
+	private static final String[] taskStates = {I18N.get(R.string.pending),
+		I18N.get(R.string.finished), I18N.get(R.string.failed)};
 	
 	private TextView tvName;
 	private ImageView ivImage;

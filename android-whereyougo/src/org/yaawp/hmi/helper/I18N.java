@@ -17,11 +17,11 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.settings;
+package org.yaawp.hmi.helper;
 
 import menion.android.whereyougo.utils.A;
 
-public class Loc {
+public class I18N {
 
 	public static final String get(int string) {
 		if (A.getApp() != null) {

@@ -22,7 +22,8 @@ package menion.android.whereyougo.gui.extension;
 import java.util.ArrayList;
 
 import org.yaawp.R;
-import menion.android.whereyougo.settings.Loc;
+import org.yaawp.hmi.helper.I18N;
+
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Utils;
 import android.app.Activity;
@@ -154,7 +155,7 @@ public class UtilsGUI {
 	public static void showDialogDeleteItem(Activity activity, String itemName,
 			DialogInterface.OnClickListener posLis) {
 		dialogDoItem(activity,
-				Loc.get(R.string.question), R.drawable.ic_question_default,
+				I18N.get(R.string.question), R.drawable.ic_question_default,
 				(itemName != null ? activity.getString(R.string.do_you_really_want_to_delete_x, 
 						Html.fromHtml(itemName)) :
 			activity.getText(R.string.do_you_really_want_to_delete_selected_items)),

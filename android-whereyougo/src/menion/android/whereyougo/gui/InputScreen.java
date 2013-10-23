@@ -21,9 +21,10 @@ package menion.android.whereyougo.gui;
 
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
+import org.yaawp.hmi.helper.I18N;
+
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
-import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.utils.Images;
 import menion.android.whereyougo.utils.Logger;
 import se.krka.kahlua.vm.LuaTable;
@@ -119,7 +120,7 @@ public class InputScreen extends CustomActivity {
 			}
 			
 			CustomDialog.setBottom(this, 
-					Loc.get(R.string.answer), new CustomDialog.OnClickListener() {
+					I18N.get(R.string.answer), new CustomDialog.OnClickListener() {
 						
 						@Override
 						public boolean onClick(CustomDialog dialog, View v, int btn) {

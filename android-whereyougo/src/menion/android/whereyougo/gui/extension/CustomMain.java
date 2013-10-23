@@ -25,7 +25,6 @@ import java.io.StringReader;
 
 import org.yaawp.R;
 import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.FileSystem;
@@ -45,6 +44,8 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.StatFs;
 import android.view.KeyEvent;
+
+import org.yaawp.hmi.helper.I18N;
 import org.yaawp.preferences.PreferenceFunc;
 
 public abstract class CustomMain extends CustomActivity {
@@ -212,7 +213,7 @@ public abstract class CustomMain extends CustomActivity {
     	
     	runOnUiThread(new Runnable() { 
 			public void run() {
-				String title = Loc.get(R.string.question);
+				String title = I18N.get(R.string.question);
 		    	String message = "";
 		    	boolean cancelable = (
 		    			finishType == FINISH_RESTART_FORCE ||
@@ -221,26 +222,26 @@ public abstract class CustomMain extends CustomActivity {
 		    			finishType == FINISH_EXIT_FORCE) ? false : true; 
 		    	switch (finishType) {
 		    	case FINISH_EXIT:
-		    		message = Loc.get(R.string.do_you_really_want_to_exit);
+		    		message = I18N.get(R.string.do_you_really_want_to_exit);
 		    		break;
 		    	case FINISH_EXIT_FORCE:
-		    		title = Loc.get(R.string.info);
-		    		message = Loc.get(R.string.you_have_to_exit_app_force);
+		    		title = I18N.get(R.string.info);
+		    		message = I18N.get(R.string.you_have_to_exit_app_force);
 		    		break;
 				case FINISH_RESTART:
-					message = Loc.get(R.string.you_have_to_restart_app_recommended);
+					message = I18N.get(R.string.you_have_to_restart_app_recommended);
 					break;
 				case FINISH_RESTART_FORCE:
-					title = Loc.get(R.string.info);
-					message = Loc.get(R.string.you_have_to_restart_app_force);
+					title = I18N.get(R.string.info);
+					message = I18N.get(R.string.you_have_to_restart_app_force);
 					break;
 				case FINISH_RESTART_FACTORY_RESET:
-					title = Loc.get(R.string.info);
-					message = Loc.get(R.string.you_have_to_restart_app_force);
+					title = I18N.get(R.string.info);
+					message = I18N.get(R.string.you_have_to_restart_app_force);
 					break;
 				case FINISH_REINSTALL:
-					title = Loc.get(R.string.info);
-					message = Loc.get(R.string.new_version_will_be_installed);
+					title = I18N.get(R.string.info);
+					message = I18N.get(R.string.new_version_will_be_installed);
 					break;
 				}
 		    	

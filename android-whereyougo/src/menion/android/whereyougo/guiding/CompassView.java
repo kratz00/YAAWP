@@ -20,7 +20,8 @@
 package menion.android.whereyougo.guiding;
 
 import org.yaawp.R;
-import menion.android.whereyougo.settings.Loc;
+import org.yaawp.hmi.helper.I18N;
+
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Images;
 import menion.android.whereyougo.utils.Utils;
@@ -150,12 +151,12 @@ public class CompassView extends View {
 	
     private void drawCompassTexts(Canvas c) {
    		float space = r1 / 20;
-   		c.drawText(Loc.get(R.string.distance),
+   		c.drawText(I18N.get(R.string.distance),
    				cX1, cY1 - paintValueDistance.getTextSize() - space, paintValueLabel);
    		c.drawText(UtilsFormat.formatDistance(mDistanceToTarget, false),
    				cX1, cY1 - space, paintValueDistance);
     		
-   		c.drawText(Loc.get(R.string.azimuth),
+   		c.drawText(I18N.get(R.string.azimuth),
    				cX1, cY1 + paintValueLabel.getTextSize() + space, paintValueLabel);
    		c.drawText(UtilsFormat.formatAngle(mAzimuth),
    				cX1, cY1 + paintValueLabel.getTextSize() + 

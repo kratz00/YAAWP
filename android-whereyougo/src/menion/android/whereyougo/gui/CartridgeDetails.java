@@ -27,7 +27,6 @@ import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.UtilsFormat;
@@ -44,6 +43,7 @@ import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.extra.Location;
 import org.yaawp.extra.Waypoint;
+import org.yaawp.hmi.helper.I18N;
 
 public class CartridgeDetails extends CustomActivity {
 	
@@ -60,7 +60,7 @@ public class CartridgeDetails extends CustomActivity {
 		tvName.setText(Html.fromHtml(cartridgeFile.getName()));
 		
 		TextView tvState = (TextView) findViewById(R.id.layoutDetailsTextViewState);
-		tvState.setText(Html.fromHtml(Loc.get(R.string.author) + ": " + cartridgeFile.getAuthor()));
+		tvState.setText(Html.fromHtml(I18N.get(R.string.author) + ": " + cartridgeFile.getAuthor()));
 
 		TextView tvDescription = (TextView) findViewById(R.id.layoutDetailsTextViewDescription);
 		tvDescription.setText(Html.fromHtml(cartridgeFile.getDescription()));
@@ -82,13 +82,13 @@ public class CartridgeDetails extends CustomActivity {
 		loc.setLongitude(cartridgeFile.getLongitude());
 
 		StringBuffer buff = new StringBuffer();
-		buff.append(Loc.get(R.string.distance)).append(": ").append("<b>").
+		buff.append(I18N.get(R.string.distance)).append(": ").append("<b>").
 		append(UtilsFormat.formatDistance(LocationState.getLocation().distanceTo(loc), false)).
 		append("</b>").append("<br />").
-		append(Loc.get(R.string.latitude)).append(": ").
+		append(I18N.get(R.string.latitude)).append(": ").
 		append(UtilsFormat.formatLatitude(cartridgeFile.getLatitude())).
 		append("<br />").
-		append(Loc.get(R.string.longitude)).append(": ").
+		append(I18N.get(R.string.longitude)).append(": ").
 		append(UtilsFormat.formatLongitude(cartridgeFile.getLongitude()));
 		
 		tvDistance.setText(Html.fromHtml(buff.toString()));

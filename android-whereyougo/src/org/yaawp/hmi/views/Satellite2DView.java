@@ -21,9 +21,9 @@ package org.yaawp.hmi.views;
 
 import org.yaawp.R;
 import org.yaawp.hmi.activities.SatelliteScreenActivity;
+import org.yaawp.hmi.helper.I18N;
 
 import menion.android.whereyougo.hardware.location.SatellitePosition;
-import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Images;
 import menion.android.whereyougo.utils.Logger;
@@ -167,7 +167,7 @@ public class Satellite2DView  extends View {
             mPaintText.setColor(Color.BLACK);
 	        if (satCount == 0) {
 	        	mPaintText.setTextSize(Utils.getDpPixels(20.0f));
-	            c.drawText(Loc.get(R.string.no_satellites), spX, spY + mPaintText.descent(), mPaintText);
+	            c.drawText(I18N.get(R.string.no_satellites), spX, spY + mPaintText.descent(), mPaintText);
 	        	drawLock = false;
 	        	return;
 	        }

@@ -20,7 +20,8 @@
 package menion.android.whereyougo.utils;
 
 import org.yaawp.R;
-import menion.android.whereyougo.settings.Loc;
+import org.yaawp.hmi.helper.I18N;
+
 import menion.android.whereyougo.settings.Settings;
 import android.app.Activity;
 import android.content.Context;
@@ -35,15 +36,15 @@ public class ManagerNotify {
 	private static final String TAG = "ManagerNotify";
     
     public static void toastInternetProblem() {
-    	toastLongMessage(Loc.get(R.string.problem_with_internet_connection));
+    	toastLongMessage(I18N.get(R.string.problem_with_internet_connection));
     }
     
     public static void toastUnexpectedProblem() {
-    	toastLongMessage(Loc.get(R.string.unexpected_problem));
+    	toastLongMessage(I18N.get(R.string.unexpected_problem));
     }
     
     public static void toastShortMessage(final int msg) {
-    	toastShortMessage(Loc.get(msg));
+    	toastShortMessage(I18N.get(msg));
     }
     
     public static void toastShortMessage(final String msg) {
@@ -55,7 +56,7 @@ public class ManagerNotify {
     }
     
     public static void toastLongMessage(final int msg) {
-    	toastLongMessage(Loc.get(msg));
+    	toastLongMessage(I18N.get(msg));
     }
     
     public static void toastLongMessage(final String msg) {
