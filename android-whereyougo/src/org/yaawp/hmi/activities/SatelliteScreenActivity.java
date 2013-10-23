@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
-import menion.android.whereyougo.gui.location.Satellite2DView;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
@@ -43,6 +42,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import org.yaawp.extra.Location;
+import org.yaawp.hmi.views.Satellite2DView;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 

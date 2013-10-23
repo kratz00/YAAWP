@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.gui.location;
+package org.yaawp.hmi.views;
 
 import org.yaawp.R;
 import org.yaawp.hmi.activities.SatelliteScreenActivity;
