@@ -28,7 +28,6 @@ import java.util.Iterator;
 
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.MainApplication;
-import menion.android.whereyougo.gui.location.SatelliteScreen;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Const;
@@ -50,6 +49,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.yaawp.extra.Location;
+import org.yaawp.hmi.activities.SatelliteScreenActivity;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 
@@ -196,8 +196,8 @@ public class LocationState {
 		    }
     		
     		if (gpsNotEnabled) {
-    			if (context instanceof SatelliteScreen) {
-    				((SatelliteScreen) context).notifyGpsDisable();	
+    			if (context instanceof SatelliteScreenActivity) {
+    				((SatelliteScreenActivity) context).notifyGpsDisable();	
     			}
     			setLocation(context, GPS_OFF, null, true, null);
     		}

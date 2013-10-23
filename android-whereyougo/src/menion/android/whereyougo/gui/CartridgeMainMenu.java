@@ -24,6 +24,7 @@ import java.util.Vector;
 
 import menion.android.whereyougo.Main;
 import org.yaawp.R;
+import org.yaawp.hmi.activities.SatelliteScreenActivity;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.openwig.WUI;
 
@@ -31,7 +32,6 @@ import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.gui.extension.DataInfo;
 import menion.android.whereyougo.gui.extension.IconedListAdapter;
-import menion.android.whereyougo.gui.location.SatelliteScreen;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.Utils;
 import android.app.AlertDialog;
@@ -96,7 +96,7 @@ public class CartridgeMainMenu extends CustomActivity implements Refreshable {
 				getString(R.string.gps), new CustomDialog.OnClickListener() {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
-				Intent intent = new Intent(CartridgeMainMenu.this, SatelliteScreen.class);
+				Intent intent = new Intent(CartridgeMainMenu.this, SatelliteScreenActivity.class);
 				startActivity(intent);
 				return true;
 			}

@@ -25,7 +25,6 @@ import menion.android.whereyougo.gui.dialogs.DialogMain;
 import menion.android.whereyougo.gui.extension.CustomMain;
 import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
-import menion.android.whereyougo.gui.location.SatelliteScreen;
 import menion.android.whereyougo.guiding.GuidingScreen;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.Const;
@@ -57,6 +56,7 @@ import org.yaawp.maps.MapOverlays;
 import org.yaawp.maps.MapWaypoint;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
+import org.yaawp.hmi.activities.SatelliteScreenActivity;
 import org.yaawp.hmi.activities.YaawpPreferenceActivity;
 
 import android.os.Bundle;
@@ -346,7 +346,7 @@ public class Main extends CustomMain {
         { 
         
             case R.id.menu_positioning:
-                Intent intent02 = new Intent(Main.this, SatelliteScreen.class);
+                Intent intent02 = new Intent(Main.this, SatelliteScreenActivity.class);
                 startActivity(intent02);
                 break;
                 

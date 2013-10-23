@@ -20,6 +20,8 @@
 package menion.android.whereyougo.gui.location;
 
 import org.yaawp.R;
+import org.yaawp.hmi.activities.SatelliteScreenActivity;
+
 import menion.android.whereyougo.hardware.location.SatellitePosition;
 import menion.android.whereyougo.settings.Loc;
 import menion.android.whereyougo.utils.Const;
@@ -151,7 +153,7 @@ public class Satellite2DView  extends View {
         	setConstants(c);
 
 	        float x, y, angle, dist;
-	        int satCount = SatelliteScreen.satellites.size();
+	        int satCount = SatelliteScreenActivity.satellites.size();
 	        
 	    	// draw background
 	    	bitCompassBg.setBounds(
@@ -178,7 +180,7 @@ public class Satellite2DView  extends View {
 	        
 	        double ln100 = Math.log(100.0);
             for (int i = 0; i < satCount; i++) {
-            	SatellitePosition sat = SatelliteScreen.satellites.get(i);
+            	SatellitePosition sat = SatelliteScreenActivity.satellites.get(i);
             	float xCenter;
             	if (satCount % 2 == 0) {
             		xCenter = spX + (i - satCount / 2) * lineWidth + lineWidth / 2;

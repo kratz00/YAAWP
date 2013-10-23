@@ -17,13 +17,14 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.gui.location;
+package org.yaawp.hmi.activities;
 
 import java.util.ArrayList;
 
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
+import menion.android.whereyougo.gui.location.Satellite2DView;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
@@ -49,7 +50,7 @@ import org.yaawp.preferences.PreferenceUtils;
  * @author menion
  * @since 25.1.2010 2010
  */
-public class SatelliteScreen extends CustomActivity implements LocationEventListener {
+public class SatelliteScreenActivity extends CustomActivity implements LocationEventListener {
 
 	private static final String TAG = "SatelliteScreen";
 	
@@ -57,7 +58,7 @@ public class SatelliteScreen extends CustomActivity implements LocationEventList
 	
 	private ToggleButton buttonGps;
 	
-	protected static ArrayList<SatellitePosition> satellites = new ArrayList<SatellitePosition>();
+	public static ArrayList<SatellitePosition> satellites = new ArrayList<SatellitePosition>();
 	
 	/** Called when the activity is first created. */
     @Override
@@ -73,7 +74,7 @@ public class SatelliteScreen extends CustomActivity implements LocationEventList
         llSkyplot.removeAllViews();
         
         // return and add view to first linearLayout
-        satelliteView = new Satellite2DView(SatelliteScreen.this);
+        satelliteView = new Satellite2DView(SatelliteScreenActivity.this);
         llSkyplot.addView(satelliteView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
     	// change colors for 3.0+
@@ -90,13 +91,13 @@ public class SatelliteScreen extends CustomActivity implements LocationEventList
         	@Override
         	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (!isChecked) {
-					LocationState.setGpsOff(SatelliteScreen.this);
+					LocationState.setGpsOff(SatelliteScreenActivity.this);
 					
 					// disable satellites on screen
 					satellites.clear();
 					satelliteView.invalidate();
 				} else {
-					LocationState.setGpsOn(SatelliteScreen.this);
+					LocationState.setGpsOn(SatelliteScreenActivity.this);
 				}
 				
 				onGpsStatusChanged(0, null);

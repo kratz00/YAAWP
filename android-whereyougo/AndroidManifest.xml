@@ -95,7 +95,7 @@
 			android:name="menion.android.whereyougo.guiding.GuidingScreen"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name="menion.android.whereyougo.gui.location.SatelliteScreen"
+			android:name="org.yaawp.hmi.activities.SatelliteScreenActivity"
 			android:screenOrientation="portrait" />
 		<activity
 			android:name="menion.android.whereyougo.gui.SettingScreens"
