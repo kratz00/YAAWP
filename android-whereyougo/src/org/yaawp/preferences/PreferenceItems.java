@@ -2,6 +2,7 @@ package org.yaawp.preferences;
 
 import org.yaawp.R;
 import org.yaawp.preferences.PreferenceUtils;
+
 import menion.android.whereyougo.settings.*;
 
 public class PreferenceItems {
@@ -46,6 +47,17 @@ public class PreferenceItems {
 		return PreferenceUtils.getPrefInteger( R.string.pref_units_coo_latlon );
 	}
 	
-
+	public static boolean getGuidingSound() {
+		return PreferenceUtils.getPrefBoolean( R.string.pref_guiding_compass_sounds );
+	}	
 	
+	public static int getGuidingSoundDistance() {
+		return PreferenceUtils.getPrefInteger( R.string.pref_guiding_sound_distance );
+	}
+
+	public static int getGuidingSoundType() {
+		return PreferenceUtils.getPrefInteger( R.string.pref_guiding_sound_type );
+	}	
+	
+		
 }

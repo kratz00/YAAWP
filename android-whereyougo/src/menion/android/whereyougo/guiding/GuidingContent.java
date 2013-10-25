@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import org.yaawp.extra.Location;
 import org.yaawp.extra.Waypoint;
+import org.yaawp.preferences.PreferenceItems;
 
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
@@ -82,12 +83,10 @@ public class GuidingContent implements LocationEventListener {
 			public void run() {
 				try {
 					while (mGuide != null) {
-						/* TODO SettingsValue
-						if (SettingValues.GUIDING_SOUNDS) {
+						if ( PreferenceItems.getGuidingSound() ) {
 							mGuide.manageDistanceSoundsBeeping(mDistanceToTarget);
 						}
-						*/
-						Thread.sleep(100);
+						Thread.sleep(100); // kann man das nicht reduzieren??? 200,300,500,700???
 					}
 				} catch (Exception e) {
 					Logger.e(TAG, "guideStart(" + mGuide + ")", e);

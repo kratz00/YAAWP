@@ -25,6 +25,8 @@ import java.util.TimerTask;
 import org.yaawp.R;
 import org.yaawp.extra.Location;
 import org.yaawp.extra.Waypoint;
+import org.yaawp.preferences.PreferenceItems;
+import org.yaawp.preferences.PreferenceValues;
 
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.settings.Settings;
@@ -107,16 +109,16 @@ public class WaypointGuide implements Guide {
 	@Override
 	public void manageDistanceSoundsBeeping(double distance) {
 		try {
-			/* TODO
-			switch (SettingValues.GUIDING_WAYPOINT_SOUND) {
-			case Settings.VALUE_GUIDING_WAYPOINT_SOUND_BEEP_ON_DISTANCE:
-				if (distance < SettingValues.GUIDING_WAYPOINT_SOUND_DISTANCE &&
+			
+			switch ( PreferenceItems.getGuidingSoundType() ) {
+			case PreferenceValues.GuidingWaypointSound.BEEP_ON_DISTANCE:
+				if (distance < PreferenceItems.getGuidingSoundDistance() &&
 						!mAlreadyBeeped) {
 					audioBeep.play();
 					mAlreadyBeeped = true;
 				}
 				break;
-			case Settings.VALUE_GUIDING_WAYPOINT_SOUND_INCREASE_CLOSER:
+			case PreferenceValues.GuidingWaypointSound.INCREASE_CLOSER:
 				long currentTime = System.currentTimeMillis();
 				float sonarTimeout = getSonarTimeout(distance);
 				if ((currentTime - lastSonarCall) > sonarTimeout) { // (currentTime - lastSonarCall) > soundSonarDuration && 
@@ -124,8 +126,8 @@ public class WaypointGuide implements Guide {
 					audioBeep.play();
 				}
 				break;
-			case Settings.VALUE_GUIDING_WAYPOINT_SOUND_CUSTOM_SOUND:
-				if (distance < SettingValues.GUIDING_WAYPOINT_SOUND_DISTANCE &&
+			case PreferenceValues.GuidingWaypointSound.CUSTOM_SOUND:
+				if (distance < PreferenceItems.getGuidingSoundDistance() &&
 						!mAlreadyBeeped) {
 					String uri = Settings.getPrefString(Settings.VALUE_GUIDING_WAYPOINT_SOUND_CUSTOM_SOUND_URI, "");
 					if (uri.length() > 0) {
@@ -141,20 +143,17 @@ public class WaypointGuide implements Guide {
 					mAlreadyBeeped = true;
 				}
 				break;
-			} */
+			} 
 		} catch (Exception e) {
 			Logger.e(TAG, "manageDistanceSounds(" + distance + "), e:" + e.toString());
 		}
 	}
 	
-	private long getSonarTimeout(double distance) {
-		/* TODO
-		if (distance < SettingValues.GUIDING_WAYPOINT_SOUND_DISTANCE) {
+	private long getSonarTimeout(double distance) {		
+		if (distance < PreferenceItems.getGuidingSoundDistance() ) {
 			return (long) (distance * 1000 / 33);
 		} else {
 			return Long.MAX_VALUE;
 		}
-		*/
-		return Long.MAX_VALUE;
 	}
 }

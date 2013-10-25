@@ -194,21 +194,35 @@
 			
 		</PreferenceScreen>	
 
-<!--  
-				<PreferenceScreen
+		<PreferenceScreen android:title="@string/pref_guiding" >
 			
-			android:title="@string/pref_guiding" >
+			<PreferenceCategory android:title="@string/pref_guiding_compass_sounds" >
+			    <CheckBoxPreference
+					android:defaultValue="true"
+					android:key="@string/pref_guiding_compass_sounds"
+					android:summary="@string/pref_guiding_compass_sounds_desc"
+					android:title="@string/pref_guiding_compass_sounds" />			    
 			
-			<PreferenceCategory android:title="@string/pref_global" >-->
-				<!-- SettingItems.addPrefGuidingCompassSounds(activity, prefCatGlobal); -->
-			<!-- </PreferenceCategory>
-			<PreferenceCategory android:title="@string/pref_waypoints" >-->
-			<!--
-				SettingItems.addPrefGuidingWptSound(activity, prefCatWptGuide);
-				SettingItems.addPrefGuidingWptSoundDistance(activity, prefCatWptGuide);			
-			-->
-			<!-- </PreferenceCategory>
-		</PreferenceScreen>	-->
+				<ListPreference 
+				    android:dependency="@string/pref_guiding_compass_sounds"
+           			android:key="@string/pref_guiding_sound_type"
+            		android:title="@string/pref_guiding_sound_type"
+            		android:summary="@string/pref_guiding_sound_type_waypoint_desc"
+            		android:defaultValue="default" 
+            		android:entries="@array/pref_guiding_waypoint_sound_strings"
+            		android:entryValues="@array/pref_guiding_waypoint_sound_values" />		
+
+				<EditTextPreference
+					android:defaultValue="100"
+					android:dependency="@string/pref_guiding_compass_sounds"
+					android:key="@string/pref_guiding_sound_distance"
+					android:title="@string/pref_guiding_sound_distance"
+					android:summary="@string/pref_guiding_sound_distance_waypoint_desc"
+					android:dialogTitle="@string/pref_guiding_sound_distance" />
+												    
+			</PreferenceCategory>    
+
+		</PreferenceScreen>	
 
 		<PreferenceScreen
 			
@@ -232,8 +246,8 @@
             		android:title="@string/pref_units_coo_latlon"
             		android:summary="@string/pref_units_coo_latlon_desc"
             		android:defaultValue="1" 
-            		android:entries="@array/pref_units_coo_format_strings"
-            		android:entryValues="@array/pref_units_coo_format_values" />	
+            		android:entries="@array/pref_guiding_waypoint_sound_strings"
+            		android:entryValues="@array/pref_guiding_waypoint_sound_values" />	
             		
 			    <CheckBoxPreference
 					android:defaultValue="false"

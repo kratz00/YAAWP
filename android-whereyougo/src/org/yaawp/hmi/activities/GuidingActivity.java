@@ -101,6 +101,7 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
 			double distanceToTarget) {
 		this.azimuthToTarget = azimuthToTarget;
        	viewCompass.setDistance(distanceToTarget);
+       	
        	if (LocationState.getLocation().getSpeed() > 1) {
        		viewTimeToTarget.setText(UtilsFormat.formatTime(true,
        				(long) (distanceToTarget / LocationState.getLocation().getSpeed()) * 1000));

@@ -88,11 +88,24 @@
         <item name="1">@string/pref_units_coo_latlon_min</item>
         <item name="2">@string/pref_units_coo_latlon_sec</item>
     </string-array>
+    
     <string-array name="pref_units_coo_format_values">
         <item name="0">0</item>
         <item name="1">1</item>
         <item name="2">2</item>
     </string-array>
     
-
+    <string-array name="pref_guiding_waypoint_sound_strings">
+        <item name="0">@string/pref_guiding_waypoint_sound_beep_on_distance</item>
+        <item name="1">@string/pref_guiding_waypoint_sound_increasing</item>
+        <item name="2">@string/pref_guiding_waypoint_sound_custom_on_distance</item>
+    </string-array>
+    
+    <string-array name="pref_guiding_waypoint_sound_values">
+        <item name="0">0</item>
+        <item name="1">1</item>
+        <item name="2">2</item>
+    </string-array>
+    
+    
 </resources>
