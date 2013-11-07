@@ -1,14 +1,10 @@
 package org.yaawp.maps.mapsforge;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ListView;
 
 import java.io.File;
-import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -16,29 +12,17 @@ import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
 import menion.android.whereyougo.settings.Settings;
-import menion.android.whereyougo.utils.Utils;
 
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapView;
 import org.mapsforge.android.maps.overlay.ArrayItemizedOverlay;
 import org.mapsforge.android.maps.overlay.Overlay;
-import org.mapsforge.android.maps.overlay.OverlayItem;
-import org.mapsforge.android.maps.overlay.ItemizedOverlay;
-import org.mapsforge.android.maps.overlay.OverlayCircle;
-import org.mapsforge.android.maps.overlay.CircleOverlay;
 import org.mapsforge.android.maps.overlay.ArrayCircleOverlay;
-
-
-
-
 import org.mapsforge.core.GeoPoint;
 import org.yaawp.R;
-
-
 import android.graphics.drawable.Drawable;
 
 import org.yaawp.extra.Location;
-import org.mapsforge.android.maps.overlay.OverlayWay;
 import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
 
 import cz.matejcik.openwig.Engine;
@@ -63,11 +47,7 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 
 	private Paint mPaintVisibleZoneFill = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private Paint mPaintVisibleZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
-	private Paint mPaintInvisibleZoneFill = new Paint(Paint.ANTI_ALIAS_FLAG);
-	private Paint mPaintInvisibleZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
-	private Paint mPaintBoundaryBoxZoneFill = null;
-	private Paint mPaintBoundaryBoxZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
-	
+
 	private OverlayPosition mPositionOverlay = null;
 	private OverlayZones mOverlayZones = null;
 	
@@ -122,44 +102,8 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		mOverlayZones = new OverlayZones();
 		mMapview.getOverlays().add(mOverlayZones);
 		mOverlayZones.requestRedraw();
-		
-
 	}	
-		/*
-		if ( MapOverlays.mPolygons.size() > 0 ) {
-			ArrayWayOverlay x = new ArrayWayOverlay(null,null);		// create the WayOverlay and add the ways
-			// ArrayWayOverlay wayOverlay = new ArrayWayOverlay(wayDefaultPaintFill,
-			//		wayDefaultPaintOutline);
-			
-			for (int i = 0; i < MapOverlays.mPolygons.size(); i++) {
-				MfMapPolygon polygon = new MfMapPolygon( MapOverlays.mPolygons.get(i) );
-				x.addWay( polygon.getOverlayWay() );
-			}
-			
-			// mapview.getOverlays().add(x);
-			
-			
-		}
-		
-		
-		if ( MapOverlays.mWaypoints.size() > 0 ) {
-			
-			ArrayItemizedOverlay itemizedOverlay = new ArrayItemizedOverlay(null);
-				        
-			for (int i = 0; i < MapOverlays.mWaypoints.size(); i++) {
-				MfMapWaypoint wpt = new MfMapWaypoint( MapOverlays.mWaypoints.get(i) );
-				itemizedOverlay.addItem(wpt.getOverlayItem());				
-			}
-                    
-	        // add the ArrayItemizedOverlay to the MapView
-	        mMapview.getOverlays().add(itemizedOverlay);      
-	        
-			// set mapview center
-			MapPoint point = MapOverlays.X();
-			GeoPoint x = new GeoPoint( point.mLatitude, point.mLongitude );
-			mMapview.setCenter( x );		        
-		}
-		*/
+
 		
  
 		
@@ -216,29 +160,10 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 	}	
 	
 	
-	public void refreshX() {
-		if ( mMapview != null /*&& mCurrentZones != null*/ ) {
-			// mCurrentZones.clear();
-			Vector<Zone> zones = Engine.instance.cartridge.zones;
-			for (int i = 0; i < zones.size(); i++) {
-				Zone z = (Zone)zones.get(i);
-				if ( z.isVisible() ) {
-					Overlay o = new OverlayZone( z );
-					
-					mMapview.getOverlays().add(o);
-					o.requestRedraw();
-					// mCurrentZones.addWay( getZonePolygon( z,mPaintVisibleZoneFill, mPaintVisibleZoneBorder ) );
-					// mCurrentZones.addWay( getZoneBoundaryBox( z, null, mPaintBoundaryBoxZoneBorder ) );
-				}
-			}		
-
-		}
-
-	}
-	
 	public void refresh() {
 		mOverlayZones.requestRedraw();
 	}
+	
 	
 	/*
 
