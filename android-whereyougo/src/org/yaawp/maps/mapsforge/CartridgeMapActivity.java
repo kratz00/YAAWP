@@ -21,6 +21,7 @@ import menion.android.whereyougo.utils.Utils;
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapView;
 import org.mapsforge.android.maps.overlay.ArrayItemizedOverlay;
+import org.mapsforge.android.maps.overlay.Overlay;
 import org.mapsforge.android.maps.overlay.OverlayItem;
 import org.mapsforge.android.maps.overlay.ItemizedOverlay;
 import org.mapsforge.android.maps.overlay.OverlayCircle;
@@ -49,7 +50,9 @@ import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.gui.Refreshable;
 
 
-public class CartridgeMapActivity extends MapActivity implements LocationEventListener  {
+import org.yaawp.maps.mapsforge.OverlayPosition;
+
+public class CartridgeMapActivity extends MapActivity implements LocationEventListener, Refreshable  {
 
 	public final static String MAPFILE = "MAPFILE";
 
@@ -57,14 +60,16 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 	public ArrayWayOverlay mCurrentZones = null;
 	public ArrayCircleOverlay mCurrentAccuracy = null;
 	
-	private Paint mPaintCurrentAccuracyFill = new Paint(Paint.ANTI_ALIAS_FLAG);
-	private Paint mPaintCurrentAccuracyBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
+
 	private Paint mPaintVisibleZoneFill = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private Paint mPaintVisibleZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private Paint mPaintInvisibleZoneFill = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private Paint mPaintInvisibleZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private Paint mPaintBoundaryBoxZoneFill = null;
 	private Paint mPaintBoundaryBoxZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
+	
+	private OverlayPosition mPositionOverlay = null;
+	private OverlayZones mOverlayZones = null;
 	
 	private String mMapFile;
 	public MapView mMapview = null;
@@ -73,8 +78,7 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 	protected void onResume() {
 		super.onResume();
 		Settings.setCurrentActivity(this);
-		refreshZones();
-		refreshPosition();
+		mMapview.invalidate();
 	}
 	
 	@Override
@@ -108,29 +112,18 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		mPaintVisibleZoneBorder.setColor(Color.BLUE);
 		mPaintVisibleZoneBorder.setAlpha(128);
 		mPaintVisibleZoneBorder.setStrokeWidth(3);				
+			
+	
 		
-		// --- draw current accuracy around the current position
-		mCurrentAccuracy = new ArrayCircleOverlay(null,null);
-		mMapview.getOverlays().add(mCurrentAccuracy);
-		mMapview.invalidate();
+		mPositionOverlay = new OverlayPosition(this,mMapview);
+		mMapview.getOverlays().add(mPositionOverlay);
+		mPositionOverlay.requestRedraw();
 		
-		mPaintCurrentAccuracyFill.setStyle(Paint.Style.FILL);
-		mPaintCurrentAccuracyFill.setColor(Color.BLUE);
-		mPaintCurrentAccuracyFill.setAlpha(64);
+		mOverlayZones = new OverlayZones();
+		mMapview.getOverlays().add(mOverlayZones);
+		mOverlayZones.requestRedraw();
 		
-		mPaintCurrentAccuracyBorder.setStyle(Paint.Style.STROKE);
-		mPaintCurrentAccuracyBorder.setColor(Color.BLUE);
-		mPaintCurrentAccuracyBorder.setAlpha(196);
-		mPaintCurrentAccuracyBorder.setStrokeWidth(3);		
-		
-		// --- draw boundary box
-		mPaintCurrentAccuracyBorder.setStyle(Paint.Style.STROKE);
-		mPaintCurrentAccuracyBorder.setColor(Color.BLUE);
-		mPaintCurrentAccuracyBorder.setAlpha(128);
-		mPaintCurrentAccuracyBorder.setStrokeWidth(3);			
-		// ---
-		refreshZones();
-		refreshPosition();		
+
 	}	
 		/*
 		if ( MapOverlays.mPolygons.size() > 0 ) {
@@ -189,10 +182,17 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		if (   ( mLocation == null )
 			|| ( mLocation.getLongitude() != location.getLongitude() ) 
 			|| ( mLocation.getLatitude()  != location.getLatitude() )
-			|| ( mLocation.getBearing()   != location.getBearing() ) )
+			|| ( mLocation.getBearing()   != location.getBearing() )
+			|| ( mLocation.getAccuracy()  != location.getAccuracy() ) )
 		{
 			mLocation = location;
-			refreshPosition();
+			
+			// ----
+			mPositionOverlay.onLocationChanged( location );
+			mPositionOverlay.requestRedraw();
+			
+    		// center map
+    		mMapview.setCenter(new GeoPoint(mLocation.getLatitude(),mLocation.getLongitude()) );		
 		}
 	}
 	
@@ -216,22 +216,32 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 	}	
 	
 	
-	public void refresh() {
-		refreshZones();
+	public void refreshX() {
+		if ( mMapview != null /*&& mCurrentZones != null*/ ) {
+			// mCurrentZones.clear();
+			Vector<Zone> zones = Engine.instance.cartridge.zones;
+			for (int i = 0; i < zones.size(); i++) {
+				Zone z = (Zone)zones.get(i);
+				if ( z.isVisible() ) {
+					Overlay o = new OverlayZone( z );
+					
+					mMapview.getOverlays().add(o);
+					o.requestRedraw();
+					// mCurrentZones.addWay( getZonePolygon( z,mPaintVisibleZoneFill, mPaintVisibleZoneBorder ) );
+					// mCurrentZones.addWay( getZoneBoundaryBox( z, null, mPaintBoundaryBoxZoneBorder ) );
+				}
+			}		
+
+		}
+
 	}
 	
-	private OverlayWay getZonePolygon( Zone zone, Paint fill, Paint border ) {
-		final int points = zone.points.length+1;
-		
-		GeoPoint[][] mPoints = new GeoPoint[1][points];
-		
-		for( int i=0; i<points; i++ ) {
-			int j = i%zone.points.length;
-			mPoints[0][i] = new GeoPoint( zone.points[j].latitude, zone.points[j].longitude );
-		}
-		
-		return new OverlayWay( mPoints, fill, border );		
-	}	
+	public void refresh() {
+		mOverlayZones.requestRedraw();
+	}
+	
+	/*
+
 
 	private OverlayWay getZoneBoundaryBox( Zone zone, Paint fill, Paint border ) {
 		
@@ -246,44 +256,8 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		return new OverlayWay( mPoints, fill, border );		
 	}	
 	
-	public void refreshZones() {
-		if ( mMapview != null && mCurrentZones != null ) {
-			mCurrentZones.clear();
-			Vector<Zone> zones = Engine.instance.cartridge.zones;
-			for (int i = 0; i < zones.size(); i++) {
-				Zone z = (Zone)zones.get(i);
-				if ( z.isVisible() ) {
-					mCurrentZones.addWay( getZonePolygon( z,mPaintVisibleZoneFill, mPaintVisibleZoneBorder ) );
-					mCurrentZones.addWay( getZoneBoundaryBox( z, null, mPaintBoundaryBoxZoneBorder ) );
-				}
-			}		
-			mCurrentZones.requestRedraw();
-		}
-	}
-	
-	public void refreshPosition() {
-		if ( mMapview != null && mLocation != null ) {
-			// MyCurrentLocation from mapsforge 0.3.1
 
-			GeoPoint point = new GeoPoint( mLocation.getLatitude(), mLocation.getLongitude() );
-			
-			if ( mCurrentPosition != null ) {
-							
-				mCurrentPosition.clear();
-				OverlayItem item = new OverlayItem( point, "n/a", "n/a" );	
-				mCurrentPosition.addItem(item);	
-				mCurrentPosition.requestRedraw();
-			}
-			
-			if ( mCurrentAccuracy != null ) {
-				
-				mCurrentAccuracy.clear();
-				OverlayCircle accuracyCircle = new OverlayCircle( point, mLocation.getAccuracy(), mPaintCurrentAccuracyFill, mPaintCurrentAccuracyBorder, "" );
-				mCurrentAccuracy.addCircle(accuracyCircle);
-				mCurrentAccuracy.requestRedraw();
-			}
-		}
-	}
+	*/
 	
 }	
 
