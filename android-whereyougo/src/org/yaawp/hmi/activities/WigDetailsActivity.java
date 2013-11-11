@@ -51,6 +51,7 @@ import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
 import org.yaawp.extra.Location;
+import org.yaawp.extra.Waypoint;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.maps.MapOverlayFactory;
@@ -216,22 +217,9 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 					try {
 				        Intent intent = new Intent( WigDetailsActivity.this, CartridgeMapActivity.class );
 				        intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
-				        // Drawable defaultMarker = activity.getResources().getDrawable(R.drawable.icon_gc_wherigo);
-				        MapOverlays.clear(); 
-				        
-						if (et == null || !et.isLocated())
-							return false;
-						
-				    	if (et instanceof Zone) {
-				    		Zone z = ((Zone) et);
-				    		MapOverlays.mPolygons.add( MapOverlayFactory.createPolygon( z ) );
-				    	} else {
-				    		MapWaypoint mapCartridge = new MapWaypoint(et.name,et.position.latitude,et.position.longitude);
-				    		Drawable defaultMarker = WigDetailsActivity.this.getResources().getDrawable(R.drawable.icon_gc_wherigo);
-				    		mapCartridge.setMarker( defaultMarker );
-				    		MapOverlays.mWaypoints.add( mapCartridge ); 
-				    	}
-				    
+				        // TODO intent.putExtra( MAP_CENTER_LATITUDE, x.y );
+				        // TODO intent.putExtra( MAP_CENTER_LONGITUDE, x.y );
+				        // TODO intent.putExtra( CURRENT_POSITION_AS_MAP_CENTER, false );
 				        startActivity(intent);  
 					} catch (Exception e) {
 						Logger.e(TAG, "btn02.click() - unknown problem", e);
@@ -324,42 +312,35 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 			tvState.setText(taskStates[t.state()]);
 		}
 	}
-	
-	private void enableGuideOnEventTable() {
 
-        Intent intent = new Intent( this, CartridgeMapActivity.class );
-        intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
-        // Drawable defaultMarker = activity.getResources().getDrawable(R.drawable.icon_gc_wherigo);
-        MapOverlays.clear();
-    	// MapWaypoint mapCartridge = MapOverlayFactory.createWaypoint( cartridge );
-    	// mapCartridge.setMarker( defaultMarker );
-		// MapOverlays.mWaypoints.add( mapCartridge );   
-        
-		if (et == null || !et.isLocated())
-			return;
-		
-    	if (et instanceof Zone) {
-    		Zone z = ((Zone) et);
-    		MapOverlays.mPolygons.add( MapOverlayFactory.createPolygon( z ) );
-    	} else {
-    		MapWaypoint mapCartridge = new MapWaypoint(et.name,et.position.latitude,et.position.longitude);
-    		Drawable defaultMarker = this.getResources().getDrawable(R.drawable.icon_gc_wherigo);
-    		mapCartridge.setMarker( defaultMarker );
-    		MapOverlays.mWaypoints.add( mapCartridge ); 
-    	}
-    	
-        
-        startActivity(intent);    
-        
-		/*
-		Waypoint wpt = getTargetWaypoint();
-		if (wpt != null) {
-			A.getGuidingContent().guideStart(wpt);
-		} else {
-			Logger.d(TAG, "enableGuideOnEventTable(), waypoint 'null'");
-		}
-		*/
-	}
+    private void enableGuideOnEventTable() {
+        Waypoint wpt = getTargetWaypoint();
+        if (wpt != null) {
+                A.getGuidingContent().guideStart(wpt);
+        } else {
+                Logger.d(TAG, "enableGuideOnEventTable(), waypoint 'null'");
+        }
+    }
+
+	private Waypoint getTargetWaypoint() {
+	        if (et == null || !et.isLocated())
+	                return null;
+	        
+	    if (et instanceof Zone) {
+	            Zone z = ((Zone) et);
+	            Location loc = new Location(TAG);
+	            loc.setLatitude(z.nearestPoint.latitude);
+	            loc.setLongitude(z.nearestPoint.longitude);
+	                return new Waypoint(et.name, loc);
+	    } else {
+	            Location loc = new Location(TAG);
+	            loc.setLatitude(et.position.latitude);
+	            loc.setLongitude(et.position.longitude);
+	                return new Waypoint(et.name, loc);
+	    }
+	}	
+	
+
 	
 
 	public void onStart() {
