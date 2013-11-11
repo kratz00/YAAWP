@@ -160,32 +160,4 @@ public class Waypoint {
 		// addParameter(ExtraData.PAR_INTENT_EXTRA_ON_DISPLAY, "clear");
 	}
 
-	/*
-	public byte[] getGeocachingData() {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		DataOutputStream dos = new DataOutputStream(baos);
-		try {
-			// writeGeocachingData(dos);
-			return baos.toByteArray();
-		} catch (IOException e) {
-			Log.e(TAG, "getGeocachingDataRaw()", e);
-			return null;
-		} finally {
-			Utils.closeStream(dos);
-		}
-	}
-	
-	public void setGeocachingData(byte[] data) {
-		DataInputStream dis = null;
-		try {
-			dis = new DataInputStream(new ByteArrayInputStream(data));
-			// readGeocachingData(dis);
-		} catch (Exception e) {
-			Log.e(TAG, "setGeocachingData(" + data + ")", e);
-			// gcData = null;
-		} finally {
-			Utils.closeStream(dis);
-		}
-	}
-	*/
 }
