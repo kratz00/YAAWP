@@ -42,6 +42,9 @@ public class OverlayPosition extends Overlay {
 	private Paint mPaintCurrentAccuracyFill = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private Paint mPaintCurrentAccuracyBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
 
+	private float mAzimuth;
+	private float mPitch;
+	private float mRoll;	
 	
     public OverlayPosition(Activity activity, MapView mapview ) {
         this.mActivity = activity;
@@ -63,10 +66,17 @@ public class OverlayPosition extends Overlay {
 	public void onLocationChanged(Location location) {
    		mLocation = location;
 	}
-       
+    
+	public void onOrientationChanged(float azimuth, float pitch, float roll) {
+		Location loc = LocationState.getLocation();
+		
+		mAzimuth = azimuth;
+		mPitch = pitch;
+		mRoll = roll;
+	}	
+	
     /*
-     * public void onGpsStatusChanged(int event, ArrayList<SatellitePosition> gpsStatus) {
-
+    public void onGpsStatusChanged(int event, ArrayList<SatellitePosition> gpsStatus) {
 	}
 
 	public void onStatusChanged(String provider, int state, Bundle extra) {
@@ -81,8 +91,7 @@ public class OverlayPosition extends Overlay {
     }
 
    
-    private float heading = 0f;
-    // private Paint accuracyCircle = null;
+    // private float heading = 0f;
     private Point center = new Point();
     private Point left = new Point();
     private Bitmap arrow = null;
@@ -141,7 +150,7 @@ public class OverlayPosition extends Overlay {
         int marginTop = center.y - heightArrowHalf;
 
         Matrix matrix = new Matrix();
-        matrix.setRotate(heading, widthArrowHalf, heightArrowHalf);
+        matrix.setRotate( mAzimuth, widthArrowHalf, heightArrowHalf);
         matrix.postTranslate(marginLeft, marginTop);
 
         canvas.drawBitmap(arrow, matrix, null);

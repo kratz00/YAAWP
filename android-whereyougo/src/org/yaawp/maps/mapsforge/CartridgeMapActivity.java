@@ -12,12 +12,13 @@ import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
 import menion.android.whereyougo.settings.Settings;
+import menion.android.whereyougo.utils.A;
+import menion.android.whereyougo.utils.UtilsFormat;
+import menion.android.whereyougo.guiding.Guide;
+import menion.android.whereyougo.guiding.GuidingListener;
 
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapView;
-import org.mapsforge.android.maps.overlay.ArrayItemizedOverlay;
-import org.mapsforge.android.maps.overlay.Overlay;
-import org.mapsforge.android.maps.overlay.ArrayCircleOverlay;
 import org.mapsforge.core.GeoPoint;
 import org.yaawp.R;
 import android.graphics.drawable.Drawable;
@@ -31,28 +32,28 @@ import cz.matejcik.openwig.Task;
 import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
+import menion.android.whereyougo.hardware.sensors.OrientationListener;
 import menion.android.whereyougo.gui.Refreshable;
 
 
 import org.yaawp.maps.mapsforge.OverlayPosition;
 
-public class CartridgeMapActivity extends MapActivity implements LocationEventListener, Refreshable  {
+public class CartridgeMapActivity extends MapActivity implements LocationEventListener, OrientationListener, Refreshable, GuidingListener  {
 
 	public final static String MAPFILE = "MAPFILE";
-
-	public ArrayItemizedOverlay mCurrentPosition = null;
-	public ArrayWayOverlay mCurrentZones = null;
-	public ArrayCircleOverlay mCurrentAccuracy = null;
-	
 
 	private Paint mPaintVisibleZoneFill = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private Paint mPaintVisibleZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
 
 	private OverlayPosition mPositionOverlay = null;
 	private OverlayZones mOverlayZones = null;
+	private OverlayGuidance mOverlayGuidance = null;
 	
 	private String mMapFile;
 	public MapView mMapview = null;
+	
+	private Location mLocation = null;
+	
 	
 	@Override
 	protected void onResume() {
@@ -72,17 +73,10 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		File file = new File (mMapFile);
 		mMapview.setMapFile(file);
 		setContentView(mMapview);	
-
-		// 
-		mCurrentZones = new ArrayWayOverlay(null,null);				
-		mMapview.getOverlays().add(mCurrentZones);
-		mMapview.invalidate();
 		
 		// --- draw current position
 		Drawable marker = getResources().getDrawable(R.drawable.icon_gc_wherigo);
-		mCurrentPosition = new ArrayItemizedOverlay(marker);
-		mMapview.getOverlays().add(mCurrentPosition);
-		mMapview.invalidate();
+
 		
 		mPaintVisibleZoneFill.setStyle(Paint.Style.FILL);
 		mPaintVisibleZoneFill.setColor(Color.BLUE);
@@ -93,7 +87,9 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		mPaintVisibleZoneBorder.setAlpha(128);
 		mPaintVisibleZoneBorder.setStrokeWidth(3);				
 			
-	
+		mOverlayGuidance = new OverlayGuidance();
+		mMapview.getOverlays().add(mOverlayGuidance);
+		mOverlayGuidance.requestRedraw();					
 		
 		mPositionOverlay = new OverlayPosition(this,mMapview);
 		mMapview.getOverlays().add(mPositionOverlay);
@@ -102,6 +98,11 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		mOverlayZones = new OverlayZones();
 		mMapview.getOverlays().add(mOverlayZones);
 		mOverlayZones.requestRedraw();
+		
+		if ( A.getGuidingContent().getGuide() != null && mOverlayGuidance != null ) {
+			Guide g = A.getGuidingContent().getGuide();
+			mOverlayGuidance.mDestination = g.getActualTarget().getLocation();
+		}		
 	}	
 
 		
@@ -111,16 +112,19 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 	
 	public void onStart() {
 		super.onStart();
-		// if (et instanceof Zone)
 		LocationState.addLocationChangeListener(this);
+		A.getGuidingContent().addGuidingListener(this);
+		A.getRotator().addListener(this);
 	}
 	
 	public void onStop() {
 		super.onStop();
 		LocationState.removeLocationChangeListener(this);
+    	A.getGuidingContent().removeGuidingListener(this);
+    	A.getRotator().removeListener(this);		
 	}
 
-	Location mLocation = null;
+
 	
 	public void onLocationChanged(Location location) {
 		if (   ( mLocation == null )
@@ -134,6 +138,11 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 			// ----
 			mPositionOverlay.onLocationChanged( location );
 			mPositionOverlay.requestRedraw();
+			
+			if ( mOverlayGuidance != null ) {
+				mOverlayGuidance.onLocationChanged( location );
+				mOverlayGuidance.requestRedraw();			
+			}
 			
     		// center map
     		mMapview.setCenter(new GeoPoint(mLocation.getLatitude(),mLocation.getLongitude()) );		
@@ -159,30 +168,53 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		return "X";
 	}	
 	
-	
+	@Override
 	public void refresh() {
 		mOverlayZones.requestRedraw();
 	}
 	
+	/* --------------------------------------------------------------- */
 	
-	/*
-
-
-	private OverlayWay getZoneBoundaryBox( Zone zone, Paint fill, Paint border ) {
+	@Override
+	public void guideStart() {
+		Guide g = A.getGuidingContent().getGuide();
+		if ( mOverlayGuidance != null && g != null ) {
+			mOverlayGuidance.mDestination = g.getActualTarget().getLocation();
+			mOverlayGuidance.requestRedraw();
+		}		
+	}
+	
+	@Override
+	public void guideStop() {
+		if ( mOverlayGuidance != null ) {
+			mOverlayGuidance.mDestination = null;
+			mOverlayGuidance.requestRedraw();
+		}	
+	}
+	
+	@Override
+	public void receiveGuideEvent(Guide guide, String targetName,
+			float azimuthToTarget, double distanceToTarget) {
 		
-		GeoPoint[][] mPoints = new GeoPoint[1][5];
+		Guide g = A.getGuidingContent().getGuide();
+		if ( mOverlayGuidance != null && g != null ) {
+			mOverlayGuidance.mDestination = g.getActualTarget().getLocation();
+			mOverlayGuidance.requestRedraw();
+		}
+	}
+
+	@Override
+	public void trackGuideCallRecalculate() {
+		// ignore
+	}
+	
+	@Override
+	public void onOrientationChanged(float azimuth, float pitch, float roll) {
+		Location loc = LocationState.getLocation();
 		
-		mPoints[0][0] = new GeoPoint( zone.bbLeft,  zone.bbBottom );
-		mPoints[0][1] = new GeoPoint( zone.bbRight, zone.bbBottom );
-		mPoints[0][2] = new GeoPoint( zone.bbRight, zone.bbTop );
-		mPoints[0][3] = new GeoPoint( zone.bbLeft,  zone.bbTop );
-		mPoints[0][4] = mPoints[0][0];
-			
-		return new OverlayWay( mPoints, fill, border );		
+		mPositionOverlay.onOrientationChanged( azimuth, pitch, roll );
+		mPositionOverlay.requestRedraw();
 	}	
-	
-
-	*/
 	
 }	
 
