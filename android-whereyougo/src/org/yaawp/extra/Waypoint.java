@@ -31,14 +31,15 @@ public class Waypoint {
 	private static final String TAG = "Waypoint";
 	
 	/* mLoc of this point */
-	Location loc;
+	private Location loc;
+	private String mName;
 	
 	/* additional geoCaching data */
 	// public GeocachingData gcData;
 
 	public Waypoint(String name, Location loc) {
 		super();
-		// setName(name);
+		mName = name;
 		this.loc = loc;
 	}
 	
@@ -158,6 +159,11 @@ public class Waypoint {
 	 */
 	public void removeExtraOnDisplay() {
 		// addParameter(ExtraData.PAR_INTENT_EXTRA_ON_DISPLAY, "clear");
+	}
+	
+	
+	public String getName() {
+		return mName;
 	}
 
 }

@@ -75,7 +75,7 @@ public class WaypointGuide implements Guide {
 
 	@Override
     public String getTargetName() {
-        return ""; // wpt.getName();
+        return wpt.getName();
     }
 
 	@Override
