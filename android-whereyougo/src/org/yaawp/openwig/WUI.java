@@ -44,6 +44,7 @@ import cz.matejcik.openwig.EventTable;
 import cz.matejcik.openwig.Media;
 import cz.matejcik.openwig.platform.UI;
 
+import org.yaawp.R;
 import org.yaawp.hmi.activities.CartridgeDetailsActivity;
 import org.yaawp.hmi.activities.CartridgeListActivity;
 import org.yaawp.hmi.activities.WigInputActivity;
@@ -52,6 +53,7 @@ import org.yaawp.hmi.activities.WigPushDialogActivity;
 import org.yaawp.hmi.activities.WigMainMenuActivity;
 import org.yaawp.hmi.activities.GuidingActivity;
 import org.yaawp.hmi.helper.AudioHelper;
+import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.helper.ScreenHelper;
 
@@ -63,12 +65,16 @@ public class WUI implements UI {
 	
 	public void blockForSaving() {
 		Logger.w(TAG, "blockForSaving()");
+		// TODO use string id
+		ProgressDialogHelper.Show( Settings.getCurrentActivity(), "Save game", I18N.get(R.string.working) );		
 		saving = true;
 	}
 	
 	public void unblock() {
 		Logger.w(TAG, "unblock()");
 		saving = false;
+		ProgressDialogHelper.Hide();		
+		
 	}
 
 	public void debugMsg(String msg) {

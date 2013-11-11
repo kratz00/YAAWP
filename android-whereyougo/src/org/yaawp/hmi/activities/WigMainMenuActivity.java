@@ -112,10 +112,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 			public boolean onClick(CustomDialog dialog, View v, int btn) {			
 		    	new Thread(new Runnable() {
 					public void run() {
-						// TODO I18N use string id for headline
-						ProgressDialogHelper.Show( WigMainMenuActivity.this, "Save game", I18N.get(R.string.working) );
 						Engine.instance.store();
-						ProgressDialogHelper.Hide();
 					}
 				}).start();
 		    	
