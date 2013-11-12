@@ -107,18 +107,56 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 				null, CustomDialog.NO_IMAGE, null);
 		
 		CustomDialog.setBottom(this,
-				getString(R.string.save), new CustomDialog.OnClickListener() {
-			@Override
-			public boolean onClick(CustomDialog dialog, View v, int btn) {			
-		    	new Thread(new Runnable() {
-					public void run() {
-						Engine.instance.store();
+			
+			/* --- Save bottom --- */
+			getString(R.string.save), new CustomDialog.OnClickListener() {
+				@Override
+				public boolean onClick(CustomDialog dialog, View v, int btn) {			
+			    	new Thread(new Runnable() {
+						public void run() {
+							Engine.instance.store();
+						}
+					}).start();
+			    	
+					return true;
+				}
+			},
+			
+			/* --- Map bottom --- */
+			getString(R.string.map), new CustomDialog.OnClickListener() {
+				@Override
+				public boolean onClick(CustomDialog dialog, View v, int btn) {			
+					try {
+				        Intent intent = new Intent( WigMainMenuActivity.this, CartridgeMapActivity.class );
+				        intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
+				        // TODO intent.putExtra( MAP_CENTER_LATITUDE, x.y );
+				        // TODO intent.putExtra( MAP_CENTER_LONGITUDE, x.y );
+				        // TODO intent.putExtra( CURRENT_POSITION_AS_MAP_CENTER, false );
+				        startActivity(intent);  
+					} catch (Exception e) {
+						Logger.e(TAG, "btn02.click() - unknown problem", e);
 					}
-				}).start();
-		    	
-				return true;
+					return true;
+				}
+			},			
+			
+			/* --- First --- 
+			getString(R.string.save), new CustomDialog.OnClickListener() {
+				@Override
+				public boolean onClick(CustomDialog dialog, View v, int btn) {			
+			    	new Thread(new Runnable() {
+						public void run() {
+							Engine.instance.store();
+						}
+					}).start();
+			    	
+					return true;
+				}
 			}
-		}, null, null, null, null);
+			*/
+			null, null
+		);
+		
 	}
 	
 	public void onResume() {
