@@ -86,4 +86,5 @@
     <string name="ctx_menu_delete_log_file">Delete log file</string>
     <string name="ctx_menu_send_log_file">Send log file</string> 
     <string name="err_none">OK</string>  
+    <string name="save">Save</string>
 </resources>

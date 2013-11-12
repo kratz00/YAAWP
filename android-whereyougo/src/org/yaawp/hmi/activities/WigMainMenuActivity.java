@@ -107,7 +107,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 				null, CustomDialog.NO_IMAGE, null);
 		
 		CustomDialog.setBottom(this,
-				getString(R.string.gps), new CustomDialog.OnClickListener() {
+				getString(R.string.save), new CustomDialog.OnClickListener() {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {			
 		    	new Thread(new Runnable() {
