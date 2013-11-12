@@ -28,6 +28,8 @@ import menion.android.whereyougo.gui.ListActions;
 import menion.android.whereyougo.gui.Refreshable;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
+import menion.android.whereyougo.guiding.Guide;
+import menion.android.whereyougo.guiding.WaypointGuide;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
@@ -51,7 +53,6 @@ import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
 import org.yaawp.extra.Location;
-import org.yaawp.extra.Waypoint;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.maps.MapOverlayFactory;
@@ -314,7 +315,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 	}
 
     private void enableGuideOnEventTable() {
-        Waypoint wpt = getTargetWaypoint();
+        Guide wpt = getTargetGuide();
         if (wpt != null) {
                 A.getGuidingContent().guideStart(wpt);
         } else {
@@ -322,8 +323,8 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
         }
     }
 
-	private Waypoint getTargetWaypoint() {
-	        if (et == null || !et.isLocated())
+	private Guide getTargetGuide() {
+	    if (et == null || !et.isLocated())
 	                return null;
 	        
 	    if (et instanceof Zone) {
@@ -331,12 +332,12 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 	            Location loc = new Location(TAG);
 	            loc.setLatitude(z.nearestPoint.latitude);
 	            loc.setLongitude(z.nearestPoint.longitude);
-	                return new Waypoint(et.name, loc);
+	                return new WaypointGuide(et.name, loc);
 	    } else {
 	            Location loc = new Location(TAG);
 	            loc.setLatitude(et.position.latitude);
 	            loc.setLongitude(et.position.longitude);
-	                return new Waypoint(et.name, loc);
+	                return new WaypointGuide(et.name, loc);
 	    }
 	}	
 	

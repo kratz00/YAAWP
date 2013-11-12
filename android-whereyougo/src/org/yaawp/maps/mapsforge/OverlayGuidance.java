@@ -15,7 +15,6 @@ import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Point;
 
 import menion.android.whereyougo.utils.A;
-import org.yaawp.extra.Waypoint;
 
 public class OverlayGuidance extends Overlay {
 

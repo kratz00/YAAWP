@@ -24,7 +24,6 @@ import java.util.TimerTask;
 
 import org.yaawp.R;
 import org.yaawp.extra.Location;
-import org.yaawp.extra.Waypoint;
 import org.yaawp.preferences.PreferenceItems;
 import org.yaawp.preferences.PreferenceValues;
 
@@ -43,7 +42,8 @@ public class WaypointGuide implements Guide {
 
 	private static final String TAG = "WaypointGuide";
 	
-	private Waypoint wpt;
+	private Location mLocation;
+	private String mName;
     private int id;
 
     private float azimuth;
@@ -61,21 +61,22 @@ public class WaypointGuide implements Guide {
      * @param target
      * @param name
      */
-    public WaypointGuide(Waypoint wpt) {
-    	this.wpt = wpt;
+    public WaypointGuide(String name, Location location) {
+		mName = name;
+		mLocation = location;
     	mAlreadyBeeped = false;
     	lastSonarCall = 0;
         audioBeep = new AudioClip(A.getApp(), R.raw.sound_beep_01);
     }
 
 	@Override
-	public Waypoint getActualTarget() {
-		return wpt;
+	public Location getLocation() {
+		return mLocation;
 	}
 
 	@Override
     public String getTargetName() {
-        return wpt.getName();
+        return mName;
     }
 
 	@Override
@@ -102,8 +103,8 @@ public class WaypointGuide implements Guide {
     }
 
 	public void actualizeState(Location actualLocation) {
-		azimuth = actualLocation.bearingTo(wpt.getLocation());
-		distance = actualLocation.distanceTo(wpt.getLocation());
+		azimuth = actualLocation.bearingTo(mLocation);
+		distance = actualLocation.distanceTo(mLocation);
 	}
 
 	@Override

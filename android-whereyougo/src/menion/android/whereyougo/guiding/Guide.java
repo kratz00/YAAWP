@@ -20,7 +20,6 @@
 package menion.android.whereyougo.guiding;
 
 import org.yaawp.extra.Location;
-import org.yaawp.extra.Waypoint;
 
 
 /**
@@ -31,7 +30,7 @@ public interface Guide {
 
 	public void actualizeState(Location actualLocation);
 	
-	public Waypoint getActualTarget();
+	public Location getLocation();
 	
     public String getTargetName(); 
 

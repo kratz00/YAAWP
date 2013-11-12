@@ -26,6 +26,7 @@ import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.hardware.location.LocationState;
+import menion.android.whereyougo.guiding.WaypointGuide;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.UtilsFormat;
@@ -41,7 +42,6 @@ import cz.matejcik.openwig.formats.ICartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.extra.Location;
-import org.yaawp.extra.Waypoint;
 import org.yaawp.hmi.helper.I18N;
 
 public class CartridgeDetailsActivity extends CustomActivity {
@@ -108,7 +108,7 @@ public class CartridgeDetailsActivity extends CustomActivity {
 				Location loc = new Location(TAG);
 				loc.setLatitude(cartridge.getLatitude());
 				loc.setLongitude(cartridge.getLongitude());
-				Waypoint wpt = new Waypoint(cartridge.getName(), loc);
+				WaypointGuide wpt = new WaypointGuide(cartridge.getName(), loc);
 				A.getGuidingContent().guideStart(wpt);
 				CartridgeListActivity.callGudingScreen(CartridgeDetailsActivity.this);
 				CartridgeDetailsActivity.this.finish();

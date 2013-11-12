@@ -101,7 +101,7 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		
 		if ( A.getGuidingContent().getGuide() != null && mOverlayGuidance != null ) {
 			Guide g = A.getGuidingContent().getGuide();
-			mOverlayGuidance.mDestination = g.getActualTarget().getLocation();
+			mOverlayGuidance.mDestination = g.getLocation();
 		}		
 	}	
 
@@ -179,7 +179,7 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 	public void guideStart() {
 		Guide g = A.getGuidingContent().getGuide();
 		if ( mOverlayGuidance != null && g != null ) {
-			mOverlayGuidance.mDestination = g.getActualTarget().getLocation();
+			mOverlayGuidance.mDestination = g.getLocation();
 			mOverlayGuidance.requestRedraw();
 		}		
 	}
@@ -198,7 +198,7 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		
 		Guide g = A.getGuidingContent().getGuide();
 		if ( mOverlayGuidance != null && g != null ) {
-			mOverlayGuidance.mDestination = g.getActualTarget().getLocation();
+			mOverlayGuidance.mDestination = g.getLocation();
 			mOverlayGuidance.requestRedraw();
 		}
 	}

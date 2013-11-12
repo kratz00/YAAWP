@@ -22,7 +22,6 @@ package menion.android.whereyougo.guiding;
 import java.util.ArrayList;
 
 import org.yaawp.extra.Location;
-import org.yaawp.extra.Waypoint;
 import org.yaawp.preferences.PreferenceItems;
 
 import menion.android.whereyougo.hardware.location.LocationEventListener;
@@ -67,10 +66,6 @@ public class GuidingContent implements LocationEventListener {
     	this.listeners.remove(listener);
     }
     
-    public void guideStart(Waypoint wpt) {
-    	guideStart(new WaypointGuide(wpt));
-    }
-
     public void guideStart(Guide guide) {
     	this.mGuide = guide;
     	
@@ -111,18 +106,18 @@ public class GuidingContent implements LocationEventListener {
     }
 
     public boolean isGuiding() {
-    	return getTargetWaypoint() != null;
+    	return getLocation() != null;
     }
     
     public Guide getGuide() {
     	return mGuide;
     }
 
-    public Waypoint getTargetWaypoint() {
+    public Location getLocation() {
     	if (mGuide == null)
     		return null;
     	else
-    		return mGuide.getActualTarget();
+    		return mGuide.getLocation();
     }
     
 	public void onLocationChanged(Location location) {
