@@ -46,9 +46,6 @@ import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.preferences.PreferenceUtils;
-import org.yaawp.maps.MapOverlayFactory;
-import org.yaawp.maps.MapOverlays;
-import org.yaawp.maps.MapWaypoint;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
 
@@ -341,6 +338,7 @@ public class CartridgeListActivity extends CustomMain {
                 break;
                 
             case R.id.menu_map:
+            	/* TODO MAP
                 Intent intent = new Intent( CartridgeListActivity.this, CartridgeMapActivity.class );
                 intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" ); 
                 
@@ -355,7 +353,8 @@ public class CartridgeListActivity extends CustomMain {
                 	}
 
                 }
-                startActivity(intent);              
+                startActivity(intent);  
+                */            
                 break;
                 
 			case R.id.menu_preferences:

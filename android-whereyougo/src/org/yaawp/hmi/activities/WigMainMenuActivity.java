@@ -28,9 +28,6 @@ import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
-import org.yaawp.maps.MapOverlayFactory;
-import org.yaawp.maps.MapOverlays;
-import org.yaawp.maps.MapWaypoint;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.openwig.WUI;
 

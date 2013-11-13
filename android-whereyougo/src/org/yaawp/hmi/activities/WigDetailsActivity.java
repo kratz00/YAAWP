@@ -55,10 +55,6 @@ import cz.matejcik.openwig.Zone;
 import org.yaawp.extra.Location;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
-import org.yaawp.maps.MapOverlayFactory;
-import org.yaawp.maps.MapOverlays;
-import org.yaawp.maps.MapWaypoint;
-import org.yaawp.maps.MapOverlay;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 
 // ADD locationListener to update UpdateNavi
