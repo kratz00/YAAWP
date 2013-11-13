@@ -24,7 +24,6 @@ import org.yaawp.R;
 import android.graphics.drawable.Drawable;
 
 import org.yaawp.extra.Location;
-import org.mapsforge.android.maps.overlay.ArrayWayOverlay;
 
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Player;
@@ -35,8 +34,13 @@ import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.sensors.OrientationListener;
 import menion.android.whereyougo.gui.Refreshable;
 
+import org.mapsforge.android.maps.overlay.Overlay;
 
-import org.yaawp.maps.mapsforge.OverlayPosition;
+
+import org.yaawp.maps.services.GenericOverlay;
+import org.yaawp.maps.services.OverlayGuidance;
+import org.yaawp.maps.services.OverlayPosition;
+import org.yaawp.maps.services.Overlays;
 
 public class CartridgeMapActivity extends MapActivity implements LocationEventListener, OrientationListener, Refreshable, GuidingListener  {
 
@@ -45,9 +49,9 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 	private Paint mPaintVisibleZoneFill = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private Paint mPaintVisibleZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-	private OverlayPosition mPositionOverlay = null;
-	private OverlayZones mOverlayZones = null;
-	private OverlayGuidance mOverlayGuidance = null;
+	private MapsforgeOverlay mOverlayPosition = new MapsforgeOverlay( Overlays.OVERLAY_CURRENT_POSITION );
+	private MapsforgeOverlay mOverlayZones = new MapsforgeOverlay( Overlays.OVERLAY_ZONES );
+	private MapsforgeOverlay mOverlayGuidance = new MapsforgeOverlay( Overlays.OVERLAY_GUIDANCE );	
 	
 	private String mMapFile;
 	public MapView mMapview = null;
@@ -87,29 +91,23 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		mPaintVisibleZoneBorder.setAlpha(128);
 		mPaintVisibleZoneBorder.setStrokeWidth(3);				
 			
-		mOverlayGuidance = new OverlayGuidance();
+		// mOverlayGuidance = new OverlayGuidance();
 		mMapview.getOverlays().add(mOverlayGuidance);
+		Guide g = A.getGuidingContent().getGuide();
+		mOverlayGuidance.show(g != null);
 		mOverlayGuidance.requestRedraw();					
 		
-		mPositionOverlay = new OverlayPosition(this,mMapview);
-		mMapview.getOverlays().add(mPositionOverlay);
-		mPositionOverlay.requestRedraw();
+		// mOverlayPosition = new OverlayPosition(this,mMapview);
+		mMapview.getOverlays().add(mOverlayPosition);
+		mOverlayPosition.requestRedraw();
 		
-		mOverlayZones = new OverlayZones();
+		// mOverlayZones = new OverlayZones();
 		mMapview.getOverlays().add(mOverlayZones);
 		mOverlayZones.requestRedraw();
 		
-		if ( A.getGuidingContent().getGuide() != null && mOverlayGuidance != null ) {
-			Guide g = A.getGuidingContent().getGuide();
-			mOverlayGuidance.mDestination = g.getLocation();
-		}		
+		
 	}	
 
-		
- 
-		
-
-	
 	public void onStart() {
 		super.onStart();
 		LocationState.addLocationChangeListener(this);
@@ -136,8 +134,8 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 			mLocation = location;
 			
 			// ----
-			mPositionOverlay.onLocationChanged( location );
-			mPositionOverlay.requestRedraw();
+			mOverlayPosition.onLocationChanged( location );
+			mOverlayPosition.requestRedraw();
 			
 			if ( mOverlayGuidance != null ) {
 				mOverlayGuidance.onLocationChanged( location );
@@ -178,18 +176,14 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 	@Override
 	public void guideStart() {
 		Guide g = A.getGuidingContent().getGuide();
-		if ( mOverlayGuidance != null && g != null ) {
-			mOverlayGuidance.mDestination = g.getLocation();
-			mOverlayGuidance.requestRedraw();
-		}		
+		mOverlayGuidance.show(g != null);
+		mOverlayGuidance.requestRedraw();		
 	}
 	
 	@Override
 	public void guideStop() {
-		if ( mOverlayGuidance != null ) {
-			mOverlayGuidance.mDestination = null;
-			mOverlayGuidance.requestRedraw();
-		}	
+		mOverlayGuidance.hide();
+		mOverlayGuidance.requestRedraw();	
 	}
 	
 	@Override
@@ -197,10 +191,8 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 			float azimuthToTarget, double distanceToTarget) {
 		
 		Guide g = A.getGuidingContent().getGuide();
-		if ( mOverlayGuidance != null && g != null ) {
-			mOverlayGuidance.mDestination = g.getLocation();
-			mOverlayGuidance.requestRedraw();
-		}
+		mOverlayGuidance.show(g != null);
+		mOverlayGuidance.requestRedraw();
 	}
 
 	@Override
@@ -212,8 +204,8 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 	public void onOrientationChanged(float azimuth, float pitch, float roll) {
 		Location loc = LocationState.getLocation();
 		
-		mPositionOverlay.onOrientationChanged( azimuth, pitch, roll );
-		mPositionOverlay.requestRedraw();
+		// TODO mOverlayPosition.onOrientationChanged( azimuth, pitch, roll );
+		// TODO mOverlayPosition.requestRedraw();
 	}	
 	
 }	

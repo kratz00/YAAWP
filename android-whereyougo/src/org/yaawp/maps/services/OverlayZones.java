@@ -1,4 +1,4 @@
-package org.yaawp.maps.mapsforge;
+package org.yaawp.maps.services;
 
 import java.util.Vector;
 
@@ -14,7 +14,7 @@ import android.graphics.Point;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Zone;
 
-public class OverlayZones extends Overlay {
+public class OverlayZones extends GenericOverlay {
 
 
 	private Paint mPaintVisibleZoneFill = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -23,11 +23,9 @@ public class OverlayZones extends Overlay {
 	private Paint mPaintInvisibleZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private Paint mPaintBoundaryBoxZoneFill = null;
 	private Paint mPaintBoundaryBoxZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
+		
 	
-	// Vector<Zone> zones = Engine.instance.cartridge.zones;
-	
-	
-	OverlayZones( ) {
+	public OverlayZones() {
 		
 		mPaintVisibleZoneFill.setStyle(Paint.Style.FILL);
 		mPaintVisibleZoneFill.setColor(Color.BLUE);
@@ -45,13 +43,13 @@ public class OverlayZones extends Overlay {
 		mPaintBoundaryBoxZoneBorder.setStrokeWidth(3);			
 	}
 	
-	public void drawZone( Zone z, Canvas canvas, Projection projection ) {
+	public void drawZone( Zone z, Canvas canvas, MapProjection projection ) {
 		int number = z.points.length;
 		Point[] mPoints = new Point[number];
 		
 		for( int i=0; i<number; i++ ) {
 			mPoints[i] = new Point();
-			projection.toPixels( new GeoPoint(z.points[i].latitude, z.points[i].longitude), mPoints[i] );
+			projection.toPixels( z.points[i].latitude, z.points[i].longitude, mPoints[i] );
 		}
 		
 		Path wallpath = new Path();
@@ -68,8 +66,7 @@ public class OverlayZones extends Overlay {
 	}
 	
     @Override
-    public void drawOverlayBitmap(Canvas canvas, Point drawPosition,
-            Projection projection, byte drawZoomLevel) {
+    public void drawBitmap(Canvas canvas, MapProjection projection) {
 
 		Vector<Zone> zones = Engine.instance.cartridge.zones;
 		for (int i = 0; i < zones.size(); i++) {
@@ -80,4 +77,5 @@ public class OverlayZones extends Overlay {
 		}		  	
     }	
 	
+    
 }

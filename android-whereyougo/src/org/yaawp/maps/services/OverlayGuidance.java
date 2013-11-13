@@ -1,4 +1,4 @@
-package org.yaawp.maps.mapsforge;
+package org.yaawp.maps.services;
 
 import org.mapsforge.android.maps.Projection;
 import org.mapsforge.android.maps.overlay.Overlay;
@@ -14,12 +14,12 @@ import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Point;
 
+import menion.android.whereyougo.guiding.Guide;
 import menion.android.whereyougo.utils.A;
 
-public class OverlayGuidance extends Overlay {
+public class OverlayGuidance extends GenericOverlay {
 
 	private Location mLocation = null;	
-	public Location mDestination = null;
 	private Point pxStart = new Point();
 	private Point pxEnd = new Point();
 	private Paint mPaintBeeline = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -31,28 +31,30 @@ public class OverlayGuidance extends Overlay {
 		mPaintBeeline.setStrokeWidth(2);	
 	}
 	
+	@Override
 	public void onLocationChanged(Location location) {
    		mLocation = location;
 	}
-	
-    @Override
-    public void drawOverlayBitmap(Canvas canvas, Point drawPosition,
-            Projection projection, byte drawZoomLevel) {
 
-        if ( mLocation == null || mDestination == null ) {
+    @Override
+    public void drawBitmap(Canvas canvas, MapProjection projection) {
+
+    	Location destination = null;
+    	
+		Guide g = A.getGuidingContent().getGuide();
+		if ( g != null ) {
+			destination = g.getLocation();    	
+		}
+		
+        if ( mLocation == null || destination == null ) {
             return;
         }
-       
         
-        final GeoPoint start = new GeoPoint(mLocation.getLatitude(), mLocation.getLongitude());
-        final GeoPoint end   = new GeoPoint(mDestination.getLatitude() , mDestination.getLongitude());
-        
-        
-        projection.toPixels( start, pxStart );
-        projection.toPixels( end, pxEnd );
+        projection.toPixels( mLocation, pxStart );
+        projection.toPixels( destination, pxEnd );
 
         canvas.drawLine( pxStart.x, pxStart.y, pxEnd.x, pxEnd.y, mPaintBeeline );
     }
     
-	// 
+
 }

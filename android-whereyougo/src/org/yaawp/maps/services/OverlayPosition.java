@@ -1,4 +1,4 @@
-package org.yaawp.maps.mapsforge;
+package org.yaawp.maps.services;
 
 import java.util.ArrayList;
 
@@ -23,6 +23,7 @@ import org.mapsforge.android.maps.MapView;
 import org.yaawp.R;
 
 import menion.android.whereyougo.hardware.sensors.Orientation;
+import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.UtilsFormat;
 import menion.android.whereyougo.utils.geometry.Point2D;
@@ -33,11 +34,11 @@ import org.mapsforge.core.GeoPoint;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class OverlayPosition extends Overlay {
+public class OverlayPosition extends GenericOverlay {
 
 	private Activity mActivity;
-	private Location mLocation;
-	private MapView mMapView;
+
+
 	
 	private Paint mPaintCurrentAccuracyFill = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private Paint mPaintCurrentAccuracyBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -46,9 +47,9 @@ public class OverlayPosition extends Overlay {
 	private float mPitch;
 	private float mRoll;	
 	
-    public OverlayPosition(Activity activity, MapView mapview ) {
-        this.mActivity = activity;
-        this.mMapView = mapview;
+    public OverlayPosition( ) {
+        this.mActivity = Settings.getCurrentActivity();
+
         // this.mapItemFactory = Settings.getMapProvider().getMapItemFactory();
         // this.ovlImpl = ovlImpl;
         
@@ -63,9 +64,6 @@ public class OverlayPosition extends Overlay {
     }
 
     /* ---- LocationEventListener ------------- */
-	public void onLocationChanged(Location location) {
-   		mLocation = location;
-	}
     
 	public void onOrientationChanged(float azimuth, float pitch, float roll) {
 		Location loc = LocationState.getLocation();
@@ -83,14 +81,8 @@ public class OverlayPosition extends Overlay {
 	}
 	*/
 	
-    @Override
-    public void drawOverlayBitmap(Canvas canvas, Point drawPosition,
-            Projection projection, byte drawZoomLevel) {
 
-        drawInternal(canvas, projection);
-    }
-
-   
+  
     // private float heading = 0f;
     private Point center = new Point();
     private Point left = new Point();
@@ -102,7 +94,8 @@ public class OverlayPosition extends Overlay {
 
 
     
-    private void drawInternal(Canvas canvas, Projection projection) {
+    @Override
+    public void drawBitmap(Canvas canvas, MapProjection projection) {
 
         if ( mLocation == null) {
             return;
@@ -128,13 +121,10 @@ public class OverlayPosition extends Overlay {
 
         // Location.distanceBetween(latitude, longitude, latitude, longitude + 1, result);
         float longitudeLineDistance = mLocation.distanceTo(next); 
-
-        final GeoPoint leftCoords = new GeoPoint(latitude, longitude - accuracy / longitudeLineDistance);
-        final GeoPoint location = new GeoPoint(latitude,longitude);
-        
+       
         // GeoPointImpl leftGeo = mapItemFactory.getGeoPointBase(leftCoords);
-        projection.toPixels(leftCoords, left);
-        projection.toPixels(location, center);
+        projection.toPixels(latitude, longitude - accuracy / longitudeLineDistance, left);
+        projection.toPixels(latitude,longitude, center);
         int radius = center.x - left.x;
 
         canvas.drawCircle(center.x, center.y, radius, mPaintCurrentAccuracyFill);
