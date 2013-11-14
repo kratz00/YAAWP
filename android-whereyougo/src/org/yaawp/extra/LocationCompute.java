@@ -161,14 +161,14 @@ public class LocationCompute {
 	public float distanceTo(Location dest) {
 		// See if we already have the result
 		synchronized (mResults) {
-			if (loc.latitude != mLat1 || loc.longitude != mLon1
-					|| dest.latitude != mLat2 || dest.longitude != mLon2) {
-				computeDistanceAndBearing(loc.latitude, loc.longitude, dest.latitude,
-						dest.longitude, mResults);
-				mLat1 = loc.latitude;
-				mLon1 = loc.longitude;
-				mLat2 = dest.latitude;
-				mLon2 = dest.longitude;
+			if (loc.mLatitude != mLat1 || loc.mLongitude != mLon1
+					|| dest.mLatitude != mLat2 || dest.mLongitude != mLon2) {
+				computeDistanceAndBearing(loc.mLatitude, loc.mLongitude, dest.mLatitude,
+						dest.mLongitude, mResults);
+				mLat1 = loc.mLatitude;
+				mLon1 = loc.mLongitude;
+				mLat2 = dest.mLatitude;
+				mLon2 = dest.mLongitude;
 			}
 			return mResults[0];
 		}
@@ -187,14 +187,14 @@ public class LocationCompute {
 	public float bearingTo(Location dest) {
 		synchronized (mResults) {
 			// See if we already have the result
-			if (loc.latitude != mLat1 || loc.longitude != mLon1
-					|| dest.latitude != mLat2 || dest.longitude != mLon2) {
-				computeDistanceAndBearing(loc.latitude, loc.longitude, dest.latitude,
-						dest.longitude, mResults);
-				mLat1 = loc.latitude;
-				mLon1 = loc.longitude;
-				mLat2 = dest.latitude;
-				mLon2 = dest.longitude;
+			if (loc.mLatitude != mLat1 || loc.mLongitude != mLon1
+					|| dest.mLatitude != mLat2 || dest.mLongitude != mLon2) {
+				computeDistanceAndBearing(loc.mLatitude, loc.mLongitude, dest.mLatitude,
+						dest.mLongitude, mResults);
+				mLat1 = loc.mLatitude;
+				mLon1 = loc.mLongitude;
+				mLat2 = dest.mLatitude;
+				mLon2 = dest.mLongitude;
 			}
 			return mResults[1];
 		}
