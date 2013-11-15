@@ -37,6 +37,7 @@ import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.gui.extension.DataInfo;
 import menion.android.whereyougo.gui.extension.IconedListAdapter;
+import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.Utils;
 import android.app.ActivityManager;
@@ -156,9 +157,16 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		
 	}
 	
+	@Override 
 	public void onResume() {
 		super.onResume();
 		refresh();
+	}
+	
+	@Override 
+	public void onDestroy() { 
+		A.getGuidingContent().guideStop();
+		super.onDestroy();
 	}
 	
     @Override
