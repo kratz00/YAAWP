@@ -115,6 +115,77 @@ public class CustomDialog {
     			negativeButtonText, negativeButtonClickListener);
     }
     
+    public static void setPositiveButton(Activity activity, 
+    		String buttonText, OnClickListener buttonClickListener ) {
+ 
+    	View view = activity.findViewById(R.id.linear_layout_bottom);
+    	
+    	// change colors for 3.0+
+    	if (Utils.isAndroid30OrMore()) {
+    		view.findViewById(R.id.linear_layout_bottom).setBackgroundColor(BOTTOM_COLOR_A3);
+    	}
+    	
+        int btnCount = 0;
+        if (setSingalButton(view, R.id.button_positive, DialogInterface.BUTTON_POSITIVE,
+				buttonText, buttonClickListener))
+        	btnCount++;
+		
+		if (btnCount == 0) {
+			view.findViewById(R.id.linear_layout_bottom).setVisibility(View.GONE);
+		} else if (btnCount == 1) {
+			view.findViewById(R.id.linear_layout_bottom).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.linear_layout_left_spacer).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.linear_layout_right_spacer).setVisibility(View.VISIBLE);
+		}    
+    }
+
+    public static void setNegativeButton(Activity activity, 
+    		String buttonText, OnClickListener buttonClickListener ) {
+ 
+    	View view = activity.findViewById(R.id.linear_layout_bottom);
+    	
+    	// change colors for 3.0+
+    	if (Utils.isAndroid30OrMore()) {
+    		view.findViewById(R.id.linear_layout_bottom).setBackgroundColor(BOTTOM_COLOR_A3);
+    	}
+    	
+        int btnCount = 0;
+		if (setSingalButton(view, R.id.button_negative, DialogInterface.BUTTON_NEGATIVE,
+				buttonText, buttonClickListener))
+			btnCount++;
+		
+		if (btnCount == 0) {
+			view.findViewById(R.id.linear_layout_bottom).setVisibility(View.GONE);
+		} else if (btnCount == 1) {
+			view.findViewById(R.id.linear_layout_bottom).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.linear_layout_left_spacer).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.linear_layout_right_spacer).setVisibility(View.VISIBLE);
+		}    
+    }    
+    
+    public static void setNeutralButton(Activity activity, 
+    		String buttonText, OnClickListener buttonClickListener ) {
+ 
+    	View view = activity.findViewById(R.id.linear_layout_bottom);
+    	
+    	// change colors for 3.0+
+    	if (Utils.isAndroid30OrMore()) {
+    		view.findViewById(R.id.linear_layout_bottom).setBackgroundColor(BOTTOM_COLOR_A3);
+    	}
+    	
+        int btnCount = 0;
+		if (setSingalButton(view, R.id.button_neutral, DialogInterface.BUTTON_NEUTRAL,
+				buttonText, buttonClickListener))
+			btnCount++;
+		
+		if (btnCount == 0) {
+			view.findViewById(R.id.linear_layout_bottom).setVisibility(View.GONE);
+		} else if (btnCount == 1) {
+			view.findViewById(R.id.linear_layout_bottom).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.linear_layout_left_spacer).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.linear_layout_right_spacer).setVisibility(View.VISIBLE);
+		}    
+    }    
     private static void setCustomDialogBottom(View view, 
     		String positiveButtonText, OnClickListener positiveButtonClickListener,
     		String neutralButtonText, OnClickListener neutralButtonClickListener,
@@ -126,13 +197,13 @@ public class CustomDialog {
     	}
     	
         int btnCount = 0;
-        if (setButton(view, R.id.button_positive, DialogInterface.BUTTON_POSITIVE,
+        if (setSingalButton(view, R.id.button_positive, DialogInterface.BUTTON_POSITIVE,
 				positiveButtonText, positiveButtonClickListener))
         	btnCount++;
-		if (setButton(view, R.id.button_negative, DialogInterface.BUTTON_NEGATIVE,
+		if (setSingalButton(view, R.id.button_negative, DialogInterface.BUTTON_NEGATIVE,
 				negativeButtonText, negativeButtonClickListener))
 			btnCount++;
-		if (setButton(view, R.id.button_neutral, DialogInterface.BUTTON_NEUTRAL,
+		if (setSingalButton(view, R.id.button_neutral, DialogInterface.BUTTON_NEUTRAL,
 				neutralButtonText, neutralButtonClickListener))
 			btnCount++;
 		
@@ -144,7 +215,7 @@ public class CustomDialog {
 		}
     }
     
-    private static boolean setButton(View layout, int btnId, final int btnType, 
+    private static boolean setSingalButton(View layout, int btnId, final int btnType, 
     		String text, final OnClickListener click) {
         if (text != null && click != null) {
         	// set button

@@ -38,7 +38,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cz.matejcik.openwig.formats.ICartridge;
-
+import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.extra.Location;
@@ -51,7 +51,7 @@ public class CartridgeDetailsActivity extends CustomActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		ICartridge cartridgeFile = YaawpAppData.GetInstance().mCurrentCartridge;
+		YCartridge cartridgeFile = YaawpAppData.GetInstance().mCurrentCartridge;
 		
 		setContentView(R.layout.layout_details);
 
@@ -92,7 +92,32 @@ public class CartridgeDetailsActivity extends CustomActivity {
 		
 		tvDistance.setText(Html.fromHtml(buff.toString()));
 		
-		CustomDialog.setBottom(this, 
+		/* ----------- */
+
+		CustomDialog.setNeutralButton( this, null, null );
+		
+		if ( cartridgeFile.isPlayAnywhere() == false ) {
+			CustomDialog.setNegativeButton(this, 
+					getString(R.string.navigate), new CustomDialog.OnClickListener() {
+				@Override
+				public boolean onClick(CustomDialog dialog, View v, int btn) {
+				    ICartridge cartridge = YaawpAppData.GetInstance().mCurrentCartridge;
+					Location loc = new Location(TAG);
+					loc.setLatitude(cartridge.getLatitude());
+					loc.setLongitude(cartridge.getLongitude());
+					WaypointGuide wpt = new WaypointGuide(cartridge.getName(), loc);
+					A.getGuidingContent().guideStart(wpt);
+					CartridgeListActivity.callGudingScreen(CartridgeDetailsActivity.this);
+					CartridgeDetailsActivity.this.finish();
+					return true;
+				}
+			});			
+		}
+		else {
+			CustomDialog.setNegativeButton( this, null, null );
+		}
+		
+		CustomDialog.setPositiveButton(this, 
 				getString(R.string.start), new CustomDialog.OnClickListener() {
 			@Override
 			public boolean onClick(CustomDialog dialog, View v, int btn) {
@@ -100,20 +125,7 @@ public class CartridgeDetailsActivity extends CustomActivity {
 				CartridgeSession.Start( YaawpAppData.GetInstance().mCurrentCartridge, YaawpAppData.GetInstance().mWui ); 
 				return true;
 			}
-		}, null, null,
-		getString(R.string.navigate), new CustomDialog.OnClickListener() {
-			@Override
-			public boolean onClick(CustomDialog dialog, View v, int btn) {
-			    ICartridge cartridge = YaawpAppData.GetInstance().mCurrentCartridge;
-				Location loc = new Location(TAG);
-				loc.setLatitude(cartridge.getLatitude());
-				loc.setLongitude(cartridge.getLongitude());
-				WaypointGuide wpt = new WaypointGuide(cartridge.getName(), loc);
-				A.getGuidingContent().guideStart(wpt);
-				CartridgeListActivity.callGudingScreen(CartridgeDetailsActivity.this);
-				CartridgeDetailsActivity.this.finish();
-				return true;
-			}
-		});
+		});		
+
 	}
 }
