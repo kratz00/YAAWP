@@ -39,10 +39,13 @@ import org.yaawp.bl.CartridgeSession;
 import org.yaawp.extra.Location;
 import org.yaawp.guidance.WaypointGuide;
 import org.yaawp.hmi.helper.I18N;
+import org.yaawp.hmi.helper.ThreeButtonBar;
 
 public class CartridgeDetailsActivity extends CustomActivity {
 	
 	private static final String TAG = "CartridgeDetails";
+	
+	private ThreeButtonBar mThreeButtonBar = new ThreeButtonBar();
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -89,14 +92,22 @@ public class CartridgeDetailsActivity extends CustomActivity {
 		tvDistance.setText(Html.fromHtml(buff.toString()));
 		
 		/* ----------- */
-
-		CustomDialog.setNeutralButton( this, null, null );
+		
+		mThreeButtonBar.AddButton(this, 
+				getString(R.string.start), new ThreeButtonBar.OnClickListener() {
+			@Override
+			public boolean onClick(View v, int btn) {
+				CartridgeDetailsActivity.this.finish();
+				CartridgeSession.Start( YaawpAppData.GetInstance().mCurrentCartridge, YaawpAppData.GetInstance().mWui ); 
+				return true;
+			}
+		});	
 		
 		if ( cartridgeFile.isPlayAnywhere() == false ) {
-			CustomDialog.setNegativeButton(this, 
-					getString(R.string.navigate), new CustomDialog.OnClickListener() {
+			mThreeButtonBar.AddButton(this, 
+					getString(R.string.navigate), new ThreeButtonBar.OnClickListener() {
 				@Override
-				public boolean onClick(CustomDialog dialog, View v, int btn) {
+				public boolean onClick(View v, int btn) {
 				    ICartridge cartridge = YaawpAppData.GetInstance().mCurrentCartridge;
 					Location loc = new Location(TAG);
 					loc.setLatitude(cartridge.getLatitude());
@@ -109,19 +120,8 @@ public class CartridgeDetailsActivity extends CustomActivity {
 				}
 			});			
 		}
-		else {
-			CustomDialog.setNegativeButton( this, null, null );
-		}
 		
-		CustomDialog.setPositiveButton(this, 
-				getString(R.string.start), new CustomDialog.OnClickListener() {
-			@Override
-			public boolean onClick(CustomDialog dialog, View v, int btn) {
-				CartridgeDetailsActivity.this.finish();
-				CartridgeSession.Start( YaawpAppData.GetInstance().mCurrentCartridge, YaawpAppData.GetInstance().mWui ); 
-				return true;
-			}
-		});		
+	
 
 	}
 }
