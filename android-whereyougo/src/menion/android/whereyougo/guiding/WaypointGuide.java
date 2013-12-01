@@ -24,7 +24,7 @@ import menion.android.whereyougo.guiding.GuideImpl;
 
 public class WaypointGuide extends GuideImpl {
 
-	private static final String TAG = "WaypointGuide";
+	// private static final String TAG = "WaypointGuide";
 
     public WaypointGuide(String name, Location location) {
     	super(name,location);

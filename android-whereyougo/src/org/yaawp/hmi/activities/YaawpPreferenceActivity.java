@@ -1,22 +1,13 @@
 	package org.yaawp.hmi.activities;
 
-import java.util.prefs.Preferences;
 
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
-import android.util.Log;
-import android.content.SharedPreferences;
 import android.content.Intent;
 import android.app.Activity;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.Utils;
 import menion.android.whereyougo.utils.ManagerNotify;
 
@@ -240,7 +231,7 @@ public class YaawpPreferenceActivity extends PreferenceActivity implements Prefe
                     Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
                     if (uri != null) {
                     	Preference preference = findPreference( R.string.pref_guiding_sound_type );
-                    	String key = preference.getKey();
+                    	// String key = preference.getKey();
                     	// PreferenceManager.getDefaultSharedPreferences( this ).edit().putInt( key, PreferenceValues.GuidingWaypointSound.CUSTOM_SOUND );
                     	// PreferenceManager.getDefaultSharedPreferences( this ).edit().putString( key+"_uri", uri.toString() );
                     	// Settings.setPrefInt( getKey(R.string.pref_guiding_sound_type), PreferenceValues.GuidingWaypointSound.CUSTOM_SOUND );

@@ -21,22 +21,18 @@ package menion.android.whereyougo.settings;
 
 import java.util.Locale;
 
-import org.yaawp.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.view.Window;
-import android.view.WindowManager;
 import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 
 import org.yaawp.extra.Location;
-import org.yaawp.preferences.PreferenceUtils;
+
 
 public class Settings {
 

@@ -2,10 +2,6 @@ package org.yaawp.maps.services;
 
 import java.util.Vector;
 
-import org.mapsforge.android.maps.Projection;
-import org.mapsforge.android.maps.overlay.Overlay;
-import org.mapsforge.core.GeoPoint;
-
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -19,9 +15,9 @@ public class OverlayZones extends GenericOverlay {
 
 	private Paint mPaintVisibleZoneFill = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private Paint mPaintVisibleZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
-	private Paint mPaintInvisibleZoneFill = new Paint(Paint.ANTI_ALIAS_FLAG);
-	private Paint mPaintInvisibleZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
-	private Paint mPaintBoundaryBoxZoneFill = null;
+	// private Paint mPaintInvisibleZoneFill = new Paint(Paint.ANTI_ALIAS_FLAG);
+	// private Paint mPaintInvisibleZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
+	// private Paint mPaintBoundaryBoxZoneFill = null;
 	private Paint mPaintBoundaryBoxZoneBorder = new Paint(Paint.ANTI_ALIAS_FLAG);
 		
 	

@@ -37,11 +37,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import cz.matejcik.openwig.WherigoLib;
 
 import org.yaawp.openwig.OpenWigHelper;
 import org.yaawp.preferences.PreferenceUtils;

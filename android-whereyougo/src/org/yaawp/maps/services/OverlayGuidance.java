@@ -1,17 +1,10 @@
 package org.yaawp.maps.services;
 
-import org.mapsforge.android.maps.Projection;
-import org.mapsforge.android.maps.overlay.Overlay;
-import org.mapsforge.core.GeoPoint;
-import org.yaawp.R;
-import org.yaawp.extra.Location;
 
-import android.graphics.BitmapFactory;
+import org.yaawp.extra.Location;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Point;
 
 import menion.android.whereyougo.guiding.Guide;

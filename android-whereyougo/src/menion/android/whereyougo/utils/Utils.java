@@ -19,24 +19,14 @@
 
 package menion.android.whereyougo.utils;
 
-import java.io.BufferedReader;
 import java.io.Closeable;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.RandomAccessFile;
-import java.net.HttpURLConnection;
 import java.security.MessageDigest;
 import java.util.List;
-import java.util.zip.ZipInputStream;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.util.DisplayMetrics;
 

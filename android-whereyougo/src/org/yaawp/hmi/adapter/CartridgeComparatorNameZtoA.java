@@ -1,7 +1,5 @@
 package org.yaawp.hmi.adapter;
 
-import java.util.Comparator;
-
 import org.yaawp.YCartridge;
 
 public class CartridgeComparatorNameZtoA extends CartridgeListAdapterItemComparator { 

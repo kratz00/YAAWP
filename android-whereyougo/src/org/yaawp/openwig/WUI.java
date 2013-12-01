@@ -19,16 +19,7 @@
 
 package org.yaawp.openwig;
 
-import java.io.ByteArrayInputStream;
-
-
-import menion.android.whereyougo.gui.ListActions;
-import menion.android.whereyougo.gui.ListTargets;
-import menion.android.whereyougo.gui.ListTasks;
-import menion.android.whereyougo.gui.ListThings;
-import menion.android.whereyougo.gui.ListZones;
 import menion.android.whereyougo.gui.Refreshable;
-import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
@@ -45,13 +36,8 @@ import cz.matejcik.openwig.Media;
 import cz.matejcik.openwig.platform.UI;
 
 import org.yaawp.R;
-import org.yaawp.hmi.activities.CartridgeDetailsActivity;
-import org.yaawp.hmi.activities.CartridgeListActivity;
 import org.yaawp.hmi.activities.WigInputActivity;
-import org.yaawp.hmi.activities.WigDetailsActivity;
 import org.yaawp.hmi.activities.WigPushDialogActivity;
-import org.yaawp.hmi.activities.WigMainMenuActivity;
-import org.yaawp.hmi.activities.GuidingActivity;
 import org.yaawp.hmi.helper.AudioHelper;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ProgressDialogHelper;

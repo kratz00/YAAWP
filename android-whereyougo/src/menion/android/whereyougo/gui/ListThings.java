@@ -21,7 +21,6 @@ package menion.android.whereyougo.gui;
 
 import java.util.Vector;
 
-import org.yaawp.hmi.activities.CartridgeListActivity;
 import org.yaawp.hmi.helper.ScreenHelper;
 
 import se.krka.kahlua.vm.LuaTable;

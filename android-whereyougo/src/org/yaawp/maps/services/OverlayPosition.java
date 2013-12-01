@@ -1,13 +1,7 @@
 package org.yaawp.maps.services;
 
-import java.util.ArrayList;
-
 import org.yaawp.extra.Location;
-import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.hardware.location.SatellitePosition;
-
-import org.mapsforge.android.maps.overlay.Overlay;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,24 +9,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Point;
-import org.mapsforge.android.maps.Projection;
-import org.mapsforge.android.maps.MapView;
 import org.yaawp.R;
-
-import menion.android.whereyougo.hardware.sensors.Orientation;
 import menion.android.whereyougo.settings.Settings;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.UtilsFormat;
-import menion.android.whereyougo.utils.geometry.Point2D;
 
-import org.mapsforge.core.GeoPoint;
 
-// import android.location.Location;
-import android.os.Bundle;
-import android.widget.TextView;
 
 public class OverlayPosition extends GenericOverlay {
 
@@ -65,9 +47,7 @@ public class OverlayPosition extends GenericOverlay {
 
     /* ---- LocationEventListener ------------- */
     
-	public void onOrientationChanged(float azimuth, float pitch, float roll) {
-		Location loc = LocationState.getLocation();
-		
+	public void onOrientationChanged(float azimuth, float pitch, float roll) {	
 		mAzimuth = azimuth;
 		mPitch = pitch;
 		mRoll = roll;

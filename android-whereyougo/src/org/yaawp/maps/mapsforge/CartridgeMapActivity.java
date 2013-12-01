@@ -6,14 +6,12 @@ import android.os.Bundle;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.UtilsFormat;
 import menion.android.whereyougo.guiding.Guide;
 import menion.android.whereyougo.guiding.GuidingListener;
 
@@ -25,21 +23,8 @@ import android.graphics.drawable.Drawable;
 
 import org.yaawp.extra.Location;
 
-import cz.matejcik.openwig.Engine;
-import cz.matejcik.openwig.Player;
-import cz.matejcik.openwig.Task;
-import cz.matejcik.openwig.Thing;
-import cz.matejcik.openwig.Zone;
-import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.sensors.OrientationListener;
 import menion.android.whereyougo.gui.Refreshable;
-
-import org.mapsforge.android.maps.overlay.Overlay;
-
-
-import org.yaawp.maps.services.GenericOverlay;
-import org.yaawp.maps.services.OverlayGuidance;
-import org.yaawp.maps.services.OverlayPosition;
 import org.yaawp.maps.services.Overlays;
 
 public class CartridgeMapActivity extends MapActivity implements LocationEventListener, OrientationListener, Refreshable, GuidingListener  {
@@ -201,9 +186,7 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 	}
 	
 	@Override
-	public void onOrientationChanged(float azimuth, float pitch, float roll) {
-		Location loc = LocationState.getLocation();
-		
+	public void onOrientationChanged(float azimuth, float pitch, float roll) {	
 		// TODO mOverlayPosition.onOrientationChanged( azimuth, pitch, roll );
 		// TODO mOverlayPosition.requestRedraw();
 	}	

@@ -3,26 +3,20 @@ package org.yaawp.hmi.activities;
 import java.io.File;
 import android.os.SystemClock;
 
-import menion.android.whereyougo.gui.extension.MainApplication;
-import menion.android.whereyougo.gui.extension.UtilsGUI;
 import menion.android.whereyougo.utils.FileSystem;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.ManagerNotify;
 
 import org.yaawp.R;
 import org.yaawp.YCartridge;
-import org.yaawp.app.YaawpAppData;
-import org.yaawp.hmi.adapter.CartridgeListAdapter;
 import org.yaawp.hmi.helper.I18N;
-import org.yaawp.hmi.helper.ProgressDialogHelper;
-import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.openwig.WSaveFile;
 import org.yaawp.openwig.WSeekableFile;
 
 import android.os.Bundle;
-import android.view.View;
+
 import android.view.WindowManager;
-import android.widget.ListView;
+
 import android.widget.TextView;
 import android.app.Activity;
 import android.content.Intent;

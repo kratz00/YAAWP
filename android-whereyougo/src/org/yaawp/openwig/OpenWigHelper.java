@@ -1,6 +1,5 @@
 package org.yaawp.openwig;
 
-import org.yaawp.R;
 
 import android.util.Log;
 import cz.matejcik.openwig.WherigoLib;

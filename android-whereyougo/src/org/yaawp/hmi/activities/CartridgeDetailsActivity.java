@@ -19,16 +19,12 @@
 
 package org.yaawp.hmi.activities;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.guiding.WaypointGuide;
 import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.UtilsFormat;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

@@ -25,7 +25,6 @@ import cz.matejcik.openwig.Action;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Thing;
 
-import org.yaawp.hmi.activities.CartridgeListActivity;
 import org.yaawp.hmi.activities.WigDetailsActivity;
 import org.yaawp.hmi.helper.ScreenHelper;
 

@@ -23,11 +23,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import org.yaawp.R;
-import org.yaawp.YCartridge;
-import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.helper.ScreenHelper;
-import org.yaawp.hmi.helper.I18N;
-import org.yaawp.hmi.helper.ProgressDialogHelper;
+
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.openwig.WUI;
 
@@ -40,12 +37,10 @@ import menion.android.whereyougo.gui.extension.IconedListAdapter;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.Utils;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -103,6 +98,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		
 		CustomDialog.setTitle(this, Engine.instance.cartridge.name,
 				null, CustomDialog.NO_IMAGE, null);
+		
 		
 		CustomDialog.setBottom(this,
 			

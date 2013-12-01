@@ -32,7 +32,6 @@ import menion.android.whereyougo.utils.Logger;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ContextMenu;
 import android.view.ContextMenu.*;
@@ -46,7 +45,6 @@ import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.preferences.PreferenceUtils;
-import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
 
 import android.os.Bundle;

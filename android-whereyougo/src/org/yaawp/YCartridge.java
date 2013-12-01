@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import cz.matejcik.openwig.formats.CartridgeFile;
-import cz.matejcik.openwig.formats.Savegame;
 import cz.matejcik.openwig.platform.FileHandle;
 import cz.matejcik.openwig.platform.SeekableFile;
 

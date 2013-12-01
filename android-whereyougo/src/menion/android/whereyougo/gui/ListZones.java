@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import org.yaawp.extra.Location;
-import org.yaawp.hmi.activities.CartridgeListActivity;
 import org.yaawp.hmi.helper.ScreenHelper;
 
 import menion.android.whereyougo.hardware.location.LocationEventListener;

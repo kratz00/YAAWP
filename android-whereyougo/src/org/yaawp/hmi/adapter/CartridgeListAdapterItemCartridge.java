@@ -12,11 +12,9 @@ import org.yaawp.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -30,10 +28,8 @@ import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.extra.Location;
-import org.yaawp.hmi.activities.CartridgeListActivity;
-import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
-import org.yaawp.maps.mapsforge.CartridgeMapActivity;
+
 
 import menion.android.whereyougo.utils.*;
 

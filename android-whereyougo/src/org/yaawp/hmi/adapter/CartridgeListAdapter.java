@@ -1,27 +1,11 @@
 package org.yaawp.hmi.adapter;
 
-import org.yaawp.R;
-
-import menion.android.whereyougo.utils.Const;
-import menion.android.whereyougo.utils.Images;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.Utils;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.Vector;
-import cz.matejcik.openwig.formats.ICartridge;
 
 /*
  * CartridgeListAdapter

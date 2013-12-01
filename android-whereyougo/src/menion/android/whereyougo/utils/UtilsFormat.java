@@ -24,7 +24,6 @@ import java.text.DecimalFormatSymbols;
 import java.util.Date;
 import java.util.Locale;
 
-import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.PreferenceItems;
 
 import menion.android.whereyougo.settings.Settings;

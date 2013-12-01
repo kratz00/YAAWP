@@ -2,13 +2,11 @@ package org.yaawp.bl;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.openwig.WLocationService;
 import org.yaawp.openwig.WUI;
-import org.yaawp.R;
-import org.yaawp.preferences.PreferenceUtils;
+
 
 import menion.android.whereyougo.utils.Logger;
 import cz.matejcik.openwig.Engine;
