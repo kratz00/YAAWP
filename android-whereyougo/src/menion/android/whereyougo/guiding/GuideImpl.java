@@ -71,9 +71,10 @@ public class GuideImpl implements Guide {
        	}
 	}
 
-	public void actualizeState(Location actualLocation) {
+	public boolean actualizeState(Location actualLocation) {
 		mAzimuth = actualLocation.bearingTo(mLocation);
 		mDistance = actualLocation.distanceTo(mLocation);
+		return true;
 	}
 
 	@Override

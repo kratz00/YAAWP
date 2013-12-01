@@ -27,6 +27,7 @@ import org.yaawp.preferences.PreferenceItems;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
+import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import android.os.Bundle;
 
@@ -99,7 +100,7 @@ public class GuidingContent implements LocationEventListener {
     	this.mGuide = null;
 
     	LocationState.removeLocationChangeListener(this);
-    	onLocationChanged(LocationState.getLocation());
+ 	    	
     	for (GuidingListener list : listeners) {
 			list.guideStop();
 		}
@@ -122,20 +123,29 @@ public class GuidingContent implements LocationEventListener {
     
 	public void onLocationChanged(Location location) {
 //Logger.d(TAG, "onLocationChanged(" + location + ")");
-		if (mGuide != null && location != null) {
-			mGuide.actualizeState(location);
-			
-			mTargetName = mGuide.getTargetName();
-			mAzimuthToTarget = mGuide.getAzimuthToTaget();
-			mDistanceToTarget = mGuide.getDistanceToTarget();
-		} else {
-			mTargetName = null;
-			mAzimuthToTarget = 0.0f;
-			mDistanceToTarget = 0.0f;
-		}
 		
-		for (GuidingListener list : listeners) {
-			list.receiveGuideEvent(mGuide, mTargetName, mAzimuthToTarget, mDistanceToTarget);
+		if ( mGuide != null ) {
+			boolean bContinue = true;
+			
+			if (location != null) {
+				bContinue = mGuide.actualizeState(location);	
+				mTargetName = mGuide.getTargetName();
+				mAzimuthToTarget = mGuide.getAzimuthToTaget();
+				mDistanceToTarget = mGuide.getDistanceToTarget();
+			} else {
+				bContinue = true;
+				mTargetName = null;
+				mAzimuthToTarget = 0.0f;
+				mDistanceToTarget = 0.0f;
+			}
+			
+			if ( bContinue == true ) {
+				for (GuidingListener list : listeners) {
+					list.receiveGuideEvent(mGuide, mTargetName, mAzimuthToTarget, mDistanceToTarget);
+				}			
+			} else {
+				A.getGuidingContent().guideStop();			
+			}
 		}
 	}
 	

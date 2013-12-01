@@ -28,7 +28,7 @@ import org.yaawp.extra.Location;
  */
 public interface Guide {
 
-	public void actualizeState(Location actualLocation);
+	public boolean actualizeState(Location actualLocation);
 	
 	public Location getLocation();
 	

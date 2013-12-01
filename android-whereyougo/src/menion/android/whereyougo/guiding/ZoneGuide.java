@@ -26,8 +26,8 @@ public class ZoneGuide extends GuideImpl {
     	mAlreadyEntered = false;
     }
     
-    public void actualizeState( Location location ) {
-    	super.actualizeState( location );
+    public boolean actualizeState( Location location ) {
+    	boolean bContinue = super.actualizeState( location );
     	if ( mAlreadyEntered == false && mZone.contain == Zone.INSIDE ) {
     		mAlreadyEntered = true; 
     		
@@ -47,7 +47,11 @@ public class ZoneGuide extends GuideImpl {
     		
     		// issue #54 - vibration
     		Vibrator v = (Vibrator) A.getMain().getSystemService(Context.VIBRATOR_SERVICE);
-    		v.vibrate(25);	    		
+    		v.vibrate(50);	
+    		
+    		// issue #42 
+    		bContinue = false;
     	}
+    	return bContinue;
     }
 }
