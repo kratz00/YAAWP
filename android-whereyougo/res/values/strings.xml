@@ -87,4 +87,5 @@
     <string name="ctx_menu_send_log_file">Send log file</string> 
     <string name="err_none">OK</string>  
     <string name="save">Save</string>
+    <string name="guidance_zone_entered">Zone entered</string>
 </resources>

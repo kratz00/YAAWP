@@ -30,6 +30,7 @@ import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.guiding.Guide;
 import menion.android.whereyougo.guiding.WaypointGuide;
+import menion.android.whereyougo.guiding.ZoneGuide;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
@@ -39,7 +40,6 @@ import menion.android.whereyougo.utils.UtilsFormat;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -325,15 +325,12 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 	        
 	    if (et instanceof Zone) {
 	            Zone z = ((Zone) et);
-	            Location loc = new Location(TAG);
-	            loc.setLatitude(z.nearestPoint.latitude);
-	            loc.setLongitude(z.nearestPoint.longitude);
-	                return new WaypointGuide(et.name, loc);
+	            return new ZoneGuide(z);
 	    } else {
 	            Location loc = new Location(TAG);
 	            loc.setLatitude(et.position.latitude);
 	            loc.setLongitude(et.position.longitude);
-	                return new WaypointGuide(et.name, loc);
+	            return new WaypointGuide(et.name, loc);
 	    }
 	}	
 	
