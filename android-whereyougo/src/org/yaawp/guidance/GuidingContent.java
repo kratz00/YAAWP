@@ -17,11 +17,13 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.guiding;
+package org.yaawp.guidance;
 
 import java.util.ArrayList;
 
 import org.yaawp.extra.Location;
+import org.yaawp.guidance.interfaces.Guide;
+import org.yaawp.guidance.interfaces.GuidingListener;
 import org.yaawp.preferences.PreferenceItems;
 
 import menion.android.whereyougo.hardware.location.LocationEventListener;

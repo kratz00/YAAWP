@@ -1,4 +1,4 @@
-package menion.android.whereyougo.guiding;
+package org.yaawp.guidance;
 
 import org.yaawp.R;
 import org.yaawp.extra.Location;
@@ -7,7 +7,6 @@ import org.yaawp.preferences.PreferenceValues;
 
 import android.content.Context;
 import android.os.Vibrator;
-import menion.android.whereyougo.guiding.GuideImpl;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.ManagerNotify;
 import cz.matejcik.openwig.Zone;

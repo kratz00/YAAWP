@@ -1,16 +1,16 @@
-package menion.android.whereyougo.guiding;
+package org.yaawp.guidance;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.yaawp.R;
 import org.yaawp.extra.Location;
+import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.preferences.PreferenceItems;
 import org.yaawp.preferences.PreferenceValues;
 
 import android.net.Uri;
 
-import menion.android.whereyougo.guiding.Guide;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;

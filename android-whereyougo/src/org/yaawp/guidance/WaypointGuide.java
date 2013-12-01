@@ -17,10 +17,9 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.guiding;
+package org.yaawp.guidance;
 
 import org.yaawp.extra.Location;
-import menion.android.whereyougo.guiding.GuideImpl;
 
 public class WaypointGuide extends GuideImpl {
 

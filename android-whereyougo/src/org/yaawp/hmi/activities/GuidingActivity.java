@@ -21,11 +21,11 @@ package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
 import org.yaawp.extra.Location;
+import org.yaawp.guidance.interfaces.Guide;
+import org.yaawp.guidance.interfaces.GuidingListener;
 import org.yaawp.hmi.views.CompassView;
 
 import menion.android.whereyougo.gui.extension.CustomActivity;
-import menion.android.whereyougo.guiding.Guide;
-import menion.android.whereyougo.guiding.GuidingListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.sensors.OrientationListener;
 import menion.android.whereyougo.utils.A;

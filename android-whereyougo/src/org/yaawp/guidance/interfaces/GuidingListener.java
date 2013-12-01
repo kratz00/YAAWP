@@ -17,28 +17,17 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.guiding;
-
-import org.yaawp.extra.Location;
+package org.yaawp.guidance.interfaces;
 
 
-/**
- * @author menion
- * @since 25.1.2010 2010
- */
-public interface Guide {
-
-	public boolean actualizeState(Location actualLocation);
+public interface GuidingListener {
 	
-	public Location getLocation();
+	public void guideStart();
 	
-    public String getTargetName(); 
-
-    public float getAzimuthToTaget();
-
-    public float getDistanceToTarget();
-
-    public long getTimeToTarget();
-    
-    public void manageDistanceSoundsBeeping(double distance);
+	public void guideStop();
+	
+	public void receiveGuideEvent(Guide guide, String targetName,
+			float azimuthToTarget, double distanceToTarget);
+	
+	public void trackGuideCallRecalculate();
 }

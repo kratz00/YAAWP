@@ -23,7 +23,6 @@ import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.guiding.WaypointGuide;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.UtilsFormat;
 import android.graphics.Bitmap;
@@ -38,6 +37,7 @@ import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.extra.Location;
+import org.yaawp.guidance.WaypointGuide;
 import org.yaawp.hmi.helper.I18N;
 
 public class CartridgeDetailsActivity extends CustomActivity {

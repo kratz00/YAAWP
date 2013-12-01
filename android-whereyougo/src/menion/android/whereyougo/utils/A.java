@@ -19,9 +19,10 @@
 
 package menion.android.whereyougo.utils;
 
+import org.yaawp.guidance.GuidingContent;
+
 import menion.android.whereyougo.gui.extension.CustomMain;
 import menion.android.whereyougo.gui.extension.MainApplication;
-import menion.android.whereyougo.guiding.GuidingContent;
 import menion.android.whereyougo.hardware.sensors.Orientation;
 import menion.android.whereyougo.utils.audio.ManagerAudio;
 import android.app.Application;

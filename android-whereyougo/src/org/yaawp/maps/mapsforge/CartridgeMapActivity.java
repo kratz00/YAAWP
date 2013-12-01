@@ -12,8 +12,6 @@ import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.guiding.Guide;
-import menion.android.whereyougo.guiding.GuidingListener;
 
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapView;
@@ -22,6 +20,8 @@ import org.yaawp.R;
 import android.graphics.drawable.Drawable;
 
 import org.yaawp.extra.Location;
+import org.yaawp.guidance.interfaces.Guide;
+import org.yaawp.guidance.interfaces.GuidingListener;
 
 import menion.android.whereyougo.hardware.sensors.OrientationListener;
 import menion.android.whereyougo.gui.Refreshable;
