@@ -5,7 +5,6 @@ import menion.android.whereyougo.utils.Utils;
 import org.yaawp.R;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.view.View;
 import android.widget.Button;
 

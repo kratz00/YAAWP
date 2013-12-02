@@ -16,8 +16,6 @@ import menion.android.whereyougo.utils.A;
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapView;
 import org.mapsforge.core.GeoPoint;
-import org.yaawp.R;
-import android.graphics.drawable.Drawable;
 
 import org.yaawp.extra.Location;
 import org.yaawp.guidance.interfaces.Guide;
@@ -64,7 +62,7 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		setContentView(mMapview);	
 		
 		// --- draw current position
-		Drawable marker = getResources().getDrawable(R.drawable.icon_gc_wherigo);
+		// Drawable marker = getResources().getDrawable(R.drawable.icon_gc_wherigo);
 
 		
 		mPaintVisibleZoneFill.setStyle(Paint.Style.FILL);

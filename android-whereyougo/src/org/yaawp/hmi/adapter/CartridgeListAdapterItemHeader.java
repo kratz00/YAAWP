@@ -4,9 +4,6 @@ import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.Utils;
 
 import org.yaawp.R;
-
-import cz.matejcik.openwig.formats.ICartridge;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
