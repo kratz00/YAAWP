@@ -1,32 +1,23 @@
 package org.yaawp.hmi.helper;
 
-import menion.android.whereyougo.gui.extension.CustomDialog;
-import menion.android.whereyougo.gui.extension.UtilsGUI;
-import menion.android.whereyougo.gui.extension.CustomDialog.OnClickListener;
 import menion.android.whereyougo.utils.Utils;
 
 import org.yaawp.R;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.LinearLayout.LayoutParams;
+
 
 public class ThreeButtonBar {
 
-	public static final int NO_IMAGE = Integer.MIN_VALUE;
+
 
 	public static final int BOTTOM_COLOR_A3 = 0xFFDDDDDD;
 			
     public interface OnClickListener {
-    	public boolean onClick(View v, int btn);
+    	public boolean onClick(View v);
     }
 
 
@@ -76,31 +67,57 @@ public class ThreeButtonBar {
 
     }
     
+    public int getButtonId( int index ) {
+    	int btnId=0; 
+		switch ( index ) {
+			case 0:
+				btnId = R.id.button_positive;
+				break;
+			case 1:
+				btnId = R.id.button_negative;
+				break;
+			case 2:
+				btnId = R.id.button_neutral;
+				break;					
+		}
+		return btnId;
+    }
+    
+    public void VisibleButton( Activity activity, int index ) {
+    	View view = activity.findViewById(R.id.linear_layout_bottom);
+    	view.findViewById( getButtonId(index) ).setVisibility(View.VISIBLE);	  
+    }
+    
+    public void InvisibleButton( Activity activity, int index ) {
+    	View view = activity.findViewById(R.id.linear_layout_bottom);
+    	view.findViewById( getButtonId(index) ).setVisibility(View.GONE);	  
+    }
+    
     public void AddButton(Activity activity, 
-			String buttonText, OnClickListener buttonClickListener ) {
+			String buttonText, final OnClickListener buttonClickListener ) {
 		
 		int btnId=0; 
-		int btnType=0;
+
 		if ( mBottonCount < 3 ) {
-			switch ( mBottonCount ) {
-				case 0:
-					btnId = R.id.button_positive;
-					btnType = DialogInterface.BUTTON_POSITIVE;
-					break;
-				case 1:
-					btnId = R.id.button_negative;
-					btnType = DialogInterface.BUTTON_NEGATIVE;
-					break;
-				case 2:
-					btnId = R.id.button_neutral;
-					btnType = DialogInterface.BUTTON_NEUTRAL;
-					break;					
-			}
+			btnId = getButtonId( mBottonCount );
+			
 			mBottonCount++;
 			
 			View view = activity.findViewById(R.id.linear_layout_bottom);
 			
-	        setSingalButton(view, btnId, btnType, buttonText, buttonClickListener );	
+	        if (buttonText != null && buttonClickListener != null) {
+	        	// set button
+	        	Button btn = (Button) view.findViewById(btnId);
+	        	btn.setText(buttonText);
+	            btn.setOnClickListener(new View.OnClickListener() {
+	            	public void onClick(View v) {
+	            		buttonClickListener.onClick(v);
+	            	}
+	            });	
+	        } else {
+	            // if no confirm button just set the visibility to GONE
+	            view.findViewById(btnId).setVisibility(View.GONE);
+	        }
 	        
 	        Update(activity);
 		}
@@ -109,24 +126,7 @@ public class ThreeButtonBar {
     
 
     
-    private static boolean setSingalButton(View layout, int btnId, final int btnType, 
-    		String text, final OnClickListener click) {
-        if (text != null && click != null) {
-        	// set button
-        	Button btn = (Button) layout.findViewById(btnId);
-        	btn.setText(text);
-            btn.setOnClickListener(new View.OnClickListener() {
-            	public void onClick(View v) {
-            		click.onClick(v, btnType);
-            	}
-            });	
-            return true;
-        } else {
-            // if no confirm button just set the visibility to GONE
-            layout.findViewById(btnId).setVisibility(View.GONE);
-            return false;
-        }
-    }
+
     
 
 }

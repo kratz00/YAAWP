@@ -96,7 +96,7 @@ public class CartridgeDetailsActivity extends CustomActivity {
 		mThreeButtonBar.AddButton(this, 
 				getString(R.string.start), new ThreeButtonBar.OnClickListener() {
 			@Override
-			public boolean onClick(View v, int btn) {
+			public boolean onClick(View v) {
 				CartridgeDetailsActivity.this.finish();
 				CartridgeSession.Start( YaawpAppData.GetInstance().mCurrentCartridge, YaawpAppData.GetInstance().mWui ); 
 				return true;
@@ -107,7 +107,7 @@ public class CartridgeDetailsActivity extends CustomActivity {
 			mThreeButtonBar.AddButton(this, 
 					getString(R.string.navigate), new ThreeButtonBar.OnClickListener() {
 				@Override
-				public boolean onClick(View v, int btn) {
+				public boolean onClick(View v) {
 				    ICartridge cartridge = YaawpAppData.GetInstance().mCurrentCartridge;
 					Location loc = new Location(TAG);
 					loc.setLatitude(cartridge.getLatitude());

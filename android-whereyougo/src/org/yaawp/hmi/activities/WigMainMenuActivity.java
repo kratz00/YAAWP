@@ -56,9 +56,13 @@ import cz.matejcik.openwig.Task;
 import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
+import org.yaawp.hmi.helper.ThreeButtonBar;
+
 public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 
 	private static final String TAG = "CartridgeMainMenu";
+	
+	private ThreeButtonBar mThreeButtonBar = new ThreeButtonBar();
 	
 	private AdapterView.OnItemClickListener listClick;
 	
@@ -100,12 +104,14 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 				null, CustomDialog.NO_IMAGE, null);
 		
 		
-		CustomDialog.setBottom(this,
+		
+		
+		mThreeButtonBar.AddButton(this,
 			
 			/* --- Save bottom --- */
-			getString(R.string.save), new CustomDialog.OnClickListener() {
+			getString(R.string.save), new ThreeButtonBar.OnClickListener() {
 				@Override
-				public boolean onClick(CustomDialog dialog, View v, int btn) {			
+				public boolean onClick(View v) {			
 			    	new Thread(new Runnable() {
 						public void run() {
 							Engine.instance.store();
@@ -114,12 +120,13 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 			    	
 					return true;
 				}
-			},
-			
+			} );
+		
+		mThreeButtonBar.AddButton(this,
 			/* --- Map bottom --- */
-			getString(R.string.map), new CustomDialog.OnClickListener() {
+			getString(R.string.map), new ThreeButtonBar.OnClickListener() {
 				@Override
-				public boolean onClick(CustomDialog dialog, View v, int btn) {			
+				public boolean onClick(View v) {			
 					try {
 				        Intent intent = new Intent( WigMainMenuActivity.this, CartridgeMapActivity.class );
 				        intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
@@ -132,12 +139,12 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 					}
 					return true;
 				}
-			},			
-			
-			/* --- First --- 
-			getString(R.string.save), new CustomDialog.OnClickListener() {
+			} );		
+		
+		mThreeButtonBar.AddButton(this,
+			getString(R.string.navigate), new ThreeButtonBar.OnClickListener() {
 				@Override
-				public boolean onClick(CustomDialog dialog, View v, int btn) {			
+				public boolean onClick(View v) {			
 			    	new Thread(new Runnable() {
 						public void run() {
 							Engine.instance.store();
@@ -146,10 +153,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 			    	
 					return true;
 				}
-			}
-			*/
-			null, null
-		);
+			} );
 		
 	}
 	
