@@ -144,23 +144,23 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		mThreeButtonBar.AddButton(this,
 			getString(R.string.navigate), new ThreeButtonBar.OnClickListener() {
 				@Override
-				public boolean onClick(View v) {			
-			    	new Thread(new Runnable() {
-						public void run() {
-							Engine.instance.store();
-						}
-					}).start();
-			    	
-					return true;
+				public boolean onClick(View v) {	
+					Intent intent = new Intent( WigMainMenuActivity.this, GuidingActivity.class);
+					WigMainMenuActivity.this.startActivity(intent);
+					return true;					
 				}
 			} );
 		
+		mThreeButtonBar.EnableButton( this, 2, A.getGuidingContent().isGuiding() );
+
 	}
 	
 	@Override 
 	public void onResume() {
 		super.onResume();
 		refresh();
+		mThreeButtonBar.EnableButton( this, 2, A.getGuidingContent().isGuiding() );
+		
 	}
 	
 	@Override 

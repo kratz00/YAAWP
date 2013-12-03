@@ -42,24 +42,25 @@ public class ThreeButtonBar {
 				view.findViewById(R.id.linear_layout_right_spacer).setVisibility(View.VISIBLE);	    		
 	    		view.findViewById(R.id.linear_layout_bottom).setVisibility(View.VISIBLE);
 	    		view.findViewById(R.id.button_positive).setVisibility(View.VISIBLE);
-	    		view.findViewById(R.id.button_negative).setVisibility(View.GONE);
-	    		view.findViewById(R.id.button_neutral).setVisibility(View.GONE);	    		
+	    		view.findViewById(R.id.button_neutral).setVisibility(View.GONE);
+	    		view.findViewById(R.id.button_negative).setVisibility(View.GONE);	    		
 	    		break;	    	
 	    	case 2:
 				view.findViewById(R.id.linear_layout_left_spacer).setVisibility(View.GONE);
 				view.findViewById(R.id.linear_layout_right_spacer).setVisibility(View.GONE);		    		
 	    		view.findViewById(R.id.linear_layout_bottom).setVisibility(View.VISIBLE);
 	    		view.findViewById(R.id.button_positive).setVisibility(View.VISIBLE);
-	    		view.findViewById(R.id.button_negative).setVisibility(View.VISIBLE);
-	    		view.findViewById(R.id.button_neutral).setVisibility(View.GONE);	    		
+	    		view.findViewById(R.id.button_neutral).setVisibility(View.VISIBLE);
+	    		view.findViewById(R.id.button_negative).setVisibility(View.GONE);
+	    			    		
 	    		break;	
 	    	case 3:
 				view.findViewById(R.id.linear_layout_left_spacer).setVisibility(View.GONE);
 				view.findViewById(R.id.linear_layout_right_spacer).setVisibility(View.GONE);		    		
 	    		view.findViewById(R.id.linear_layout_bottom).setVisibility(View.VISIBLE);
 	    		view.findViewById(R.id.button_positive).setVisibility(View.VISIBLE);
+	    		view.findViewById(R.id.button_neutral).setVisibility(View.VISIBLE);	
 	    		view.findViewById(R.id.button_negative).setVisibility(View.VISIBLE);
-	    		view.findViewById(R.id.button_neutral).setVisibility(View.VISIBLE);	    		
 	    		break;		    		
     	}
 	
@@ -73,10 +74,10 @@ public class ThreeButtonBar {
 				btnId = R.id.button_positive;
 				break;
 			case 1:
-				btnId = R.id.button_negative;
+				btnId = R.id.button_neutral;
 				break;
 			case 2:
-				btnId = R.id.button_neutral;
+				btnId = R.id.button_negative;
 				break;					
 		}
 		return btnId;
@@ -92,6 +93,11 @@ public class ThreeButtonBar {
     	view.findViewById( getButtonId(index) ).setVisibility(View.GONE);	  
     }
     
+    public void EnableButton( Activity activity, int index, boolean enable ) {
+    	View view = activity.findViewById(R.id.linear_layout_bottom);
+    	view.findViewById( getButtonId(index) ).setEnabled(enable) ;	  
+    }    
+   
     public void AddButton(Activity activity, 
 			String buttonText, final OnClickListener buttonClickListener ) {
 		
