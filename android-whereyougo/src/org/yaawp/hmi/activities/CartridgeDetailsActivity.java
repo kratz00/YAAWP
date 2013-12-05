@@ -45,6 +45,8 @@ public class CartridgeDetailsActivity extends CustomActivity {
 	
 	private static final String TAG = "CartridgeDetails";
 	
+
+	
 	private ThreeButtonBar mThreeButtonBar = new ThreeButtonBar();
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -114,7 +116,7 @@ public class CartridgeDetailsActivity extends CustomActivity {
 					loc.setLongitude(cartridge.getLongitude());
 					WaypointGuide wpt = new WaypointGuide(cartridge.getName(), loc);
 					A.getGuidingContent().guideStart(wpt);
-					CartridgeListActivity.callGudingScreen(CartridgeDetailsActivity.this);
+					GuidingActivity.callGudingScreen(CartridgeDetailsActivity.this, GuidingActivity.STOP_GUIDANCE_AT_EXIT );
 					CartridgeDetailsActivity.this.finish();
 					return true;
 				}

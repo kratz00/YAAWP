@@ -409,12 +409,14 @@ public class CartridgeListActivity extends CustomMain {
 	 * @param activity
 	 * @return true if internal activity was called. False if external by intent.
 	 */
-	// Move from class 
-	public static boolean callGudingScreen(Activity activity) {
+	// TODO Move from class 
+	/*
+	 * public static boolean callGudingScreen(Activity activity) {
+	
 		Intent intent = new Intent(activity, GuidingActivity.class);
 		activity.startActivity(intent);
 		return true;
-	}
+	} */
 
 	@Override
 	protected int getCloseValue() {

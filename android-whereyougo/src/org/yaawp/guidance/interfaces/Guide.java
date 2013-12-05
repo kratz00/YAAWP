@@ -41,4 +41,6 @@ public interface Guide {
     public long getTimeToTarget();
     
     public void manageDistanceSoundsBeeping(double distance);
+    
+    public String getName();
 }

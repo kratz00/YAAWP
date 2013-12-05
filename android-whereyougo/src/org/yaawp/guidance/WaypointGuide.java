@@ -28,4 +28,5 @@ public class WaypointGuide extends GuideImpl {
     public WaypointGuide(String name, Location location) {
     	super(name,location);
     }
+     
 }

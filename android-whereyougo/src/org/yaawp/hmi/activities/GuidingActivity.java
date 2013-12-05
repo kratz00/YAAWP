@@ -24,13 +24,22 @@ import org.yaawp.extra.Location;
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.guidance.interfaces.GuidingListener;
 import org.yaawp.hmi.views.CompassView;
+import org.yaawp.hmi.views.Satellite2DView;
+import org.yaawp.hmi.helper.ThreeButtonBar;
+import org.yaawp.maps.mapsforge.CartridgeMapActivity;
+
+import cz.matejcik.openwig.Engine;
 
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.sensors.OrientationListener;
 import menion.android.whereyougo.utils.A;
+import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.UtilsFormat;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
@@ -43,7 +52,16 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
 
 //	private static final String TAG = "GuidingScreen";
 	
-	private CompassView viewCompass;
+	private CompassView viewCompass = null;
+	
+	public static final int STOP_GUIDANCE_AT_EXIT = 0;
+	public static final int CONTINUE_GUIDANCE_AT_EXIT = 1;
+	
+	public static final String GUIDANCE_EXIT_BEHAVIOUR="GUIDANCE_EXIT_BEHAVIOUR";
+	
+	private int mExitBehaviour = STOP_GUIDANCE_AT_EXIT;
+	
+	private ThreeButtonBar mThreeButtonBar = new ThreeButtonBar();
 	
 	private TextView viewLat;
 	private TextView viewLon;
@@ -51,6 +69,7 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
 	private TextView viewAcc;
 	private TextView viewSpeed;
 	private TextView viewTimeToTarget;
+	private TextView viewDestination;
 	
 	/** azimuth from compass */
 	private float mAzimuth;
@@ -64,15 +83,26 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_guiding_screen);
         
+        mExitBehaviour = getIntent().getIntExtra(GUIDANCE_EXIT_BEHAVIOUR,STOP_GUIDANCE_AT_EXIT);
+        
+        
         mAzimuth = 0.0f;
         mPitch = 0.0f;
         mRoll = 0.0f;
         
         azimuthToTarget = 0.0f;
         
+            		
+        
+        LinearLayout llCompass = (LinearLayout) findViewById(R.id.linearLayoutCompass);
+        // llCompass.removeAllViews();        
+        
+        // return and add view to first linearLayout
         viewCompass = new CompassView(this);
-        ((LinearLayout) findViewById(R.id.linearLayoutCompass)).addView(
-        		viewCompass, LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+        llCompass.addView(viewCompass,  LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);      
+        
+        
+        
         
 		viewAlt = (TextView) findViewById(R.id.textViewAltitude);
         viewSpeed = (TextView) findViewById(R.id.textViewSpeed);
@@ -80,8 +110,47 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
     	viewLat = (TextView) findViewById(R.id.textViewLatitude);
     	viewLon = (TextView) findViewById(R.id.textViewLongitude);
     	viewTimeToTarget = (TextView) findViewById(R.id.text_view_time_to_target);
-
-    	onOrientationChanged(mAzimuth, mPitch, mRoll);
+    	viewDestination = (TextView)findViewById(R.id.textViewDestination);
+   	
+		mThreeButtonBar.AddButton(this,
+				getString(R.string.stop_navigate), new ThreeButtonBar.OnClickListener() {
+					@Override
+					public boolean onClick(View v) {	
+						A.getGuidingContent().guideStop();
+						GuidingActivity.this.finish();
+						return true;					
+					}
+				} );	
+		
+		mThreeButtonBar.AddButton(this,
+				getString(R.string.map), new ThreeButtonBar.OnClickListener() {
+					@Override
+					public boolean onClick(View v) {			
+						try {
+					        Intent intent = new Intent( GuidingActivity.this, CartridgeMapActivity.class );
+					        intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
+					        // TODO intent.putExtra( MAP_CENTER_LATITUDE, x.y );
+					        // TODO intent.putExtra( MAP_CENTER_LONGITUDE, x.y );
+					        // TODO intent.putExtra( CURRENT_POSITION_AS_MAP_CENTER, false );
+					        startActivity(intent);  
+						} catch (Exception e) {
+							// TODO Logger.e(TAG, "btn02.click() - unknown problem", e);
+						}
+						return true;
+					}
+				} );	
+		
+		mThreeButtonBar.EnableButton( this, 1, A.getGuidingContent().isGuiding() );
+		
+		onOrientationChanged(mAzimuth, mPitch, mRoll);
+			
+    }
+    
+    public void onDestory() {
+    	if ( mExitBehaviour == STOP_GUIDANCE_AT_EXIT ) {
+    		A.getGuidingContent().guideStop();
+    		onStop();
+    	}
     }
     
     public void onStart() {
@@ -125,6 +194,11 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
         viewAcc.setText(UtilsFormat.formatDistance((double) loc.getAccuracy(), false));
         viewSpeed.setText(UtilsFormat.formatSpeed(loc.getSpeed(), false));
         
+        String text = A.getGuidingContent().getName();
+        viewDestination.setText(text);
+        
+        
+        
         repaint();
 	}
 	
@@ -144,4 +218,11 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
 	public void trackGuideCallRecalculate() {
 		// ignore
 	}
+	
+	public static boolean callGudingScreen(Activity activity, int exitBehaviour ) {
+		Intent intent = new Intent(activity, GuidingActivity.class);
+		intent.putExtra( GUIDANCE_EXIT_BEHAVIOUR, exitBehaviour );
+		activity.startActivity(intent);
+		return true;
+	}	
 }

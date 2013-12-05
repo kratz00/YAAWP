@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_layout_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/var_custom_screen_bg"
+	android:background="@drawable/var_custom_screen_bg"  
     android:orientation="vertical" >
-
-    <LinearLayout
-        android:id="@+id/linear_layout_skyplot"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/linear_layout_bottom"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear_layout_top_coordinates"
@@ -62,47 +53,23 @@
             android:layout_width="wrap_content"
             android:gravity="right"
             android:text="@string/longitude" />
-    </LinearLayout>
+    </LinearLayout>    
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
 
-    <LinearLayout
-        android:id="@+id/linear_layout_bottom"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/linear_layout_bottom_2" >
-
-        <LinearLayout style="@style/CustomScreenBottomInfo" >
-
-            <TextView
-                style="@style/CustomScreenTextTitle"
-                android:text="@string/altitude" />
-
-            <TextView
-                android:id="@+id/text_view_altitude"
-                style="@style/CustomScreenTextValue" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/CustomScreenBottomInfo" >
-
-            <TextView
-                style="@style/CustomScreenTextTitle"
-                android:text="@string/speed" />
-
-            <TextView
-                android:id="@+id/text_view_speed"
-                style="@style/CustomScreenTextValue" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/CustomScreenBottomInfo" >
-
-            <TextView
-                style="@style/CustomScreenTextTitle"
-                android:text="@string/accuracy" />
-
-            <TextView
-                android:id="@+id/text_view_accuracy"
-                style="@style/CustomScreenTextValue" />
-        </LinearLayout>
-    </LinearLayout>
+	    <LinearLayout
+	        android:id="@+id/linear_layout_skyplot"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	       
+	        android:gravity="center"
+	        android:orientation="vertical" >
+	
+	    </LinearLayout>                
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linear_layout_bottom_2"
@@ -142,8 +109,48 @@
                 android:id="@+id/text_view_time_gps"
                 style="@style/CustomScreenTextValue" />
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout>    
+    
+    <LinearLayout
+        android:id="@+id/linear_layout_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linear_layout_bottom_2" >
 
+        <LinearLayout style="@style/CustomScreenBottomInfo" >
+
+            <TextView
+                style="@style/CustomScreenTextTitle"
+                android:text="@string/altitude" />
+
+            <TextView
+                android:id="@+id/text_view_altitude"
+                style="@style/CustomScreenTextValue" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/CustomScreenBottomInfo" >
+
+            <TextView
+                style="@style/CustomScreenTextTitle"
+                android:text="@string/speed" />
+
+            <TextView
+                android:id="@+id/text_view_speed"
+                style="@style/CustomScreenTextValue" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/CustomScreenBottomInfo" >
+
+            <TextView
+                style="@style/CustomScreenTextTitle"
+                android:text="@string/accuracy" />
+
+            <TextView
+                android:id="@+id/text_view_accuracy"
+                style="@style/CustomScreenTextValue" />
+        </LinearLayout>
+    </LinearLayout>    
+    
     <LinearLayout
         android:id="@+id/linear_layout_bottom_3"
         android:layout_width="fill_parent"
@@ -168,5 +175,4 @@
             android:textOff="@string/compass"
             android:textOn="@string/compass" />
     </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>    

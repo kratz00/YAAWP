@@ -135,4 +135,9 @@ public class GuideImpl implements Guide {
 			return Long.MAX_VALUE;
 		}
 	}	
+	
+	@Override
+	public String getName() {
+		return mName;
+	}  	
 }

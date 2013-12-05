@@ -88,4 +88,5 @@
     <string name="err_none">OK</string>  
     <string name="save">Save</string>
     <string name="guidance_zone_entered">Zone entered</string>
+    <string name="stop_navigate">Stop Guidance</string>
 </resources>

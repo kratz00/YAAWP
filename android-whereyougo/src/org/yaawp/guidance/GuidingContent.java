@@ -117,10 +117,11 @@ public class GuidingContent implements LocationEventListener {
     }
 
     public Location getLocation() {
-    	if (mGuide == null)
+    	if (mGuide == null) {
     		return null;
-    	else
+    	} else {
     		return mGuide.getLocation();
+    	}
     }
     
 	public void onLocationChanged(Location location) {
@@ -168,7 +169,11 @@ public class GuidingContent implements LocationEventListener {
 	
 	@Override
 	public String getName() {
-		return TAG;
+    	if (mGuide == null) {
+    		return "";
+    	} else {
+    		return mGuide.getName();
+    	}
 	}
 	
 	protected void trackGuideCallRecalculate() {

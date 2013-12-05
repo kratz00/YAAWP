@@ -198,7 +198,7 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 				public boolean onClick(CustomDialog dialog, View v, int btn) {
 					try {
 						enableGuideOnEventTable();
-						CartridgeListActivity.callGudingScreen(WigDetailsActivity.this);
+						GuidingActivity.callGudingScreen(WigDetailsActivity.this, GuidingActivity.CONTINUE_GUIDANCE_AT_EXIT );
 					} catch (Exception e) {
 						Logger.w(TAG, "btn01.click() - unknown problem");
 					}
