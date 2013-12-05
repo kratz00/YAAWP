@@ -64,13 +64,15 @@ public class OverlayZones extends GenericOverlay {
     @Override
     public void drawBitmap(Canvas canvas, MapProjection projection) {
 
-		Vector<Zone> zones = Engine.instance.cartridge.zones;
-		for (int i = 0; i < zones.size(); i++) {
-			Zone z = (Zone)zones.get(i);
-			if ( z.isVisible() ) {
-				drawZone( z, canvas, projection );
+    	if ( Engine.instance.cartridge.zones != null ) {
+			Vector<Zone> zones = Engine.instance.cartridge.zones;
+			for (int i = 0; i < zones.size(); i++) {
+				Zone z = (Zone)zones.get(i);
+				if ( z.isVisible() ) {
+					drawZone( z, canvas, projection );
+				}
 			}
-		}		  	
+    	}
     }	
 	
     
