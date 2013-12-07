@@ -53,7 +53,7 @@ public class MainAfterStart {
     		    	AlertDialog.Builder b = new AlertDialog.Builder(A.getMain());
     		    	b.setCancelable(false);
     		    	b.setTitle(MainApplication.APP_NAME);
-    		    	b.setIcon(R.drawable.icon);
+    		    	b.setIcon(R.drawable.ic_launcher);
     		    	b.setView(UtilsGUI.getFilledWebView(A.getMain(), news));
     		    	b.setNeutralButton(R.string.yes, 
     		    			new DialogInterface.OnClickListener() {
