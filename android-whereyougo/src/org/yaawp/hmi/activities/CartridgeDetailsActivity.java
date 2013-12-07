@@ -21,9 +21,7 @@ package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomActivity;
-import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.UtilsFormat;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,22 +30,21 @@ import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import cz.matejcik.openwig.formats.ICartridge;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.extra.Location;
 import org.yaawp.guidance.WaypointGuide;
 import org.yaawp.hmi.helper.I18N;
-import org.yaawp.hmi.helper.ThreeButtonBar;
+import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButtonGuidance;
 
 public class CartridgeDetailsActivity extends CustomActivity {
 	
 	private static final String TAG = "CartridgeDetails";
-	
+	private ThreeButtonPanelBar mPanelButtonBar = new ThreeButtonPanelBar(this);
 
-	
-	private ThreeButtonBar mThreeButtonBar = new ThreeButtonBar();
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -94,36 +91,22 @@ public class CartridgeDetailsActivity extends CustomActivity {
 		tvDistance.setText(Html.fromHtml(buff.toString()));
 		
 		/* ----------- */
-		
-		mThreeButtonBar.AddButton(this, 
-				getString(R.string.start), new ThreeButtonBar.OnClickListener() {
-			@Override
-			public boolean onClick(View v) {
-				CartridgeDetailsActivity.this.finish();
-				CartridgeSession.Start( YaawpAppData.GetInstance().mCurrentCartridge, YaawpAppData.GetInstance().mWui ); 
-				return true;
-			}
-		});	
-		
-		if ( cartridgeFile.isPlayAnywhere() == false ) {
-			mThreeButtonBar.AddButton(this, 
-					getString(R.string.navigate), new ThreeButtonBar.OnClickListener() {
+			
+		mPanelButtonBar.AddButton( new PanelBarButton( getString(R.string.start), 
+			new PanelBarButton.OnClickListener() {
 				@Override
-				public boolean onClick(View v) {
-				    ICartridge cartridge = YaawpAppData.GetInstance().mCurrentCartridge;
-					Location loc = new Location(TAG);
-					loc.setLatitude(cartridge.getLatitude());
-					loc.setLongitude(cartridge.getLongitude());
-					WaypointGuide wpt = new WaypointGuide(cartridge.getName(), loc);
-					A.getGuidingContent().guideStart(wpt);
-					GuidingActivity.callGudingScreen(CartridgeDetailsActivity.this, GuidingActivity.STOP_GUIDANCE_AT_EXIT );
+				public boolean onClick() {
 					CartridgeDetailsActivity.this.finish();
+					CartridgeSession.Start( YaawpAppData.GetInstance().mCurrentCartridge, YaawpAppData.GetInstance().mWui ); 
 					return true;
 				}
-			});			
-		}
+			}
+		));	
 		
-	
-
+		if ( cartridgeFile.isPlayAnywhere() == false ) {
+			WaypointGuide wpt = new WaypointGuide(cartridgeFile.getName(), loc);			
+			mPanelButtonBar.AddButton( new PanelBarButtonGuidance( this, wpt, true, true ) );
+		}	
+			
 	}
 }

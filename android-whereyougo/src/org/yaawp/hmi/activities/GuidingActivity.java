@@ -25,7 +25,6 @@ import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.guidance.interfaces.GuidingListener;
 import org.yaawp.hmi.views.CompassView;
 import org.yaawp.hmi.views.Satellite2DView;
-import org.yaawp.hmi.helper.ThreeButtonBar;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 
 import cz.matejcik.openwig.Engine;
@@ -44,10 +43,11 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-/**
- * @author menion
- * @since 25.1.2010 2010
- */
+import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButtonStopGuidance;
+
+
 public class GuidingActivity extends CustomActivity implements GuidingListener, OrientationListener {
 
 //	private static final String TAG = "GuidingScreen";
@@ -61,7 +61,9 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
 	
 	private int mExitBehaviour = STOP_GUIDANCE_AT_EXIT;
 	
-	private ThreeButtonBar mThreeButtonBar = new ThreeButtonBar();
+	private ThreeButtonPanelBar mButtonPanelBar;
+	private PanelBarButtonStopGuidance mButtonStopGuidance;
+	private PanelBarButtonShowMap mButtonShowMap;
 	
 	private TextView viewLat;
 	private TextView viewLon;
@@ -85,7 +87,10 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
         
         mExitBehaviour = getIntent().getIntExtra(GUIDANCE_EXIT_BEHAVIOUR,STOP_GUIDANCE_AT_EXIT);
         
-        
+    	mButtonPanelBar = new ThreeButtonPanelBar(this);
+    	mButtonStopGuidance = new PanelBarButtonStopGuidance();
+    	mButtonShowMap = new PanelBarButtonShowMap(this);
+    	
         mAzimuth = 0.0f;
         mPitch = 0.0f;
         mRoll = 0.0f;
@@ -112,35 +117,12 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
     	viewTimeToTarget = (TextView) findViewById(R.id.text_view_time_to_target);
     	viewDestination = (TextView)findViewById(R.id.textViewDestination);
    	
-		mThreeButtonBar.AddButton(this,
-				getString(R.string.stop_navigate), new ThreeButtonBar.OnClickListener() {
-					@Override
-					public boolean onClick(View v) {	
-						A.getGuidingContent().guideStop();
-						GuidingActivity.this.finish();
-						return true;					
-					}
-				} );	
+    	mButtonPanelBar.AddButton( mButtonStopGuidance );
+    	mButtonStopGuidance.setEnabled(A.getGuidingContent().isGuiding());
+    	mButtonPanelBar.updateUI();
 		
-		mThreeButtonBar.AddButton(this,
-				getString(R.string.map), new ThreeButtonBar.OnClickListener() {
-					@Override
-					public boolean onClick(View v) {			
-						try {
-					        Intent intent = new Intent( GuidingActivity.this, CartridgeMapActivity.class );
-					        intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
-					        // TODO intent.putExtra( MAP_CENTER_LATITUDE, x.y );
-					        // TODO intent.putExtra( MAP_CENTER_LONGITUDE, x.y );
-					        // TODO intent.putExtra( CURRENT_POSITION_AS_MAP_CENTER, false );
-					        startActivity(intent);  
-						} catch (Exception e) {
-							// TODO Logger.e(TAG, "btn02.click() - unknown problem", e);
-						}
-						return true;
-					}
-				} );	
-		
-		mThreeButtonBar.EnableButton( this, 1, A.getGuidingContent().isGuiding() );
+    	mButtonPanelBar.AddButton( mButtonShowMap );
+    	mButtonPanelBar.updateUI();
 		
 		onOrientationChanged(mAzimuth, mPitch, mRoll);
 			
@@ -212,6 +194,7 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
 
 	@Override
 	public void guideStop() {
+    	this.finish();
 	}
 
 	@Override

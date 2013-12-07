@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import org.yaawp.R;
+import org.yaawp.app.YaawpAppData;
+import org.yaawp.bl.CartridgeSession;
 import org.yaawp.hmi.helper.ScreenHelper;
 
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
@@ -56,18 +58,27 @@ import cz.matejcik.openwig.Task;
 import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
-import org.yaawp.hmi.helper.ThreeButtonBar;
+import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButtonStopGuidance;
 
 public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 
 	private static final String TAG = "CartridgeMainMenu";
 	
-	private ThreeButtonBar mThreeButtonBar = new ThreeButtonBar();
+	private ThreeButtonPanelBar mButtonPanelBar;
+	private PanelBarButtonStopGuidance mButtonStopGuidance;
+	private PanelBarButtonShowMap mButtonShowMap;
 	
 	private AdapterView.OnItemClickListener listClick;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		mButtonPanelBar = new ThreeButtonPanelBar(this);
+		mButtonStopGuidance = new PanelBarButtonStopGuidance();
+		mButtonShowMap = new PanelBarButtonShowMap(this);		
 		
 		setContentView(R.layout.custom_dialog);
 
@@ -103,63 +114,34 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		CustomDialog.setTitle(this, Engine.instance.cartridge.name,
 				null, CustomDialog.NO_IMAGE, null);
 		
-		
-		
-		
-		mThreeButtonBar.AddButton(this,
-			
-			/* --- Save bottom --- */
-			getString(R.string.save), new ThreeButtonBar.OnClickListener() {
-				@Override
-				public boolean onClick(View v) {			
-			    	new Thread(new Runnable() {
-						public void run() {
-							Engine.instance.store();
-						}
-					}).start();
-			    	
-					return true;
-				}
-			} );
-		
-		mThreeButtonBar.AddButton(this,
-			/* --- Map bottom --- */
-			getString(R.string.map), new ThreeButtonBar.OnClickListener() {
-				@Override
-				public boolean onClick(View v) {			
-					try {
-				        Intent intent = new Intent( WigMainMenuActivity.this, CartridgeMapActivity.class );
-				        intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
-				        // TODO intent.putExtra( MAP_CENTER_LATITUDE, x.y );
-				        // TODO intent.putExtra( MAP_CENTER_LONGITUDE, x.y );
-				        // TODO intent.putExtra( CURRENT_POSITION_AS_MAP_CENTER, false );
-				        startActivity(intent);  
-					} catch (Exception e) {
-						Logger.e(TAG, "btn02.click() - unknown problem", e);
+		mButtonPanelBar.AddButton( new PanelBarButton( getString(R.string.save), 
+				new PanelBarButton.OnClickListener() {
+					@Override
+					public boolean onClick() {
+				    	new Thread(new Runnable() {
+							public void run() {
+								Engine.instance.store();
+							}
+						}).start();
+				    	return true;
 					}
-					return true;
 				}
-			} );		
-		
-		mThreeButtonBar.AddButton(this,
-			getString(R.string.navigate), new ThreeButtonBar.OnClickListener() {
-				@Override
-				public boolean onClick(View v) {	
-					Intent intent = new Intent( WigMainMenuActivity.this, GuidingActivity.class);
-					WigMainMenuActivity.this.startActivity(intent);
-					return true;					
-				}
-			} );
-		
-		mThreeButtonBar.EnableButton( this, 2, A.getGuidingContent().isGuiding() );
+			));			
+			
+    	mButtonPanelBar.AddButton( mButtonShowMap );
+    	mButtonPanelBar.updateUI();
 
+    	mButtonPanelBar.AddButton( mButtonStopGuidance );
+    	mButtonStopGuidance.setVisible(A.getGuidingContent().isGuiding());
+    	mButtonPanelBar.updateUI();
 	}
 	
 	@Override 
 	public void onResume() {
 		super.onResume();
 		refresh();
-		mThreeButtonBar.EnableButton( this, 2, A.getGuidingContent().isGuiding() );
+    	mButtonStopGuidance.setVisible(A.getGuidingContent().isGuiding());
+    	mButtonPanelBar.updateUI();
 		
 	}
 	
