@@ -64,8 +64,10 @@ public class WigDetailsActivity extends CustomActivity implements Refreshable, L
 	
 	public static EventTable et;
 
-	private static final String[] taskStates = {I18N.get(R.string.pending),
-		I18N.get(R.string.finished), I18N.get(R.string.failed)};
+	private static final String[] taskStates = {
+		I18N.get(R.string.pending),
+		I18N.get(R.string.finished),
+		I18N.get(R.string.failed)};
 	
 	private TextView tvName;
 	private ImageView ivImage;
@@ -197,8 +199,14 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 				@Override
 				public boolean onClick(CustomDialog dialog, View v, int btn) {
 					try {
-						enableGuideOnEventTable();
-						GuidingActivity.callGudingScreen(WigDetailsActivity.this, GuidingActivity.CONTINUE_GUIDANCE_AT_EXIT );
+				        Guide wpt = getTargetGuide();
+				        if (wpt != null) {
+				        	A.getGuidingContent().guideStart(wpt);
+				        	GuidingActivity.callGudingScreen(WigDetailsActivity.this, GuidingActivity.CONTINUE_GUIDANCE_AT_EXIT );
+				        	finish();
+				        } else {
+				        	Logger.d(TAG, "waypoint 'null'");
+				        }					    						
 					} catch (Exception e) {
 						Logger.w(TAG, "btn01.click() - unknown problem");
 					}
@@ -309,15 +317,6 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 			tvState.setText(taskStates[t.state()]);
 		}
 	}
-
-    private void enableGuideOnEventTable() {
-        Guide wpt = getTargetGuide();
-        if (wpt != null) {
-                A.getGuidingContent().guideStart(wpt);
-        } else {
-                Logger.d(TAG, "enableGuideOnEventTable(), waypoint 'null'");
-        }
-    }
 
 	private Guide getTargetGuide() {
 	    if (et == null || !et.isLocated())
