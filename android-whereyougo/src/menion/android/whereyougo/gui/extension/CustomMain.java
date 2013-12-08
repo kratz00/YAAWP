@@ -395,13 +395,6 @@ public abstract class CustomMain extends CustomActivity {
      */
     protected abstract void eventDestroyApp();
     
-    // public static final int CLOSE_DESTROY_APP_NO_DIALOG = 0;
-    // public static final int CLOSE_DESTROY_APP_DIALOG_NO_TEXT = 1;
-    // public static final int CLOSE_DESTROY_APP_DIALOG_ADDITIONAL_TEXT = 2;
-    // public static final int CLOSE_HIDE_APP = 3;
-    
-    // protected abstract int getCloseValue();
-    
-    protected abstract String getCloseAdditionalText();
+
 }
 

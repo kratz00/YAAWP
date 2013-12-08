@@ -402,11 +402,6 @@ public class CartridgeListActivity extends CustomMain {
 	}
 	
 	@Override
-	protected String getCloseAdditionalText() {
-		return null;
-	}
-
-	@Override
 	protected void eventRegisterOnly() {
 	}
 	
