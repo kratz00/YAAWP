@@ -22,7 +22,8 @@ package menion.android.whereyougo.utils;
 import java.io.File;
 import java.io.FileFilter;
 
-import menion.android.whereyougo.gui.extension.MainApplication;
+import org.yaawp.MainApplication;
+
 import android.os.Environment;
 
 /**

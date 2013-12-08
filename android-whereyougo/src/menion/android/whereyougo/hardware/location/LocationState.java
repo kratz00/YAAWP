@@ -26,8 +26,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import org.yaawp.MainApplication;
 import org.yaawp.R;
-import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Logger;

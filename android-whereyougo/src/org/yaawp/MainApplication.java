@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.gui.extension;
+package org.yaawp;
 
 import java.util.ArrayList;
 import java.util.Locale;

@@ -27,7 +27,7 @@
 
 	<application android:icon="@drawable/ic_launcher"
 		android:label="Yaawp"
-		android:name="menion.android.whereyougo.gui.extension.MainApplication" >
+		android:name="org.yaawp.MainApplication" >
 	
 	    <!--  
 	    <activity 

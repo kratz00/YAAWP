@@ -22,6 +22,7 @@ package menion.android.whereyougo.gui.extension;
 import java.io.File;
 import java.io.StringReader;
 
+import org.yaawp.MainApplication;
 import org.yaawp.R;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.utils.A;

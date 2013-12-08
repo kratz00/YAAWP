@@ -26,11 +26,11 @@ import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
 import android.view.Window;
-import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 
+import org.yaawp.MainApplication;
 import org.yaawp.extra.Location;
 
 
