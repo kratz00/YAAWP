@@ -7,7 +7,6 @@ import android.os.Bundle;
 import java.io.File;
 import java.util.ArrayList;
 
-import menion.android.whereyougo.utils.A;
 
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapView;
@@ -25,6 +24,7 @@ import org.yaawp.positioning.LocationState;
 import org.yaawp.positioning.OrientationListener;
 import org.yaawp.positioning.SatellitePosition;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.A;
 
 public class CartridgeMapActivity extends MapActivity implements LocationEventListener, OrientationListener, Refreshable, GuidingListener  {
 

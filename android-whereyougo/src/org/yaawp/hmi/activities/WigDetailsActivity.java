@@ -25,8 +25,6 @@ import java.util.Vector;
 import org.yaawp.R;
 
 import menion.android.whereyougo.gui.ListActions;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.UtilsFormat;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -54,6 +52,8 @@ import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationEventListener;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.positioning.SatellitePosition;
+import org.yaawp.utils.Logger;
+import org.yaawp.utils.UtilsFormat;
 
 // ADD locationListener to update UpdateNavi
 public class WigDetailsActivity extends CustomActivity implements Refreshable, LocationEventListener {

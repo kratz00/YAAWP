@@ -3,8 +3,6 @@ package org.yaawp.hmi.adapter;
 import java.io.File;
 
 import menion.android.whereyougo.gui.extension.UtilsGUI;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.UtilsFormat;
 
 import org.yaawp.R;
 
@@ -29,6 +27,11 @@ import org.yaawp.bl.CartridgeSession;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationState;
+import org.yaawp.utils.Const;
+import org.yaawp.utils.Images;
+import org.yaawp.utils.Logger;
+import org.yaawp.utils.Utils;
+import org.yaawp.utils.UtilsFormat;
 
 
 import menion.android.whereyougo.utils.*;

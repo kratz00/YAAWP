@@ -21,11 +21,11 @@ package org.yaawp.hmi.views;
 
 import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Images;
+import org.yaawp.utils.Utils;
+import org.yaawp.utils.UtilsFormat;
 
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Images;
-import menion.android.whereyougo.utils.Utils;
-import menion.android.whereyougo.utils.UtilsFormat;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;

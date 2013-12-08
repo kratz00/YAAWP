@@ -6,9 +6,6 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.content.Intent;
 import android.app.Activity;
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Utils;
-import menion.android.whereyougo.utils.ManagerNotify;
 
 import org.yaawp.R;
 import org.yaawp.app.YaawpAppData;
@@ -16,6 +13,9 @@ import org.yaawp.openwig.OpenWigHelper;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceValues;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.A;
+import org.yaawp.utils.ManagerNotify;
+import org.yaawp.utils.Utils;
 
 import android.media.RingtoneManager;
 import android.net.Uri;

@@ -20,8 +20,6 @@
 package org.yaawp.openwig;
 
 import menion.android.whereyougo.gui.extension.UtilsGUI;
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
 import se.krka.kahlua.vm.LuaClosure;
 import android.app.Activity;
 import android.content.Context;
@@ -41,6 +39,8 @@ import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Logger;
 
 public class WUI implements UI {
 

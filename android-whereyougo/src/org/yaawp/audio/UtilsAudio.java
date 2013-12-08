@@ -20,8 +20,8 @@
 package org.yaawp.audio;
 
 import org.yaawp.R;
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Logger;
 
 public class UtilsAudio {
 

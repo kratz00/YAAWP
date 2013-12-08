@@ -7,14 +7,14 @@ import org.yaawp.hmi.activities.WigPushDialogActivity;
 import org.yaawp.hmi.activities.WigMainMenuActivity;
 import org.yaawp.hmi.activities.GuidingActivity;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Logger;
 
 import menion.android.whereyougo.gui.ListActions;
 import menion.android.whereyougo.gui.ListTargets;
 import menion.android.whereyougo.gui.ListTasks;
 import menion.android.whereyougo.gui.ListThings;
 import menion.android.whereyougo.gui.ListZones;
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
 import android.app.Activity;
 import android.content.Intent;
 import cz.matejcik.openwig.EventTable;

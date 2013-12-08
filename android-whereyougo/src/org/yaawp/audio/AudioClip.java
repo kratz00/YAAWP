@@ -19,7 +19,8 @@
 
 package org.yaawp.audio;
 
-import menion.android.whereyougo.utils.Logger;
+import org.yaawp.utils.Logger;
+
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;

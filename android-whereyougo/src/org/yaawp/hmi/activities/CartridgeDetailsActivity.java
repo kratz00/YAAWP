@@ -20,7 +20,6 @@
 package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
-import menion.android.whereyougo.utils.UtilsFormat;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -38,6 +37,7 @@ import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonGuidance;
 import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationState;
+import org.yaawp.utils.UtilsFormat;
 
 public class CartridgeDetailsActivity extends CustomActivity {
 	

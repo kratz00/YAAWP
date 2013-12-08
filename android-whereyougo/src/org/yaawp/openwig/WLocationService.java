@@ -20,8 +20,8 @@
 package org.yaawp.openwig;
 
 import org.yaawp.positioning.LocationState;
+import org.yaawp.utils.Logger;
 
-import menion.android.whereyougo.utils.Logger;
 import cz.matejcik.openwig.platform.LocationService;
 
 public class WLocationService implements LocationService {

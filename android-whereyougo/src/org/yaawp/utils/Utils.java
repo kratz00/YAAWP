@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.utils;
+package org.yaawp.utils;
 
 import java.io.Closeable;
 import java.security.MessageDigest;

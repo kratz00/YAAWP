@@ -1,10 +1,10 @@
 package org.yaawp.preferences;
 
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
 
 import org.yaawp.R;
 import org.yaawp.positioning.LocationState;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Logger;
 
 import android.app.Activity;
 import android.content.Context;

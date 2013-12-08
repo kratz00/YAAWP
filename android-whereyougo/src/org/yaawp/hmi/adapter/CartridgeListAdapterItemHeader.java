@@ -1,9 +1,10 @@
 package org.yaawp.hmi.adapter;
 
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.Utils;
 
 import org.yaawp.R;
+import org.yaawp.utils.Logger;
+import org.yaawp.utils.Utils;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;

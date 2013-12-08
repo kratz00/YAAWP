@@ -20,7 +20,8 @@
 package menion.android.whereyougo.gui.extension;
 
 import org.yaawp.R;
-import menion.android.whereyougo.utils.Utils;
+import org.yaawp.utils.Utils;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;

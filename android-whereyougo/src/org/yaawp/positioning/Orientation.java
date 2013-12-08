@@ -25,9 +25,9 @@ import java.util.Vector;
 import org.yaawp.R;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Logger;
 
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
 import android.content.Context;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;

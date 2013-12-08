@@ -23,8 +23,8 @@ import java.util.Vector;
 
 import org.yaawp.R;
 import org.yaawp.hmi.helper.ScreenHelper;
+import org.yaawp.utils.Images;
 
-import menion.android.whereyougo.utils.Images;
 import android.graphics.Bitmap;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Task;

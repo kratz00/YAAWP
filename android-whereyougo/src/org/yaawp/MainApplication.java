@@ -26,10 +26,6 @@ import java.util.TimerTask;
 
 import org.yaawp.R;
 
-import menion.android.whereyougo.utils.FileSystem;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.StringToken;
-import menion.android.whereyougo.utils.Utils;
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -42,6 +38,10 @@ import org.yaawp.openwig.OpenWigHelper;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.FileSystem;
+import org.yaawp.utils.Logger;
+import org.yaawp.utils.StringToken;
+import org.yaawp.utils.Utils;
 
 public class MainApplication extends Application {
 

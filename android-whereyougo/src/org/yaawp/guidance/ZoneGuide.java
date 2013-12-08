@@ -4,11 +4,11 @@ import org.yaawp.R;
 import org.yaawp.positioning.Location;
 import org.yaawp.preferences.PreferenceItems;
 import org.yaawp.preferences.PreferenceValues;
+import org.yaawp.utils.A;
+import org.yaawp.utils.ManagerNotify;
 
 import android.content.Context;
 import android.os.Vibrator;
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.ManagerNotify;
 import cz.matejcik.openwig.Zone;
 
 public class ZoneGuide extends GuideImpl {

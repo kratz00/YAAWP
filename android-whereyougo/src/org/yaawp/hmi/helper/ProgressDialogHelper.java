@@ -1,7 +1,8 @@
 package org.yaawp.hmi.helper;
 
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Logger;
+
 import android.app.ProgressDialog;
 import android.app.Activity;
 

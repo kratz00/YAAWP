@@ -6,9 +6,9 @@ import java.io.FileOutputStream;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.openwig.WLocationService;
 import org.yaawp.openwig.WUI;
+import org.yaawp.utils.Logger;
 
 
-import menion.android.whereyougo.utils.Logger;
 import cz.matejcik.openwig.Engine;
 import org.yaawp.YCartridge;
 

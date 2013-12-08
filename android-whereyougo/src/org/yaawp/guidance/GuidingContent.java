@@ -28,9 +28,9 @@ import org.yaawp.positioning.LocationEventListener;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.positioning.SatellitePosition;
 import org.yaawp.preferences.PreferenceItems;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Logger;
 
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
 import android.os.Bundle;
 
 /**

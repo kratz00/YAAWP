@@ -2,9 +2,6 @@ package org.yaawp.utils;
 
 import java.io.InputStream;
 
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.Utils;
 
 public class AssetHelper {
 

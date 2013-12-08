@@ -23,7 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import menion.android.whereyougo.utils.Logger;
+import org.yaawp.utils.Logger;
+
 import cz.matejcik.openwig.platform.SeekableFile;
 
 public class WSeekableFile implements SeekableFile{

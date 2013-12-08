@@ -2,10 +2,10 @@ package org.yaawp.hmi.panelbar;
 
 import java.util.Vector;
 
-import menion.android.whereyougo.utils.Utils;
 
 import org.yaawp.R;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
+import org.yaawp.utils.Utils;
 
 
 import android.app.Activity;

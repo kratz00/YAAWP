@@ -23,11 +23,6 @@ import java.util.ArrayList;
 
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomDialog;
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.ManagerNotify;
-import menion.android.whereyougo.utils.Utils;
-import menion.android.whereyougo.utils.UtilsFormat;
 import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.CompoundButton;
@@ -44,6 +39,11 @@ import org.yaawp.positioning.Orientation;
 import org.yaawp.positioning.SatellitePosition;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Logger;
+import org.yaawp.utils.ManagerNotify;
+import org.yaawp.utils.Utils;
+import org.yaawp.utils.UtilsFormat;
 
 /**
  * @author menion

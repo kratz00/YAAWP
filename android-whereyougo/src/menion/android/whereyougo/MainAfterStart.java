@@ -21,13 +21,13 @@ package menion.android.whereyougo;
 
 import menion.android.whereyougo.gui.extension.CustomMain;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
-import menion.android.whereyougo.utils.A;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 import org.yaawp.MainApplication;
 import org.yaawp.R;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.A;
 import org.yaawp.utils.AssetHelper;
 
 /**

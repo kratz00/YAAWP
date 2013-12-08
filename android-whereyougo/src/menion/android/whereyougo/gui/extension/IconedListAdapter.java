@@ -22,10 +22,11 @@ package menion.android.whereyougo.gui.extension;
 import java.util.ArrayList;
 
 import org.yaawp.R;
-import menion.android.whereyougo.utils.Const;
-import menion.android.whereyougo.utils.Images;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.Utils;
+import org.yaawp.utils.Const;
+import org.yaawp.utils.Images;
+import org.yaawp.utils.Logger;
+import org.yaawp.utils.Utils;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;

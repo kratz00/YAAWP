@@ -28,10 +28,6 @@ import java.util.Iterator;
 
 import org.yaawp.MainApplication;
 import org.yaawp.R;
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Const;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.Utils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -51,6 +47,10 @@ import org.yaawp.hmi.views.Point2D;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Const;
+import org.yaawp.utils.Logger;
+import org.yaawp.utils.Utils;
 
 /**
  * @author menion

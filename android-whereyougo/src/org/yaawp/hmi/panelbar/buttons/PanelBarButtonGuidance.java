@@ -1,6 +1,5 @@
 package org.yaawp.hmi.panelbar.buttons;
 
-import menion.android.whereyougo.utils.A;
 import android.app.Activity;
 import org.yaawp.R;
 import org.yaawp.hmi.activities.GuidingActivity;
@@ -8,6 +7,7 @@ import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.hmi.helper.I18N;
+import org.yaawp.utils.A;
 
 public class PanelBarButtonGuidance extends PanelBarButton {
 

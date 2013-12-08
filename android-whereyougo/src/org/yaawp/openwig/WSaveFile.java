@@ -26,7 +26,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import menion.android.whereyougo.utils.Logger;
+import org.yaawp.utils.Logger;
+
 import cz.matejcik.openwig.platform.FileHandle;
 
 public class WSaveFile implements FileHandle {

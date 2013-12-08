@@ -1,6 +1,7 @@
 package org.yaawp.preferences;
 
-import menion.android.whereyougo.utils.Utils;
+import org.yaawp.utils.Utils;
+
 import android.content.Context;
 import android.preference.PreferenceManager;
 

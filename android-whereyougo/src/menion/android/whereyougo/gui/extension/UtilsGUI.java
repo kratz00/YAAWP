@@ -23,9 +23,9 @@ import java.util.ArrayList;
 
 import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
+import org.yaawp.utils.Const;
+import org.yaawp.utils.Utils;
 
-import menion.android.whereyougo.utils.Const;
-import menion.android.whereyougo.utils.Utils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;

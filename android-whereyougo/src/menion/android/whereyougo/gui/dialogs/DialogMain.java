@@ -4,8 +4,8 @@ import menion.android.whereyougo.MainAfterStart;
 import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.A;
 
-import menion.android.whereyougo.utils.A;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.pm.PackageManager;

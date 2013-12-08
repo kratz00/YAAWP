@@ -11,11 +11,11 @@ import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceItems;
 import org.yaawp.preferences.PreferenceValues;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Logger;
 
 import android.net.Uri;
 
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
 
 public class GuideImpl implements Guide {
 

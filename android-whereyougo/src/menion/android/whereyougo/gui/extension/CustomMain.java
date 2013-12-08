@@ -24,10 +24,6 @@ import java.io.StringReader;
 
 import org.yaawp.MainApplication;
 import org.yaawp.R;
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.FileSystem;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.Utils;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -47,7 +43,11 @@ import org.yaawp.hmi.helper.I18N;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.A;
 import org.yaawp.utils.AssetHelper;
+import org.yaawp.utils.FileSystem;
+import org.yaawp.utils.Logger;
+import org.yaawp.utils.Utils;
 
 public abstract class CustomMain extends CustomActivity {
 

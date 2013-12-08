@@ -3,13 +3,13 @@ package org.yaawp.maps.services;
 
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.positioning.Location;
+import org.yaawp.utils.A;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 
-import menion.android.whereyougo.utils.A;
 
 public class OverlayGuidance extends GenericOverlay {
 

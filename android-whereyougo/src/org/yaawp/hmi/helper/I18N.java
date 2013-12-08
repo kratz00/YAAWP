@@ -19,7 +19,7 @@
 
 package org.yaawp.hmi.helper;
 
-import menion.android.whereyougo.utils.A;
+import org.yaawp.utils.A;
 
 public class I18N {
 

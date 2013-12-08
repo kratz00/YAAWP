@@ -25,10 +25,6 @@ import menion.android.whereyougo.MainAfterStart;
 import menion.android.whereyougo.gui.dialogs.DialogMain;
 import menion.android.whereyougo.gui.extension.CustomMain;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
-import menion.android.whereyougo.utils.Const;
-import menion.android.whereyougo.utils.FileSystem;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.ManagerNotify;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -59,6 +55,10 @@ import org.yaawp.hmi.adapter.*;
 
 import java.util.Collections;
 
+import org.yaawp.utils.Const;
+import org.yaawp.utils.FileSystem;
+import org.yaawp.utils.Logger;
+import org.yaawp.utils.ManagerNotify;
 import org.yaawp.utils.FileCollector.FileCollector;
 import org.yaawp.utils.FileCollector.FileCollectorListener;
 import org.yaawp.utils.FileCollector.Filter.FileCollectorCartridgeFilter;

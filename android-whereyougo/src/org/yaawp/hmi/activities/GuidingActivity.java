@@ -24,11 +24,6 @@ import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.guidance.interfaces.GuidingListener;
 import org.yaawp.hmi.views.CompassView;
 
-import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Const;
-import menion.android.whereyougo.utils.Logger;
-import menion.android.whereyougo.utils.ManagerNotify;
-import menion.android.whereyougo.utils.UtilsFormat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,6 +39,11 @@ import org.yaawp.hmi.panelbar.buttons.PanelBarButtonStopGuidance;
 import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.positioning.OrientationListener;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Const;
+import org.yaawp.utils.Logger;
+import org.yaawp.utils.ManagerNotify;
+import org.yaawp.utils.UtilsFormat;
 
 
 public class GuidingActivity extends CustomActivity implements GuidingListener, OrientationListener {
