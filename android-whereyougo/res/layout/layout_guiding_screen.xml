@@ -8,7 +8,6 @@
     android:orientation="vertical" >
 
 	<LinearLayout 
-		android:layout_below="@+id/linearLayoutTopCoordinates"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:paddingLeft="3dip"
@@ -52,7 +51,6 @@
 	</LinearLayout>
 		
 	<LinearLayout 
-		android:layout_below="@+id/linearLayoutTopCoordinates2"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:paddingLeft="3dip"
@@ -61,7 +59,7 @@
 			style="@style/CustomScreenTextTitle"
 			android:layout_width="fill_parent"
 			android:gravity="center"
-			android:text="Destination" />
+			android:text="@string/guidance_destination" />
 	</LinearLayout>		
 	
 	<LinearLayout 
@@ -74,8 +72,7 @@
 			style="@style/CustomScreenTextValue"
 			android:id="@+id/textViewDestination"
 			android:layout_width="fill_parent"
-			android:gravity="center"
-			android:text="Navigation Ziel" />
+			android:gravity="center" />
 	</LinearLayout>
 		
     <RelativeLayout
@@ -98,8 +95,7 @@
 	<LinearLayout 
 		android:id="@+id/linear_layout_bottom1"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_above="@+id/linear_layout_bottom_2">
+		android:layout_height="wrap_content">
 		<LinearLayout style="@style/CustomScreenBottomInfo">
 			<TextView
 				style="@style/CustomScreenTextTitle"
@@ -129,17 +125,24 @@
 	<LinearLayout 
 		android:id="@+id/linear_layout_bottom_2"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true" >
-		<LinearLayout style="@style/CustomScreenBottomInfo">
-			<TextView
-				style="@style/CustomScreenTextTitle"
-				android:text="@string/time_to_target"/>
-			<TextView
-				style="@style/CustomScreenTextValue"
-				android:id="@+id/text_view_time_to_target" />
-		</LinearLayout>
+		android:layout_height="wrap_content">
+		
+		<TextView
+			style="@style/CustomScreenTextTitle"
+			android:text="@string/time_to_target"/>
+
 	</LinearLayout>
-	
+
+	<LinearLayout 
+		android:id="@+id/linear_layout_bottom_3"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" >
+
+		<TextView
+			style="@style/CustomScreenTextValue"
+			android:id="@+id/text_view_time_to_target" />
+		
+	</LinearLayout>	
+		
 	<include layout="@layout/include_bottom_panel" />
 </LinearLayout>
