@@ -37,7 +37,9 @@ import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.gui.extension.DataInfo;
 import menion.android.whereyougo.gui.extension.IconedListAdapter;
 import menion.android.whereyougo.utils.A;
+import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Logger;
+import menion.android.whereyougo.utils.ManagerNotify;
 import menion.android.whereyougo.utils.Utils;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -45,6 +47,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -232,44 +235,53 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 			}
 		});		
 	}
+
+	private long lastPressedTime;
 	
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-Logger.d(TAG, "onKeyDown(" + keyCode + ", " + event + ")");
-		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-	    	AlertDialog.Builder b = new AlertDialog.Builder(WigMainMenuActivity.this);
-	    	b.setCancelable(true);
-	    	b.setTitle(R.string.question);
-	    	b.setMessage(R.string.save_game_before_exit);
-	    	b.setPositiveButton(R.string.yes, 
-	    			new DialogInterface.OnClickListener() {
-						
-	    		@Override
-	    		public void onClick(DialogInterface dialog, int which) {	    		    
-					Engine.requestSync();
-					// Main.currentCartridge = null;
-					new SaveGameOnExit().execute();
-	    		}
-	    	});
-	    	b.setNeutralButton(R.string.cancel, null);
-	    	b.setNegativeButton(R.string.no, 
-	    			new DialogInterface.OnClickListener() {
-				
-	    		@Override
-	    		public void onClick(DialogInterface dialog, int which) {
-					Engine.kill();
-					// Main.currentCartridge = null;
-					WigMainMenuActivity.this.finish();
-	    		}
-	    	});
-			b.show();
-			return true;
-		} else if (event.getKeyCode() == KeyEvent.KEYCODE_SEARCH) {
-			return true;
-		} else {
-	    	return super.onKeyDown(keyCode, event);
-		}
-	}
-	
+    @Override
+    public boolean onKeyDown (int keyCode, KeyEvent event) {
+    	Log.i("GuidingActivity", "onKeyDown( KeyCode="+keyCode );
+    	
+	    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            if (event.getDownTime() - lastPressedTime < Const.DOUBLE_PRESS_HK_BACK_PERIOD) {
+    	    	AlertDialog.Builder b = new AlertDialog.Builder(WigMainMenuActivity.this);
+    	    	b.setCancelable(true);
+    	    	b.setTitle(R.string.question);
+    	    	b.setMessage(R.string.save_game_before_exit);
+    	    	b.setPositiveButton(R.string.yes, 
+    	    			new DialogInterface.OnClickListener() {
+    						
+    	    		@Override
+    	    		public void onClick(DialogInterface dialog, int which) {	    		    
+    					Engine.requestSync();
+    					// Main.currentCartridge = null;
+    					new SaveGameOnExit().execute();
+    	    		}
+    	    	});
+    	    	b.setNeutralButton(R.string.cancel, null);
+    	    	b.setNegativeButton(R.string.no, 
+    	    			new DialogInterface.OnClickListener() {
+    				
+    	    		@Override
+    	    		public void onClick(DialogInterface dialog, int which) {
+    					Engine.kill();
+    					// Main.currentCartridge = null;
+    					WigMainMenuActivity.this.finish();
+    	    		}
+    	    	});
+    			b.show();
+            } else {
+            	ManagerNotify.toastShortMessage(R.string.double_hk_back_exit_game);
+                lastPressedTime = event.getEventTime();
+            }
+	    	return true; 
+    	} else {
+    		super.onKeyDown(keyCode, event);
+    	}
+	        
+        return false;
+    }
+    
 	private class SaveGameOnExit extends AsyncTask<Void, Void, Void> {
 
 		private ProgressDialog dialog;

@@ -21,27 +21,27 @@ package menion.android.whereyougo.gui.extension;
 
 import menion.android.whereyougo.settings.Settings;
 
+import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Logger;
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import org.yaawp.preferences.PreferenceFunc;
+import java.lang.System;
 
 public class CustomActivity extends FragmentActivity {
 
-	protected Handler handler;
+	// protected Handler handler;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-Logger.v(getLocalClassName(), "onCreate(), id:" + hashCode());
+		Logger.v(getLocalClassName(), "onCreate(), id:" + hashCode());
 		try {
 			super.onCreate(savedInstanceState);
-			// create handler
-			handler = new Handler();
 			customOnCreate(this);
 		} catch (Exception e) {
 			Logger.e(getLocalClassName(), "onCreate()", e);
@@ -49,7 +49,7 @@ Logger.v(getLocalClassName(), "onCreate(), id:" + hashCode());
 	}
 	
 	protected static void customOnCreate(Activity activity) {
-//Logger.v(activity.getLocalClassName(), "customOnCreate(), id:" + activity.hashCode());
+		//Logger.v(activity.getLocalClassName(), "customOnCreate(), id:" + activity.hashCode());
 		// set main activity parameters
 		if (!(activity instanceof CustomMain)) {
 			//	Settings.setLanguage(this);
@@ -63,7 +63,7 @@ Logger.v(getLocalClassName(), "onCreate(), id:" + hashCode());
 	
 	@Override
 	public void onStart() {
-Logger.v(getLocalClassName(), "onStart(), id:" + hashCode());
+		Logger.v(getLocalClassName(), "onStart(), id:" + hashCode());
 		try {
 			super.onStart();
 			customOnStart(this);
@@ -73,13 +73,13 @@ Logger.v(getLocalClassName(), "onStart(), id:" + hashCode());
 	}
 	
 	protected static void customOnStart(Activity activity) {
-//Logger.v(activity.getLocalClassName(), "customOnStart(), id:" + activity.hashCode());
+		//Logger.v(activity.getLocalClassName(), "customOnStart(), id:" + activity.hashCode());
 		PreferenceFunc.setScreenFullscreen(activity);
 	}
 
 	@Override
 	protected void onResume() {
-Logger.v(getLocalClassName(), "onResume(), id:" + hashCode());
+		Logger.v(getLocalClassName(), "onResume(), id:" + hashCode());
 		try {
 			super.onResume();
 			customOnResume(this);
@@ -93,7 +93,7 @@ Logger.v(getLocalClassName(), "onResume(), id:" + hashCode());
 	}
 	
 	protected static void customOnResume(Activity activity) {
-//Logger.v(activity.getLocalClassName(), "customOnResume(), id:" + activity.hashCode());
+		//Logger.v(activity.getLocalClassName(), "customOnResume(), id:" + activity.hashCode());
 		// set current activity
 		Settings.setCurrentActivity(activity);
    		// enable permanent screen on
@@ -153,4 +153,5 @@ Logger.v(getLocalClassName(), "onDestroy(), id:" + hashCode());
 	public int getParentViewId() {
 		return -1;
 	}
+	
 }

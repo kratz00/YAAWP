@@ -29,10 +29,15 @@ import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.sensors.OrientationListener;
 import menion.android.whereyougo.utils.A;
+import menion.android.whereyougo.utils.Const;
+import menion.android.whereyougo.utils.Logger;
+import menion.android.whereyougo.utils.ManagerNotify;
 import menion.android.whereyougo.utils.UtilsFormat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
@@ -202,4 +207,30 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
 		activity.startActivity(intent);
 		return true;
 	}	
+	
+    private long lastPressedTime;
+    
+    @Override
+    public boolean onKeyDown (int keyCode, KeyEvent event) {
+    	Log.i("GuidingActivity", "onKeyDown( KeyCode="+keyCode );
+    	
+	    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+	    	if ( this.mExitBehaviour == GuidingActivity.STOP_GUIDANCE_AT_EXIT ) {
+                if (event.getDownTime() - lastPressedTime < Const.DOUBLE_PRESS_HK_BACK_PERIOD) {
+                	A.getGuidingContent().guideStop();	
+                    finish();
+                } else {
+                	ManagerNotify.toastShortMessage(R.string.double_hk_back_exit_guidance);
+                    lastPressedTime = event.getEventTime();
+                }
+	    	} else {
+	    		finish();
+	    	}
+	    	return true; 
+    	} else {
+    		super.onKeyDown(keyCode, event);
+    	}
+	        
+        return false;
+    } 	
 }
