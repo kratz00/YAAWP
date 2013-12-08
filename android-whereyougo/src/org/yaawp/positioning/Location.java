@@ -18,11 +18,11 @@
  * <http://www.gnu.org/licenses/lgpl.html/>.
  */
 
-package org.yaawp.extra;
+package org.yaawp.positioning;
 
 import java.lang.reflect.Field;
 
-import org.yaawp.extra.LocationCompute;
+import org.yaawp.positioning.LocationCompute;
 
 public class Location {
 

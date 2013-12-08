@@ -24,7 +24,6 @@ import java.io.StringReader;
 
 import org.yaawp.MainApplication;
 import org.yaawp.R;
-import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.FileSystem;
 import menion.android.whereyougo.utils.Logger;
@@ -45,6 +44,7 @@ import android.os.StatFs;
 
 import org.yaawp.hmi.activities.CustomActivity;
 import org.yaawp.hmi.helper.I18N;
+import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.Settings;
 import org.yaawp.utils.AssetHelper;

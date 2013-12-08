@@ -23,10 +23,6 @@ import java.util.ArrayList;
 
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.CustomDialog;
-import menion.android.whereyougo.hardware.location.LocationEventListener;
-import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.hardware.location.SatellitePosition;
-import menion.android.whereyougo.hardware.sensors.Orientation;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.ManagerNotify;
@@ -39,9 +35,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import org.yaawp.extra.Location;
 import org.yaawp.hmi.views.Point2D;
 import org.yaawp.hmi.views.Satellite2DView;
+import org.yaawp.positioning.Location;
+import org.yaawp.positioning.LocationEventListener;
+import org.yaawp.positioning.LocationState;
+import org.yaawp.positioning.Orientation;
+import org.yaawp.positioning.SatellitePosition;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 

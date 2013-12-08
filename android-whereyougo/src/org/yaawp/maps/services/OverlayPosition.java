@@ -1,9 +1,9 @@
 package org.yaawp.maps.services;
 
-import org.yaawp.extra.Location;
+import org.yaawp.positioning.Location;
+import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.Settings;
 
-import menion.android.whereyougo.hardware.location.LocationState;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

@@ -19,7 +19,8 @@
 
 package org.yaawp.openwig;
 
-import menion.android.whereyougo.hardware.location.LocationState;
+import org.yaawp.positioning.LocationState;
+
 import menion.android.whereyougo.utils.Logger;
 import cz.matejcik.openwig.platform.LocationService;
 

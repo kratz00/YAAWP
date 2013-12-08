@@ -1,7 +1,7 @@
 package org.yaawp.guidance;
 
 import org.yaawp.R;
-import org.yaawp.extra.Location;
+import org.yaawp.positioning.Location;
 import org.yaawp.preferences.PreferenceItems;
 import org.yaawp.preferences.PreferenceValues;
 

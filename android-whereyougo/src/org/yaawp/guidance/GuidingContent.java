@@ -21,14 +21,14 @@ package org.yaawp.guidance;
 
 import java.util.ArrayList;
 
-import org.yaawp.extra.Location;
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.guidance.interfaces.GuidingListener;
+import org.yaawp.positioning.Location;
+import org.yaawp.positioning.LocationEventListener;
+import org.yaawp.positioning.LocationState;
+import org.yaawp.positioning.SatellitePosition;
 import org.yaawp.preferences.PreferenceItems;
 
-import menion.android.whereyougo.hardware.location.LocationEventListener;
-import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.hardware.location.SatellitePosition;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import android.os.Bundle;

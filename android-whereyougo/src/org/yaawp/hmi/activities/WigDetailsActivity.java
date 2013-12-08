@@ -25,9 +25,6 @@ import java.util.Vector;
 import org.yaawp.R;
 
 import menion.android.whereyougo.gui.ListActions;
-import menion.android.whereyougo.hardware.location.LocationEventListener;
-import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.hardware.location.SatellitePosition;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.UtilsFormat;
 import android.graphics.Bitmap;
@@ -43,7 +40,6 @@ import cz.matejcik.openwig.Task;
 import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
-import org.yaawp.extra.Location;
 import org.yaawp.guidance.WaypointGuide;
 import org.yaawp.guidance.ZoneGuide;
 import org.yaawp.guidance.interfaces.Guide;
@@ -54,6 +50,10 @@ import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonAction;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonActionList;
 import org.yaawp.openwig.Refreshable;
+import org.yaawp.positioning.Location;
+import org.yaawp.positioning.LocationEventListener;
+import org.yaawp.positioning.LocationState;
+import org.yaawp.positioning.SatellitePosition;
 
 // ADD locationListener to update UpdateNavi
 public class WigDetailsActivity extends CustomActivity implements Refreshable, LocationEventListener {

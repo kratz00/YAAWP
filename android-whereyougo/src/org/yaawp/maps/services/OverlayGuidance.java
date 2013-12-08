@@ -1,8 +1,8 @@
 package org.yaawp.maps.services;
 
 
-import org.yaawp.extra.Location;
 import org.yaawp.guidance.interfaces.Guide;
+import org.yaawp.positioning.Location;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

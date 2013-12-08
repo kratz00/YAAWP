@@ -20,13 +20,10 @@
 package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
-import org.yaawp.extra.Location;
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.guidance.interfaces.GuidingListener;
 import org.yaawp.hmi.views.CompassView;
 
-import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.hardware.sensors.OrientationListener;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Logger;
@@ -44,6 +41,9 @@ import android.widget.TextView;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonStopGuidance;
+import org.yaawp.positioning.Location;
+import org.yaawp.positioning.LocationState;
+import org.yaawp.positioning.OrientationListener;
 
 
 public class GuidingActivity extends CustomActivity implements GuidingListener, OrientationListener {

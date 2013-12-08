@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.hardware.location;
+package org.yaawp.positioning;
 
 import java.util.List;
 import java.util.Timer;
@@ -25,7 +25,6 @@ import java.util.TimerTask;
 
 import org.yaawp.R;
 import org.yaawp.audio.UtilsAudio;
-import org.yaawp.extra.Location;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
 

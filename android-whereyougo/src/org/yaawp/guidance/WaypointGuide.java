@@ -19,7 +19,7 @@
 
 package org.yaawp.guidance;
 
-import org.yaawp.extra.Location;
+import org.yaawp.positioning.Location;
 
 public class WaypointGuide extends GuideImpl {
 

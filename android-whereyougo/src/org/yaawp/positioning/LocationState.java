@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.hardware.location;
+package org.yaawp.positioning;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,7 +46,6 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.yaawp.extra.Location;
 import org.yaawp.hmi.activities.SatelliteActivity;
 import org.yaawp.hmi.views.Point2D;
 import org.yaawp.preferences.PreferenceFunc;

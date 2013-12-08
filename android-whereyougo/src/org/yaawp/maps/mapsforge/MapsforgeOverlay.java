@@ -3,12 +3,12 @@ package org.yaawp.maps.mapsforge;
 import org.mapsforge.android.maps.Projection;
 import org.mapsforge.android.maps.overlay.Overlay;
 
-import org.yaawp.extra.Location;
 import org.yaawp.maps.services.GenericOverlay;
 import org.yaawp.maps.services.Overlays;
 import org.yaawp.maps.services.OverlayPosition;
 import org.yaawp.maps.services.OverlayZones;
 import org.yaawp.maps.services.OverlayGuidance;
+import org.yaawp.positioning.Location;
 
 import android.graphics.Canvas;
 import android.graphics.Point;

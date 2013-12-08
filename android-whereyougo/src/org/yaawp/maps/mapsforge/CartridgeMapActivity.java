@@ -7,22 +7,23 @@ import android.os.Bundle;
 import java.io.File;
 import java.util.ArrayList;
 
-import menion.android.whereyougo.hardware.location.LocationEventListener;
-import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.hardware.location.SatellitePosition;
 import menion.android.whereyougo.utils.A;
 
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapView;
 import org.mapsforge.core.GeoPoint;
 
-import org.yaawp.extra.Location;
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.guidance.interfaces.GuidingListener;
 
-import menion.android.whereyougo.hardware.sensors.OrientationListener;
+
 import org.yaawp.maps.services.Overlays;
 import org.yaawp.openwig.Refreshable;
+import org.yaawp.positioning.Location;
+import org.yaawp.positioning.LocationEventListener;
+import org.yaawp.positioning.LocationState;
+import org.yaawp.positioning.OrientationListener;
+import org.yaawp.positioning.SatellitePosition;
 import org.yaawp.preferences.Settings;
 
 public class CartridgeMapActivity extends MapActivity implements LocationEventListener, OrientationListener, Refreshable, GuidingListener  {

@@ -17,36 +17,17 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.hardware.location;
-
-import java.util.ArrayList;
-
-import org.yaawp.extra.Location;
-
-
-import android.os.Bundle;
+package org.yaawp.positioning;
 
 /**
- * Interface for location changes
  * @author menion
  * @since 25.1.2010 2010
  */
-public interface LocationEventListener {
-
-	public static final int PRIORITY_LOW = 1;
-	public static final int PRIORITY_MEDIUM = 2;
-	public static final int PRIORITY_HIGH = 3;
+public interface OrientationListener {
 	
-	public void onLocationChanged(Location location);
-
-    public void onStatusChanged(String provider, int state, Bundle extras);
-    
-    public void onGpsStatusChanged(int event, ArrayList<SatellitePosition> sats);
-    
-    public int getPriority();
-    
-    /** Is required when screen turn off */
-    public boolean isRequired();
-    
-    public String getName();
+	/**
+	 * Called everytime, azimuth change.
+	 * @param azimuth Value of actual azimuth, positive value is from north to right.
+	 */
+	public void onOrientationChanged(float azimuth, float pitch, float roll);
 }

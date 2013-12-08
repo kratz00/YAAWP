@@ -19,7 +19,7 @@
 
 package org.yaawp.guidance.interfaces;
 
-import org.yaawp.extra.Location;
+import org.yaawp.positioning.Location;
 
 
 /**

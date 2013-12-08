@@ -22,8 +22,8 @@ package org.yaawp.hmi.views;
 import org.yaawp.R;
 import org.yaawp.hmi.activities.SatelliteActivity;
 import org.yaawp.hmi.helper.I18N;
+import org.yaawp.positioning.SatellitePosition;
 
-import menion.android.whereyougo.hardware.location.SatellitePosition;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Images;
 import menion.android.whereyougo.utils.Logger;

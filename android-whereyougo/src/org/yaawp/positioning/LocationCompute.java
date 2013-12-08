@@ -1,6 +1,6 @@
-package org.yaawp.extra;
+package org.yaawp.positioning;
 
-import org.yaawp.extra.Location;
+import org.yaawp.positioning.Location;
 
 public class LocationCompute {
 

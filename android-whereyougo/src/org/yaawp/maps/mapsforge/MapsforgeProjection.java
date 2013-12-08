@@ -2,8 +2,8 @@ package org.yaawp.maps.mapsforge;
 
 import org.mapsforge.core.GeoPoint;
 import org.mapsforge.android.maps.Projection;
-import org.yaawp.extra.Location;
 import org.yaawp.maps.services.MapProjection;
+import org.yaawp.positioning.Location;
 
 import android.graphics.Point;
 

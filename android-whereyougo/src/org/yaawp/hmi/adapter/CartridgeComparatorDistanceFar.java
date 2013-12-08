@@ -1,9 +1,9 @@
 package org.yaawp.hmi.adapter;
 
-import menion.android.whereyougo.hardware.location.LocationState;
 
 import org.yaawp.YCartridge;
-import org.yaawp.extra.Location;
+import org.yaawp.positioning.Location;
+import org.yaawp.positioning.LocationState;
 
 
 

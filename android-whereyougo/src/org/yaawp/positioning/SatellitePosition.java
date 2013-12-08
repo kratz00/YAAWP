@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */
 
-package menion.android.whereyougo.hardware.location;
+package org.yaawp.positioning;
 
 /**
  * Representing one satellite

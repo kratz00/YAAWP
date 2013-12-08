@@ -1,8 +1,9 @@
 package org.yaawp.maps.services;
 
 import org.yaawp.maps.services.MapProjection;
+import org.yaawp.positioning.Location;
+
 import android.graphics.Canvas;
-import org.yaawp.extra.Location;
 
 public abstract class GenericOverlay {
 

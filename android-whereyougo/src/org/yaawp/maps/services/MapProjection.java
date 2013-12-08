@@ -1,6 +1,7 @@
 package org.yaawp.maps.services;
 
-import org.yaawp.extra.Location;
+import org.yaawp.positioning.Location;
+
 import android.graphics.Point;
 
 public interface MapProjection {

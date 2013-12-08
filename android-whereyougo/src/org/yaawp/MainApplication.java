@@ -26,7 +26,6 @@ import java.util.TimerTask;
 
 import org.yaawp.R;
 
-import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.utils.FileSystem;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.StringToken;
@@ -40,6 +39,7 @@ import android.content.res.Configuration;
 import android.util.Log;
 
 import org.yaawp.openwig.OpenWigHelper;
+import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
 

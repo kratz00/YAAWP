@@ -17,19 +17,15 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.hardware.sensors;
+package org.yaawp.positioning;
 
 import java.util.ArrayList;
 import java.util.Vector;
 
 import org.yaawp.R;
-import org.yaawp.extra.Location;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
 
-import menion.android.whereyougo.hardware.location.LocationEventListener;
-import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.hardware.location.SatellitePosition;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import android.content.Context;

@@ -24,14 +24,14 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import org.yaawp.R;
-import org.yaawp.extra.Location;
 import org.yaawp.hmi.activities.CustomActivity;
 import org.yaawp.openwig.Refreshable;
+import org.yaawp.positioning.Location;
+import org.yaawp.positioning.LocationState;
 
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.gui.extension.DataInfo;
 import menion.android.whereyougo.gui.extension.IconedListAdapter;
-import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Images;
 import menion.android.whereyougo.utils.Logger;

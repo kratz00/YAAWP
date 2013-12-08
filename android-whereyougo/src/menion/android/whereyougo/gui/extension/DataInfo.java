@@ -19,7 +19,7 @@
 
 package menion.android.whereyougo.gui.extension;
 
-import org.yaawp.extra.Location;
+import org.yaawp.positioning.Location;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
