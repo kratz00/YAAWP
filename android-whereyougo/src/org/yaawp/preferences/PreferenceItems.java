@@ -2,8 +2,7 @@ package org.yaawp.preferences;
 
 import org.yaawp.R;
 import org.yaawp.preferences.PreferenceUtils;
-
-import menion.android.whereyougo.settings.*;
+import org.yaawp.preferences.Settings;
 
 public class PreferenceItems {
 
