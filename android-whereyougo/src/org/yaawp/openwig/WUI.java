@@ -19,7 +19,6 @@
 
 package org.yaawp.openwig;
 
-import menion.android.whereyougo.gui.Refreshable;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;

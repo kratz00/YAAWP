@@ -28,9 +28,9 @@ import org.yaawp.bl.CartridgeSession;
 import org.yaawp.hmi.helper.ScreenHelper;
 
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
+import org.yaawp.openwig.Refreshable;
 import org.yaawp.openwig.WUI;
 
-import menion.android.whereyougo.gui.Refreshable;
 import menion.android.whereyougo.gui.dialogs.DialogMain;
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;

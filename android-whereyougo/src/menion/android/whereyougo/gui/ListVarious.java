@@ -25,6 +25,7 @@ import java.util.Vector;
 
 import org.yaawp.R;
 import org.yaawp.extra.Location;
+import org.yaawp.openwig.Refreshable;
 
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;

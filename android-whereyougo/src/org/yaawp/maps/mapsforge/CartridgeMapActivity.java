@@ -21,8 +21,8 @@ import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.guidance.interfaces.GuidingListener;
 
 import menion.android.whereyougo.hardware.sensors.OrientationListener;
-import menion.android.whereyougo.gui.Refreshable;
 import org.yaawp.maps.services.Overlays;
+import org.yaawp.openwig.Refreshable;
 import org.yaawp.preferences.Settings;
 
 public class CartridgeMapActivity extends MapActivity implements LocationEventListener, OrientationListener, Refreshable, GuidingListener  {
