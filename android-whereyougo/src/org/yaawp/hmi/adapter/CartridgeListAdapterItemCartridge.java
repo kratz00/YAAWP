@@ -33,9 +33,6 @@ import org.yaawp.utils.Logger;
 import org.yaawp.utils.Utils;
 import org.yaawp.utils.UtilsFormat;
 
-
-import menion.android.whereyougo.utils.*;
-
 public class CartridgeListAdapterItemCartridge implements CartridgeListAdapterItem {
 
 	private static String TAG = "CartridgeListAdapterItemCartridge";
