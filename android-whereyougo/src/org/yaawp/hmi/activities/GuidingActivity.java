@@ -24,21 +24,15 @@ import org.yaawp.extra.Location;
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.guidance.interfaces.GuidingListener;
 import org.yaawp.hmi.views.CompassView;
-import org.yaawp.hmi.views.Satellite2DView;
-import org.yaawp.maps.mapsforge.CartridgeMapActivity;
-
-import cz.matejcik.openwig.Engine;
 
 import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.sensors.OrientationListener;
 import menion.android.whereyougo.utils.A;
-import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.UtilsFormat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;

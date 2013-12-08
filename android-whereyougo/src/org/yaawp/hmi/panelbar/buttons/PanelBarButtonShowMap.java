@@ -1,14 +1,11 @@
 package org.yaawp.hmi.panelbar.buttons;
 
 import org.yaawp.R;
-import org.yaawp.guidance.interfaces.Guide;
-import org.yaawp.hmi.activities.GuidingActivity;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.view.View;
 
 public class PanelBarButtonShowMap extends PanelBarButton {
 
