@@ -20,7 +20,6 @@
 package menion.android.whereyougo.gui.extension;
 
 import java.io.File;
-import java.io.InputStream;
 import java.io.StringReader;
 
 import org.yaawp.R;
@@ -42,12 +41,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.StatFs;
-import android.view.KeyEvent;
 
 import org.yaawp.hmi.activities.CustomActivity;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.AssetHelper;
 
 public abstract class CustomMain extends CustomActivity {
 
@@ -306,58 +305,16 @@ public abstract class CustomMain extends CustomActivity {
 		}).start();
     }
     
-    /*
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-//Logger.d(TAG, "dispatchKeyEvent(" + event.getAction() + ", " + event.getKeyCode() + ")");
-    	if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-    		switch (getCloseValue()) {
-			case CLOSE_DESTROY_APP_NO_DIALOG:
-				finish = true;
-    			CustomMain.this.finish();
-    			return true;
-			case CLOSE_DESTROY_APP_DIALOG_NO_TEXT:
-				showDialogFinish(FINISH_EXIT);
-    			return true;
-			case CLOSE_DESTROY_APP_DIALOG_ADDITIONAL_TEXT:
-				showDialogFinish(FINISH_EXIT);
-    			return true;
-			case CLOSE_HIDE_APP:
-				// no action
-				break;
-			}
-    	}
-    	
-    	return super.dispatchKeyEvent(event);
-    }
-    */
-    
-    public static String loadAssetString(String name) {
-    	InputStream is = null;
-    	try {
-			is = A.getMain().getAssets().open(name);
-			int size = is.available();
 
-			byte[] buffer = new byte[size];
-			is.read(buffer);
-			is.close();
 
-			return new String(buffer);
-		} catch (Exception e) {
-			Logger.e(TAG, "loadAssetString(" + name + ")", e);
-			return "";
-		} finally {
-			Utils.closeStream(is);
-		}
-    }
     
     public static String getNewsFromTo(int lastVersion, int actualVersion) {
 //Logger.d(TAG, "getNewsFromTo(" + lastVersion + ", " + actualVersion + "), file:" + 
 //		"news_" + (Const.isPro() ? "pro" : "free") + ".xml");
    		String versionInfo = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /></head><body>";
-      	String data = CustomMain.loadAssetString("news.xml");
+      	String data = AssetHelper.loadAssetString("news.xml");
       	if (data == null || data.length() == 0)
-      		data = CustomMain.loadAssetString("news.xml");
+      		data = AssetHelper.loadAssetString("news.xml");
     	if (data != null && data.length() > 0) {
             XmlPullParser parser;
             try {

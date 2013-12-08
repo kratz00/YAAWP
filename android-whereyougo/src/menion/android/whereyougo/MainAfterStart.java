@@ -27,6 +27,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import org.yaawp.R;
 import org.yaawp.preferences.Settings;
+import org.yaawp.utils.AssetHelper;
 
 /**
  * @author menion
@@ -79,7 +80,7 @@ public class MainAfterStart {
     	
    		if (lastVersion == 0) {
    			newsInfo += "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /></head><body>";
-   			newsInfo += CustomMain.loadAssetString(Settings.getLanguageCode() + "_first.html");
+   			newsInfo += AssetHelper.loadAssetString(Settings.getLanguageCode() + "_first.html");
            	newsInfo += "</body></html>";
         } else {
         	newsInfo = CustomMain.getNewsFromTo(lastVersion, actualVersion);
