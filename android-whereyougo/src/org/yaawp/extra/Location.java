@@ -20,8 +20,9 @@
 
 package org.yaawp.extra;
 
+import java.lang.reflect.Field;
+
 import org.yaawp.extra.LocationCompute;
-import org.yaawp.extra.Utils;
 
 public class Location {
 
@@ -387,8 +388,42 @@ public class Location {
     
     @Override
     public String toString() {
-    	return Utils.toString(this, "");
+    	return toString(this, "");
     }
 
+    private static final String NEW_LINE = System.getProperty("line.separator");
+    
+    private String toString(Object obj, String prefix) {
+    	// add base
+    	StringBuilder result = new StringBuilder();
+    	result.append(prefix);
+    	if (obj == null) {
+    		result.append(" empty object!");
+    		return result.toString();
+    	}
+    	
+    	// handle existing object
+    	result.append(obj.getClass().getName()).append(" {").append(NEW_LINE);
 
+    	// determine fields declared in this class only (no fields of superclass)
+    	Field[] fields = obj.getClass().getDeclaredFields();
+
+    	// print field names paired with their values
+    	for (Field field : fields) {
+    		result.append(prefix).append("    ");
+    		try {
+    			result.append(field.getName());
+    			result.append(": ");
+    			// set accessible for private fields
+    			field.setAccessible(true);
+    			// requires access to private field:
+    			result.append(field.get(obj));
+    		} catch (Exception ex) {
+    			System.out.println(ex);
+    		}
+    		result.append(NEW_LINE);
+    	}
+    	result.append(prefix).append("}");
+    	return result.toString();
+    }
 }
