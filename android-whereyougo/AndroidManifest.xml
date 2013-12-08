@@ -65,31 +65,31 @@
 			android:name="org.yaawp.hmi.activities.WigInputActivity"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name="menion.android.whereyougo.gui.ListActions"
+			android:name="org.yaawp.hmi.gui.ListActions"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name="menion.android.whereyougo.gui.ListTargets"
+			android:name="org.yaawp.hmi.gui.ListTargets"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name="menion.android.whereyougo.gui.ListTasks"
+			android:name="org.yaawp.hmi.gui.ListTasks"
 			android:screenOrientation="portrait"
 			android:theme="@android:style/Theme.Dialog"/>
 		<activity
-			android:name="menion.android.whereyougo.gui.ListThings"
+			android:name="org.yaawp.hmi.gui.ListThings"
 			android:screenOrientation="portrait"
 			android:theme="@android:style/Theme.Dialog"/>
 		<activity
-			android:name="menion.android.whereyougo.gui.ListZones"
+			android:name="org.yaawp.hmi.gui.ListZones"
 			android:screenOrientation="portrait"
 			android:theme="@android:style/Theme.Dialog"/>
 		<activity
-			android:name="menion.android.whereyougo.gui.MapScreen"
+			android:name="org.yaawp.hmi.gui.MapScreen"
 			android:screenOrientation="portrait" />
 		<activity
 			android:name="org.yaawp.hmi.activities.WigPushDialogActivity" 
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name="menion.android.whereyougo.gui.OnlineChooser"
+			android:name="org.yaawp.hmi.gui.OnlineChooser"
 			android:screenOrientation="portrait" />
 		<activity
 			android:name="org.yaawp.hmi.activities.GuidingActivity"
@@ -98,7 +98,7 @@
 			android:name="org.yaawp.hmi.activities.SatelliteActivity"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name="menion.android.whereyougo.gui.SettingScreens"
+			android:name="org.yaawp.hmi.gui.SettingScreens"
 			android:screenOrientation="portrait"
 			/> <!-- android:theme="@style/ThemeSettings" /> -->
 		

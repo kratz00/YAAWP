@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.gui.extension;
+package org.yaawp.hmi.gui.extension;
 
 import org.yaawp.R;
 import org.yaawp.utils.Utils;

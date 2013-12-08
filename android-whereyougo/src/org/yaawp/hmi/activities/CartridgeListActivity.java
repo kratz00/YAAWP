@@ -21,9 +21,6 @@ package org.yaawp.hmi.activities;
 
 import java.io.File;
 
-import menion.android.whereyougo.gui.dialogs.DialogMain;
-import menion.android.whereyougo.gui.extension.CustomMain;
-import menion.android.whereyougo.gui.extension.UtilsGUI;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -41,6 +38,9 @@ import org.yaawp.MainApplication;
 import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
+import org.yaawp.hmi.gui.dialogs.DialogMain;
+import org.yaawp.hmi.gui.extension.CustomMain;
+import org.yaawp.hmi.gui.extension.UtilsGUI;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;

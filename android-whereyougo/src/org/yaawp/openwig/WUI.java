@@ -19,7 +19,6 @@
 
 package org.yaawp.openwig;
 
-import menion.android.whereyougo.gui.extension.UtilsGUI;
 import se.krka.kahlua.vm.LuaClosure;
 import android.app.Activity;
 import android.content.Context;
@@ -34,6 +33,7 @@ import cz.matejcik.openwig.platform.UI;
 import org.yaawp.R;
 import org.yaawp.hmi.activities.WigInputActivity;
 import org.yaawp.hmi.activities.WigPushDialogActivity;
+import org.yaawp.hmi.gui.extension.UtilsGUI;
 import org.yaawp.hmi.helper.AudioHelper;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ProgressDialogHelper;

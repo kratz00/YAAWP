@@ -20,9 +20,9 @@
 package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
+import org.yaawp.hmi.gui.extension.CustomDialog;
 import org.yaawp.utils.Logger;
 
-import menion.android.whereyougo.gui.extension.CustomDialog;
 import se.krka.kahlua.vm.LuaClosure;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;

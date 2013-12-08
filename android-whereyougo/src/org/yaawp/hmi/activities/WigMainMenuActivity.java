@@ -25,6 +25,10 @@ import java.util.Vector;
 import org.yaawp.R;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
+import org.yaawp.hmi.gui.dialogs.DialogMain;
+import org.yaawp.hmi.gui.extension.CustomDialog;
+import org.yaawp.hmi.gui.extension.DataInfo;
+import org.yaawp.hmi.gui.extension.IconedListAdapter;
 import org.yaawp.hmi.helper.ScreenHelper;
 
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
@@ -36,10 +40,6 @@ import org.yaawp.utils.Logger;
 import org.yaawp.utils.ManagerNotify;
 import org.yaawp.utils.Utils;
 
-import menion.android.whereyougo.gui.dialogs.DialogMain;
-import menion.android.whereyougo.gui.extension.CustomDialog;
-import menion.android.whereyougo.gui.extension.DataInfo;
-import menion.android.whereyougo.gui.extension.IconedListAdapter;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;

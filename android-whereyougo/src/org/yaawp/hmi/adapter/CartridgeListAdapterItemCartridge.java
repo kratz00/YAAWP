@@ -2,7 +2,6 @@ package org.yaawp.hmi.adapter;
 
 import java.io.File;
 
-import menion.android.whereyougo.gui.extension.UtilsGUI;
 
 import org.yaawp.R;
 
@@ -24,6 +23,7 @@ import android.widget.TextView;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
+import org.yaawp.hmi.gui.extension.UtilsGUI;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationState;

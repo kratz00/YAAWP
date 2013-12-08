@@ -20,11 +20,11 @@
 package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
+import org.yaawp.hmi.gui.extension.CustomDialog;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.utils.Images;
 import org.yaawp.utils.Logger;
 
-import menion.android.whereyougo.gui.extension.CustomDialog;
 import se.krka.kahlua.vm.LuaTable;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

@@ -1,4 +1,4 @@
-package menion.android.whereyougo.gui.dialogs;
+package org.yaawp.hmi.gui.dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;

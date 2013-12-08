@@ -25,12 +25,12 @@ import java.util.TimerTask;
 
 import org.yaawp.R;
 import org.yaawp.audio.UtilsAudio;
+import org.yaawp.hmi.gui.extension.UtilsGUI;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
 import org.yaawp.utils.Logger;
 import org.yaawp.utils.ManagerNotify;
 
-import menion.android.whereyougo.gui.extension.UtilsGUI;
 import android.content.Context;
 import android.location.GpsStatus;
 import android.location.LocationListener;

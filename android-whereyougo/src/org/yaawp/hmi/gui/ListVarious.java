@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.gui;
+package org.yaawp.hmi.gui;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +25,9 @@ import java.util.Vector;
 
 import org.yaawp.R;
 import org.yaawp.hmi.activities.CustomActivity;
+import org.yaawp.hmi.gui.extension.CustomDialog;
+import org.yaawp.hmi.gui.extension.DataInfo;
+import org.yaawp.hmi.gui.extension.IconedListAdapter;
 import org.yaawp.openwig.Refreshable;
 import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationState;
@@ -34,9 +37,6 @@ import org.yaawp.utils.Logger;
 import org.yaawp.utils.Utils;
 import org.yaawp.utils.UtilsFormat;
 
-import menion.android.whereyougo.gui.extension.CustomDialog;
-import menion.android.whereyougo.gui.extension.DataInfo;
-import menion.android.whereyougo.gui.extension.IconedListAdapter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;

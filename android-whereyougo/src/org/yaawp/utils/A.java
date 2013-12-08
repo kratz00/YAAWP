@@ -22,9 +22,9 @@ package org.yaawp.utils;
 import org.yaawp.MainApplication;
 import org.yaawp.audio.ManagerAudio;
 import org.yaawp.guidance.GuidingContent;
+import org.yaawp.hmi.gui.extension.CustomMain;
 import org.yaawp.positioning.Orientation;
 
-import menion.android.whereyougo.gui.extension.CustomMain;
 import android.app.Application;
 import android.util.Log;
 

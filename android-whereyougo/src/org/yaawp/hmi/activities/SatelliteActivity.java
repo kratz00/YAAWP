@@ -22,7 +22,6 @@ package org.yaawp.hmi.activities;
 import java.util.ArrayList;
 
 import org.yaawp.R;
-import menion.android.whereyougo.gui.extension.CustomDialog;
 import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.CompoundButton;
@@ -30,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import org.yaawp.hmi.gui.extension.CustomDialog;
 import org.yaawp.hmi.views.Point2D;
 import org.yaawp.hmi.views.Satellite2DView;
 import org.yaawp.positioning.Location;

@@ -19,12 +19,12 @@ R.stringR.string  * This file is part of WhereYouGo.
 
 package org.yaawp;
 
-import menion.android.whereyougo.gui.extension.CustomMain;
-import menion.android.whereyougo.gui.extension.UtilsGUI;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 import org.yaawp.R;
+import org.yaawp.hmi.gui.extension.CustomMain;
+import org.yaawp.hmi.gui.extension.UtilsGUI;
 import org.yaawp.preferences.Settings;
 import org.yaawp.utils.A;
 import org.yaawp.utils.AssetHelper;

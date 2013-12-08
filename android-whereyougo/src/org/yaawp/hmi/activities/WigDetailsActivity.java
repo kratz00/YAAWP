@@ -24,7 +24,6 @@ import java.util.Vector;
 
 import org.yaawp.R;
 
-import menion.android.whereyougo.gui.ListActions;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -41,6 +40,7 @@ import cz.matejcik.openwig.Zone;
 import org.yaawp.guidance.WaypointGuide;
 import org.yaawp.guidance.ZoneGuide;
 import org.yaawp.guidance.interfaces.Guide;
+import org.yaawp.hmi.gui.ListActions;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonGuidance;

@@ -17,15 +17,15 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.gui;
+package org.yaawp.hmi.gui;
 
 import java.util.Vector;
 
 import org.yaawp.R;
 import org.yaawp.hmi.activities.WigDetailsActivity;
+import org.yaawp.hmi.gui.extension.UtilsGUI;
 import org.yaawp.hmi.helper.ScreenHelper;
 
-import menion.android.whereyougo.gui.extension.UtilsGUI;
 import se.krka.kahlua.vm.LuaTable;
 import android.content.DialogInterface;
 import cz.matejcik.openwig.Action;

@@ -20,7 +20,6 @@
 package org.yaawp.hmi.activities;
 
 
-import menion.android.whereyougo.gui.extension.CustomMain;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -29,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.yaawp.MainApplication;
+import org.yaawp.hmi.gui.extension.CustomMain;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.Settings;
 import org.yaawp.utils.A;

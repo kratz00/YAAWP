@@ -1,4 +1,4 @@
-package menion.android.whereyougo.gui.dialogs;
+package org.yaawp.hmi.gui.dialogs;
 
 import org.yaawp.MainAfterStart;
 import org.yaawp.R;

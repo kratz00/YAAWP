@@ -1,7 +1,8 @@
 package org.yaawp.hmi.panelbar.buttons;
 
 import android.app.Activity;
-import menion.android.whereyougo.gui.ListActions;
+
+import org.yaawp.hmi.gui.ListActions;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import cz.matejcik.openwig.EventTable;
