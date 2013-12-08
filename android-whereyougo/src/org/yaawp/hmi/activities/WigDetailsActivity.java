@@ -27,18 +27,14 @@ import org.yaawp.R;
 import menion.android.whereyougo.gui.ListActions;
 import menion.android.whereyougo.gui.Refreshable;
 import menion.android.whereyougo.gui.extension.CustomActivity;
-import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
-import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.UtilsFormat;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cz.matejcik.openwig.Action;
@@ -54,8 +50,11 @@ import org.yaawp.guidance.WaypointGuide;
 import org.yaawp.guidance.ZoneGuide;
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.hmi.helper.I18N;
-import org.yaawp.hmi.helper.ScreenHelper;
-import org.yaawp.maps.mapsforge.CartridgeMapActivity;
+import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButtonGuidance;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButtonAction;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButtonActionList;
 
 // ADD locationListener to update UpdateNavi
 public class WigDetailsActivity extends CustomActivity implements Refreshable, LocationEventListener {
@@ -63,6 +62,8 @@ public class WigDetailsActivity extends CustomActivity implements Refreshable, L
 	private static final String TAG = "Details";
 	
 	public static EventTable et;
+	
+	private ThreeButtonPanelBar mButtonPanelBar = null;
 
 	private static final String[] taskStates = {
 		I18N.get(R.string.pending),
@@ -80,6 +81,8 @@ public class WigDetailsActivity extends CustomActivity implements Refreshable, L
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.layout_details);
+		
+		mButtonPanelBar = new ThreeButtonPanelBar(this);
 	}
 	
 	public void onResume() {
@@ -158,9 +161,9 @@ public class WigDetailsActivity extends CustomActivity implements Refreshable, L
 		Zone z = (Zone) et;
 		String ss = "(nothing)";
 		switch (z.contain) {
-			case Zone.DISTANT: ss = "distant"; break;
-			case Zone.PROXIMITY: ss = "near"; break;
-			case Zone.INSIDE: ss = "inside"; break;
+			case Zone.DISTANT: ss = "distant"; break; // TODO I18N
+			case Zone.PROXIMITY: ss = "near"; break; // TODO I18N
+			case Zone.INSIDE: ss = "inside"; break; // TODO I18N
 		}
 		tvState.setText("State: " + ss);
 		
@@ -172,8 +175,6 @@ public class WigDetailsActivity extends CustomActivity implements Refreshable, L
 	}
 	
 	private void setBottomMenu() {
-		String btn01 = null, btn02 = null, btn03 = null;
-		CustomDialog.OnClickListener btn01Click = null, btn02Click = null, btn03Click = null;
 		
 		// get count of items
 		boolean location = et.isLocated();
@@ -184,132 +185,46 @@ public class WigDetailsActivity extends CustomActivity implements Refreshable, L
 		if (et instanceof Thing) {
 			Thing t = (Thing) et;
 			actions = t.visibleActions() + Engine.instance.cartridge.visibleUniversalActions();
-Logger.d(TAG, "actions:" + actions);			
+			Logger.d(TAG, "actions:" + actions);			
 			validActions = ListActions.getValidActions(t);
 			actions = validActions.size();
-Logger.d(TAG, "validActions:" + actions);
+			Logger.d(TAG, "validActions:" + actions);
 		}
 		
-Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:" + actions);
+		Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:" + actions);
 
 		// set location on first two buttons
 		if (location) {
-			btn01 = getString(R.string.navigate);
-			btn01Click = new CustomDialog.OnClickListener() {
-				@Override
-				public boolean onClick(CustomDialog dialog, View v, int btn) {
-					try {
-				        Guide wpt = getTargetGuide();
-				        if (wpt != null) {
-				        	A.getGuidingContent().guideStart(wpt);
-				        	GuidingActivity.callGudingScreen(WigDetailsActivity.this, GuidingActivity.CONTINUE_GUIDANCE_AT_EXIT );
-				        	finish();
-				        } else {
-				        	Logger.d(TAG, "waypoint 'null'");
-				        }					    						
-					} catch (Exception e) {
-						Logger.w(TAG, "btn01.click() - unknown problem");
-					}
-					return true;
-				}
-			};
 			
-			btn02 = getString(R.string.map);
-			btn02Click = new CustomDialog.OnClickListener() {
-		
-				@Override
-				public boolean onClick(CustomDialog dialog, View v, int btn) {
-					try {
-				        Intent intent = new Intent( WigDetailsActivity.this, CartridgeMapActivity.class );
-				        intent.putExtra( CartridgeMapActivity.MAPFILE, "/mnt/sdcard/Maps/germany.map" );
-				        // TODO intent.putExtra( MAP_CENTER_LATITUDE, x.y );
-				        // TODO intent.putExtra( MAP_CENTER_LONGITUDE, x.y );
-				        // TODO intent.putExtra( CURRENT_POSITION_AS_MAP_CENTER, false );
-				        startActivity(intent);  
-					} catch (Exception e) {
-						Logger.e(TAG, "btn02.click() - unknown problem", e);
-					}
-					return true;
-				}
-			};
-		}
-		
-		// set actions
-		if (actions > 0) {
-			if (location) {
-				// only one empty button, set actions on it
-				btn03 = "Actions (" + actions + ")";
-				btn03Click = new CustomDialog.OnClickListener() {
-					@Override
-					public boolean onClick(CustomDialog dialog, View v, int btn) {
-				    	ListActions.reset((Thing) et);
-				    	ScreenHelper.activateScreen(ScreenHelper.SCREEN_ACTIONS, et);
-				    	WigDetailsActivity.this.finish();						
-				    	return true;
-					}
-				};
+			Guide guidanceObject = null;
+        
+		    if (et instanceof Zone) {
+		    	Zone z = ((Zone) et);
+		    	guidanceObject = new ZoneGuide(z);
+		    } else {
+		        Location loc = new Location(TAG);
+		        loc.setLatitude(et.position.latitude);
+		        loc.setLongitude(et.position.longitude);
+		        guidanceObject = new WaypointGuide(et.name, loc);
+		    }	
+		    
+			mButtonPanelBar.AddButton( new PanelBarButtonGuidance( this, guidanceObject, true, false /* GuidingActivity.CONTINUE_GUIDANCE_AT_EXIT */ ) );
+				
+			// TODO set center object
+			mButtonPanelBar.AddButton( new PanelBarButtonShowMap(this) ); 
+			
+			if ( actions > 0 ) {
+				mButtonPanelBar.AddButton( new PanelBarButtonActionList( this, actions, et ) );
+			}
+		} else { // we have three free buttons for actions
+			if ( actions > 3 ) {
+				mButtonPanelBar.AddButton( new PanelBarButtonActionList( this, actions, et ) );
 			} else {
-				// all three buttons free
-				if (actions <= 3) {
-					if (actions > 0) {
-						final Action action = (Action) validActions.get(0);
-						btn01 = action.text;
-						btn01Click = new CustomDialog.OnClickListener() {
-							@Override
-							public boolean onClick(CustomDialog dialog, View v, int btn) {
-								ListActions.reset((Thing) et);
-								ListActions.callAction(action);
-								WigDetailsActivity.this.finish();
-								return true;
-							}
-						};
-					}
-					if (actions > 1) {
-						final Action action = (Action) validActions.get(1);
-						btn02 = action.text;
-						btn02Click = new CustomDialog.OnClickListener() {
-							@Override
-							public boolean onClick(CustomDialog dialog, View v, int btn) {
-								ListActions.reset((Thing) et);
-								ListActions.callAction(action);
-								WigDetailsActivity.this.finish();
-								return true;
-							}
-						};
-					}
-					if (actions > 2) {
-						final Action action = (Action) validActions.get(2);
-						btn03 = action.text;
-						btn03Click = new CustomDialog.OnClickListener() {
-							@Override
-							public boolean onClick(CustomDialog dialog, View v, int btn) {
-								ListActions.reset((Thing) et);
-								ListActions.callAction(action);
-								WigDetailsActivity.this.finish();
-								return true;
-							}
-						};
-					}
-				} else {
-					btn03 = "Actions (" + actions + ")";
-					btn03Click = new CustomDialog.OnClickListener() {
-						@Override
-						public boolean onClick(CustomDialog dialog, View v, int btn) {
-					    	ListActions.reset((Thing) et);
-					    	ScreenHelper.activateScreen(ScreenHelper.SCREEN_ACTIONS, et);
-					    	WigDetailsActivity.this.finish();
-					    	return true;
-						}
-					};
-				}
+				for ( int i=0; i<3 && i<actions; i++ ) {
+					mButtonPanelBar.AddButton( new PanelBarButtonAction( this, (Action) validActions.get(i), et ) );
+				}	
 			}
 		}
-		
-		// show bottom menu
-		CustomDialog.setBottom(this,
-				btn01, btn01Click,
-				btn02, btn02Click,
-				btn03, btn03Click);
 
 		// set title text
 		if (et instanceof Task) {
@@ -317,24 +232,6 @@ Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:"
 			tvState.setText(taskStates[t.state()]);
 		}
 	}
-
-	private Guide getTargetGuide() {
-	    if (et == null || !et.isLocated())
-	                return null;
-	        
-	    if (et instanceof Zone) {
-	            Zone z = ((Zone) et);
-	            return new ZoneGuide(z);
-	    } else {
-	            Location loc = new Location(TAG);
-	            loc.setLatitude(et.position.latitude);
-	            loc.setLongitude(et.position.longitude);
-	            return new WaypointGuide(et.name, loc);
-	    }
-	}	
-	
-
-	
 
 	public void onStart() {
 		super.onStart();
