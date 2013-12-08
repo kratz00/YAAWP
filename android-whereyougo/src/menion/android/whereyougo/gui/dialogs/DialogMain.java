@@ -1,6 +1,6 @@
 package menion.android.whereyougo.gui.dialogs;
 
-import menion.android.whereyougo.MainAfterStart;
+import org.yaawp.MainAfterStart;
 import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.preferences.Settings;

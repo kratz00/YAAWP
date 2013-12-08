@@ -21,7 +21,6 @@ package org.yaawp.hmi.activities;
 
 import java.io.File;
 
-import menion.android.whereyougo.MainAfterStart;
 import menion.android.whereyougo.gui.dialogs.DialogMain;
 import menion.android.whereyougo.gui.extension.CustomMain;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
@@ -37,6 +36,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.yaawp.MainAfterStart;
 import org.yaawp.MainApplication;
 import org.yaawp.R;
 import org.yaawp.YCartridge;

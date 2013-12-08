@@ -17,14 +17,13 @@ R.stringR.string  * This file is part of WhereYouGo.
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo;
+package org.yaawp;
 
 import menion.android.whereyougo.gui.extension.CustomMain;
 import menion.android.whereyougo.gui.extension.UtilsGUI;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
-import org.yaawp.MainApplication;
 import org.yaawp.R;
 import org.yaawp.preferences.Settings;
 import org.yaawp.utils.A;
