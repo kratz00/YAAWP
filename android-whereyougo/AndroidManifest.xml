@@ -109,7 +109,7 @@
 		    android:name="org.yaawp.maps.mapsforge.CartridgeMapActivity"
 		    android:screenOrientation="portrait" />		
 		<service android:name="menion.android.whereyougo.hardware.location.GpsConnectionService" />
-		<service android:name="menion.android.whereyougo.utils.audio.AudioPlayService" />
+		<service android:name="org.yaawp.audio.AudioPlayService" />
 		
 	</application>
 </manifest> 

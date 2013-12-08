@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.utils.audio;
+package org.yaawp.audio;
 
 import java.io.File;
 import java.io.FileOutputStream;

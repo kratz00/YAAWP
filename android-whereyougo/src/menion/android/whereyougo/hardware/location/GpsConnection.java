@@ -24,6 +24,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.yaawp.R;
+import org.yaawp.audio.UtilsAudio;
 import org.yaawp.extra.Location;
 import org.yaawp.preferences.PreferenceUtils;
 
@@ -31,7 +32,6 @@ import menion.android.whereyougo.gui.extension.UtilsGUI;
 import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.ManagerNotify;
-import menion.android.whereyougo.utils.audio.UtilsAudio;
 import android.content.Context;
 import android.location.GpsStatus;
 import android.location.LocationListener;

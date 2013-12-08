@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.utils.audio;
+package org.yaawp.audio;
 
 import menion.android.whereyougo.utils.Logger;
 import android.content.Context;
