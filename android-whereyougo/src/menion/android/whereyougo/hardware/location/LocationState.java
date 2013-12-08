@@ -32,7 +32,6 @@ import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.Utils;
-import menion.android.whereyougo.utils.geometry.Point2D;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -49,6 +48,7 @@ import android.widget.TextView;
 
 import org.yaawp.extra.Location;
 import org.yaawp.hmi.activities.SatelliteActivity;
+import org.yaawp.hmi.views.Point2D;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;

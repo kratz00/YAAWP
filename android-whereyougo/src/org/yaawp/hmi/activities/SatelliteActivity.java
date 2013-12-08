@@ -33,7 +33,6 @@ import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.ManagerNotify;
 import menion.android.whereyougo.utils.Utils;
 import menion.android.whereyougo.utils.UtilsFormat;
-import menion.android.whereyougo.utils.geometry.Point2D;
 import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.CompoundButton;
@@ -42,6 +41,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import org.yaawp.extra.Location;
+import org.yaawp.hmi.views.Point2D;
 import org.yaawp.hmi.views.Satellite2DView;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;

@@ -17,7 +17,7 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.utils.geometry;
+package org.yaawp.hmi.views;
 
 /**
  * This class implements a generic point in 2D Cartesian space. The storage
