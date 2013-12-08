@@ -77,4 +77,6 @@ public class Const {
 	public static final int TEXT_SIZE_MEDIUM = 1;
 	public static final int TEXT_SIZE_BIG = 2;
 	public static final int TEXT_SIZE_HUGE = 3;
+	
+	public static final int DOUBLE_PRESS_HK_BACK_PERIOD = 2000;
 }

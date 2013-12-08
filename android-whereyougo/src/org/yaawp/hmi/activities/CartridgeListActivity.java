@@ -29,8 +29,10 @@ import menion.android.whereyougo.gui.extension.UtilsGUI;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.FileSystem;
 import menion.android.whereyougo.utils.Logger;
+import menion.android.whereyougo.utils.ManagerNotify;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.view.ContextMenu;
 import android.view.ContextMenu.*;
@@ -47,6 +49,7 @@ import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -58,17 +61,12 @@ import java.util.Collections;
 import org.yaawp.utils.FileCollector.FileCollector;
 import org.yaawp.utils.FileCollector.FileCollectorListener;
 import org.yaawp.utils.FileCollector.Filter.FileCollectorCartridgeFilter;
-
+import android.widget.Toast;
 
 
 public class CartridgeListActivity extends CustomMain {
 
-	private static final String TAG = "Main";
-	
-
-	
-	// public static WUI wui = new WUI();
-		
+	private static final String TAG = "Main";	
 	public static CartridgeListAdapter adapter = null;
 	
     @Override
@@ -403,25 +401,6 @@ public class CartridgeListActivity extends CustomMain {
 		iv.setImageBitmap(i);
 	}
 	
-	/**
-	 * Call activity that guide onto point.
-	 * @param activity
-	 * @return true if internal activity was called. False if external by intent.
-	 */
-	// TODO Move from class 
-	/*
-	 * public static boolean callGudingScreen(Activity activity) {
-	
-		Intent intent = new Intent(activity, GuidingActivity.class);
-		activity.startActivity(intent);
-		return true;
-	} */
-
-	@Override
-	protected int getCloseValue() {
-		return CLOSE_DESTROY_APP_NO_DIALOG;
-	}
-
 	@Override
 	protected String getCloseAdditionalText() {
 		return null;
@@ -476,5 +455,24 @@ public class CartridgeListActivity extends CustomMain {
 	    	fc.startAsyncronCollecting();
     	}
     }
-   
+    
+    private long lastPressedTime;
+    
+    @Override
+    public boolean onKeyDown (int keyCode, KeyEvent event) {
+    	Log.i("CartridgeListActivity", "onKeyDown( KeyCode="+keyCode );
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            switch (event.getAction()) {
+            case KeyEvent.ACTION_DOWN:
+                if (event.getDownTime() - lastPressedTime < Const.DOUBLE_PRESS_HK_BACK_PERIOD) {
+                    finish();
+                } else {
+                	ManagerNotify.toastShortMessage(R.string.double_hk_back_exit_app);
+                    lastPressedTime = event.getEventTime();
+                }
+                return true;
+            }
+        }
+        return false;
+    }    
 }

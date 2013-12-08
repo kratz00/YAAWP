@@ -89,4 +89,7 @@
     <string name="save">Save</string>
     <string name="guidance_zone_entered">Zone entered</string>
     <string name="stop_navigate">Stop Guidance</string>
+    <string name="double_hk_back_exit_app">Press BACK twice to exit Yaawp</string>
+    <string name="double_hk_back_exit_guidance">Press BACK twice to stop navigation</string>
+    <string name="double_hk_back_exit_game">Press BACK twice to leave the game</string>
 </resources>
