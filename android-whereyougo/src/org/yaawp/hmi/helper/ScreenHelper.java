@@ -1,6 +1,7 @@
 package org.yaawp.hmi.helper;
 
 import org.yaawp.hmi.activities.CartridgeDetailsActivity;
+import org.yaawp.hmi.activities.CustomActivity;
 import org.yaawp.hmi.activities.WigDetailsActivity;
 import org.yaawp.hmi.activities.WigPushDialogActivity;
 import org.yaawp.hmi.activities.WigMainMenuActivity;
@@ -12,7 +13,6 @@ import menion.android.whereyougo.gui.ListTargets;
 import menion.android.whereyougo.gui.ListTasks;
 import menion.android.whereyougo.gui.ListThings;
 import menion.android.whereyougo.gui.ListZones;
-import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 import android.app.Activity;

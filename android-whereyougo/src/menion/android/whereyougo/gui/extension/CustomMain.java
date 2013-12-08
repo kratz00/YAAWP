@@ -44,6 +44,7 @@ import android.os.Debug;
 import android.os.StatFs;
 import android.view.KeyEvent;
 
+import org.yaawp.hmi.activities.CustomActivity;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.Settings;

@@ -17,9 +17,11 @@
   * Copyright (C) 2012 Menion <whereyougo@asamm.cz>
   */ 
 
-package menion.android.whereyougo.gui.extension;
+package org.yaawp.hmi.activities;
 
 
+import menion.android.whereyougo.gui.extension.CustomMain;
+import menion.android.whereyougo.gui.extension.MainApplication;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Logger;

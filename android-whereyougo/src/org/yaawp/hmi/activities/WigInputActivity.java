@@ -22,7 +22,6 @@ package org.yaawp.hmi.activities;
 import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
 
-import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.utils.Images;
 import menion.android.whereyougo.utils.Logger;

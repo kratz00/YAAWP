@@ -32,7 +32,6 @@ import org.yaawp.openwig.Refreshable;
 import org.yaawp.openwig.WUI;
 
 import menion.android.whereyougo.gui.dialogs.DialogMain;
-import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.gui.extension.DataInfo;
 import menion.android.whereyougo.gui.extension.IconedListAdapter;

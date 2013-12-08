@@ -22,7 +22,6 @@ package org.yaawp.hmi.activities;
 import java.util.ArrayList;
 
 import org.yaawp.R;
-import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.gui.extension.CustomDialog;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;

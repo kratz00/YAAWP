@@ -25,7 +25,6 @@ import java.util.Vector;
 import org.yaawp.R;
 
 import menion.android.whereyougo.gui.ListActions;
-import menion.android.whereyougo.gui.extension.CustomActivity;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
