@@ -9,11 +9,11 @@ import org.yaawp.extra.Location;
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.preferences.PreferenceItems;
 import org.yaawp.preferences.PreferenceValues;
+import org.yaawp.preferences.Settings;
 
 import android.net.Uri;
 
 import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Logger;
 

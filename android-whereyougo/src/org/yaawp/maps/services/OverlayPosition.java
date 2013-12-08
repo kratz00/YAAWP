@@ -1,6 +1,8 @@
 package org.yaawp.maps.services;
 
 import org.yaawp.extra.Location;
+import org.yaawp.preferences.Settings;
+
 import menion.android.whereyougo.hardware.location.LocationState;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -12,7 +14,6 @@ import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Point;
 import org.yaawp.R;
-import menion.android.whereyougo.settings.Settings;
 
 
 

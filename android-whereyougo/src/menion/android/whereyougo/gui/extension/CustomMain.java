@@ -25,7 +25,6 @@ import java.io.StringReader;
 
 import org.yaawp.R;
 import menion.android.whereyougo.hardware.location.LocationState;
-import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.FileSystem;
 import menion.android.whereyougo.utils.Logger;
@@ -47,6 +46,7 @@ import android.view.KeyEvent;
 
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.preferences.PreferenceFunc;
+import org.yaawp.preferences.Settings;
 
 public abstract class CustomMain extends CustomActivity {
 

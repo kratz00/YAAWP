@@ -28,7 +28,6 @@ import java.util.Iterator;
 
 import org.yaawp.R;
 import menion.android.whereyougo.gui.extension.MainApplication;
-import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Const;
 import menion.android.whereyougo.utils.Logger;
@@ -52,6 +51,7 @@ import org.yaawp.extra.Location;
 import org.yaawp.hmi.activities.SatelliteActivity;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
+import org.yaawp.preferences.Settings;
 
 /**
  * @author menion

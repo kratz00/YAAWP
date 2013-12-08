@@ -27,9 +27,9 @@ import org.yaawp.R;
 import org.yaawp.audio.UtilsAudio;
 import org.yaawp.extra.Location;
 import org.yaawp.preferences.PreferenceUtils;
+import org.yaawp.preferences.Settings;
 
 import menion.android.whereyougo.gui.extension.UtilsGUI;
-import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.Logger;
 import menion.android.whereyougo.utils.ManagerNotify;
 import android.content.Context;

@@ -19,7 +19,6 @@
 
 package menion.android.whereyougo.gui.extension;
 
-import menion.android.whereyougo.settings.Settings;
 
 import menion.android.whereyougo.utils.A;
 import menion.android.whereyougo.utils.Const;
@@ -31,6 +30,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import org.yaawp.preferences.PreferenceFunc;
+import org.yaawp.preferences.Settings;
+
 import java.lang.System;
 
 public class CustomActivity extends FragmentActivity {

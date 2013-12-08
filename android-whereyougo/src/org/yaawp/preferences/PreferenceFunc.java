@@ -11,7 +11,6 @@ import android.content.Context;
 import android.os.PowerManager;
 import android.view.WindowManager;
 
-import menion.android.whereyougo.settings.Settings;
 
 public class PreferenceFunc {
 	

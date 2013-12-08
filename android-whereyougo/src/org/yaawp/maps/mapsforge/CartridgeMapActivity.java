@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import menion.android.whereyougo.hardware.location.LocationEventListener;
 import menion.android.whereyougo.hardware.location.LocationState;
 import menion.android.whereyougo.hardware.location.SatellitePosition;
-import menion.android.whereyougo.settings.Settings;
 import menion.android.whereyougo.utils.A;
 
 import org.mapsforge.android.maps.MapActivity;
@@ -24,6 +23,7 @@ import org.yaawp.guidance.interfaces.GuidingListener;
 import menion.android.whereyougo.hardware.sensors.OrientationListener;
 import menion.android.whereyougo.gui.Refreshable;
 import org.yaawp.maps.services.Overlays;
+import org.yaawp.preferences.Settings;
 
 public class CartridgeMapActivity extends MapActivity implements LocationEventListener, OrientationListener, Refreshable, GuidingListener  {
 

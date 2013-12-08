@@ -21,8 +21,8 @@ package menion.android.whereyougo.utils;
 
 import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
+import org.yaawp.preferences.Settings;
 
-import menion.android.whereyougo.settings.Settings;
 import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
