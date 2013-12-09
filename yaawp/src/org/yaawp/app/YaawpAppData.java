@@ -35,4 +35,8 @@ public class YaawpAppData {
 	public boolean mRefreshCartridgeList;
 	
 	public WUI mWui;
+	
+	public boolean mFileSystemCheck = false;
+	
+	public boolean mFileSystemSpace = false;
 }
