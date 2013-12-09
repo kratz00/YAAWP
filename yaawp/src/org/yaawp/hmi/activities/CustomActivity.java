@@ -29,7 +29,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.yaawp.MainApplication;
-import org.yaawp.hmi.gui.extension.CustomMain;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.Settings;
 import org.yaawp.utils.A;
@@ -56,10 +55,13 @@ public class CustomActivity extends FragmentActivity {
 	protected static void customOnCreate(Activity activity) {
 		//Logger.v(activity.getLocalClassName(), "customOnCreate(), id:" + activity.hashCode());
 		// set main activity parameters
-		if (!(activity instanceof CustomMain)) {
+		/*
+		 * if (!(activity instanceof CustomMain)) {
+		 
 			//	Settings.setLanguage(this);
 			Settings.setScreenBasic(activity);
 		}
+		*/
 
 		// set screen size
 		Const.SCREEN_WIDTH = activity.getWindowManager().getDefaultDisplay().getWidth();

@@ -23,7 +23,7 @@ package org.yaawp.utils;
 import org.yaawp.MainApplication;
 import org.yaawp.audio.ManagerAudio;
 import org.yaawp.guidance.GuidingContent;
-import org.yaawp.hmi.gui.extension.CustomMain;
+import org.yaawp.hmi.activities.CustomActivity;
 import org.yaawp.positioning.Orientation;
 
 import android.app.Application;
@@ -38,7 +38,7 @@ public class A {
 	private static String TAG = "A";
 
 	private static MainApplication app;
-	protected static CustomMain main;
+	protected static CustomActivity main;
 	private static GuidingContent guidingContent;
 	private static ManagerAudio managerAudio;
 	private static Orientation rotator;
@@ -70,7 +70,7 @@ public class A {
 		A.app = app;
 	}
 	
-	public static void registerMain(CustomMain main) {
+	public static void registerMain(CustomActivity main) {
 		A.main = main;
 	}
 	
@@ -81,7 +81,7 @@ public class A {
 		return app;
 	}
 	
-	public static CustomMain getMain() {
+	public static CustomActivity getMain() {
 		return main;
 	}
 	

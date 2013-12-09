@@ -24,7 +24,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 import org.yaawp.R;
-import org.yaawp.hmi.gui.extension.CustomMain;
 import org.yaawp.hmi.gui.extension.UtilsGUI;
 import org.yaawp.preferences.Settings;
 import org.yaawp.utils.A;
@@ -79,13 +78,13 @@ public class MainAfterStart {
     public static String getNews(int lastVersion, int actualVersion) {
    		String newsInfo = "";
     	
-   		if (lastVersion == 0) {
+   		// TODO if (lastVersion == 0) {
    			newsInfo += "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /></head><body>";
    			newsInfo += AssetHelper.loadAssetString(Settings.getLanguageCode() + "_first.html");
            	newsInfo += "</body></html>";
-        } else {
-        	newsInfo = CustomMain.getNewsFromTo(lastVersion, actualVersion);
-        }
+        // } else {
+        	// TODO newsInfo = MainApplication.getNewsFromTo(lastVersion, actualVersion);
+        // }
 
    		return newsInfo;
     }

@@ -21,7 +21,10 @@
 package org.yaawp.hmi.activities;
 
 import java.io.File;
+import java.io.StringReader;
 
+import android.Manifest;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -34,19 +37,23 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.yaawp.MainAfterStart;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 import org.yaawp.MainApplication;
 import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.gui.dialogs.DialogMain;
-import org.yaawp.hmi.gui.extension.CustomMain;
 import org.yaawp.hmi.gui.extension.UtilsGUI;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
+import org.yaawp.positioning.LocationState;
+import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
+import org.yaawp.preferences.Settings;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
 
 import android.os.Bundle;
+import android.os.Debug;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,17 +63,20 @@ import org.yaawp.hmi.adapter.*;
 
 import java.util.Collections;
 
+import org.yaawp.utils.A;
+import org.yaawp.utils.AssetHelper;
 import org.yaawp.utils.Const;
 import org.yaawp.utils.FileSystem;
 import org.yaawp.utils.Logger;
 import org.yaawp.utils.ManagerNotify;
+import org.yaawp.utils.Utils;
 import org.yaawp.utils.FileCollector.FileCollector;
 import org.yaawp.utils.FileCollector.FileCollectorListener;
 import org.yaawp.utils.FileCollector.Filter.FileCollectorCartridgeFilter;
-import android.widget.Toast;
 
 
-public class CartridgeListActivity extends CustomMain {
+
+public class CartridgeListActivity extends CustomActivity {
 
 	private static final String TAG = "Main";	
 	public static CartridgeListAdapter adapter = null;
@@ -74,8 +84,73 @@ public class CartridgeListActivity extends CustomMain {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initCartridgeList();
+        
+        A.registerMain(this);
+
+        // callSecondInit = false;
+        // callRegisterOnly = false;
+        // if (A.getApp() == null) { // first app run
+//Logger.w(TAG, "onCreate() - init new");
+
+    	// not test some things
+        // if ( && ) {
+	        // set last known location
+
+
+    	// TODO eventFirstInit();
+    	Settings.setScreenBasic(this);
+
+    	
+		setContentView(R.layout.layout_main);
+
+		// set title
+		((TextView) findViewById(R.id.title_text)).setText(
+				MainApplication.APP_NAME);
+	   	
+		
+    	// call after start actions here
+        // TODO MainAfterStart.afterStartAction();
+		initCartridgeList();
     }
+    
+    @Override
+    public void onDestroy() {
+		// stop debug if any forgotten
+		Debug.stopMethodTracing();
+		
+		// remember value before A.getApp() exist
+		boolean clearPackageAllowed = Utils.isPermissionAllowed(Manifest.permission.KILL_BACKGROUND_PROCESSES); 
+
+		// disable highlight
+		PreferenceFunc.disableWakeLock();
+		// save last known location
+		Settings.setLastKnownLocation();
+		// disable GPS modul
+		LocationState.destroy(this);
+
+		// destroy static references
+		A.destroy();
+		// call native destroy
+		super.onDestroy();
+
+		// remove app from memory			
+		if (clearPackageAllowed) {
+	    	new Thread(new Runnable() {
+				public void run() {
+					try {
+						ActivityManager aM = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+
+						Thread.sleep(1250);
+						aM.killBackgroundProcesses(getPackageName());
+					} catch (Exception e) {
+						Logger.e(TAG, "clearPackageFromMemory()", e);
+					}
+				}
+			}).start();
+		}
+
+
+    }    
     
     private void Append( Vector<CartridgeListAdapterItem> first, Vector<CartridgeListAdapterItem> second ) {
     	for ( int i=0; i<second.size(); i++ ) {
@@ -85,6 +160,14 @@ public class CartridgeListActivity extends CustomMain {
     
     public void updateCartridgeList() {
         
+    	// TODO added warnings, notes and errors
+		if ( YaawpAppData.GetInstance().mFileSystemCheck == false ) {
+			
+		}
+		if ( YaawpAppData.GetInstance().mFileSystemSpace == false ) {
+			
+		}
+    	
     	if ( !YaawpAppData.GetInstance().mRefreshCartridgeList ) {
     	 	return;
     	}
@@ -286,28 +369,7 @@ public class CartridgeListActivity extends CustomMain {
         CartridgeListAdapterItem itemX = YaawpAppData.GetInstance().mData.get(position);    
         itemX.onListItemClicked( this );
     }
-    
-
-	@Override
-	protected void eventFirstInit() {
-    	// call after start actions here
-        MainAfterStart.afterStartAction();
-    }
-	
-	@Override
-	protected void eventSecondInit() {
-	}
-
-	
-	@Override
-	protected void eventCreateLayout() {
-		setContentView(R.layout.layout_main);
-
-		// set title
-		((TextView) findViewById(R.id.title_text)).setText(
-				MainApplication.APP_NAME);
-	}
-	
+    		
     // Initiating Menu XML file (menu.xml)
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -374,10 +436,6 @@ public class CartridgeListActivity extends CustomMain {
         return status;
     }        
     
-    @Override
-	protected void eventDestroyApp() {
-	}
-	
 	@Override
     public void onResume() {
     	super.onResume();
@@ -402,14 +460,13 @@ public class CartridgeListActivity extends CustomMain {
 		iv.setMinimumHeight((int) height);
 		iv.setImageBitmap(i);
 	}
-	
-	@Override
-	protected void eventRegisterOnly() {
-	}
-	
-	
+		
     public void fetchCartridgeFiles() {
 
+		if ( YaawpAppData.GetInstance().mFileSystemCheck == true && 
+				 YaawpAppData.GetInstance().mFileSystemSpace == true) {
+				  	
+    	
     	if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
     	   	updateCartridgeList();
     	} else {
@@ -451,6 +508,10 @@ public class CartridgeListActivity extends CustomMain {
 	    	YaawpAppData.GetInstance().mCartridges.clear();
 	    	fc.startAsyncronCollecting();
     	}
+		} else {
+			updateCartridgeList();
+		}
+		
     }
     
     private long lastPressedTime;
@@ -471,5 +532,64 @@ public class CartridgeListActivity extends CustomMain {
             }
         }
         return false;
+    }  
+    
+    // MainAfterStart
+    public static String getNewsFromTo(int lastVersion, int actualVersion) {
+//Logger.d(TAG, "getNewsFromTo(" + lastVersion + ", " + actualVersion + "), file:" + 
+//		"news_" + (Const.isPro() ? "pro" : "free") + ".xml");
+   		String versionInfo = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /></head><body>";
+      	String data = AssetHelper.loadAssetString("news.xml");
+      	if (data == null || data.length() == 0)
+      		data = AssetHelper.loadAssetString("news.xml");
+    	if (data != null && data.length() > 0) {
+            XmlPullParser parser;
+            try {
+            	XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            	parser = factory.newPullParser();
+            	parser.setInput(new StringReader(data));
+
+            	int event;
+                String tagName;
+
+                boolean correct = false;
+                while (true) {
+                    event = parser.nextToken();
+                    if (event == XmlPullParser.START_TAG) {
+                        tagName = parser.getName();
+                        if (tagName.equalsIgnoreCase("update")) {
+                        	String name = parser.getAttributeValue(null, "name");
+                        	int id = Utils.parseInt(parser.getAttributeValue(null, "id"));
+                        	if (id > lastVersion && id <= actualVersion) {
+                        		correct = true;
+                        		versionInfo += ("<h4>" + name + "</h4><ul>");
+                        	} else {
+                        		correct = false;
+                        	}
+                        } else if (tagName.equalsIgnoreCase("li")) {
+                        	if (correct) {
+                        		versionInfo += ("<li>" + parser.nextText() + "</li>");
+                        	}
+                        }
+                    } else if (event == XmlPullParser.END_TAG) {
+                    	tagName = parser.getName();
+                        if (tagName.equalsIgnoreCase("update")) {
+                        	if (correct) {
+                        		correct = false;
+                        		versionInfo += "</ul>";
+                        	}
+                        } else if (tagName.equals("document")) {
+                        	break;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+            	Logger.e(TAG, "getNews()", e);
+            }
+    	}
+   		
+		versionInfo += "</body></html>";
+    	return versionInfo;
     }    
 }
+    
