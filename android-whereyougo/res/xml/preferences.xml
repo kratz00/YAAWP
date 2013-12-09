@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-	src\menion\android\whereyougo\gui\SettingScreens.java (GUI)
-	src\menion\android\whereyougo\settings\SettingItems.java  (GUI)
-	? src\menion\android\whereyougo\settings\Settings.java 
-	? src\menion\android\whereyougo\settings\SettingValues.java
-	? src\menion\android\whereyougo\settings\UtilsSettings.java
--->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:yaawp="http://schemas.android.com/apk/res/org.yaawp"
     android:key="@string/pref_fakekey_main_screen" >
