@@ -201,7 +201,6 @@ public abstract class CustomMain extends CustomActivity {
     public static final int FINISH_RESTART = 2;
     public static final int FINISH_RESTART_FORCE = 3;
     public static final int FINISH_RESTART_FACTORY_RESET = 4;
-    public static final int FINISH_REINSTALL = 5;
     
     private boolean finish = false;
     protected int finishType = FINISH_NONE;
@@ -220,7 +219,6 @@ public abstract class CustomMain extends CustomActivity {
 		    	boolean cancelable = (
 		    			finishType == FINISH_RESTART_FORCE ||
 		    			finishType == FINISH_RESTART_FACTORY_RESET ||
-		    			finishType == FINISH_REINSTALL ||
 		    			finishType == FINISH_EXIT_FORCE) ? false : true; 
 		    	switch (finishType) {
 		    	case FINISH_EXIT:
@@ -241,11 +239,7 @@ public abstract class CustomMain extends CustomActivity {
 					title = I18N.get(R.string.info);
 					message = I18N.get(R.string.you_have_to_restart_app_force);
 					break;
-				case FINISH_REINSTALL:
-					title = I18N.get(R.string.info);
-					message = I18N.get(R.string.new_version_will_be_installed);
-					break;
-				}
+		    	}
 		    	
 		    	AlertDialog.Builder b = new AlertDialog.Builder(CustomMain.this);
 		    	b.setCancelable(cancelable);
@@ -269,14 +263,7 @@ public abstract class CustomMain extends CustomActivity {
 //				    		alarmMgr.set(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis() + 3000, pi); 
 		    				finish = true;
 		    				CustomMain.this.finish();
-		    			} else if (finishType == FINISH_REINSTALL) {
-		    				Intent intent = new Intent();
-		    				intent.setAction(android.content.Intent.ACTION_VIEW);
-		    				intent.setDataAndType(Uri.fromFile(new File(FileSystem.ROOT + "smartmaps.apk")), "application/vnd.android.package-archive");
-		    				
-		    				startActivity(intent); 
-		    				showDialogFinish(FINISH_EXIT_FORCE);
-		    			}
+		    			} 
 		    		}
 		    	});
 		    	if (cancelable) {
