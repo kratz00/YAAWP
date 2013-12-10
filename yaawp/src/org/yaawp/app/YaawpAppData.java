@@ -11,7 +11,6 @@ public class YaawpAppData {
 	
 	private YaawpAppData() {
 		mCartridges = new Vector<YCartridge>();
-		mData = new Vector<AbstractListItem>();
 		mCurrentCartridge = null;
 		mRefreshCartridgeList = true;
 		mWui = new WUI();
@@ -27,8 +26,6 @@ public class YaawpAppData {
 	/* ---------------------------------- */
 		
 	public Vector<YCartridge> mCartridges;
-	
-	public Vector<AbstractListItem> mData;
 	
 	public YCartridge mCurrentCartridge;
 	

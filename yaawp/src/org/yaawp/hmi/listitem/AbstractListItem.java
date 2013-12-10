@@ -44,7 +44,7 @@ public abstract class AbstractListItem {
         return true;
 	}
 	
-	public boolean onContextItemSelected( Activity activity, MenuItem item, int index ) {
+	public boolean onContextItemSelected( Activity activity, int index ) {
 		return false;
 	}
 	

@@ -242,10 +242,7 @@ public class CartridgeListActivity extends CustomActivity {
 		/* --------------------------------------------- */
 		
     	if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
-    		addedCartridgeItems();
-    		// TODO change it
-    		Vector<AbstractListItem> data = YaawpAppData.GetInstance().mData;
-    		adapter.AddItems( data );
+    		adapter.AddItems( addedCartridgeItems() );
     	} else {
     		ListItem3ButtonsHint item = new ListItem3ButtonsHint( "Note" /* TODO I18N */,
     				I18N.get(R.string.no_wherigo_cartridge_available,"<i>"+FileSystem.ROOT+"</i>", MainApplication.APP_NAME)); 
@@ -268,9 +265,9 @@ public class CartridgeListActivity extends CustomActivity {
         );     	
     }
     
-    private void addedCartridgeItems() {
+    private Vector<AbstractListItem> addedCartridgeItems() {
 	  
-    	Vector<AbstractListItem> data = YaawpAppData.GetInstance().mData;
+    	Vector<AbstractListItem> data = new Vector<AbstractListItem>();
     	data.clear();
     	
     	CartridgeListAdapterItemComparator comparator1 = null;
@@ -375,7 +372,7 @@ public class CartridgeListActivity extends CustomActivity {
         	}    		
     	}   
 
-   	
+    	return data;
     }
     
     class CartridgeCollectorListener implements FileCollectorListener {
@@ -416,11 +413,14 @@ public class CartridgeListActivity extends CustomActivity {
     	
     	final ListView listview = (ListView) findViewById(R.id.listView1); 
     	
+    	
+    	
         // set click listener
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                onListItemClicked(position);
+            	ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
+            	xadapter.onListItemClicked( CartridgeListActivity.this, position );
             }
         }); 
         
@@ -430,8 +430,8 @@ public class CartridgeListActivity extends CustomActivity {
                 
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
                     
-                AbstractListItem item = YaawpAppData.GetInstance().mData.get(info.position);
-                item.createContextMenu( CartridgeListActivity.this, menu );
+                ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
+                xadapter.createContextMenu( CartridgeListActivity.this, info.position, menu );
             }
         } ); 
         
@@ -442,17 +442,18 @@ public class CartridgeListActivity extends CustomActivity {
     public boolean onContextItemSelected( MenuItem item ) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         int index = item.getItemId();
-               
-        AbstractListItem itemX = YaawpAppData.GetInstance().mData.get(info.position);  
-        boolean status = itemX.onContextItemSelected( this, item, index );
+        
+        final ListView listview = (ListView) findViewById(R.id.listView1); 
+        ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
+        boolean status = xadapter.onContextItemSelected( CartridgeListActivity.this, info.position, index );
+        
+        // AbstractListItem itemX = YaawpAppData.GetInstance().mData.get(info.position);  
+        // boolean status = itemX.onContextItemSelected( this, item, index );
 
         return status;
     }
             
-    private void onListItemClicked(int position) {       
-        AbstractListItem itemX = YaawpAppData.GetInstance().mData.get(position);    
-        itemX.onListItemClicked( this );
-    }
+
     		
     // Initiating Menu XML file (menu.xml)
     @Override

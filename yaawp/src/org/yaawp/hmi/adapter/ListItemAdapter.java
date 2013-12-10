@@ -2,6 +2,8 @@ package org.yaawp.hmi.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,8 +12,10 @@ import android.widget.LinearLayout;
 import java.util.Vector;
 
 import org.yaawp.R;
+import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.listitem.AbstractListItem;
 import org.yaawp.utils.Utils;
+import android.app.Activity;
 
 public class ListItemAdapter extends BaseAdapter {
 
@@ -20,7 +24,7 @@ public class ListItemAdapter extends BaseAdapter {
     
     /* min height for line */
     private int minHeight = Integer.MIN_VALUE;
-	private Vector<AbstractListItem> mListItems; 
+	private Vector<AbstractListItem> mListItems = null; 
     
     private Context mContext;
        
@@ -41,6 +45,20 @@ public class ListItemAdapter extends BaseAdapter {
     		mListItems.add( items.get(i) );
     	}    		
 	}
+	
+	
+	public boolean createContextMenu( Activity activity, int position, ContextMenu menu ) {       
+        return mListItems.get(position).createContextMenu( activity, menu );
+	}
+
+	public boolean onContextItemSelected( Activity activity, int position, int index ) {
+		return mListItems.get(position).onContextItemSelected(activity,index);
+	}	
+
+	
+    public void onListItemClicked( Activity activity, int position) {       
+        mListItems.get(position).onListItemClicked(activity);
+    }
 	
 	/* --- methods of BaseAdapter --- */
 	

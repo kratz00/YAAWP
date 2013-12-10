@@ -52,6 +52,7 @@ public class ListItemCartridge extends AbstractListItem {
     	mCartridge = cartridge;
     }
     
+    @Override
     public void layout( Context context, View view  ) {
 			
 		try {
@@ -164,6 +165,7 @@ public class ListItemCartridge extends AbstractListItem {
 		// return view;
 	}
 	
+    @Override
 	public boolean createContextMenu( Activity activity, ContextMenu menu ) {
         YCartridge cartridge = mCartridge;
         menu.setHeaderTitle( cartridge.getName() );
@@ -196,7 +198,8 @@ public class ListItemCartridge extends AbstractListItem {
         return true;
 	}
 	
-	public boolean onContextItemSelected( Activity activity, MenuItem item, int index ) {
+	@Override
+	public boolean onContextItemSelected( Activity activity, int index ) {
         YCartridge cartridge = mCartridge;   
         
         switch( index )
@@ -247,6 +250,7 @@ public class ListItemCartridge extends AbstractListItem {
         return true;
 	}
 	
+	@Override
     public void onListItemClicked( Activity activity ) {           	
         onListItemClicked( activity, mCartridge );
     }
