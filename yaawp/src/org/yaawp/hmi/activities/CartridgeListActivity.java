@@ -50,7 +50,7 @@ import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.listitem.AbstractListItem;
 import org.yaawp.hmi.listitem.ListItemCartridge;
 import org.yaawp.hmi.listitem.ListItemHeader;
-import org.yaawp.hmi.listitem.ListItemHint;
+import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceFunc;
@@ -211,7 +211,7 @@ public class CartridgeListActivity extends CustomActivity {
 		/* --------------------------------------------- */
 
     	if ( LocationState.isActuallyHardwareGpsOn() == false ) {
-    		ListItemHint item = new ListItemHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
+    		ListItem3ButtonsHint item = new ListItem3ButtonsHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
     				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view." ) ;
     		
     		item.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
@@ -247,7 +247,7 @@ public class CartridgeListActivity extends CustomActivity {
     		Vector<AbstractListItem> data = YaawpAppData.GetInstance().mData;
     		adapter.AddItems( data );
     	} else {
-    		ListItemHint item = new ListItemHint( "Note" /* TODO I18N */,
+    		ListItem3ButtonsHint item = new ListItem3ButtonsHint( "Note" /* TODO I18N */,
     				I18N.get(R.string.no_wherigo_cartridge_available,"<i>"+FileSystem.ROOT+"</i>", MainApplication.APP_NAME)); 
     		
     		adapter.AddItem( item );

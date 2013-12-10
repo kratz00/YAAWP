@@ -19,7 +19,7 @@ import android.widget.TextView;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 
-public class ListItemHint extends AbstractListItem {
+public class ListItem3ButtonsHint extends AbstractListItem {
 
 	private static String TAG = "CartridgeListAdapterItemCartridge";
     
@@ -36,7 +36,7 @@ public class ListItemHint extends AbstractListItem {
     protected ThreeButtonPanelBar mButtonPanelBar = null;
     private Vector<PanelBarButton> mButtons = new Vector<PanelBarButton>();
     
-    public ListItemHint( String title, String body ) {
+    public ListItem3ButtonsHint( String title, String body ) {
     	super( R.layout.list_adapter_hint );
     	mTitle = title;
     	mBody = body;
@@ -61,7 +61,7 @@ public class ListItemHint extends AbstractListItem {
 		img.setOnClickListener(new View.OnClickListener() {
 		    public void onClick(View v) {
 		    	mValid = false;
-		    	ListItemHint.this.notifyDataSetChanged();
+		    	ListItem3ButtonsHint.this.notifyDataSetChanged();
 		    }
 		});		
 		
