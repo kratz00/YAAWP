@@ -3,6 +3,8 @@ package org.yaawp.hmi.adapter;
 import java.util.Comparator;
 
 import org.yaawp.YCartridge;
+import org.yaawp.hmi.listitem.AbstractListItem;
+import org.yaawp.hmi.listitem.ListItemCartridge;
 
 public class CartridgeListAdapterItemComparator implements Comparator<AbstractListItem> {
 

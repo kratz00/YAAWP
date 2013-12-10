@@ -1,4 +1,4 @@
-package org.yaawp.hmi.adapter;
+package org.yaawp.hmi.listitem;
 
 import java.io.File;
 

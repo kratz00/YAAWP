@@ -1,4 +1,4 @@
-package org.yaawp.hmi.adapter;
+package org.yaawp.hmi.listitem;
 
 import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;

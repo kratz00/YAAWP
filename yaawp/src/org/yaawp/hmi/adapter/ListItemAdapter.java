@@ -7,6 +7,9 @@ import android.widget.BaseAdapter;
 
 import java.util.Vector;
 
+import org.yaawp.hmi.listitem.AbstractListItem;
+
+
 /*
  * CartridgeListAdapter
  * CartridgeListAdapterItem

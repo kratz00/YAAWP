@@ -1,4 +1,4 @@
-package org.yaawp.hmi.adapter;
+package org.yaawp.hmi.listitem;
 
 import org.yaawp.R;
 
@@ -20,7 +20,7 @@ public abstract class AbstractListItem {
 		mLayoutId = layoutId;
 	}
 	
-	protected View inflate( Context context ) {
+	public View inflate( Context context ) {
 		return (LinearLayout) LinearLayout.inflate( context, mLayoutId , null );
 	}
 	

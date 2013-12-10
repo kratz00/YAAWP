@@ -47,13 +47,15 @@ import org.yaawp.hmi.gui.dialogs.DialogMain;
 import org.yaawp.hmi.gui.extension.UtilsGUI;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
+import org.yaawp.hmi.listitem.AbstractListItem;
+import org.yaawp.hmi.listitem.ListItemCartridge;
+import org.yaawp.hmi.listitem.ListItemHeader;
+import org.yaawp.hmi.listitem.ListItemHint;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
-import org.yaawp.hmi.adapter.ListItemAdapter;
-import org.yaawp.hmi.adapter.ListItemHint;
 
 import android.os.Bundle;
 import android.os.Debug;
