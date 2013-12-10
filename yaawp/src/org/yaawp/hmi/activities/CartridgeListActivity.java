@@ -45,12 +45,15 @@ import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.gui.dialogs.DialogMain;
 import org.yaawp.hmi.gui.extension.UtilsGUI;
+import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
 import org.yaawp.hmi.adapter.CartridgeListAdapter;
+import org.yaawp.hmi.adapter.CartridgeListAdapterItemHint;
 
 import android.os.Bundle;
 import android.os.Debug;
@@ -172,9 +175,96 @@ public class CartridgeListActivity extends CustomActivity {
     	 	return;
     	}
     		
-    	YaawpAppData.GetInstance().mRefreshCartridgeList = false;
+    	// YaawpAppData.GetInstance().mRefreshCartridgeList = false;
     	
-    	final ListView listview = (ListView) findViewById(R.id.listView1); 
+    	/* --------------------------------------------- */
+    	
+    	Vector<CartridgeListAdapterItem> data = YaawpAppData.GetInstance().mData;
+    	data.clear();    	
+    	
+    	/* --------------------------------------------- */
+    	
+    	/*
+    	String newsInfo = "";
+		newsInfo += "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /></head><body>";
+		newsInfo += AssetHelper.loadAssetString(Settings.getLanguageCode() + "_first.html");
+       	newsInfo += "</body></html>";    	
+    	
+		data.add( new CartridgeListAdapterItemWarning( MainApplication.APP_NAME, newsInfo ) );
+		*/
+    	
+    	/* --------------------------------------------- */
+    	
+		/*
+		int lastVersion = Settings.getApplicationVersionLast();
+		final int actualVersion = Settings.getApplicationVersionActual();
+		String news = getNewsFromTo(0, actualVersion);
+		if (news != null && news.length() > 0) {		
+			Settings.setApplicationVersionLast(actualVersion);
+			data.add( new CartridgeListAdapterItemWarning( MainApplication.APP_NAME, news ) );
+		}
+		*/
+		/* --------------------------------------------- */
+
+    	if ( LocationState.isActuallyHardwareGpsOn() == false ) {
+    		CartridgeListAdapterItemHint item = new CartridgeListAdapterItemHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
+    				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view." ) ;
+    		
+    		item.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
+					new PanelBarButton.OnClickListener() {
+						@Override
+						public boolean onClick() {
+							LocationState.setGpsOn(CartridgeListActivity.this);
+							CartridgeListActivity.this.updateCartridgeList();
+							return true;
+						}
+					}
+				));    		
+
+    		item.AddButton( new PanelBarButton( I18N.get(R.string.positioning), 
+					new PanelBarButton.OnClickListener() {
+						@Override
+						public boolean onClick() {
+			                Intent intent02 = new Intent(CartridgeListActivity.this, SatelliteActivity.class);
+			                startActivity(intent02);
+							return true;
+						}
+					}
+				)); 
+    		
+    		data.add( item );
+    	}
+    	
+		/* --------------------------------------------- */
+		
+    	if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
+    		addedCartridgeItems();
+    	} else {
+    		CartridgeListAdapterItemHint item = new CartridgeListAdapterItemHint( "Note" /* TODO I18N */,
+    				I18N.get(R.string.no_wherigo_cartridge_available,"<i>"+FileSystem.ROOT+"</i>", MainApplication.APP_NAME)); 
+    		
+    		data.add( item );
+    	}
+    	/* --------------------------------------------- */
+    	
+    	// Vector<CartridgeListAdapterItem> data = YaawpAppData.GetInstance().mData;
+    	
+    	/* --------------------------------------------- */
+    	adapter = new CartridgeListAdapter( this, data, null );    
+  
+        runOnUiThread( new Runnable() {
+                public void run() {
+                	final ListView listview = (ListView) findViewById(R.id.listView1); 
+                    listview.setAdapter( adapter );
+                }
+            }
+        );     	
+    }
+    
+    private void addedCartridgeItems() {
+	  
+    	Vector<CartridgeListAdapterItem> data = YaawpAppData.GetInstance().mData;
+    	
     	
     	CartridgeListAdapterItemComparator comparator1 = null;
     	CartridgeListAdapterItemComparator comparator2 = null;
@@ -213,13 +303,15 @@ public class CartridgeListActivity extends CustomActivity {
 		
     	
     	
-    	Vector<CartridgeListAdapterItem> data = YaawpAppData.GetInstance().mData;
-    	data.clear();
+
+
     	
+    	/*
     	if ( YaawpAppData.GetInstance().mCurrentCartridge != null  ) {
         	data.add( new CartridgeListAdapterItemHeader("Last game","") );
         	data.add( new CartridgeListAdapterItemCartridge( YaawpAppData.GetInstance().mCurrentCartridge ) );   		
     	}
+    	*/
     	
     	/* --------------------------------------------- */
     	
@@ -276,16 +368,7 @@ public class CartridgeListActivity extends CustomActivity {
         	}    		
     	}   
 
-    	/* --------------------------------------------- */
-    	
-        adapter = new CartridgeListAdapter( this, data, null );    
-  
-        runOnUiThread( new Runnable() {
-                public void run() {
-                    listview.setAdapter( adapter );
-                }
-            }
-        );    	
+   	
     }
     
     class CartridgeCollectorListener implements FileCollectorListener {
@@ -299,12 +382,6 @@ public class CartridgeListActivity extends CustomActivity {
 	    	YaawpAppData.GetInstance().mRefreshCartridgeList = true;
 	    	updateCartridgeList();
 			ProgressDialogHelper.Hide();
-			
-			if ( YaawpAppData.GetInstance().mCartridges.size() <= 0 ) {
-	            UtilsGUI.showDialogInfo(CartridgeListActivity.this, 
-	                    getString(R.string.no_wherigo_cartridge_available,
-	                            FileSystem.ROOT, MainApplication.APP_NAME));  			
-			}
 		}
 		
 		public boolean Update( final File uri ) {

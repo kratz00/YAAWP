@@ -44,12 +44,11 @@ public class MainAfterStart {
     private static boolean stage01Completed = false;
     
     public static void afterStartAction() {
+    	/*
     	if (!stage01Completed) {
-    		int lastVersion = Settings.getApplicationVersionLast();
-    		final int actualVersion = Settings.getApplicationVersionActual();
+
     		if (lastVersion == 0 || actualVersion != lastVersion) {
-    			String news = getNews(lastVersion, actualVersion);
-    			if (news != null && news.length() > 0) {
+
     	    		// show dialog
     		    	AlertDialog.Builder b = new AlertDialog.Builder(A.getMain());
     		    	b.setCancelable(false);
@@ -62,7 +61,7 @@ public class MainAfterStart {
     		    		@Override
     		    		public void onClick(DialogInterface dialog, int which) {
     						stage01Completed = true;
-    						Settings.setApplicationVersionLast(actualVersion);	
+    							
     		    		}
     		    	});	
     				b.show(); 
@@ -73,19 +72,20 @@ public class MainAfterStart {
     			stage01Completed = true;
     		}
     	}
+    	*/
     }
     
     public static String getNews(int lastVersion, int actualVersion) {
    		String newsInfo = "";
-    	
+    	/*
    		// TODO if (lastVersion == 0) {
    			newsInfo += "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /></head><body>";
    			newsInfo += AssetHelper.loadAssetString(Settings.getLanguageCode() + "_first.html");
            	newsInfo += "</body></html>";
         // } else {
-        	// TODO newsInfo = MainApplication.getNewsFromTo(lastVersion, actualVersion);
+        	// TODO newsInfo = MainApplication.
         // }
-
+*/
    		return newsInfo;
     }
 }
