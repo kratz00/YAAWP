@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import org.yaawp.R;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
+import org.yaawp.utils.Logger;
 import org.yaawp.utils.Utils;
 
 
@@ -14,20 +15,45 @@ import android.widget.Button;
 
 public class ThreeButtonPanelBar {
 
-	public static final int BOTTOM_COLOR_A3 = 0xFFDDDDDD;
+	private int BOTTOM_COLOR_A3 = 0xFFDDDDDD;
 	private static final int mButtonId[] = { R.id.button_positive, R.id.button_neutral, R.id.button_negative };
 	
 	private Vector<PanelBarButton> mButton = new Vector<PanelBarButton>();
-	private Activity mActivity = null;
+	private View mView = null;
 	
 	public ThreeButtonPanelBar( Activity activity ) {
-		mActivity = activity;
+		mView = activity.findViewById(R.id.linear_layout_bottom);
+		if ( mView == null ) {
+			Logger.e("ThreeButtonPanelBar", "mView == null");
+		}
+    	// change colors for 3.0+
+    	if (Utils.isAndroid30OrMore()) {
+    		mView.setBackgroundColor(BOTTOM_COLOR_A3);
+    	}   		
+    	mView.setVisibility( View.GONE );		
+	}
+	
+	public ThreeButtonPanelBar( View view ) {
+		mView = view.findViewById(R.id.linear_layout_bottom);
+		if ( mView == null ) {
+			Logger.e("ThreeButtonPanelBar", "mView == null");
+		}		
+    	// change colors for 3.0+
+    	if (Utils.isAndroid30OrMore()) {
+    		mView.setBackgroundColor(BOTTOM_COLOR_A3);
+    	}   		
+    	mView.setVisibility( View.GONE );
 	}
 	
 	public void AddButton( PanelBarButton button ) {
 		mButton.add( button );
 		updateUI();
 	}
+	
+	public void SetBackgroundColor( int backgroundColor ) {
+		BOTTOM_COLOR_A3 = backgroundColor;
+	}	
+	
 	
 	private void add( final Button btn, final PanelBarButton panelButton ) {
         
@@ -45,10 +71,9 @@ public class ThreeButtonPanelBar {
 	public void updateUI() {
 		
 		int iButtons = 0;
-		View view = mActivity.findViewById(R.id.linear_layout_bottom);
 		
 		for ( int i=0; i<3; i++ ) {
-			Button btn = (Button) view.findViewById(mButtonId[i]);
+			Button btn = (Button) mView.findViewById(mButtonId[i]);
 			btn.setVisibility(View.GONE);
 			if ( i<mButton.size() ) {
 				if ( mButton.get(i).isVisible() ) {
@@ -57,18 +82,17 @@ public class ThreeButtonPanelBar {
 				}				
 			}
 		}
-    	
-    	// change colors for 3.0+
-    	if (Utils.isAndroid30OrMore()) {
-    		view.findViewById(R.id.linear_layout_bottom).setBackgroundColor(BOTTOM_COLOR_A3);
-    	}   
-    	
-    	if ( iButtons == 1 ) {
-			view.findViewById(R.id.linear_layout_left_spacer).setVisibility(View.VISIBLE);
-			view.findViewById(R.id.linear_layout_right_spacer).setVisibility(View.VISIBLE);	      		
+    	   	
+		if ( iButtons == 0 ) {
+			mView.setVisibility( View.GONE );
+		} else if ( iButtons == 1 ) {
+			mView.setVisibility( View.VISIBLE );
+			mView.findViewById(R.id.linear_layout_left_spacer).setVisibility(View.VISIBLE);
+			mView.findViewById(R.id.linear_layout_right_spacer).setVisibility(View.VISIBLE);	      		
     	} else {
-			view.findViewById(R.id.linear_layout_left_spacer).setVisibility(View.GONE);
-			view.findViewById(R.id.linear_layout_right_spacer).setVisibility(View.GONE);	    		
+    		mView.setVisibility( View.VISIBLE );
+			mView.findViewById(R.id.linear_layout_left_spacer).setVisibility(View.GONE);
+			mView.findViewById(R.id.linear_layout_right_spacer).setVisibility(View.GONE);	    		
     	}
     
 	}
