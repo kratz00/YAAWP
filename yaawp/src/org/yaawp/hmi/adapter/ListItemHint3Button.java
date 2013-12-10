@@ -14,13 +14,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class CartridgeListAdapterItemHint3Button extends CartridgeListAdapterItemHint {
+public class ListItemHint3Button extends ListItemHint {
 
 	private static String TAG = "CartridgeListAdapterItemHint3Button";
 	
 	
     
-    public CartridgeListAdapterItemHint3Button( String title, String body ) {
+    public ListItemHint3Button( String title, String body ) {
     	super( title, body );
     }	
     

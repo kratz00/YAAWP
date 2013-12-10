@@ -33,7 +33,7 @@ import org.yaawp.utils.Logger;
 import org.yaawp.utils.Utils;
 import org.yaawp.utils.UtilsFormat;
 
-public class CartridgeListAdapterItemCartridge extends AbstractListItem {
+public class ListItemCartridge extends AbstractListItem {
 
 	private static String TAG = "CartridgeListAdapterItemCartridge";
     
@@ -50,7 +50,7 @@ public class CartridgeListAdapterItemCartridge extends AbstractListItem {
     
     public YCartridge mCartridge;
       
-    public CartridgeListAdapterItemCartridge( YCartridge cartridge ) {
+    public ListItemCartridge( YCartridge cartridge ) {
     	super( R.layout.iconed_list_adapter );
     	mCartridge = cartridge;
     }

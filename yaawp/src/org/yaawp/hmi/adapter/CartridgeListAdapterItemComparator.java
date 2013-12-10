@@ -8,13 +8,13 @@ public class CartridgeListAdapterItemComparator implements Comparator<AbstractLi
 
 	@Override
     public int compare(AbstractListItem o1, AbstractListItem o2) {
-		if ( !(o1 instanceof CartridgeListAdapterItemCartridge) )
+		if ( !(o1 instanceof ListItemCartridge) )
 			return 0;
-		if ( !(o2 instanceof CartridgeListAdapterItemCartridge) )
+		if ( !(o2 instanceof ListItemCartridge) )
 			return 0;
 				
-    	YCartridge c1 = ((CartridgeListAdapterItemCartridge)o1).mCartridge;
-    	YCartridge c2 = ((CartridgeListAdapterItemCartridge)o2).mCartridge;
+    	YCartridge c1 = ((ListItemCartridge)o1).mCartridge;
+    	YCartridge c2 = ((ListItemCartridge)o2).mCartridge;
     	
     	return compare(c1,c2);
 	}

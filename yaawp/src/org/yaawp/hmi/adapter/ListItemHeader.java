@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class CartridgeListAdapterItemHeader extends AbstractListItem {
+public class ListItemHeader extends AbstractListItem {
 
 	private static String TAG = "CartridgeListAdapterItemHeader";
     
@@ -24,7 +24,7 @@ public class CartridgeListAdapterItemHeader extends AbstractListItem {
     private String mTitle;
     private String mTitleRight;
     
-    public CartridgeListAdapterItemHeader( String title, String right ) {
+    public ListItemHeader( String title, String right ) {
     	super( R.layout.list_separator );
     	mTitle = title;
     	mTitleRight = right;

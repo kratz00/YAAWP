@@ -53,7 +53,7 @@ import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
 import org.yaawp.hmi.adapter.ListItemAdapter;
-import org.yaawp.hmi.adapter.CartridgeListAdapterItemHint;
+import org.yaawp.hmi.adapter.ListItemHint;
 
 import android.os.Bundle;
 import android.os.Debug;
@@ -209,7 +209,7 @@ public class CartridgeListActivity extends CustomActivity {
 		/* --------------------------------------------- */
 
     	if ( LocationState.isActuallyHardwareGpsOn() == false ) {
-    		CartridgeListAdapterItemHint item = new CartridgeListAdapterItemHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
+    		ListItemHint item = new ListItemHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
     				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view." ) ;
     		
     		item.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
@@ -245,7 +245,7 @@ public class CartridgeListActivity extends CustomActivity {
     		Vector<AbstractListItem> data = YaawpAppData.GetInstance().mData;
     		adapter.AddItems( data );
     	} else {
-    		CartridgeListAdapterItemHint item = new CartridgeListAdapterItemHint( "Note" /* TODO I18N */,
+    		ListItemHint item = new ListItemHint( "Note" /* TODO I18N */,
     				I18N.get(R.string.no_wherigo_cartridge_available,"<i>"+FileSystem.ROOT+"</i>", MainApplication.APP_NAME)); 
     		
     		adapter.AddItem( item );
@@ -326,11 +326,11 @@ public class CartridgeListActivity extends CustomActivity {
     	    	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
     	    		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
     	    		if ( cartridge.isPlayAnywhere() ) {
-    	    			localData2.add( new CartridgeListAdapterItemCartridge( cartridge ) );
+    	    			localData2.add( new ListItemCartridge( cartridge ) );
     	    		}
     	    	}
     	    	Collections.sort(localData2, comparator2 );
-    	    	data.add( new CartridgeListAdapterItemHeader("Cartridge - location less", headerRight2 ) );
+    	    	data.add( new ListItemHeader("Cartridge - location less", headerRight2 ) );
     	    	Append( data, localData2 );
         	}    		
     	}
@@ -343,18 +343,18 @@ public class CartridgeListActivity extends CustomActivity {
     		{
     			case 0:
     			case 1:
-    				localData.add( new CartridgeListAdapterItemCartridge( cartridge ) );
+    				localData.add( new ListItemCartridge( cartridge ) );
     				break;			
     			case 2:
     			case 3:
     	    		if ( !cartridge.isPlayAnywhere() ) {
-    	    			localData.add( new CartridgeListAdapterItemCartridge( cartridge ) );
+    	    			localData.add( new ListItemCartridge( cartridge ) );
     	    		}
     				break;
     		}    		
     	}
     	Collections.sort(localData, comparator1 );
-    	data.add( new CartridgeListAdapterItemHeader("Cartridge", headerRight1) );
+    	data.add( new ListItemHeader("Cartridge", headerRight1) );
     	Append( data, localData );
 
        	/* --------------------------------------------- */
@@ -364,11 +364,11 @@ public class CartridgeListActivity extends CustomActivity {
     	    	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
     	    		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
     	    		if ( cartridge.isPlayAnywhere() ) {
-    	    			localData2.add( new CartridgeListAdapterItemCartridge( cartridge ) );
+    	    			localData2.add( new ListItemCartridge( cartridge ) );
     	    		}
     	    	}
     	    	Collections.sort(localData2, comparator2 );
-    	    	data.add( new CartridgeListAdapterItemHeader("Cartridge - location less", headerRight2 ) );
+    	    	data.add( new ListItemHeader("Cartridge - location less", headerRight2 ) );
     	    	Append( data, localData2 );
         	}    		
     	}   
