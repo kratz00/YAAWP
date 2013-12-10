@@ -23,10 +23,7 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 
 	private static String TAG = "CartridgeListAdapterItemCartridge";
     
-    private static final int PADDING = (int) Utils.getDpPixels(4.0f);
-    
-    /* min height for line */
-    private int minHeight = Integer.MIN_VALUE;
+
     // rescale image size
     private float multiplyImageSize = 1.0f;	
     
@@ -102,15 +99,6 @@ public class ListItem3ButtonsHint extends AbstractListItem {
             /* -------- */
 		
 			
-			LinearLayout llMain = (LinearLayout) view.findViewById(R.id.linear_layout_main);
-			
-		
-			
-			llMain.setPadding(PADDING, PADDING, PADDING, PADDING);
-			if (minHeight != Integer.MIN_VALUE) {
-				llMain.setMinimumHeight(minHeight);
-			}
-	
 			TextView tv01 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView01);
 			TextView tv02 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView02);
 	    	// ImageView iv01 = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView01);
@@ -209,7 +197,7 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 			}
 			*/
 			
-			llMain.setBackgroundColor(Color.TRANSPARENT);
+			
 
 		} catch (Exception e) {
 			Logger.e(TAG, "getView( " + view + " )", e);

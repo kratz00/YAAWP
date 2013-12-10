@@ -37,11 +37,7 @@ public class ListItemHeader extends AbstractListItem {
 	public void layout( Context context, View view  ) {
 	
 		try {
-			
-			view.setPadding(PADDING, PADDING, PADDING, PADDING);
-			// view.setOnClickListener(null);
-			// view.setOnLongClickListener(null);
-			// view.setLongClickable(false);			
+						
 			view.setBackgroundColor(Color.LTGRAY);
 				
 			TextView tv = (TextView) view.findViewById(R.id.linearLayoutSeparatorHeadline);

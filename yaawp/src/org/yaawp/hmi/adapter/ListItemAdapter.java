@@ -1,18 +1,25 @@
 package org.yaawp.hmi.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 
 import java.util.Vector;
 
+import org.yaawp.R;
 import org.yaawp.hmi.listitem.AbstractListItem;
+import org.yaawp.utils.Utils;
 
 public class ListItemAdapter extends BaseAdapter {
 
 	private static String TAG = "CartridgeListAdapter";
-
+    private static final int PADDING = (int) Utils.getDpPixels(4.0f);
+    
+    /* min height for line */
+    private int minHeight = Integer.MIN_VALUE;
 	private Vector<AbstractListItem> mListItems; 
     
     private Context mContext;
@@ -69,9 +76,16 @@ public class ListItemAdapter extends BaseAdapter {
 	   
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		AbstractListItem item = mListItems.get(position);
 		
+		AbstractListItem item = mListItems.get(position);
 		View view = item.inflate( mContext );
+		
+		view.setPadding(PADDING, PADDING, PADDING, PADDING);
+		if (minHeight != Integer.MIN_VALUE) {
+			view.setMinimumHeight(minHeight);
+		}
+		view.setBackgroundColor(Color.TRANSPARENT);
+		
 		item.layout( mContext, view );
 		
 		item.SetChangeObserver(this);

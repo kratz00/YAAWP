@@ -91,13 +91,7 @@ public class ListItemCartridge extends AbstractListItem {
 
             // description += "\n\r\n"+mCartridge.getDescription();
             /* -------- */
-			
-			LinearLayout llMain = (LinearLayout) view.findViewById(R.id.linear_layout_main);
-			llMain.setPadding(PADDING, PADDING, PADDING, PADDING);
-			if (minHeight != Integer.MIN_VALUE) {
-				llMain.setMinimumHeight(minHeight);
-			}
-	
+
 			TextView tv01 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView01);
 			TextView tv02 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView02);
 	    	ImageView iv01 = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView01);
@@ -175,7 +169,7 @@ public class ListItemCartridge extends AbstractListItem {
 				iv02.setImageBitmap(iconRight);
 			}
 			
-			llMain.setBackgroundColor(Color.TRANSPARENT);
+
 
 		} catch (Exception e) {
 			Logger.e(TAG, "getView( " + view + " )", e);
