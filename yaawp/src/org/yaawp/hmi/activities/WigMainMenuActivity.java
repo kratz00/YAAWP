@@ -79,12 +79,12 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		setContentView(R.layout.custom_dialog);
+		
 		mButtonPanelBar = new ThreeButtonPanelBar(this);
 		mButtonStopGuidance = new PanelBarButtonStopGuidance();
 		mButtonShowMap = new PanelBarButtonShowMap(this);		
 		
-		setContentView(R.layout.custom_dialog);
-
 		listClick = new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
