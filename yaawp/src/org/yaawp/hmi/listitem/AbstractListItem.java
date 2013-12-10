@@ -8,6 +8,7 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.view.View;
+import android.widget.BaseAdapter;
 
 public abstract class AbstractListItem {
 
@@ -15,6 +16,7 @@ public abstract class AbstractListItem {
 	protected View mView = null;
 	protected boolean mVisible = true;
 	protected int mLayoutId = -1;
+	private BaseAdapter mChangeObserver = null;
 	
 	public AbstractListItem( int layoutId ) {
 		mLayoutId = layoutId;
@@ -49,4 +51,14 @@ public abstract class AbstractListItem {
 	public void onListItemClicked( Activity activity ) {
 		return;
 	}	
+	
+	public void SetChangeObserver( BaseAdapter adapter ) {
+		mChangeObserver = adapter;
+	}
+	
+	protected void notifyDataSetChanged() {
+		if ( mChangeObserver != null ) {
+			mChangeObserver.notifyDataSetChanged();
+		}
+	}
 }

@@ -73,7 +73,8 @@ public class ListItemAdapter extends BaseAdapter {
 		
 		View view = item.inflate( mContext );
 		item.layout( mContext, view );
-				
+		
+		item.SetChangeObserver(this);
 		view.forceLayout();
 		return view;
 	}

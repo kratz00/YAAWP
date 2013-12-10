@@ -61,6 +61,7 @@ public class ListItemHint extends AbstractListItem {
 		img.setOnClickListener(new View.OnClickListener() {
 		    public void onClick(View v) {
 		    	mValid = false;
+		    	ListItemHint.this.notifyDataSetChanged();
 		    }
 		});		
 		
