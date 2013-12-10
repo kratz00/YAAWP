@@ -33,7 +33,7 @@ import org.yaawp.utils.Logger;
 import org.yaawp.utils.Utils;
 import org.yaawp.utils.UtilsFormat;
 
-public class CartridgeListAdapterItemCartridge extends CartridgeListAdapterItem {
+public class CartridgeListAdapterItemCartridge extends AbstractListItem {
 
 	private static String TAG = "CartridgeListAdapterItemCartridge";
     
@@ -51,13 +51,12 @@ public class CartridgeListAdapterItemCartridge extends CartridgeListAdapterItem 
     public YCartridge mCartridge;
       
     public CartridgeListAdapterItemCartridge( YCartridge cartridge ) {
+    	super( R.layout.iconed_list_adapter );
     	mCartridge = cartridge;
     }
     
-	public LinearLayout createView( Context context ) {
-		
-		LinearLayout view = (LinearLayout) LinearLayout.inflate( context, R.layout.iconed_list_adapter, null);
-		
+    public void layout( Context context, View view  ) {
+			
 		try {
             byte[] iconData = mCartridge.getFile(mCartridge.getIconId());
             Bitmap iconLeft = null;
@@ -182,8 +181,8 @@ public class CartridgeListAdapterItemCartridge extends CartridgeListAdapterItem 
 			Logger.e(TAG, "getView( " + view + " )", e);
 		}
 
-		view.forceLayout();
-		return view;
+		// view.forceLayout();
+		// return view;
 	}
 	
 	public boolean createContextMenu( Activity activity, ContextMenu menu ) {

@@ -72,6 +72,10 @@ public class ThreeButtonPanelBar {
 		
 		int iButtons = 0;
 		
+    	if (Utils.isAndroid30OrMore()) {
+    		mView.setBackgroundColor(BOTTOM_COLOR_A3);
+    	}  		
+		
 		for ( int i=0; i<3; i++ ) {
 			Button btn = (Button) mView.findViewById(mButtonId[i]);
 			btn.setVisibility(View.GONE);

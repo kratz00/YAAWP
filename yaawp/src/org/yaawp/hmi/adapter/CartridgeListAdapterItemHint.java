@@ -1,34 +1,15 @@
 package org.yaawp.hmi.adapter;
 
-import java.io.File;
 import java.util.Vector;
 
 import org.yaawp.R;
-import org.yaawp.YCartridge;
-import org.yaawp.app.YaawpAppData;
-import org.yaawp.bl.CartridgeSession;
-import org.yaawp.hmi.activities.CartridgeDetailsActivity;
-import org.yaawp.hmi.gui.extension.UtilsGUI;
-import org.yaawp.hmi.helper.ScreenHelper;
-import org.yaawp.positioning.Location;
-import org.yaawp.positioning.LocationState;
-import org.yaawp.utils.Const;
 import org.yaawp.utils.Images;
 import org.yaawp.utils.Logger;
 import org.yaawp.utils.Utils;
-import org.yaawp.utils.UtilsFormat;
-import org.yaawp.hmi.helper.I18N;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.text.Html;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -38,7 +19,7 @@ import android.widget.TextView;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 
-public class CartridgeListAdapterItemHint extends CartridgeListAdapterItem {
+public class CartridgeListAdapterItemHint extends AbstractListItem {
 
 	private static String TAG = "CartridgeListAdapterItemCartridge";
     
@@ -51,11 +32,12 @@ public class CartridgeListAdapterItemHint extends CartridgeListAdapterItem {
     
     protected String mTitle;
     protected String mBody;
-    
+       
     protected ThreeButtonPanelBar mButtonPanelBar = null;
     private Vector<PanelBarButton> mButtons = new Vector<PanelBarButton>();
     
     public CartridgeListAdapterItemHint( String title, String body ) {
+    	super( R.layout.list_adapter_hint );
     	mTitle = title;
     	mBody = body;
     }
@@ -64,12 +46,24 @@ public class CartridgeListAdapterItemHint extends CartridgeListAdapterItem {
 		mButtons.add( button );
 	}    
     
-	public LinearLayout createView( Context context ) {
+	public boolean isEnabled() {
+		return false; // not clickable
+	}	
+	
+	public void layout( Context context, View view  ) {
 		
-		LinearLayout view = (LinearLayout) LinearLayout.inflate( context, R.layout.list_adapter_hint, null);
+		mView = view;
 		
 		mButtonPanelBar = new ThreeButtonPanelBar(view);
 		mButtonPanelBar.SetBackgroundColor( 0x00000000 );
+		
+		ImageView img = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView01);	
+		img.setOnClickListener(new View.OnClickListener() {
+		    public void onClick(View v) {
+		    	mVisible = false;
+		    	mView.invalidate();
+		    }
+		});		
 		
 		try {
 			/*
@@ -221,8 +215,6 @@ public class CartridgeListAdapterItemHint extends CartridgeListAdapterItem {
 			Logger.e(TAG, "getView( " + view + " )", e);
 		}
 
-		view.forceLayout();
-		return view;
 	}
 	
 

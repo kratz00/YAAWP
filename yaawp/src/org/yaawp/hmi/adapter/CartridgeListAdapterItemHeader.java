@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class CartridgeListAdapterItemHeader extends CartridgeListAdapterItem {
+public class CartridgeListAdapterItemHeader extends AbstractListItem {
 
 	private static String TAG = "CartridgeListAdapterItemHeader";
     
@@ -25,14 +25,13 @@ public class CartridgeListAdapterItemHeader extends CartridgeListAdapterItem {
     private String mTitleRight;
     
     public CartridgeListAdapterItemHeader( String title, String right ) {
+    	super( R.layout.list_separator );
     	mTitle = title;
     	mTitleRight = right;
     }    
     
-	public LinearLayout createView( Context context ) {
-
-		LinearLayout view = (LinearLayout) LinearLayout.inflate( context, R.layout.list_separator, null);
-		
+	public void layout( Context context, View view  ) {
+	
 		try {
 			
 			view.setPadding(PADDING, PADDING, PADDING, PADDING);
@@ -57,7 +56,6 @@ public class CartridgeListAdapterItemHeader extends CartridgeListAdapterItem {
 		} catch (Exception e) {
 			Logger.e(TAG, "getView(" + view + ")", e);
 		}
-		
-		return view;		
+			
 	}	
 }

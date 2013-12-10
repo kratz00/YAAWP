@@ -4,10 +4,10 @@ import java.util.Comparator;
 
 import org.yaawp.YCartridge;
 
-public class CartridgeListAdapterItemComparator implements Comparator<CartridgeListAdapterItem> {
+public class CartridgeListAdapterItemComparator implements Comparator<AbstractListItem> {
 
 	@Override
-    public int compare(CartridgeListAdapterItem o1, CartridgeListAdapterItem o2) {
+    public int compare(AbstractListItem o1, AbstractListItem o2) {
 		if ( !(o1 instanceof CartridgeListAdapterItemCartridge) )
 			return 0;
 		if ( !(o2 instanceof CartridgeListAdapterItemCartridge) )

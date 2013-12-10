@@ -52,7 +52,7 @@ import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
-import org.yaawp.hmi.adapter.CartridgeListAdapter;
+import org.yaawp.hmi.adapter.ListItemAdapter;
 import org.yaawp.hmi.adapter.CartridgeListAdapterItemHint;
 
 import android.os.Bundle;
@@ -82,7 +82,7 @@ import org.yaawp.utils.FileCollector.Filter.FileCollectorCartridgeFilter;
 public class CartridgeListActivity extends CustomActivity {
 
 	private static final String TAG = "Main";	
-	public static CartridgeListAdapter adapter = null;
+	public static ListItemAdapter adapter = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -155,7 +155,7 @@ public class CartridgeListActivity extends CustomActivity {
 
     }    
     
-    private void Append( Vector<CartridgeListAdapterItem> first, Vector<CartridgeListAdapterItem> second ) {
+    private void Append( Vector<AbstractListItem> first, Vector<AbstractListItem> second ) {
     	for ( int i=0; i<second.size(); i++ ) {
     		first.add( second.get(i) );
     	}    	
@@ -163,6 +163,8 @@ public class CartridgeListActivity extends CustomActivity {
     
     public void updateCartridgeList() {
         
+    	/*ListItemAdapter*/ adapter = new ListItemAdapter( this );  
+    	
     	// TODO added warnings, notes and errors
 		if ( YaawpAppData.GetInstance().mFileSystemCheck == false ) {
 			
@@ -179,8 +181,8 @@ public class CartridgeListActivity extends CustomActivity {
     	
     	/* --------------------------------------------- */
     	
-    	Vector<CartridgeListAdapterItem> data = YaawpAppData.GetInstance().mData;
-    	data.clear();    	
+    	// Vector<AbstractListItem> data = YaawpAppData.GetInstance().mData;
+    	// data.clear();    	
     	
     	/* --------------------------------------------- */
     	
@@ -219,8 +221,8 @@ public class CartridgeListActivity extends CustomActivity {
 							return true;
 						}
 					}
-				));    		
-
+				));  
+    		
     		item.AddButton( new PanelBarButton( I18N.get(R.string.positioning), 
 					new PanelBarButton.OnClickListener() {
 						@Override
@@ -232,25 +234,28 @@ public class CartridgeListActivity extends CustomActivity {
 					}
 				)); 
     		
-    		data.add( item );
+    		adapter.AddItem( item );
     	}
     	
 		/* --------------------------------------------- */
 		
     	if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
     		addedCartridgeItems();
+    		// TODO change it
+    		Vector<AbstractListItem> data = YaawpAppData.GetInstance().mData;
+    		adapter.AddItems( data );
     	} else {
     		CartridgeListAdapterItemHint item = new CartridgeListAdapterItemHint( "Note" /* TODO I18N */,
     				I18N.get(R.string.no_wherigo_cartridge_available,"<i>"+FileSystem.ROOT+"</i>", MainApplication.APP_NAME)); 
     		
-    		data.add( item );
+    		adapter.AddItem( item );
     	}
     	/* --------------------------------------------- */
     	
     	// Vector<CartridgeListAdapterItem> data = YaawpAppData.GetInstance().mData;
     	
     	/* --------------------------------------------- */
-    	adapter = new CartridgeListAdapter( this, data, null );    
+    	  
   
         runOnUiThread( new Runnable() {
                 public void run() {
@@ -263,8 +268,8 @@ public class CartridgeListActivity extends CustomActivity {
     
     private void addedCartridgeItems() {
 	  
-    	Vector<CartridgeListAdapterItem> data = YaawpAppData.GetInstance().mData;
-    	
+    	Vector<AbstractListItem> data = YaawpAppData.GetInstance().mData;
+    	data.clear();
     	
     	CartridgeListAdapterItemComparator comparator1 = null;
     	CartridgeListAdapterItemComparator comparator2 = null;
@@ -317,7 +322,7 @@ public class CartridgeListActivity extends CustomActivity {
     	
     	if ( PreferenceUtils.getPrefBoolean(R.string.pref_cartridgelist_anywhere_first ) ) {
         	if ( sorting==2 || sorting==3 ) {
-    	    	Vector<CartridgeListAdapterItem> localData2 = new Vector<CartridgeListAdapterItem>();
+    	    	Vector<AbstractListItem> localData2 = new Vector<AbstractListItem>();
     	    	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
     	    		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
     	    		if ( cartridge.isPlayAnywhere() ) {
@@ -330,7 +335,7 @@ public class CartridgeListActivity extends CustomActivity {
         	}    		
     	}
     	
-    	Vector<CartridgeListAdapterItem> localData = new Vector<CartridgeListAdapterItem>();
+    	Vector<AbstractListItem> localData = new Vector<AbstractListItem>();
     	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
     		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
 
@@ -355,7 +360,7 @@ public class CartridgeListActivity extends CustomActivity {
        	/* --------------------------------------------- */
     	if ( !(PreferenceUtils.getPrefBoolean(R.string.pref_cartridgelist_anywhere_first )) ) {
         	if ( sorting==2 || sorting==3 ) {
-    	    	Vector<CartridgeListAdapterItem> localData2 = new Vector<CartridgeListAdapterItem>();
+    	    	Vector<AbstractListItem> localData2 = new Vector<AbstractListItem>();
     	    	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
     	    		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
     	    		if ( cartridge.isPlayAnywhere() ) {
@@ -423,7 +428,7 @@ public class CartridgeListActivity extends CustomActivity {
                 
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
                     
-                CartridgeListAdapterItem item = YaawpAppData.GetInstance().mData.get(info.position);
+                AbstractListItem item = YaawpAppData.GetInstance().mData.get(info.position);
                 item.createContextMenu( CartridgeListActivity.this, menu );
             }
         } ); 
@@ -436,14 +441,14 @@ public class CartridgeListActivity extends CustomActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         int index = item.getItemId();
                
-        CartridgeListAdapterItem itemX = YaawpAppData.GetInstance().mData.get(info.position);  
+        AbstractListItem itemX = YaawpAppData.GetInstance().mData.get(info.position);  
         boolean status = itemX.onContextItemSelected( this, item, index );
 
         return status;
     }
             
     private void onListItemClicked(int position) {       
-        CartridgeListAdapterItem itemX = YaawpAppData.GetInstance().mData.get(position);    
+        AbstractListItem itemX = YaawpAppData.GetInstance().mData.get(position);    
         itemX.onListItemClicked( this );
     }
     		

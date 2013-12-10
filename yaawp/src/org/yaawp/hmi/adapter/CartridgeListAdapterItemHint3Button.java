@@ -24,9 +24,9 @@ public class CartridgeListAdapterItemHint3Button extends CartridgeListAdapterIte
     	super( title, body );
     }	
     
-	public LinearLayout createView( Context context ) {
+	public void layout( Context context, View view  ) {
 		
-		LinearLayout view = (LinearLayout) super.createView( context );
+
 				
 		try {
 					
@@ -39,7 +39,6 @@ public class CartridgeListAdapterItemHint3Button extends CartridgeListAdapterIte
 			Logger.e(TAG, "getView( " + view + " )", e);
 		}
 
-		view.forceLayout();
-		return view;
+
 	}    
 }

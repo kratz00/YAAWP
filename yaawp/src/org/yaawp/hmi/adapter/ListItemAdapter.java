@@ -21,20 +21,33 @@ import java.util.Vector;
  * 
  */
 
-public class CartridgeListAdapter extends BaseAdapter {
+public class ListItemAdapter extends BaseAdapter {
 
 	private static String TAG = "CartridgeListAdapter";
 
-	Vector<CartridgeListAdapterItem> mAdapterItems; 
+	private Vector<AbstractListItem> mListItems; 
     
-    private Context context;
+    private Context mContext;
        
-    /* --------------------------- */
+    /* --- ListItemAdapter methods ------------------------ */
     
-	public CartridgeListAdapter(Context context, Vector<CartridgeListAdapterItem> data, View view) {	
-		this.mAdapterItems = data;
-		this.context = context;
+	public ListItemAdapter( Context context /*, View view */ ) {	
+		super();
+		this.mListItems = new Vector<AbstractListItem>();
+		this.mContext = context;
     }
+	
+	public void AddItem( AbstractListItem item ) {
+		mListItems.add( item );
+	}
+	
+	public void AddItems( Vector<AbstractListItem> items ) {
+    	for ( int i=0; i<items.size(); i++ ) {
+    		mListItems.add( items.get(i) );
+    	}    		
+	}
+	
+	/* --- methods of BaseAdapter --- */
 	
     @Override
     public boolean areAllItemsEnabled() {
@@ -43,17 +56,17 @@ public class CartridgeListAdapter extends BaseAdapter {
     
     @Override
     public boolean isEnabled(int position) {
-    	return true;
+    	return mListItems.get(position).isEnabled();
     }
     
     @Override
 	public int getCount() {
-		return mAdapterItems.size();
+		return mListItems.size();
 	}
 
     @Override
 	public Object getItem(int position) {
-		return mAdapterItems.get(position); 
+		return mListItems.get(position); 
 	}
 	
 	@Override
@@ -68,26 +81,19 @@ public class CartridgeListAdapter extends BaseAdapter {
 	   
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = mAdapterItems.get(position).createView(context);
+		AbstractListItem item = mListItems.get(position);
+		
+		View view = item.inflate( mContext );
+		item.layout( mContext, view );
+				
 		view.forceLayout();
 		return view;
 	}
 	
-	/*
-	 * public void setTextView02Visible(int visibility, boolean hideIfEmpty) {
-	
-		this.textView02Visibility = visibility;
-		this.textView02HideIfEmpty = hideIfEmpty;
+	@Override
+	public void notifyDataSetChanged() {
+		return;
 	}
-	
-	public void setMinHeight(int i) {
-		this.minHeight = i;
-	}
-	
-    public void setMultiplyImageSize(float multiplyImageSize) {
-		this.multiplyImageSize = multiplyImageSize;
-	}
-	*/
 }
 
 
