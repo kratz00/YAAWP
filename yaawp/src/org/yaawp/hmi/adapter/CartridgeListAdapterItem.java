@@ -6,13 +6,19 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
-public interface CartridgeListAdapterItem {
+public abstract class CartridgeListAdapterItem {
 
-	public LinearLayout createView( Context context );
+	public abstract LinearLayout createView( Context context );
 
-	public boolean createContextMenu( Activity activity, ContextMenu contextMenu );
+	public boolean createContextMenu( Activity activity, ContextMenu menu ) {       
+        return true;
+	}
 	
-	public boolean onContextItemSelected( Activity activity, MenuItem item, int index );
+	public boolean onContextItemSelected( Activity activity, MenuItem item, int index ) {
+		return false;
+	}
 	
-	public void onListItemClicked( Activity activity );
+	public void onListItemClicked( Activity activity ) {
+		return;
+	}	
 }

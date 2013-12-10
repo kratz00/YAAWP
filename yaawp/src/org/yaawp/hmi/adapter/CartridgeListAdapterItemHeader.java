@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class CartridgeListAdapterItemHeader implements CartridgeListAdapterItem {
+public class CartridgeListAdapterItemHeader extends CartridgeListAdapterItem {
 
 	private static String TAG = "CartridgeListAdapterItemHeader";
     
@@ -28,18 +28,6 @@ public class CartridgeListAdapterItemHeader implements CartridgeListAdapterItem 
     	mTitle = title;
     	mTitleRight = right;
     }    
-    
-	public boolean createContextMenu( Activity activity, ContextMenu menu ) {
-		return true;
-	}
-	
-	public boolean onContextItemSelected( Activity activity, MenuItem item, int index ) {
-		return true;
-	}
-	
-	public void onListItemClicked( Activity activity ) {
-		return;
-	}    
     
 	public LinearLayout createView( Context context ) {
 

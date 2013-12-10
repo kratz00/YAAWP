@@ -33,7 +33,7 @@ import org.yaawp.utils.Logger;
 import org.yaawp.utils.Utils;
 import org.yaawp.utils.UtilsFormat;
 
-public class CartridgeListAdapterItemCartridge implements CartridgeListAdapterItem {
+public class CartridgeListAdapterItemCartridge extends CartridgeListAdapterItem {
 
 	private static String TAG = "CartridgeListAdapterItemCartridge";
     
