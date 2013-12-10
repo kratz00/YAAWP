@@ -39,10 +39,7 @@ public class ListItemCartridge extends AbstractListItem {
     
     private static final int PADDING = (int) Utils.getDpPixels(4.0f);
     
-    /** visibility of bottom view */
-    private int textView02Visibility = View.VISIBLE;
-    /** hide bottom view if no text is available */
-    private boolean textView02HideIfEmpty = false;
+
     /* min height for line */
     private int minHeight = Integer.MIN_VALUE;
     // rescale image size
@@ -97,6 +94,7 @@ public class ListItemCartridge extends AbstractListItem {
 	    	ImageView iv01 = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView01);
 			ImageView iv02 = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView02);
 			
+			
 			// set TextView top
 			tv01.setBackgroundColor(Color.TRANSPARENT);
 			tv01.setTextColor(Color.BLACK);
@@ -109,26 +107,14 @@ public class ListItemCartridge extends AbstractListItem {
 			}
 			
 			// set TextView bottom
+			tv02.setBackgroundColor(Color.TRANSPARENT);
 			tv02.setTextColor(Color.DKGRAY);
 
-			// set additional parametres
-			if (textView02Visibility != View.GONE) {
-				tv02.setVisibility(View.VISIBLE);
-				
-				if (description == null) {
-					description = "";
-				}
-				if (description.length() > 0) {
-					tv02.setText(Html.fromHtml(description));
-				} else {
-					if (textView02HideIfEmpty) {
-						tv02.setVisibility(View.GONE);
-					} else {
-						tv02.setText(R.string.no_description);	
-					}
-				}
-			} else {
+			if (description == null) {
 				tv02.setVisibility(View.GONE);
+			} else {
+				tv02.setVisibility(View.VISIBLE);
+				tv02.setText(Html.fromHtml(description));				
 			}
 
 			// compute MULTI
@@ -161,7 +147,6 @@ public class ListItemCartridge extends AbstractListItem {
 	        iv01.setVisibility(View.VISIBLE);
 			
 			// set ImageView right
-			iv02 = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView02);
 			iv02.setVisibility(View.GONE);
 			
 			if ( iconRight != null){
