@@ -1,6 +1,5 @@
 package org.yaawp.hmi.gui.dialogs;
 
-import org.yaawp.MainAfterStart;
 import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.preferences.Settings;
@@ -40,8 +39,10 @@ public class DialogMain extends DialogFragmentEx {
 		buffer.append("</div>");
 		
 		// add news
+		/* TODO
 		buffer.append(MainAfterStart.getNews(1, 
 				Settings.getApplicationVersionActual()));
+		*/
 		
     	WebView webView = new WebView(A.getMain());
 		webView.loadData(buffer.toString(), "text/html", "utf-8");
