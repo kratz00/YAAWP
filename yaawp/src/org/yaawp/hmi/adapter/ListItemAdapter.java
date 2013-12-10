@@ -9,21 +9,6 @@ import java.util.Vector;
 
 import org.yaawp.hmi.listitem.AbstractListItem;
 
-
-/*
- * CartridgeListAdapter
- * CartridgeListAdapterItem
- * CartridgeListAdapterItemHeader
- * CartridgeListAdapterItemCartridge
- * 
- * AdapterItem
- * AdapterItemHeader
- * AdapterItemCartridge
- * 
- * 
- * 
- */
-
 public class ListItemAdapter extends BaseAdapter {
 
 	private static String TAG = "CartridgeListAdapter";
@@ -95,6 +80,15 @@ public class ListItemAdapter extends BaseAdapter {
 	
 	@Override
 	public void notifyDataSetChanged() {
+		Vector<AbstractListItem> listItems = new Vector<AbstractListItem>();
+		for ( int i=0; i<mListItems.size(); i++ ) {
+			AbstractListItem item = mListItems.get(i);
+			if ( item.isValid() == true ) {
+				listItems.add( item );
+			}
+    	}    		
+		mListItems = listItems;
+		super.notifyDataSetChanged();
 		return;
 	}
 }

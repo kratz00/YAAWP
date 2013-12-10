@@ -60,8 +60,7 @@ public class ListItemHint extends AbstractListItem {
 		ImageView img = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView01);	
 		img.setOnClickListener(new View.OnClickListener() {
 		    public void onClick(View v) {
-		    	mVisible = false;
-		    	mView.invalidate();
+		    	mValid = false;
 		    }
 		});		
 		
