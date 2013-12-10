@@ -43,7 +43,7 @@ import org.yaawp.utils.UtilsFormat;
 public class CartridgeDetailsActivity extends CustomActivity {
 	
 	private static final String TAG = "CartridgeDetails";
-	private ThreeButtonPanelBar mPanelButtonBar = new ThreeButtonPanelBar(this);
+	private ThreeButtonPanelBar mPanelButtonBar = null;
 
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,8 @@ public class CartridgeDetailsActivity extends CustomActivity {
 		tvDistance.setText(Html.fromHtml(buff.toString()));
 		
 		/* ----------- */
-			
+		mPanelButtonBar = new ThreeButtonPanelBar(this);
+		
 		mPanelButtonBar.AddButton( new PanelBarButton( getString(R.string.start), 
 			new PanelBarButton.OnClickListener() {
 				@Override
