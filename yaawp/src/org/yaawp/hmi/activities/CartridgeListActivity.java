@@ -236,6 +236,8 @@ public class CartridgeListActivity extends CustomActivity {
 					}
 				)); 
     		
+    		item.enableCancelButton( true );
+    		
     		adapter.AddItem( item );
     	}
     	
