@@ -5,33 +5,15 @@ import org.yaawp.R;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.A;
 import org.yaawp.utils.Logger;
-
-import android.app.Activity;
 import android.content.Context;
 import android.os.PowerManager;
-import android.view.WindowManager;
+
 
 
 public class PreferenceFunc {
 	
 	public static String TAG = "PreferenceFunc";
-	
-    public static void setScreenFullscreen(Activity activity) {
-    	try {
-			boolean fullScreen = PreferenceUtils.getPrefBoolean( R.string.pref_fullscreen );
-			
-    		if (fullScreen) {
-				activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-						WindowManager.LayoutParams.FLAG_FULLSCREEN);
-			} else {
-				activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-			}
-
-    	} catch (Exception e) {
-    		Logger.e(TAG, "setScreenFullScreen(" + activity + ")", e);
-    	}
-    }
-    
+	    
     private static PowerManager.WakeLock wl;
 
     public static void enableWakeLock() {

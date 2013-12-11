@@ -21,17 +21,17 @@
 package org.yaawp.hmi.activities;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import org.yaawp.MainApplication;
+import org.yaawp.R;
 import org.yaawp.preferences.PreferenceFunc;
+import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
-import org.yaawp.utils.A;
 import org.yaawp.utils.Const;
 import org.yaawp.utils.Logger;
 
@@ -46,26 +46,13 @@ public class CustomActivity extends FragmentActivity {
 		Logger.v(getLocalClassName(), "onCreate(), id:" + hashCode());
 		try {
 			super.onCreate(savedInstanceState);
-			customOnCreate(this);
+			Settings.setScreenBasic(this);
+
+			Const.SCREEN_WIDTH = this.getWindowManager().getDefaultDisplay().getWidth();
+			Const.SCREEN_HEIGHT = this.getWindowManager().getDefaultDisplay().getHeight();
 		} catch (Exception e) {
 			Logger.e(getLocalClassName(), "onCreate()", e);
 		}
-	}
-	
-	protected static void customOnCreate(Activity activity) {
-		//Logger.v(activity.getLocalClassName(), "customOnCreate(), id:" + activity.hashCode());
-		// set main activity parameters
-		/*
-		 * if (!(activity instanceof CustomMain)) {
-		 
-			//	Settings.setLanguage(this);
-			Settings.setScreenBasic(activity);
-		}
-		*/
-
-		// set screen size
-		Const.SCREEN_WIDTH = activity.getWindowManager().getDefaultDisplay().getWidth();
-		Const.SCREEN_HEIGHT = activity.getWindowManager().getDefaultDisplay().getHeight();
 	}
 	
 	@Override
@@ -73,23 +60,32 @@ public class CustomActivity extends FragmentActivity {
 		Logger.v(getLocalClassName(), "onStart(), id:" + hashCode());
 		try {
 			super.onStart();
-			customOnStart(this);
+	    	try {
+				boolean fullScreen = PreferenceUtils.getPrefBoolean( R.string.pref_fullscreen );
+				
+	    		if (fullScreen) {
+					this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+							WindowManager.LayoutParams.FLAG_FULLSCREEN);
+				} else {
+					this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+				}
+
+	    	} catch (Exception e) {
+	    		Logger.e( "CustomActivity", "setScreenFullScreen(" + this + ")", e);
+	    	}
 		} catch (Exception e) {
 			Logger.e(getLocalClassName(), "onStart()", e);
 		}
 	}
 	
-	protected static void customOnStart(Activity activity) {
-		//Logger.v(activity.getLocalClassName(), "customOnStart(), id:" + activity.hashCode());
-		PreferenceFunc.setScreenFullscreen(activity);
-	}
-
 	@Override
 	protected void onResume() {
 		Logger.v(getLocalClassName(), "onResume(), id:" + hashCode());
 		try {
 			super.onResume();
-			customOnResume(this);
+			Settings.setCurrentActivity(this);
+	   		// enable permanent screen on
+			PreferenceFunc.enableWakeLock();
 			// set values again, this fix problem when activity is started after
 			// activity in e.g. fixed portrait mode
 			Const.SCREEN_WIDTH = getWindowManager().getDefaultDisplay().getWidth();
@@ -99,33 +95,19 @@ public class CustomActivity extends FragmentActivity {
 		}
 	}
 	
-	protected static void customOnResume(Activity activity) {
-		//Logger.v(activity.getLocalClassName(), "customOnResume(), id:" + activity.hashCode());
-		// set current activity
-		Settings.setCurrentActivity(activity);
-   		// enable permanent screen on
-		PreferenceFunc.enableWakeLock();
-	}
-	
 	@Override
 	protected void onPause() {
 Logger.v(getLocalClassName(), "onPause(), id:" + hashCode());
 		try {
 			super.onPause();
-			customOnPause(this);
+			if (Settings.getCurrentActivity() == this) {
+				Settings.setCurrentActivity(null);
+			}
+			// disable location
+			MainApplication.onActivityPause();
 		} catch (Exception e) {
 			Logger.e(getLocalClassName(), "onPause()", e);
 		}
-	}
-	
-	protected static void customOnPause(Activity activity) {
-//Logger.v(activity.getLocalClassName(), "customOnPause(), id:" + activity.hashCode());
-		// activity is not in foreground
-		if (Settings.getCurrentActivity() == activity) {
-			Settings.setCurrentActivity(null);
-		}
-		// disable location
-		MainApplication.onActivityPause();
 	}
 	
 	@Override
