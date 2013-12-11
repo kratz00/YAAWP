@@ -19,7 +19,9 @@ public class ListItemAdapter extends BaseAdapter {
     
     /* min height for line */
     private int minHeight = Integer.MIN_VALUE;
+	private Vector<AbstractListItem> mAllListItems = null; 
 	private Vector<AbstractListItem> mListItems = null; 
+	
     
     private Context mContext;
        
@@ -27,17 +29,18 @@ public class ListItemAdapter extends BaseAdapter {
     
 	public ListItemAdapter( Context context /*, View view */ ) {	
 		super();
+		this.mAllListItems = new Vector<AbstractListItem>();
 		this.mListItems = new Vector<AbstractListItem>();
 		this.mContext = context;
     }
 	
 	public void AddItem( AbstractListItem item ) {
-		mListItems.add( item );
+		mAllListItems.add( item );
 	}
 	
 	public void AddItems( Vector<AbstractListItem> items ) {
     	for ( int i=0; i<items.size(); i++ ) {
-    		mListItems.add( items.get(i) );
+    		mAllListItems.add( items.get(i) );
     	}    		
 	}
 	
@@ -108,14 +111,13 @@ public class ListItemAdapter extends BaseAdapter {
 	
 	@Override
 	public void notifyDataSetChanged() {
-		Vector<AbstractListItem> listItems = new Vector<AbstractListItem>();
-		for ( int i=0; i<mListItems.size(); i++ ) {
-			AbstractListItem item = mListItems.get(i);
+		mListItems.clear();
+		for ( int i=0; i<mAllListItems.size(); i++ ) {
+			AbstractListItem item = mAllListItems.get(i);
 			if ( item.isValid() == true ) {
-				listItems.add( item );
+				mListItems.add( item );
 			}
     	}    		
-		mListItems = listItems;
 		super.notifyDataSetChanged();
 		return;
 	}
