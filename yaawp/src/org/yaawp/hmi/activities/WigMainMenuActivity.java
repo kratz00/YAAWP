@@ -28,11 +28,15 @@ import org.yaawp.hmi.gui.dialogs.DialogMain;
 import org.yaawp.hmi.gui.extension.CustomDialog;
 import org.yaawp.hmi.gui.extension.DataInfo;
 import org.yaawp.hmi.gui.extension.IconedListAdapter;
+import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
+import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
+import org.yaawp.hmi.adapter.ListItemAdapter;
 
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.openwig.Refreshable;
 import org.yaawp.openwig.WUI;
+import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.A;
 import org.yaawp.utils.Const;
 import org.yaawp.utils.Logger;
@@ -63,6 +67,7 @@ import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonStopGuidance;
+import android.widget.BaseAdapter;
 
 public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 
@@ -87,6 +92,13 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Logger.d(TAG, "onItemClick:" + position);
+				
+				BaseAdapter adapter = (BaseAdapter)parent.getAdapter();
+				if ( adapter instanceof ListItemAdapter ) {
+					((ListItemAdapter) adapter ).onListItemClicked( WigMainMenuActivity.this, position );
+				}
+				
+				/*
 				switch (position) {
 				case 0:
 					if (Engine.instance.cartridge.visibleZones() >= 1) {
@@ -109,6 +121,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 					}
 					break;
 				};
+				*/
 			}
 		};
 		
@@ -202,6 +215,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	public void refresh() {
 		runOnUiThread(new Runnable() {
 			public void run() {
+				
 				ArrayList<DataInfo> data = new ArrayList<DataInfo>();
 				DataInfo diLocations = new DataInfo(getString(R.string.locations) + " (" +
 						Engine.instance.cartridge.visibleZones() + ")",
@@ -223,10 +237,81 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 						getVisibleTasksDescription(), R.drawable.icon_tasks);
 				data.add(diTasks);
 				
+				/* --- */
+				ListItemAdapter adapter = new ListItemAdapter(WigMainMenuActivity.this);			
+	    		ListItem3ButtonsHint item = null;
+	    		
+				/* TODO make a common usable class to show this 'widget' */
+		    	if ( LocationState.isActuallyHardwareGpsOn() == false ) {
+		    		item = new ListItem3ButtonsHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
+		    				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view." ) ;
+		    		
+		    		item.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
+							new PanelBarButton.OnClickListener() {
+								@Override
+								public boolean onClick() {
+									LocationState.setGpsOn(WigMainMenuActivity.this);
+									WigMainMenuActivity.this.refresh(); // TODO use a comment method to refresh the list
+									return true;
+								}
+							}
+						));  
+		    		
+		    		item.AddButton( new PanelBarButton( I18N.get(R.string.positioning), 
+							new PanelBarButton.OnClickListener() {
+								@Override
+								public boolean onClick() {
+					                Intent intent02 = new Intent(WigMainMenuActivity.this, SatelliteActivity.class);
+					                startActivity(intent02);
+									return true;
+								}
+							}
+						)); 
+		    		
+		    		item.enableCancelButton( true );
+		    		
+		    		adapter.AddItem( item );
+		    	}	    		
+	    		
+	    		item = new ListItem3ButtonsHint( 
+	    				I18N.get(R.string.locations) + " (" + Engine.instance.cartridge.visibleZones() + ")",
+	    				getVisibleZonesDescription() ) ;
+	    		// TODO R.drawable.icon_locations
+	    		item.setSelectable(true);
+	    		adapter.AddItem( item );
+				
+	    		item = new ListItem3ButtonsHint( 
+	    				I18N.get(R.string.you_see) + " (" + Engine.instance.cartridge.visibleThings() + ")",
+	    				getVisibleCartridgeThingsDescription() ) ;
+	    		// TODO R.drawable.icon_search
+	    		item.setSelectable(true);
+	    		adapter.AddItem( item );
+	    		
+	    		item = new ListItem3ButtonsHint( 
+	    				I18N.get(R.string.inventory) + " (" + Engine.instance.player.visibleThings() + ")",
+	    				getVisiblePlayerThingsDescription() ) ;
+	    		// TODO R.drawable.icon_inventory
+	    		item.setSelectable(true);
+	    		adapter.AddItem( item );
+	    		
+	    		item = new ListItem3ButtonsHint( 
+	    				I18N.get(R.string.tasks) + " (" + Engine.instance.cartridge.visibleTasks() + ")",
+	    				getVisibleTasksDescription() ) ;
+	    		// TODO R.drawable.icon_tasks
+	    		item.setSelectable(true);
+	    		adapter.AddItem( item );	    		
+	    		
+				
+				/* --- */
 				ListView lv = new ListView(WigMainMenuActivity.this);
-				IconedListAdapter adapter = new IconedListAdapter(WigMainMenuActivity.this, data, lv);
-				adapter.setMinHeight((int) Utils.getDpPixels(70));
-				adapter.setTextView02Visible(View.VISIBLE, true);
+				
+				
+				
+				 
+				IconedListAdapter adapterOld = new IconedListAdapter(WigMainMenuActivity.this, data, lv);
+				adapterOld.setMinHeight((int) Utils.getDpPixels(70));
+				adapterOld.setTextView02Visible(View.VISIBLE, true);
+				
 				lv.setAdapter(adapter);
 				lv.setOnItemClickListener(listClick);
 				CustomDialog.setContent(WigMainMenuActivity.this, lv, 0, true, false);
