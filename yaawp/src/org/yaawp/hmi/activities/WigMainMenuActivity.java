@@ -33,6 +33,7 @@ import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
 import org.yaawp.hmi.listitem.ListItemWigItem;
 import org.yaawp.hmi.adapter.ListItemAdapter;
+import org.yaawp.hmi.activities.*;
 
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.openwig.Refreshable;
@@ -64,6 +65,7 @@ import cz.matejcik.openwig.Task;
 import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
+import org.yaawp.hmi.listitem.ListItemGuidanceActive;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
@@ -75,10 +77,11 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	private static final String TAG = "CartridgeMainMenu";
 	
 	private ThreeButtonPanelBar mButtonPanelBar;
-	private PanelBarButtonStopGuidance mButtonStopGuidance;
+	// private PanelBarButtonStopGuidance mButtonStopGuidance;
 	private PanelBarButtonShowMap mButtonShowMap;
 	
 	private AdapterView.OnItemClickListener listClick;
+	ListItemGuidanceActive mGuidanceActive = null;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -86,8 +89,11 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		setContentView(R.layout.custom_dialog);
 		
 		mButtonPanelBar = new ThreeButtonPanelBar(this);
-		mButtonStopGuidance = new PanelBarButtonStopGuidance();
+		// mButtonStopGuidance = new PanelBarButtonStopGuidance(); 
 		mButtonShowMap = new PanelBarButtonShowMap(this);		
+		
+    	mGuidanceActive = new ListItemGuidanceActive(WigMainMenuActivity.this);
+
 		
 		listClick = new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -122,16 +128,16 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
     	mButtonPanelBar.AddButton( mButtonShowMap );
     	mButtonPanelBar.updateUI();
 
-    	mButtonPanelBar.AddButton( mButtonStopGuidance );
-    	mButtonStopGuidance.setVisible(A.getGuidingContent().isGuiding());
-    	mButtonPanelBar.updateUI();
+    	// mButtonPanelBar.AddButton( mButtonStopGuidance );
+    	// mButtonStopGuidance.setVisible(A.getGuidingContent().isGuiding());
+    	// mButtonPanelBar.updateUI();
 	}
 	
 	@Override 
 	public void onResume() {
 		super.onResume();
 		refresh();
-    	mButtonStopGuidance.setVisible(A.getGuidingContent().isGuiding());
+    	// mButtonStopGuidance.setVisible(A.getGuidingContent().isGuiding());
     	mButtonPanelBar.updateUI();
 		
 	}
@@ -228,7 +234,9 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		    		
 		    		adapter.AddItem( itemHint );
 		    	}	
-		    		    		
+		    	
+		    	adapter.AddItem( mGuidanceActive );
+
 	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_ZONES,
 	    				I18N.get(R.string.locations) + " (" + Engine.instance.cartridge.visibleZones() + ")",
 	    				getVisibleZonesDescription() ) ;
