@@ -15,11 +15,16 @@ import android.widget.Button;
 
 public class ThreeButtonPanelBar {
 
-	private int BOTTOM_COLOR_A3 = 0xFFDDDDDD;
+
 	private static final int mButtonId[] = { R.id.button_positive, R.id.button_neutral, R.id.button_negative };
 	
 	private Vector<PanelBarButton> mButton = new Vector<PanelBarButton>();
 	private View mView = null;
+	
+	private int COLOR_BACKGROUND    = 0xffDDDDDD;
+	private int COLOR_BUTTON        = 0xff777777;
+	private int COLOR_TEXT_ENABLED  = 0xffDDDDDD;
+	private int COLOR_TEXT_DISABLED = 0x99999999;
 	
 	public ThreeButtonPanelBar( Activity activity ) {
 		mView = activity.findViewById(R.id.linear_layout_bottom);
@@ -27,9 +32,9 @@ public class ThreeButtonPanelBar {
 			Logger.e("ThreeButtonPanelBar", "mView == null");
 		}
     	// change colors for 3.0+
-    	if (Utils.isAndroid30OrMore()) {
-    		mView.setBackgroundColor(BOTTOM_COLOR_A3);
-    	}   		
+    	// if (Utils.isAndroid30OrMore()) {
+    	mView.setBackgroundColor(COLOR_BACKGROUND);
+    	// }    		
     	mView.setVisibility( View.GONE );		
 	}
 	
@@ -39,9 +44,9 @@ public class ThreeButtonPanelBar {
 			Logger.e("ThreeButtonPanelBar", "mView == null");
 		}		
     	// change colors for 3.0+
-    	if (Utils.isAndroid30OrMore()) {
-    		mView.setBackgroundColor(BOTTOM_COLOR_A3);
-    	}   		
+    	// if (Utils.isAndroid30OrMore()) {
+    	mView.setBackgroundColor(COLOR_BACKGROUND);
+    	// }   		
     	mView.setVisibility( View.GONE );
 	}
 	
@@ -51,7 +56,7 @@ public class ThreeButtonPanelBar {
 	}
 	
 	public void SetBackgroundColor( int backgroundColor ) {
-		BOTTOM_COLOR_A3 = backgroundColor;
+		COLOR_BACKGROUND = backgroundColor;
 	}	
 	
 	
@@ -60,6 +65,11 @@ public class ThreeButtonPanelBar {
         btn.setVisibility(View.VISIBLE);
         btn.setEnabled( panelButton.isEnabled() );
         btn.setText( panelButton.getText() );
+        
+        btn.setTextColor( COLOR_TEXT_ENABLED );
+        // btn.setBackgroundColor(COLOR_BUTTON);
+       // LayoutParams p = btn.getLayoutParams();
+       
         
         btn.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
@@ -72,9 +82,10 @@ public class ThreeButtonPanelBar {
 		
 		int iButtons = 0;
 		
-    	if (Utils.isAndroid30OrMore()) {
-    		mView.setBackgroundColor(BOTTOM_COLOR_A3);
-    	}  		
+    	// change colors for 3.0+
+    	// if (Utils.isAndroid30OrMore()) {
+    	mView.setBackgroundColor(COLOR_BACKGROUND);
+    	// }   		
 		
 		for ( int i=0; i<3; i++ ) {
 			Button btn = (Button) mView.findViewById(mButtonId[i]);
