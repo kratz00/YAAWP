@@ -262,6 +262,7 @@ public class CartridgeListActivity extends CustomActivity {
                 public void run() {
                 	final ListView listview = (ListView) findViewById(R.id.listView1); 
                     listview.setAdapter( adapter );
+                    adapter.notifyDataSetChanged();
                 }
             }
         );     	

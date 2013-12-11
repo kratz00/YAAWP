@@ -89,7 +89,6 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		setContentView(R.layout.custom_dialog);
 		
 		mButtonPanelBar = new ThreeButtonPanelBar(this);
-		// mButtonStopGuidance = new PanelBarButtonStopGuidance(); 
 		mButtonShowMap = new PanelBarButtonShowMap(this);		
 		
     	mGuidanceActive = new ListItemGuidanceActive(WigMainMenuActivity.this);
@@ -127,19 +126,13 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 			
     	mButtonPanelBar.AddButton( mButtonShowMap );
     	mButtonPanelBar.updateUI();
-
-    	// mButtonPanelBar.AddButton( mButtonStopGuidance );
-    	// mButtonStopGuidance.setVisible(A.getGuidingContent().isGuiding());
-    	// mButtonPanelBar.updateUI();
 	}
 	
 	@Override 
 	public void onResume() {
 		super.onResume();
 		refresh();
-    	// mButtonStopGuidance.setVisible(A.getGuidingContent().isGuiding());
     	mButtonPanelBar.updateUI();
-		
 	}
 	
 	@Override 
@@ -271,6 +264,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 				lv.setAdapter(adapter);
 				lv.setOnItemClickListener(listClick);
 				CustomDialog.setContent(WigMainMenuActivity.this, lv, 0, true, false);
+				adapter.notifyDataSetChanged();
 			}
 		});		
 	}
@@ -360,18 +354,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	/***********************************/
 	/*     SPECIAL ITEMS FUNCTIONS     */
 	/***********************************/
-	
-//	private Vector<Zone> getVisibleZones() {
-//		Vector<Zone> zones = Engine.instance.cartridge.zones;
-//		Vector<Zone> visible = new Vector<Zone>();
-//		for (int i = 0; i < zones.size(); i++) {
-//			Zone z = (Zone) zones.get(i);
-//			if (z.isVisible())
-//				visible.add(z);
-//		}
-//		return visible;
-//	}
-	
+		
 	private String getVisibleZonesDescription() {
 		String description = null;
 		@SuppressWarnings("unchecked")
