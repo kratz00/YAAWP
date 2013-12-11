@@ -87,9 +87,6 @@ public class ListItemCartridge extends AbstractListItem {
                 Logger.e(TAG, "xxx() - xxxx", e);
             }   
 
-            // description += "\n\r\n"+mCartridge.getDescription();
-            /* -------- */
-
 			TextView tv01 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView01);
 			TextView tv02 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView02);
 	    	ImageView iv01 = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView01);
@@ -111,9 +108,8 @@ public class ListItemCartridge extends AbstractListItem {
 			tv02.setBackgroundColor(Color.TRANSPARENT);
 			tv02.setTextColor(Color.DKGRAY);
 
-			if (description == null) {
-				tv02.setVisibility(View.GONE);
-			} else {
+			tv02.setVisibility(View.GONE);
+			if (description != null) {
 				tv02.setVisibility(View.VISIBLE);
 				tv02.setText(Html.fromHtml(description));				
 			}

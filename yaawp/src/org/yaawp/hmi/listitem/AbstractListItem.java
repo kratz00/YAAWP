@@ -5,7 +5,6 @@ import org.yaawp.R;
 import android.app.Activity;
 import android.content.Context;
 import android.view.ContextMenu;
-import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.view.View;
 import android.widget.BaseAdapter;

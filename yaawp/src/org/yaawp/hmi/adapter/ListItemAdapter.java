@@ -3,16 +3,11 @@ package org.yaawp.hmi.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.ContextMenu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 
 import java.util.Vector;
-
-import org.yaawp.R;
-import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.listitem.AbstractListItem;
 import org.yaawp.utils.Utils;
 import android.app.Activity;

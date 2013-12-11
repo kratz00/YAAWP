@@ -5,14 +5,10 @@ import org.yaawp.R;
 import org.yaawp.utils.Logger;
 import org.yaawp.utils.Utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Html;
-import android.view.ContextMenu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ListItemHeader extends AbstractListItem {

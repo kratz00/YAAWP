@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import org.yaawp.R;
-import org.yaawp.app.YaawpAppData;
-import org.yaawp.bl.CartridgeSession;
 import org.yaawp.hmi.gui.dialogs.DialogMain;
 import org.yaawp.hmi.gui.extension.CustomDialog;
 import org.yaawp.hmi.gui.extension.DataInfo;
