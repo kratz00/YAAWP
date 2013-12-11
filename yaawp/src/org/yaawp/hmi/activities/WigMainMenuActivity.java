@@ -29,8 +29,9 @@ import org.yaawp.hmi.gui.extension.CustomDialog;
 import org.yaawp.hmi.gui.extension.DataInfo;
 import org.yaawp.hmi.gui.extension.IconedListAdapter;
 import org.yaawp.hmi.helper.I18N;
-import org.yaawp.hmi.helper.ScreenHelper;
+
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
+import org.yaawp.hmi.listitem.ListItemWigItem;
 import org.yaawp.hmi.adapter.ListItemAdapter;
 
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
@@ -98,30 +99,6 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 					((ListItemAdapter) adapter ).onListItemClicked( WigMainMenuActivity.this, position );
 				}
 				
-				/*
-				switch (position) {
-				case 0:
-					if (Engine.instance.cartridge.visibleZones() >= 1) {
-						ScreenHelper.activateScreen(ScreenHelper.SCREEN_LOCATIONSCREEN, null);
-					}
-					break;
-				case 1:
-					if (Engine.instance.cartridge.visibleThings() >= 1) {
-						ScreenHelper.activateScreen(ScreenHelper.SCREEN_ITEMSCREEN, null);
-					}
-					break;
-				case 2:
-					if (Engine.instance.player.visibleThings() >= 1) {
-						ScreenHelper.activateScreen(ScreenHelper.SCREEN_INVENTORYSCREEN, null);
-					}
-					break;
-				case 3:
-					if (getVisibleTasksCount() > 0) {
-						ScreenHelper.activateScreen(ScreenHelper.SCREEN_TASKSCREEN, null);
-					}
-					break;
-				};
-				*/
 			}
 		};
 		
@@ -216,37 +193,16 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		runOnUiThread(new Runnable() {
 			public void run() {
 				
-				ArrayList<DataInfo> data = new ArrayList<DataInfo>();
-				DataInfo diLocations = new DataInfo(getString(R.string.locations) + " (" +
-						Engine.instance.cartridge.visibleZones() + ")",
-						getVisibleZonesDescription(), R.drawable.icon_locations);
-				data.add(diLocations);
-				
-				DataInfo diYouSee = new DataInfo(getString(R.string.you_see) + " (" +
-						Engine.instance.cartridge.visibleThings() + ")",
-						getVisibleCartridgeThingsDescription(), R.drawable.icon_search);
-				data.add(diYouSee);
-				
-				DataInfo diInventory = new DataInfo(getString(R.string.inventory) + " (" +
-						Engine.instance.player.visibleThings() + ")",
-						getVisiblePlayerThingsDescription(), R.drawable.icon_inventory);
-				data.add(diInventory);
-				
-				DataInfo diTasks = new DataInfo(getString(R.string.tasks) + " (" +
-						Engine.instance.cartridge.visibleTasks() + ")",
-						getVisibleTasksDescription(), R.drawable.icon_tasks);
-				data.add(diTasks);
-				
-				/* --- */
 				ListItemAdapter adapter = new ListItemAdapter(WigMainMenuActivity.this);			
-	    		ListItem3ButtonsHint item = null;
+	    		ListItem3ButtonsHint itemHint = null;
+	    		ListItemWigItem item = null;
 	    		
 				/* TODO make a common usable class to show this 'widget' */
 		    	if ( LocationState.isActuallyHardwareGpsOn() == false ) {
-		    		item = new ListItem3ButtonsHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
+		    		itemHint = new ListItem3ButtonsHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
 		    				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view." ) ;
 		    		
-		    		item.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
+		    		itemHint.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
 							new PanelBarButton.OnClickListener() {
 								@Override
 								public boolean onClick() {
@@ -257,7 +213,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 							}
 						));  
 		    		
-		    		item.AddButton( new PanelBarButton( I18N.get(R.string.positioning), 
+		    		itemHint.AddButton( new PanelBarButton( I18N.get(R.string.positioning), 
 							new PanelBarButton.OnClickListener() {
 								@Override
 								public boolean onClick() {
@@ -268,33 +224,33 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 							}
 						)); 
 		    		
-		    		item.enableCancelButton( true );
+		    		itemHint.enableCancelButton( true );
 		    		
-		    		adapter.AddItem( item );
-		    	}	    		
-	    		
-	    		item = new ListItem3ButtonsHint( 
+		    		adapter.AddItem( itemHint );
+		    	}	
+		    		    		
+	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_ZONES,
 	    				I18N.get(R.string.locations) + " (" + Engine.instance.cartridge.visibleZones() + ")",
 	    				getVisibleZonesDescription() ) ;
 	    		// TODO R.drawable.icon_locations
 	    		item.setSelectable(true);
 	    		adapter.AddItem( item );
 				
-	    		item = new ListItem3ButtonsHint( 
+	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_YOUSEE,
 	    				I18N.get(R.string.you_see) + " (" + Engine.instance.cartridge.visibleThings() + ")",
 	    				getVisibleCartridgeThingsDescription() ) ;
 	    		// TODO R.drawable.icon_search
 	    		item.setSelectable(true);
 	    		adapter.AddItem( item );
 	    		
-	    		item = new ListItem3ButtonsHint( 
+	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_INVENTORY,
 	    				I18N.get(R.string.inventory) + " (" + Engine.instance.player.visibleThings() + ")",
 	    				getVisiblePlayerThingsDescription() ) ;
 	    		// TODO R.drawable.icon_inventory
 	    		item.setSelectable(true);
 	    		adapter.AddItem( item );
 	    		
-	    		item = new ListItem3ButtonsHint( 
+	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_TASKS,
 	    				I18N.get(R.string.tasks) + " (" + Engine.instance.cartridge.visibleTasks() + ")",
 	    				getVisibleTasksDescription() ) ;
 	    		// TODO R.drawable.icon_tasks
@@ -303,15 +259,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	    		
 				
 				/* --- */
-				ListView lv = new ListView(WigMainMenuActivity.this);
-				
-				
-				
-				 
-				IconedListAdapter adapterOld = new IconedListAdapter(WigMainMenuActivity.this, data, lv);
-				adapterOld.setMinHeight((int) Utils.getDpPixels(70));
-				adapterOld.setTextView02Visible(View.VISIBLE, true);
-				
+				ListView lv = new ListView(WigMainMenuActivity.this);			
 				lv.setAdapter(adapter);
 				lv.setOnItemClickListener(listClick);
 				CustomDialog.setContent(WigMainMenuActivity.this, lv, 0, true, false);
