@@ -25,7 +25,7 @@ import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.guidance.interfaces.GuidingListener;
 import org.yaawp.hmi.views.CompassView;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -201,10 +201,10 @@ public class GuidingActivity extends CustomActivity implements GuidingListener, 
 		// ignore
 	}
 	
-	public static boolean callGudingScreen(Activity activity, int exitBehaviour ) {
-		Intent intent = new Intent(activity, GuidingActivity.class);
+	public static boolean callGudingScreen( Context context, int exitBehaviour ) {
+		Intent intent = new Intent( context, GuidingActivity.class);
 		intent.putExtra( GUIDANCE_EXIT_BEHAVIOUR, exitBehaviour );
-		activity.startActivity(intent);
+		context.startActivity(intent);
 		return true;
 	}	
 	
