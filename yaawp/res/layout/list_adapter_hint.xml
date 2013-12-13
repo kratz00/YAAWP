@@ -5,50 +5,67 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:minHeight="40dip"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="4dip" >
 
-	<LinearLayout 
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:paddingLeft="3dip"
-		android:paddingRight="3dip"
-		android:orientation="horizontal" >
-			<TextView
-				style="@style/TextStyle18" 
-				android:id="@+id/layoutIconedListAdapterTextView01"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:lines="1" />
-		
-			<ImageView
-			    android:id="@+id/layoutIconedListAdapterImageView01"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_gravity="top"
-			    android:layout_weight="1"
-			    android:gravity="center_vertical"
-			    android:scaleType="fitStart"
-			    android:src="@android:drawable/ic_menu_close_clear_cancel" />
+	<ImageView
+ 		android:id="@+id/image_leftside"
+ 		android:layout_width="wrap_content"
+ 		android:layout_height="wrap_content"
+ 		android:layout_gravity="top"
+ 		android:layout_weight="0"
+ 		android:gravity="center_vertical"
+ 		android:scaleType="fitStart"
+ 		android:src="@drawable/ic_launcher" />
+    
+    <LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"        
+        android:orientation="vertical" >
+        
  
-	</LinearLayout>
-	<LinearLayout 
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:paddingLeft="3dip"
-		android:paddingRight="3dip"
-		android:orientation="horizontal" >
-			<TextView
-				style="@style/TextStyle12"
-				android:id="@+id/layoutIconedListAdapterTextView02"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:ellipsize="none" />
+		<LinearLayout 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="3dip"
+			android:paddingRight="3dip"
+			android:orientation="horizontal" >
+				<TextView
+					style="@style/TextStyle18" 
+					android:id="@+id/layoutIconedListAdapterTextView01"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:lines="1" />
+			
+				<ImageView
+				    android:id="@+id/layoutIconedListAdapterImageView01"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_gravity="top"
+				    android:layout_weight="1"
+				    android:gravity="center_vertical"
+				    android:scaleType="fitStart"
+				    android:src="@android:drawable/ic_menu_close_clear_cancel" />
+	 
+		</LinearLayout>
+		<LinearLayout 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="3dip"
+			android:paddingRight="3dip"
+			android:orientation="horizontal" >
+				<TextView
+					style="@style/TextStyle12"
+					android:id="@+id/layoutIconedListAdapterTextView02"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:ellipsize="none" />
 		</LinearLayout> 
-		
-		
-		<include layout="@layout/include_bottom_panel" />						    
+			
+			
+		<include layout="@layout/include_bottom_panel" />	
+	</LinearLayout>						    
     <!-- 
 	<LinearLayout
 	    android:id="@+id/linear_layout_content"

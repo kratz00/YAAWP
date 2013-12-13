@@ -21,8 +21,8 @@ public class ListItemWigItem extends ListItem3ButtonsHint {
 	public final static int WIGITEMTYPE_INVENTORY = 2;
 	public final static int WIGITEMTYPE_TASKS = 3;
 	
-	public ListItemWigItem( int wigItemType, String title, String body ) {
-		super(title, body);
+	public ListItemWigItem( int wigItemType, String title, String body, int image_resource ) {
+		super(title, body, image_resource );
 		mWigItemType = wigItemType;
 	}
 	

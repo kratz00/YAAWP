@@ -99,10 +99,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 				
 			}
 		};
-		
-		/* CustomDialog.setTitle(this, Engine.instance.cartridge.name,
-				null, CustomDialog.NO_IMAGE, null); */
-		
+			
 		mButtonPanelBar.AddButton( new PanelBarButton( getString(R.string.save), 
 				new PanelBarButton.OnClickListener() {
 					@Override
@@ -192,14 +189,15 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 				/* TODO make a common usable class to show this 'widget' */
 		    	if ( LocationState.isActuallyHardwareGpsOn() == false ) {
 		    		itemHint = new ListItem3ButtonsHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
-		    				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view." ) ;
+		    				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view.",
+		    				R.drawable.ic_main_gps ) ;
 		    		
 		    		itemHint.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
 							new PanelBarButton.OnClickListener() {
 								@Override
 								public boolean onClick() {
 									LocationState.setGpsOn(WigMainMenuActivity.this);
-									WigMainMenuActivity.this.refresh(); // TODO use a comment method to refresh the list
+									WigMainMenuActivity.this.refresh(); // TODO use a comment method to refresh the listadapter
 									return true;
 								}
 							}
@@ -225,29 +223,25 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 
 	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_ZONES,
 	    				I18N.get(R.string.locations) + " (" + Engine.instance.cartridge.visibleZones() + ")",
-	    				getVisibleZonesDescription() ) ;
-	    		// TODO R.drawable.icon_locations
+	    				getVisibleZonesDescription(), R.drawable.icon_locations );
 	    		item.setSelectable(true);
 	    		adapter.AddItem( item );
 				
 	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_YOUSEE,
 	    				I18N.get(R.string.you_see) + " (" + Engine.instance.cartridge.visibleThings() + ")",
-	    				getVisibleCartridgeThingsDescription() ) ;
-	    		// TODO R.drawable.icon_search
+	    				getVisibleCartridgeThingsDescription(), R.drawable.icon_search );
 	    		item.setSelectable(true);
 	    		adapter.AddItem( item );
 	    		
 	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_INVENTORY,
 	    				I18N.get(R.string.inventory) + " (" + Engine.instance.player.visibleThings() + ")",
-	    				getVisiblePlayerThingsDescription() ) ;
-	    		// TODO R.drawable.icon_inventory
+	    				getVisiblePlayerThingsDescription(), R.drawable.icon_inventory );
 	    		item.setSelectable(true);
 	    		adapter.AddItem( item );
 	    		
 	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_TASKS,
 	    				I18N.get(R.string.tasks) + " (" + Engine.instance.cartridge.visibleTasks() + ")",
-	    				getVisibleTasksDescription() ) ;
-	    		// TODO R.drawable.icon_tasks
+	    				getVisibleTasksDescription(), R.drawable.icon_tasks );
 	    		item.setSelectable(true);
 	    		adapter.AddItem( item );	    		
 	    		

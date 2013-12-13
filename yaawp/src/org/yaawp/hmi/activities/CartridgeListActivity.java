@@ -188,7 +188,9 @@ public class CartridgeListActivity extends CustomActivity {
 
     	if ( LocationState.isActuallyHardwareGpsOn() == false ) {
     		ListItem3ButtonsHint item = new ListItem3ButtonsHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
-    				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view." ) ;
+    				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view.",
+    				0 // TODO
+    				); 
     		
     		item.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
 					new PanelBarButton.OnClickListener() {
@@ -223,7 +225,9 @@ public class CartridgeListActivity extends CustomActivity {
     		adapter.AddItems( addedCartridgeItems() );
     	} else {
     		ListItem3ButtonsHint item = new ListItem3ButtonsHint( "Note" /* TODO I18N */,
-    				I18N.get(R.string.no_wherigo_cartridge_available,"<i>"+FileSystem.ROOT+"</i>", MainApplication.APP_NAME)); 
+    				I18N.get(R.string.no_wherigo_cartridge_available,"<i>"+FileSystem.ROOT+"</i>", MainApplication.APP_NAME),
+    				0 // TODO
+    				); 
     		
     		adapter.AddItem( item );
     	}

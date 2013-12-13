@@ -8,6 +8,8 @@ import org.yaawp.utils.Logger;
 import org.yaawp.utils.Utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.text.Html;
 import android.view.View;
@@ -27,13 +29,15 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     // rescale image size
     private float multiplyImageSize = 1.0f;	
     
+    Bitmap mIconLeft = null;
+    
     protected String mTitle;
     protected String mBody;
        
     protected ThreeButtonPanelBar mButtonPanelBar = null;
     private Vector<PanelBarButton> mButtons = new Vector<PanelBarButton>();
     
-    public ListItem3ButtonsHint( String title, String body ) {
+    public ListItem3ButtonsHint( String title, String body, int image_resource ) {
     	super( R.layout.list_adapter_hint );
     	mTitle = title;
 
@@ -41,6 +45,10 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     		mBody = "";
     	} else {
     		mBody = body;
+    	}
+    	
+    	if ( image_resource != 0 ) {
+    		mIconLeft = Images.getImageB(image_resource);
     	}
     }
     
@@ -69,17 +77,28 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 		mButtonPanelBar.SetBackgroundColor( 0x00000000 );
 		
 		// cancel button
-		ImageView img = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView01);	
+		ImageView imgCancelImage = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView01);	
 		if ( mCancelButton == true ) {
-			img.setOnClickListener(new View.OnClickListener() {
+			imgCancelImage.setOnClickListener(new View.OnClickListener() {
 			    public void onClick(View v) {
 			    	mValid = false;
 			    	ListItem3ButtonsHint.this.notifyDataSetChanged();
 			    }
 			});		
-			img.setVisibility(View.VISIBLE);
+			imgCancelImage.setVisibility(View.VISIBLE);
 		} else {
-			img.setVisibility(View.GONE);
+			imgCancelImage.setVisibility(View.GONE);
+		}
+		
+		// xx
+		ImageView imgImageLeft = (ImageView) view.findViewById(R.id.image_leftside);	
+		if ( imgImageLeft != null ) {
+			if ( mIconLeft != null ) {
+				imgImageLeft.setImageBitmap( mIconLeft );
+				imgImageLeft.setVisibility(View.VISIBLE);
+			} else {
+				imgImageLeft.setVisibility(View.GONE);
+			}				
 		}
 		
 		// 
