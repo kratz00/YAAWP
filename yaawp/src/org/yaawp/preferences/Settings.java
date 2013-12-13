@@ -323,22 +323,6 @@ Logger.w(TAG, "getLanguageCode() - " + lang);
     	if (Settings.currentActivity == null && activity != null)
     		MainApplication.appRestored();
     	Settings.currentActivity = activity;
-    }
-    
-
-    public static boolean setScreenBasic(Activity activity) {
-    	try {
-//Logger.w(TAG, "setFullscreen(" + activity.getLocalClassName() + ")");
-			// hide title
-    		// if (!(activity instanceof CustomPreferenceActivity)) {
-   				activity.requestWindowFeature(Window.FEATURE_NO_TITLE);	
-    		// }
-    		return true;
-    	} catch (Exception e) {
-    		Logger.e(TAG, "setFullScreen(" + activity + ")", e);
-    	}
-    	return false;
-    }
-    
+    }   
 
 }

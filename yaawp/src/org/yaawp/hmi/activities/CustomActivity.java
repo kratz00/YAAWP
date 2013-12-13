@@ -46,7 +46,6 @@ public class CustomActivity extends FragmentActivity {
 		Logger.v(getLocalClassName(), "onCreate(), id:" + hashCode());
 		try {
 			super.onCreate(savedInstanceState);
-			Settings.setScreenBasic(this);
 
 			Const.SCREEN_WIDTH = this.getWindowManager().getDefaultDisplay().getWidth();
 			Const.SCREEN_HEIGHT = this.getWindowManager().getDefaultDisplay().getHeight();
