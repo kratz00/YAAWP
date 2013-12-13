@@ -6,16 +6,9 @@
     android:gravity="center_vertical"
     android:minHeight="20dip"
     android:background="#ff999999"
-android:padding="4dip"  
+	android:padding="4dip"  
     android:orientation="vertical" >
 
-	<!-- <LinearLayout
-    	android:id="@+id/upper_ruler"
-		android:layout_width="fill_parent"
-		android:layout_height="2dp"
-		android:background="#ff777777"
-		android:orientation="horizontal" /> -->
-	
 	<LinearLayout
 	    android:id="@+id/textarea"
 	    android:layout_width="fill_parent"
@@ -44,17 +37,8 @@ android:padding="4dip"
 			android:lines="1"
 			android:text="Right"
 			android:textColor="#ff333333"
-			android:textSize="18dp" />	    
+			android:textSize="18sp" />	    
 	    		
 	</LinearLayout>	
-		
-	<!--  <LinearLayout
-    	android:id="@+id/lower_ruler"
-		android:layout_width="fill_parent"
-		android:layout_height="2dp"
-		android:background="#ff777777"
-		android:orientation="horizontal" /> -->
-    		
-
-        
+		       
 </LinearLayout>    
