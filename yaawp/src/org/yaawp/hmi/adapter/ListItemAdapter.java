@@ -14,11 +14,7 @@ import android.app.Activity;
 
 public class ListItemAdapter extends BaseAdapter {
 
-	private static String TAG = "CartridgeListAdapter";
-    private static final int PADDING = (int) Utils.getDpPixels(4.0f);
-    
-    /* min height for line */
-    private int minHeight = Integer.MIN_VALUE;
+	private static String TAG = "ListItemAdapter";
 	private Vector<AbstractListItem> mAllListItems = null; 
 	private Vector<AbstractListItem> mListItems = null; 
 	
@@ -95,13 +91,7 @@ public class ListItemAdapter extends BaseAdapter {
 		
 		AbstractListItem item = mListItems.get(position);
 		View view = item.inflate( mContext );
-		
-		view.setPadding(PADDING, PADDING, PADDING, PADDING);
-		if (minHeight != Integer.MIN_VALUE) {
-			view.setMinimumHeight(minHeight);
-		}
-		view.setBackgroundColor(Color.TRANSPARENT);
-		
+			
 		item.layout( mContext, view );
 		
 		item.SetChangeObserver(this);
