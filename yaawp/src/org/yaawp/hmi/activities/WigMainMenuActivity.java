@@ -20,20 +20,15 @@
 
 package org.yaawp.hmi.activities;
 
-import java.util.ArrayList;
 import java.util.Vector;
 
 import org.yaawp.R;
 import org.yaawp.hmi.gui.dialogs.DialogMain;
-import org.yaawp.hmi.gui.extension.CustomDialog;
-import org.yaawp.hmi.gui.extension.DataInfo;
-import org.yaawp.hmi.gui.extension.IconedListAdapter;
 import org.yaawp.hmi.helper.I18N;
 
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
 import org.yaawp.hmi.listitem.ListItemWigItem;
 import org.yaawp.hmi.adapter.ListItemAdapter;
-import org.yaawp.hmi.activities.*;
 
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.openwig.Refreshable;
@@ -43,7 +38,6 @@ import org.yaawp.utils.A;
 import org.yaawp.utils.Const;
 import org.yaawp.utils.Logger;
 import org.yaawp.utils.ManagerNotify;
-import org.yaawp.utils.Utils;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -69,7 +63,6 @@ import org.yaawp.hmi.listitem.ListItemGuidanceActive;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
-import org.yaawp.hmi.panelbar.buttons.PanelBarButtonStopGuidance;
 import android.widget.BaseAdapter;
 
 public class WigMainMenuActivity extends CustomActivity implements Refreshable {
