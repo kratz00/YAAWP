@@ -86,7 +86,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.custom_dialog);
+		setContentView(R.layout.layout_main); 
 		
 		mButtonPanelBar = new ThreeButtonPanelBar(this);
 		mButtonShowMap = new PanelBarButtonShowMap(this);		
@@ -107,8 +107,8 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 			}
 		};
 		
-		CustomDialog.setTitle(this, Engine.instance.cartridge.name,
-				null, CustomDialog.NO_IMAGE, null);
+		/* CustomDialog.setTitle(this, Engine.instance.cartridge.name,
+				null, CustomDialog.NO_IMAGE, null); */
 		
 		mButtonPanelBar.AddButton( new PanelBarButton( getString(R.string.save), 
 				new PanelBarButton.OnClickListener() {
@@ -260,10 +260,9 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	    		
 				
 				/* --- */
-				ListView lv = new ListView(WigMainMenuActivity.this);			
+	    		final ListView lv = (ListView) findViewById(R.id.listView1);			
 				lv.setAdapter(adapter);
 				lv.setOnItemClickListener(listClick);
-				CustomDialog.setContent(WigMainMenuActivity.this, lv, 0, true, false);
 				adapter.notifyDataSetChanged();
 			}
 		});		
