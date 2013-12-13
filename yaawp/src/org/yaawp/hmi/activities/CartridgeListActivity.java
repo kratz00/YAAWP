@@ -89,32 +89,8 @@ public class CartridgeListActivity extends CustomActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        A.registerMain(this);
-
-        // callSecondInit = false;
-        // callRegisterOnly = false;
-        // if (A.getApp() == null) { // first app run
-//Logger.w(TAG, "onCreate() - init new");
-
-    	// not test some things
-        // if ( && ) {
-	        // set last known location
-
-
-    	// TODO eventFirstInit();
-    	Settings.setScreenBasic(this);
-
-    	
-		setContentView(R.layout.layout_main);
-
-		// set title
-		((TextView) findViewById(R.id.title_text)).setText(
-				MainApplication.APP_NAME);
-	   	
-		
-    	// call after start actions here
-        // TODO MainAfterStart.afterStartAction();
+        A.registerMain(this);	
+		setContentView(R.layout.layout_main);   	
 		initCartridgeList();
     }
     
