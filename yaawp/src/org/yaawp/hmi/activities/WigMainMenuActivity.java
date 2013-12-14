@@ -23,11 +23,7 @@ package org.yaawp.hmi.activities;
 import org.yaawp.R;
 import org.yaawp.hmi.gui.extension.UtilsGUI;
 
-import org.yaawp.hmi.listitem.ListItemWherigoInventory;
-import org.yaawp.hmi.listitem.ListItemWherigoTasks;
-import org.yaawp.hmi.listitem.ListItemWherigoYouSee;
-import org.yaawp.hmi.listitem.ListItemWherigoZones;
-import org.yaawp.hmi.listitem.ListItemGpsDisabledWarning;
+import org.yaawp.hmi.listitem.*;
 import org.yaawp.hmi.adapter.ListItemAdapter;
 
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
@@ -91,6 +87,9 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	
 		mGpsDisabledWarning = (ListItemGpsDisabledWarning) mAdapter.AddItem( new ListItemGpsDisabledWarning( this ) );
     	mGuidanceActive     = (ListItemGuidanceActive)     mAdapter.AddItem( new ListItemGuidanceActive(WigMainMenuActivity.this) );
+    	
+    	mAdapter.AddItem( new ListItemHeader( Engine.instance.cartridge.name , "" ) );
+    	
     	mWherigoZones       = (ListItemWherigoZones)       mAdapter.AddItem( new ListItemWherigoZones() );
     	mWherigoYouSee      = (ListItemWherigoYouSee)      mAdapter.AddItem( new ListItemWherigoYouSee() );
     	mWherigoInventory   = (ListItemWherigoInventory)   mAdapter.AddItem( new ListItemWherigoInventory() );
