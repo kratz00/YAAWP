@@ -9,6 +9,7 @@ import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonStopGuidance;
+import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.A;
 
 public class ListItemGuidanceActive extends ListItem3ButtonsHint implements GuidingListener {
@@ -35,12 +36,17 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 		AddButton( new PanelBarButtonStopGuidance() );  
 		
 		enableCancelButton( false );
-		
-	    A.getGuidingContent().addGuidingListener(this);
-	   	
-	    // TODO remove listener 
-	    // A.getGuidingContent().removeGuidingListener(this);	
 	}
+	
+	@Override
+	public void attach() {
+		A.getGuidingContent().addGuidingListener(this);
+	}
+	
+	@Override
+	public void dettach() {
+		A.getGuidingContent().removeGuidingListener(this);	
+	}		
 	
 	@Override
 	public boolean isValid() {

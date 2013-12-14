@@ -20,8 +20,6 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 
 	private Context mContext;
 	
-	// TODO deregister ListItem from LocationEventListener!
-	
 	public ListItemGpsDisabledWarning( Context context ) {
 		super( I18N.get(R.string.gps_disabled),
 				"Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view.",
@@ -51,12 +49,19 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 				}
 			)); 	
 		
-		enableCancelButton( true ); 
-		
-    	LocationState.addLocationChangeListener(this);
-    	// LocationState.removeLocationChangeListener(this);		
+		enableCancelButton( true ); 	
     }
     
+	@Override
+	public void attach() {
+		LocationState.addLocationChangeListener(this);
+	}
+	
+	@Override
+	public void dettach() {
+		LocationState.removeLocationChangeListener(this);
+	}	
+	
 	public void onLocationChanged(Location location) {
 	}
 
