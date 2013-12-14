@@ -21,7 +21,6 @@
 package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
-import org.yaawp.hmi.gui.dialogs.DialogMain;
 import org.yaawp.hmi.gui.extension.UtilsGUI;
 
 import org.yaawp.hmi.listitem.ListItemWherigoInventory;
@@ -177,11 +176,8 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
                 break; 
 
             case R.id.menu_info:
-                getSupportFragmentManager().
-                    beginTransaction().
-                    add(new DialogMain(), "DIALOG_TAG_MAIN").
-                    commitAllowingStateLoss();
-                break;
+                Intent intent03 = new Intent( this, AppInfoActivity.class);
+                startActivity(intent03); 
                 
             default:
                 status = super.onOptionsItemSelected(item);

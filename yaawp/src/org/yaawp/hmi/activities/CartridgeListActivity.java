@@ -42,7 +42,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
-import org.yaawp.hmi.gui.dialogs.DialogMain;
 import org.yaawp.hmi.gui.extension.CustomDialog;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.listitem.AbstractListItem;
@@ -422,10 +421,8 @@ public class CartridgeListActivity extends CustomActivity {
                 break; 
 
             case R.id.menu_info:
-                getSupportFragmentManager().
-                    beginTransaction().
-                    add(new DialogMain(), "DIALOG_TAG_MAIN").
-                    commitAllowingStateLoss();
+                Intent intent03 = new Intent(CartridgeListActivity.this, AppInfoActivity.class);
+                startActivity(intent03);            	
                 break;
                 
             default:
