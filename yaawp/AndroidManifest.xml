@@ -29,7 +29,7 @@
 		android:label="Yaawp"
 		android:name="org.yaawp.MainApplication" >
 	
-	    <!--  
+	   <!-- 
 	    <activity 
 	        android:name="org.yaawp.hmi.activities.SplashscreenActivity"
 	        android:screenOrientation="portrait">
@@ -38,13 +38,13 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		-->
-			        
+	-->
+			     <!--  android:theme="@style/AppTheme"  -->
 		<activity 
 		    android:name="org.yaawp.hmi.activities.CartridgeListActivity" 
 			android:label="Yaawp" 
 			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme">
+			>
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -83,32 +83,20 @@
 			android:screenOrientation="portrait"
 			android:theme="@android:style/Theme.Dialog"/>
 		<activity
-			android:name="org.yaawp.hmi.gui.MapScreen"
-			android:screenOrientation="portrait" />
-		<activity
 			android:name="org.yaawp.hmi.activities.WigPushDialogActivity" 
 			android:screenOrientation="portrait"/>
-		<activity
-			android:name="org.yaawp.hmi.gui.OnlineChooser"
-			android:screenOrientation="portrait" />
 		<activity
 			android:name="org.yaawp.hmi.activities.GuidingActivity"
 			android:screenOrientation="portrait" />
 		<activity
 			android:name="org.yaawp.hmi.activities.SatelliteActivity"
-			android:screenOrientation="portrait" />
-		<activity
-			android:name="org.yaawp.hmi.gui.SettingScreens"
-			android:screenOrientation="portrait"
-			/> <!-- android:theme="@style/ThemeSettings" /> -->
-		
+			android:screenOrientation="portrait" />	
 		<activity
 		    android:name="org.yaawp.hmi.activities.YaawpPreferenceActivity"
 		    android:screenOrientation="portrait" />
 		<activity
 		    android:name="org.yaawp.maps.mapsforge.CartridgeMapActivity"
 		    android:screenOrientation="portrait" />		
-		<service android:name="org.yaawp.positioning.GpsConnectionService" />
 		<service android:name="org.yaawp.audio.AudioPlayService" />
 		
 	</application>
