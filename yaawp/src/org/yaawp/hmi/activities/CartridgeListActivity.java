@@ -189,7 +189,7 @@ public class CartridgeListActivity extends CustomActivity {
     	if ( LocationState.isActuallyHardwareGpsOn() == false ) {
     		ListItem3ButtonsHint item = new ListItem3ButtonsHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
     				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view.",
-    				0 // TODO
+    				R.drawable.ic_main_gps // TODO
     				); 
     		
     		item.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 

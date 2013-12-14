@@ -27,7 +27,10 @@ import org.yaawp.hmi.gui.dialogs.DialogMain;
 import org.yaawp.hmi.helper.I18N;
 
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
-import org.yaawp.hmi.listitem.ListItemWigItem;
+import org.yaawp.hmi.listitem.ListItemWherigoInventory;
+import org.yaawp.hmi.listitem.ListItemWherigoTasks;
+import org.yaawp.hmi.listitem.ListItemWherigoYouSee;
+import org.yaawp.hmi.listitem.ListItemWherigoZones;
 import org.yaawp.hmi.adapter.ListItemAdapter;
 
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
@@ -75,6 +78,10 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	
 	private AdapterView.OnItemClickListener listClick;
 	ListItemGuidanceActive mGuidanceActive = null;
+	ListItemWherigoInventory mWherigoInventory = null;
+	ListItemWherigoTasks mWherigoTasks = null;
+	ListItemWherigoYouSee mWherigoYouSee = null;
+	ListItemWherigoZones mWherigoZones = null;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -85,7 +92,10 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		mButtonShowMap = new PanelBarButtonShowMap(this);		
 		
     	mGuidanceActive = new ListItemGuidanceActive(WigMainMenuActivity.this);
-
+    	mWherigoInventory = new ListItemWherigoInventory();
+    	mWherigoTasks = new ListItemWherigoTasks();
+    	mWherigoYouSee = new ListItemWherigoYouSee();
+    	mWherigoZones = new ListItemWherigoZones();
 		
 		listClick = new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -184,7 +194,6 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 				
 				ListItemAdapter adapter = new ListItemAdapter(WigMainMenuActivity.this);			
 	    		ListItem3ButtonsHint itemHint = null;
-	    		ListItemWigItem item = null;
 	    		
 				/* TODO make a common usable class to show this 'widget' */
 		    	if ( LocationState.isActuallyHardwareGpsOn() == false ) {
@@ -220,31 +229,10 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		    	}	
 		    	
 		    	adapter.AddItem( mGuidanceActive );
-
-	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_ZONES,
-	    				I18N.get(R.string.locations) + " (" + Engine.instance.cartridge.visibleZones() + ")",
-	    				getVisibleZonesDescription(), R.drawable.icon_locations );
-	    		item.setSelectable(true);
-	    		adapter.AddItem( item );
-				
-	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_YOUSEE,
-	    				I18N.get(R.string.you_see) + " (" + Engine.instance.cartridge.visibleThings() + ")",
-	    				getVisibleCartridgeThingsDescription(), R.drawable.icon_search );
-	    		item.setSelectable(true);
-	    		adapter.AddItem( item );
-	    		
-	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_INVENTORY,
-	    				I18N.get(R.string.inventory) + " (" + Engine.instance.player.visibleThings() + ")",
-	    				getVisiblePlayerThingsDescription(), R.drawable.icon_inventory );
-	    		item.setSelectable(true);
-	    		adapter.AddItem( item );
-	    		
-	    		item = new ListItemWigItem( ListItemWigItem.WIGITEMTYPE_TASKS,
-	    				I18N.get(R.string.tasks) + " (" + Engine.instance.cartridge.visibleTasks() + ")",
-	    				getVisibleTasksDescription(), R.drawable.icon_tasks );
-	    		item.setSelectable(true);
-	    		adapter.AddItem( item );	    		
-	    		
+		    	adapter.AddItem( mWherigoInventory );
+		    	adapter.AddItem( mWherigoTasks );
+		    	adapter.AddItem( mWherigoYouSee );
+		    	adapter.AddItem( mWherigoZones );
 				
 				/* --- */
 	    		final ListView lv = (ListView) findViewById(R.id.listView1);			
@@ -335,111 +323,5 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 			WigMainMenuActivity.this.finish();
 		}
 		
-	}
-	
-	/***********************************/
-	/*     SPECIAL ITEMS FUNCTIONS     */
-	/***********************************/
-		
-	private String getVisibleZonesDescription() {
-		String description = null;
-		@SuppressWarnings("unchecked")
-		Vector<Zone> zones = Engine.instance.cartridge.zones;
-		for (int i = 0; i < zones.size(); i++) {
-			Zone z = (Zone)zones.get(i);
-			if (z.isVisible()) {
-				if (description == null)
-					description = "";
-				else
-					description += ", ";
-				
-				description += z.name;
-			}
-		}
-		return description;
-	}
-	
-	private String getVisibleCartridgeThingsDescription() {
-		String description = null;
-		@SuppressWarnings("unchecked")
-		Vector<Zone> zones = Engine.instance.cartridge.zones;
-		for (int i = 0; i < zones.size(); i++) {
-			Zone z = (Zone)zones.elementAt(i);
-			String des = getVisibleThingsDescription(z);
-			if (des != null) {
-				if (description == null)
-					description = "";
-				else
-					description += ", ";
-				
-				description += des;
-			}
-		}
-		return description;
-	}
-	
-	private String getVisibleThingsDescription(Zone z) {
-		String description = null;
-		if (!z.showThings())
-			return null;
-		Object key = null;
-		while ((key = z.inventory.next(key)) != null) {
-			Object o = z.inventory.rawget(key);
-			if (o instanceof Player)
-				continue;
-			if (!(o instanceof Thing))
-				continue;
-			if (((Thing) o).isVisible()) {
-				if (description == null)
-					description = "";
-				else
-					description += ", ";
-
-				description += ((Thing) o).name;
-			}
-		}
-		return description;
-	}
-	
-	private String getVisiblePlayerThingsDescription() {
-		Player p = Engine.instance.player;
-		String description = null;
-		Object key = null;
-		while ((key = p.inventory.next(key)) != null) {
-			Object o = p.inventory.rawget(key);
-			if (o instanceof Thing && ((Thing) o).isVisible()) {
-				if (description == null)
-					description = "";
-				else
-					description += ", ";
-				
-				description += ((Thing) o).name;
-			}
-		}
-		return description;
-	}
-	
-	public int getVisibleTasksCount() {
-		int count = 0;
-		for (int i = 0; i < Engine.instance.cartridge.tasks.size(); i++) {
-			Task a = (Task)Engine.instance.cartridge.tasks.elementAt(i);
-			if (a.isVisible()) count++;
-		}
-		return count;
-	}
-	
-	public String getVisibleTasksDescription() {
-		String description = null;
-		for (int i = 0; i < Engine.instance.cartridge.tasks.size(); i++) {
-			Task a = (Task)Engine.instance.cartridge.tasks.elementAt(i);
-			if (a.isVisible()) {
-				if (description == null)
-					description = "";
-				else
-					description += ", ";
-				description += a.name;
-			}
-		}
-		return description;
 	}
 }
