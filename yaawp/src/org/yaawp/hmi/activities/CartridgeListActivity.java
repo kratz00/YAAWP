@@ -102,20 +102,6 @@ public class CartridgeListActivity extends CustomActivity {
         RelativeLayout contentArea = (RelativeLayout) this.findViewById(R.id.relative_layout_content);
         contentArea.removeAllViews();
         contentArea.addView(mCartridgeListView);        
-        
-        /*
-        // set long press listener
-        mCartridgeListView.setOnCreateContextMenuListener( new OnCreateContextMenuListener() {
-            public void onCreateContextMenu( ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-                
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-                    
-                // ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
-                mAdapter.createContextMenu( info.position, menu );
-            }
-        } ); 
-        */
-
     }
     
     @Override
@@ -167,7 +153,7 @@ public class CartridgeListActivity extends CustomActivity {
         
     	// TODO Clear list
     	
-    	/*ListItemAdapter*/ 
+    	mAdapter.RemoveAllItems();
     	
     	// TODO added warnings, notes and errors
 		if ( YaawpAppData.GetInstance().mFileSystemCheck == false ) {
@@ -371,20 +357,6 @@ public class CartridgeListActivity extends CustomActivity {
     };
     
     FileCollectorListener mCartridgeCollectorListener = new CartridgeCollectorListener();
-    
-    
-    /*
-    private void invalidateCartridgeList() {
-    	if ( mAdapter != null ) {
-	    	runOnUiThread( new Runnable() {
-	            public void run() {
-	            	Logger.i( TAG, "invalidateCartridgeList" );
-	            	mAdapter.notifyDataSetChanged(); 
-	            }
-	        });
-    	}
-    }
-    */
     
     
     @Override

@@ -49,6 +49,11 @@ public class ListItemAdapter extends BaseAdapter {
     	}    		
 	}
 	
+	public void RemoveAllItems() {
+		mAllListItems.removeAllElements();
+		mListItems.removeAllElements();
+	}
+	
 	/* --------------------------------------------------------- */
 	public AdapterView.OnItemClickListener mListClick = new AdapterView.OnItemClickListener() { // TODO rename member
 		public void onItemClick(AdapterView<?> parent, View view,
