@@ -97,12 +97,13 @@ public class CartridgeListActivity extends CustomActivity {
 		mCartridgeListView = new ListView(this);                        
         mCartridgeListView.setAdapter(mAdapter);
         mCartridgeListView.setOnItemClickListener( mAdapter.mListClick );
+        mCartridgeListView.setOnCreateContextMenuListener( mAdapter.mCtxMenu );
 		
         RelativeLayout contentArea = (RelativeLayout) this.findViewById(R.id.relative_layout_content);
         contentArea.removeAllViews();
         contentArea.addView(mCartridgeListView);        
         
-        
+        /*
         // set long press listener
         mCartridgeListView.setOnCreateContextMenuListener( new OnCreateContextMenuListener() {
             public void onCreateContextMenu( ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -113,7 +114,7 @@ public class CartridgeListActivity extends CustomActivity {
                 mAdapter.createContextMenu( info.position, menu );
             }
         } ); 
-        
+        */
 
     }
     

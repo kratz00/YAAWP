@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
@@ -48,33 +50,37 @@ public class ListItemAdapter extends BaseAdapter {
 	}
 	
 	/* --------------------------------------------------------- */
-	public AdapterView.OnItemClickListener mListClick = new AdapterView.OnItemClickListener() {
+	public AdapterView.OnItemClickListener mListClick = new AdapterView.OnItemClickListener() { // TODO rename member
 		public void onItemClick(AdapterView<?> parent, View view,
 				int position, long id) {
 			Logger.d(TAG, "onItemClick:" + position);
 			
-			BaseAdapter adapter = (BaseAdapter)parent.getAdapter();
+			/* BaseAdapter adapter = (BaseAdapter)parent.getAdapter();
 			if ( adapter instanceof ListItemAdapter ) {
 				((ListItemAdapter) adapter ).onListItemClicked( position );
-			}
-			
+			}*/
+			ListItemAdapter.this.mListItems.get(position).onListItemClicked( mActivity );
 		}
 	};
 	
+    // set long press listener
+	public AdapterView.OnCreateContextMenuListener mCtxMenu = new OnCreateContextMenuListener() {
+        public void onCreateContextMenu( ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+            ListItemAdapter.this.mListItems.get(info.position).createContextMenu( mActivity, menu );
+        }
+    } ; 	
 	
 	/* --------------------------------------------------------- */
 	
-	public boolean createContextMenu( int position, ContextMenu menu ) {       
-        return mListItems.get(position).createContextMenu( mActivity, menu );
-	}
-
 	public boolean onContextItemSelected( int position, int index ) {
 		return mListItems.get(position).onContextItemSelected( mActivity,index);
-	}	
+	}
+	
 
-    public void onListItemClicked( int position) {       
+    /* public void onListItemClicked( int position) {       
         mListItems.get(position).onListItemClicked( mActivity );
-    }
+    }*/
 	
 	/* --- methods of BaseAdapter --- */
 	
