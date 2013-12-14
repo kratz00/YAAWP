@@ -25,7 +25,7 @@ public class ListItemHeader extends AbstractListItem {
     	super( R.layout.list_separator );
     	mTitleLeft = titleLeft;
     	mTitleRight = titleRight;
-    	mBitmap = Images.resizeBitmap( mBitmap, 40 );
+    	mBitmap = Images.resizeBitmap( bitmap, 40 );
     }    
     
     @Override
