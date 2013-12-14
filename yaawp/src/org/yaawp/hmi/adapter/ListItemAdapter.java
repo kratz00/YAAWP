@@ -5,10 +5,14 @@ import android.graphics.Color;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
 import java.util.Vector;
+
+import org.yaawp.hmi.activities.WigMainMenuActivity;
 import org.yaawp.hmi.listitem.AbstractListItem;
+import org.yaawp.utils.Logger;
 import org.yaawp.utils.Utils;
 import android.app.Activity;
 
@@ -20,14 +24,16 @@ public class ListItemAdapter extends BaseAdapter {
 	
     
     private Context mContext;
+    private Activity mActivity;
        
     /* --- ListItemAdapter methods ------------------------ */
     
-	public ListItemAdapter( Context context /*, View view */ ) {	
+	public ListItemAdapter( Activity activity ) {	
 		super();
 		this.mAllListItems = new Vector<AbstractListItem>();
 		this.mListItems = new Vector<AbstractListItem>();
-		this.mContext = context;
+		this.mContext = (Context)activity;
+		mActivity = activity;
     }
 	
 	public void AddItem( AbstractListItem item ) {
@@ -40,18 +46,33 @@ public class ListItemAdapter extends BaseAdapter {
     	}    		
 	}
 	
+	/* --------------------------------------------------------- */
+	public AdapterView.OnItemClickListener mListClick = new AdapterView.OnItemClickListener() {
+		public void onItemClick(AdapterView<?> parent, View view,
+				int position, long id) {
+			Logger.d(TAG, "onItemClick:" + position);
+			
+			BaseAdapter adapter = (BaseAdapter)parent.getAdapter();
+			if ( adapter instanceof ListItemAdapter ) {
+				((ListItemAdapter) adapter ).onListItemClicked( position );
+			}
+			
+		}
+	};
 	
-	public boolean createContextMenu( Activity activity, int position, ContextMenu menu ) {       
-        return mListItems.get(position).createContextMenu( activity, menu );
+	
+	/* --------------------------------------------------------- */
+	
+	public boolean createContextMenu( int position, ContextMenu menu ) {       
+        return mListItems.get(position).createContextMenu( mActivity, menu );
 	}
 
-	public boolean onContextItemSelected( Activity activity, int position, int index ) {
-		return mListItems.get(position).onContextItemSelected(activity,index);
+	public boolean onContextItemSelected( int position, int index ) {
+		return mListItems.get(position).onContextItemSelected( mActivity,index);
 	}	
 
-	
-    public void onListItemClicked( Activity activity, int position) {       
-        mListItems.get(position).onListItemClicked(activity);
+    public void onListItemClicked( int position) {       
+        mListItems.get(position).onListItemClicked( mActivity );
     }
 	
 	/* --- methods of BaseAdapter --- */

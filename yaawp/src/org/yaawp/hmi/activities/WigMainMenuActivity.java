@@ -20,8 +20,6 @@
 
 package org.yaawp.hmi.activities;
 
-import java.util.Vector;
-
 import org.yaawp.R;
 import org.yaawp.hmi.gui.dialogs.DialogMain;
 import org.yaawp.hmi.helper.I18N;
@@ -53,20 +51,13 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import cz.matejcik.openwig.Engine;
-import cz.matejcik.openwig.Player;
-import cz.matejcik.openwig.Task;
-import cz.matejcik.openwig.Thing;
-import cz.matejcik.openwig.Zone;
 
 import org.yaawp.hmi.listitem.ListItemGuidanceActive;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
-import android.widget.BaseAdapter;
 
 public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 
@@ -76,40 +67,78 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	// private PanelBarButtonStopGuidance mButtonStopGuidance;
 	private PanelBarButtonShowMap mButtonShowMap;
 	
-	private AdapterView.OnItemClickListener listClick;
+	ListItem3ButtonsHint mGpsDisabled = null;
 	ListItemGuidanceActive mGuidanceActive = null;
 	ListItemWherigoInventory mWherigoInventory = null;
 	ListItemWherigoTasks mWherigoTasks = null;
 	ListItemWherigoYouSee mWherigoYouSee = null;
 	ListItemWherigoZones mWherigoZones = null;
 	
+	ListItemAdapter mAdapter = null;	
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.layout_main); 
 		
-		mButtonPanelBar = new ThreeButtonPanelBar(this);
-		mButtonShowMap = new PanelBarButtonShowMap(this);		
+		/* ------------------------------------------------------------------ */
+		mAdapter = new ListItemAdapter(WigMainMenuActivity.this);
+		
+		
+    	mGpsDisabled = new ListItem3ButtonsHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
+				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view.",
+				R.drawable.ic_main_gps ) ;
+		
+    	mGpsDisabled.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
+				new PanelBarButton.OnClickListener() {
+					@Override
+					public boolean onClick() {
+						LocationState.setGpsOn(WigMainMenuActivity.this);
+						WigMainMenuActivity.this.refresh(); // TODO use a comment method to refresh the listadapter
+						return true;
+					}
+				}
+			));  
+		
+    	mGpsDisabled.AddButton( new PanelBarButton( I18N.get(R.string.positioning), 
+				new PanelBarButton.OnClickListener() {
+					@Override
+					public boolean onClick() {
+		                Intent intent02 = new Intent(WigMainMenuActivity.this, SatelliteActivity.class);
+		                startActivity(intent02);
+						return true;
+					}
+				}
+			)); 
+		
+    	mGpsDisabled.enableCancelButton( true );
 		
     	mGuidanceActive = new ListItemGuidanceActive(WigMainMenuActivity.this);
     	mWherigoInventory = new ListItemWherigoInventory();
     	mWherigoTasks = new ListItemWherigoTasks();
     	mWherigoYouSee = new ListItemWherigoYouSee();
-    	mWherigoZones = new ListItemWherigoZones();
+    	mWherigoZones = new ListItemWherigoZones();	    	
+    	
+		mAdapter.AddItem( mGpsDisabled );    	
+    	mAdapter.AddItem( mGuidanceActive );
+    	mAdapter.AddItem( mWherigoInventory );
+    	mAdapter.AddItem( mWherigoTasks );
+    	mAdapter.AddItem( mWherigoYouSee );
+    	mAdapter.AddItem( mWherigoZones );    	
+    	mAdapter.notifyDataSetChanged();
+    	
 		
-		listClick = new AdapterView.OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Logger.d(TAG, "onItemClick:" + position);
-				
-				BaseAdapter adapter = (BaseAdapter)parent.getAdapter();
-				if ( adapter instanceof ListItemAdapter ) {
-					((ListItemAdapter) adapter ).onListItemClicked( WigMainMenuActivity.this, position );
-				}
-				
-			}
-		};
-			
+
+
+		
+		final ListView lv = (ListView) findViewById(R.id.listView1);			
+		lv.setAdapter(mAdapter);
+		lv.setOnItemClickListener( mAdapter.mListClick );
+		
+		/* ------------------------------------------------------------------ */
+		mButtonPanelBar = new ThreeButtonPanelBar(this);
+		mButtonShowMap = new PanelBarButtonShowMap(this);
+		
 		mButtonPanelBar.AddButton( new PanelBarButton( getString(R.string.save), 
 				new PanelBarButton.OnClickListener() {
 					@Override
@@ -191,54 +220,13 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	public void refresh() {
 		runOnUiThread(new Runnable() {
 			public void run() {
-				
-				ListItemAdapter adapter = new ListItemAdapter(WigMainMenuActivity.this);			
-	    		ListItem3ButtonsHint itemHint = null;
-	    		
+
 				/* TODO make a common usable class to show this 'widget' */
 		    	if ( LocationState.isActuallyHardwareGpsOn() == false ) {
-		    		itemHint = new ListItem3ButtonsHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
-		    				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view.",
-		    				R.drawable.ic_main_gps ) ;
-		    		
-		    		itemHint.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
-							new PanelBarButton.OnClickListener() {
-								@Override
-								public boolean onClick() {
-									LocationState.setGpsOn(WigMainMenuActivity.this);
-									WigMainMenuActivity.this.refresh(); // TODO use a comment method to refresh the listadapter
-									return true;
-								}
-							}
-						));  
-		    		
-		    		itemHint.AddButton( new PanelBarButton( I18N.get(R.string.positioning), 
-							new PanelBarButton.OnClickListener() {
-								@Override
-								public boolean onClick() {
-					                Intent intent02 = new Intent(WigMainMenuActivity.this, SatelliteActivity.class);
-					                startActivity(intent02);
-									return true;
-								}
-							}
-						)); 
-		    		
-		    		itemHint.enableCancelButton( true );
-		    		
-		    		adapter.AddItem( itemHint );
+		    		mGpsDisabled.setValid( true );
 		    	}	
 		    	
-		    	adapter.AddItem( mGuidanceActive );
-		    	adapter.AddItem( mWherigoInventory );
-		    	adapter.AddItem( mWherigoTasks );
-		    	adapter.AddItem( mWherigoYouSee );
-		    	adapter.AddItem( mWherigoZones );
-				
-				/* --- */
-	    		final ListView lv = (ListView) findViewById(R.id.listView1);			
-				lv.setAdapter(adapter);
-				lv.setOnItemClickListener(listClick);
-				adapter.notifyDataSetChanged();
+		    	mAdapter.notifyDataSetChanged();
 			}
 		});		
 	}

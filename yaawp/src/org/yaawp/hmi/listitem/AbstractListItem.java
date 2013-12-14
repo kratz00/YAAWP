@@ -39,6 +39,10 @@ public abstract class AbstractListItem {
 		return mValid;
 	}
 	
+	public void setValid( boolean valid ) {
+		mValid = valid;
+	}
+	
 	public boolean createContextMenu( Activity activity, ContextMenu menu ) {       
         return true;
 	}

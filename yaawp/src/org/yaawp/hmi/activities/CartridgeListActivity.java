@@ -403,7 +403,7 @@ public class CartridgeListActivity extends CustomActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             	ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
-            	xadapter.onListItemClicked( CartridgeListActivity.this, position );
+            	xadapter.onListItemClicked( position );
             }
         }); 
         
@@ -414,7 +414,7 @@ public class CartridgeListActivity extends CustomActivity {
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
                     
                 ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
-                xadapter.createContextMenu( CartridgeListActivity.this, info.position, menu );
+                xadapter.createContextMenu( info.position, menu );
             }
         } ); 
         
@@ -428,11 +428,7 @@ public class CartridgeListActivity extends CustomActivity {
         
         final ListView listview = (ListView) findViewById(R.id.listView1); 
         ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
-        boolean status = xadapter.onContextItemSelected( CartridgeListActivity.this, info.position, index );
-        
-        // AbstractListItem itemX = YaawpAppData.GetInstance().mData.get(info.position);  
-        // boolean status = itemX.onContextItemSelected( this, item, index );
-
+        boolean status = xadapter.onContextItemSelected( info.position, index );
         return status;
     }
             
