@@ -288,7 +288,7 @@ public class CartridgeListActivity extends CustomActivity {
     	    		}
     	    	}
     	    	Collections.sort(localData2, comparator2 );
-    	    	data.add( new ListItemHeader("Cartridge - location less", headerRight2 ) );
+    	    	data.add( new ListItemHeader("Cartridge - location less", headerRight2, null ) );
     	    	Append( data, localData2 );
         	}    		
     	}
@@ -312,7 +312,7 @@ public class CartridgeListActivity extends CustomActivity {
     		}    		
     	}
     	Collections.sort(localData, comparator1 );
-    	data.add( new ListItemHeader("Cartridge", headerRight1) );
+    	data.add( new ListItemHeader("Cartridge", headerRight1, null ) );
     	Append( data, localData );
 
        	/* --------------------------------------------- */
@@ -326,7 +326,7 @@ public class CartridgeListActivity extends CustomActivity {
     	    		}
     	    	}
     	    	Collections.sort(localData2, comparator2 );
-    	    	data.add( new ListItemHeader("Cartridge - location less", headerRight2 ) );
+    	    	data.add( new ListItemHeader("Cartridge - location less", headerRight2, null ) );
     	    	Append( data, localData2 );
         	}    		
     	}   

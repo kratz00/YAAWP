@@ -58,6 +58,7 @@ import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
 import org.yaawp.hmi.gui.extension.CustomDialog;
+import org.yaawp.utils.CartridgeHelper;
 
 public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 
@@ -88,7 +89,8 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		mGpsDisabledWarning = (ListItemGpsDisabledWarning) mAdapter.AddItem( new ListItemGpsDisabledWarning( this ) );
     	mGuidanceActive     = (ListItemGuidanceActive)     mAdapter.AddItem( new ListItemGuidanceActive(WigMainMenuActivity.this) );
     	
-    	mAdapter.AddItem( new ListItemHeader( Engine.instance.cartridge.name , "" ) );
+    	mAdapter.AddItem( new ListItemHeader( Engine.instance.cartridge.name , "", 
+    			CartridgeHelper.getCartridgeImage( Engine.instance.gwcfile)) );
     	
     	mWherigoZones       = (ListItemWherigoZones)       mAdapter.AddItem( new ListItemWherigoZones() );
     	mWherigoYouSee      = (ListItemWherigoYouSee)      mAdapter.AddItem( new ListItemWherigoYouSee() );

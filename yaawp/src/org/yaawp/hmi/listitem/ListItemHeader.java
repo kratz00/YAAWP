@@ -1,11 +1,17 @@
 package org.yaawp.hmi.listitem;
 
 import org.yaawp.R;
+import org.yaawp.utils.Const;
+import org.yaawp.utils.Images;
 import org.yaawp.utils.Logger;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.Html;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import cz.matejcik.openwig.formats.ICartridge;
 
 public class ListItemHeader extends AbstractListItem {
 
@@ -13,11 +19,13 @@ public class ListItemHeader extends AbstractListItem {
     
     private String mTitleLeft;
     private String mTitleRight;
+    private Bitmap mBitmap;
     
-    public ListItemHeader( String titleLeft, String titleRight ) {
+    public ListItemHeader( String titleLeft, String titleRight, Bitmap bitmap ) {
     	super( R.layout.list_separator );
     	mTitleLeft = titleLeft;
     	mTitleRight = titleRight;
+    	mBitmap = Images.resizeBitmap( mBitmap, 40 );
     }    
     
     @Override
@@ -30,6 +38,16 @@ public class ListItemHeader extends AbstractListItem {
 	
 		try {				
 		
+			ImageView iv01 = (ImageView) view.findViewById(R.id.image_left);
+			if ( iv01 != null ) {
+				if ( mBitmap != null ) {
+					iv01.setImageBitmap(mBitmap);
+					iv01.setVisibility(View.VISIBLE);
+				} else {
+					iv01.setVisibility(View.GONE);
+				}
+			}
+			
 			TextView tvLeft  = (TextView) view.findViewById(R.id.linearLayoutSeparatorHeadline);
 			tvLeft.setVisibility(View.VISIBLE);
 			tvLeft.setText(Html.fromHtml(mTitleLeft));
