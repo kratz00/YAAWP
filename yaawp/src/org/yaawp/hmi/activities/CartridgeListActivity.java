@@ -150,9 +150,7 @@ public class CartridgeListActivity extends CustomActivity {
     }
     
     public void updateCartridgeList() {
-        
-    	// TODO Clear list
-    	
+         	
     	mAdapter.RemoveAllItems();
     	
     	// TODO added warnings, notes and errors
