@@ -35,6 +35,7 @@ import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -42,6 +43,7 @@ import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.gui.dialogs.DialogMain;
+import org.yaawp.hmi.gui.extension.CustomDialog;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.listitem.AbstractListItem;
 import org.yaawp.hmi.listitem.ListItemCartridge;
@@ -80,15 +82,39 @@ public class CartridgeListActivity extends CustomActivity {
 	private static final String TAG = "Main";	
 	private ListItemAdapter mAdapter = null;
 	private ListItemGpsDisabledWarning mGpsDisabledWarning  = null;
+	private ListView mCartridgeListView = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         A.registerMain(this);	
 		setContentView(R.layout.layout_main);  
+				
+		mAdapter = new ListItemAdapter( this );  
+		mGpsDisabledWarning = (ListItemGpsDisabledWarning)mAdapter.AddItem( new ListItemGpsDisabledWarning(this) );
 		
-		mGpsDisabledWarning = new ListItemGpsDisabledWarning(this); 
-		initCartridgeList();
+		
+		mCartridgeListView = new ListView(this);                        
+        mCartridgeListView.setAdapter(mAdapter);
+        mCartridgeListView.setOnItemClickListener( mAdapter.mListClick );
+		
+        RelativeLayout contentArea = (RelativeLayout) this.findViewById(R.id.relative_layout_content);
+        contentArea.removeAllViews();
+        contentArea.addView(mCartridgeListView);        
+        
+        
+        // set long press listener
+        mCartridgeListView.setOnCreateContextMenuListener( new OnCreateContextMenuListener() {
+            public void onCreateContextMenu( ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+                
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+                    
+                // ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
+                mAdapter.createContextMenu( info.position, menu );
+            }
+        } ); 
+        
+
     }
     
     @Override
@@ -138,7 +164,9 @@ public class CartridgeListActivity extends CustomActivity {
     
     public void updateCartridgeList() {
         
-    	/*ListItemAdapter*/ mAdapter = new ListItemAdapter( this );  
+    	// TODO Clear list
+    	
+    	/*ListItemAdapter*/ 
     	
     	// TODO added warnings, notes and errors
 		if ( YaawpAppData.GetInstance().mFileSystemCheck == false ) {
@@ -206,8 +234,6 @@ public class CartridgeListActivity extends CustomActivity {
   
         runOnUiThread( new Runnable() {
                 public void run() {
-                	final ListView listview = (ListView) findViewById(R.id.listView1); 
-                    listview.setAdapter( mAdapter );
                     mAdapter.notifyDataSetChanged();
                 }
             }
@@ -346,7 +372,7 @@ public class CartridgeListActivity extends CustomActivity {
     FileCollectorListener mCartridgeCollectorListener = new CartridgeCollectorListener();
     
     
-    
+    /*
     private void invalidateCartridgeList() {
     	if ( mAdapter != null ) {
 	    	runOnUiThread( new Runnable() {
@@ -357,42 +383,15 @@ public class CartridgeListActivity extends CustomActivity {
 	        });
     	}
     }
+    */
     
-    private void initCartridgeList() {
-    	
-    	final ListView listview = (ListView) findViewById(R.id.listView1); 
-    	
-    	
-    	
-        // set click listener
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            	ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
-            	xadapter.onListItemClicked( position );
-            }
-        }); 
-        
-        // set long press listener
-        listview.setOnCreateContextMenuListener( new OnCreateContextMenuListener() {
-            public void onCreateContextMenu( ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-                
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-                    
-                ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
-                xadapter.createContextMenu( info.position, menu );
-            }
-        } ); 
-        
-             
-    }
     
     @Override
     public boolean onContextItemSelected( MenuItem item ) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         int index = item.getItemId();
         
-        final ListView listview = (ListView) findViewById(R.id.listView1); 
+        final ListView listview = mCartridgeListView; 
         ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
         boolean status = xadapter.onContextItemSelected( info.position, index );
         return status;

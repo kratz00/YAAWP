@@ -22,6 +22,7 @@ package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
 import org.yaawp.hmi.gui.dialogs.DialogMain;
+import org.yaawp.hmi.gui.extension.UtilsGUI;
 
 import org.yaawp.hmi.listitem.ListItemWherigoInventory;
 import org.yaawp.hmi.listitem.ListItemWherigoTasks;
@@ -38,6 +39,7 @@ import org.yaawp.utils.Const;
 import org.yaawp.utils.Logger;
 import org.yaawp.utils.ManagerNotify;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -49,63 +51,64 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.LinearLayout.LayoutParams;
 import cz.matejcik.openwig.Engine;
 
 import org.yaawp.hmi.listitem.ListItemGuidanceActive;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
+import org.yaawp.hmi.gui.extension.CustomDialog;
 
 public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 
 	private static final String TAG = "CartridgeMainMenu";
 	
 	private ThreeButtonPanelBar mButtonPanelBar;
-	// private PanelBarButtonStopGuidance mButtonStopGuidance;
 	private PanelBarButtonShowMap mButtonShowMap;
 	
-	ListItemGpsDisabledWarning mGpsDisabledWarning = null;
-	ListItemGuidanceActive mGuidanceActive = null;
-	ListItemWherigoInventory mWherigoInventory = null;
-	ListItemWherigoTasks mWherigoTasks = null;
-	ListItemWherigoYouSee mWherigoYouSee = null;
-	ListItemWherigoZones mWherigoZones = null;
+	private ListItemGpsDisabledWarning mGpsDisabledWarning = null;
+	private ListItemGuidanceActive mGuidanceActive = null;
+	private ListItemWherigoInventory mWherigoInventory = null;
+	private ListItemWherigoTasks mWherigoTasks = null;
+	private ListItemWherigoYouSee mWherigoYouSee = null;
+	private ListItemWherigoZones mWherigoZones = null;
 	
-	ListItemAdapter mAdapter = null;	
+	private ListItemAdapter mAdapter = null;	
+	private ListView mCartridgeListView = null;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.layout_main); 
-		
+		        
 		/* ------------------------------------------------------------------ */
+		
 		mAdapter = new ListItemAdapter(WigMainMenuActivity.this);
-		
-		mGpsDisabledWarning = new ListItemGpsDisabledWarning( this );
-		
-    	mGuidanceActive = new ListItemGuidanceActive(WigMainMenuActivity.this);
-    	mWherigoInventory = new ListItemWherigoInventory();
-    	mWherigoTasks = new ListItemWherigoTasks();
-    	mWherigoYouSee = new ListItemWherigoYouSee();
-    	mWherigoZones = new ListItemWherigoZones();	    	
+	
+		mGpsDisabledWarning = (ListItemGpsDisabledWarning) mAdapter.AddItem( new ListItemGpsDisabledWarning( this ) );
+    	mGuidanceActive     = (ListItemGuidanceActive)     mAdapter.AddItem( new ListItemGuidanceActive(WigMainMenuActivity.this) );
+    	mWherigoInventory   = (ListItemWherigoInventory)   mAdapter.AddItem( new ListItemWherigoInventory() );
+    	mWherigoTasks       = (ListItemWherigoTasks)       mAdapter.AddItem( new ListItemWherigoTasks() );
+    	mWherigoYouSee      = (ListItemWherigoYouSee)      mAdapter.AddItem( new ListItemWherigoYouSee() );
+    	mWherigoZones       = (ListItemWherigoZones)       mAdapter.AddItem( new ListItemWherigoZones() );	    	
     	
-		mAdapter.AddItem( mGpsDisabledWarning );    	
-    	mAdapter.AddItem( mGuidanceActive );
-    	mAdapter.AddItem( mWherigoInventory );
-    	mAdapter.AddItem( mWherigoTasks );
-    	mAdapter.AddItem( mWherigoYouSee );
-    	mAdapter.AddItem( mWherigoZones );    	
-    	mAdapter.notifyDataSetChanged();
+    	// mAdapter.notifyDataSetChanged();
     	
-		
+		/* ------------------------------------------------------------------ */
+    	
+		mCartridgeListView = new ListView(this);                        
+		mCartridgeListView.setAdapter(mAdapter);
+		mCartridgeListView.setOnItemClickListener( mAdapter.mListClick );
 
-
-		
-		final ListView lv = (ListView) findViewById(R.id.listView1);			
-		lv.setAdapter(mAdapter);
-		lv.setOnItemClickListener( mAdapter.mListClick );
-		
+        RelativeLayout contentArea = (RelativeLayout) this.findViewById(R.id.relative_layout_content);
+        contentArea.removeAllViews();
+        contentArea.addView(mCartridgeListView);   		
+	
 		/* ------------------------------------------------------------------ */
 		mButtonPanelBar = new ThreeButtonPanelBar(this);
 		mButtonShowMap = new PanelBarButtonShowMap(this);
