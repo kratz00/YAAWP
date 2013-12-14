@@ -22,19 +22,17 @@ package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
 import org.yaawp.hmi.gui.dialogs.DialogMain;
-import org.yaawp.hmi.helper.I18N;
 
-import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
 import org.yaawp.hmi.listitem.ListItemWherigoInventory;
 import org.yaawp.hmi.listitem.ListItemWherigoTasks;
 import org.yaawp.hmi.listitem.ListItemWherigoYouSee;
 import org.yaawp.hmi.listitem.ListItemWherigoZones;
+import org.yaawp.hmi.listitem.ListItemGpsDisabledWarning;
 import org.yaawp.hmi.adapter.ListItemAdapter;
 
 import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.openwig.Refreshable;
 import org.yaawp.openwig.WUI;
-import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.A;
 import org.yaawp.utils.Const;
 import org.yaawp.utils.Logger;
@@ -67,7 +65,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	// private PanelBarButtonStopGuidance mButtonStopGuidance;
 	private PanelBarButtonShowMap mButtonShowMap;
 	
-	ListItem3ButtonsHint mGpsDisabled = null;
+	ListItemGpsDisabledWarning mGpsDisabledWarning = null;
 	ListItemGuidanceActive mGuidanceActive = null;
 	ListItemWherigoInventory mWherigoInventory = null;
 	ListItemWherigoTasks mWherigoTasks = null;
@@ -84,34 +82,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		/* ------------------------------------------------------------------ */
 		mAdapter = new ListItemAdapter(WigMainMenuActivity.this);
 		
-		
-    	mGpsDisabled = new ListItem3ButtonsHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
-				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view.",
-				R.drawable.ic_main_gps ) ;
-		
-    	mGpsDisabled.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
-				new PanelBarButton.OnClickListener() {
-					@Override
-					public boolean onClick() {
-						LocationState.setGpsOn(WigMainMenuActivity.this);
-						WigMainMenuActivity.this.refresh(); // TODO use a comment method to refresh the listadapter
-						return true;
-					}
-				}
-			));  
-		
-    	mGpsDisabled.AddButton( new PanelBarButton( I18N.get(R.string.positioning), 
-				new PanelBarButton.OnClickListener() {
-					@Override
-					public boolean onClick() {
-		                Intent intent02 = new Intent(WigMainMenuActivity.this, SatelliteActivity.class);
-		                startActivity(intent02);
-						return true;
-					}
-				}
-			)); 
-		
-    	mGpsDisabled.enableCancelButton( true );
+		mGpsDisabledWarning = new ListItemGpsDisabledWarning( this );
 		
     	mGuidanceActive = new ListItemGuidanceActive(WigMainMenuActivity.this);
     	mWherigoInventory = new ListItemWherigoInventory();
@@ -119,7 +90,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
     	mWherigoYouSee = new ListItemWherigoYouSee();
     	mWherigoZones = new ListItemWherigoZones();	    	
     	
-		mAdapter.AddItem( mGpsDisabled );    	
+		mAdapter.AddItem( mGpsDisabledWarning );    	
     	mAdapter.AddItem( mGuidanceActive );
     	mAdapter.AddItem( mWherigoInventory );
     	mAdapter.AddItem( mWherigoTasks );
@@ -220,12 +191,6 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	public void refresh() {
 		runOnUiThread(new Runnable() {
 			public void run() {
-
-				/* TODO make a common usable class to show this 'widget' */
-		    	if ( LocationState.isActuallyHardwareGpsOn() == false ) {
-		    		mGpsDisabled.setValid( true );
-		    	}	
-		    	
 		    	mAdapter.notifyDataSetChanged();
 			}
 		});		
