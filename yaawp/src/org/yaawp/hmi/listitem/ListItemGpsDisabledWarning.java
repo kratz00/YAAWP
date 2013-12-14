@@ -24,6 +24,7 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 	public ListItemGpsDisabledWarning( Context context ) {
 		super( I18N.get(R.string.gps_disabled),
 				"Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view.",
+				true,
 				Images.getImageB( R.drawable.ic_main_gps ) ) ;
 		
 		mContext = context;

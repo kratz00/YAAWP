@@ -15,7 +15,7 @@ import cz.matejcik.openwig.Task;
 public class ListItemWherigoTasks extends ListItem3ButtonsHint {
 
 	public ListItemWherigoTasks() {
-		super( "", "", Images.getImageB( R.drawable.icon_tasks ) );
+		super( "", "", false, Images.getImageB( R.drawable.icon_tasks ) );
 		setSelectable(true);	
 		enableCancelButton(false);
 	}

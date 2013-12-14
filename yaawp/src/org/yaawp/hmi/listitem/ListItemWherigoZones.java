@@ -17,7 +17,7 @@ import cz.matejcik.openwig.Zone;
 public class ListItemWherigoZones extends ListItem3ButtonsHint {
 
 	public ListItemWherigoZones() {
-		super( "", "", Images.getImageB( R.drawable.icon_locations ) );
+		super( "", "", false, Images.getImageB( R.drawable.icon_locations ) );
 		setSelectable(true);
 		enableCancelButton(false);
 	}

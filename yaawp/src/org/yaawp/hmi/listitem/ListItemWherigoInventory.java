@@ -16,7 +16,7 @@ import cz.matejcik.openwig.Thing;
 public class ListItemWherigoInventory extends ListItem3ButtonsHint {
 
 	public ListItemWherigoInventory() {
-		super( "", "", Images.getImageB( R.drawable.icon_inventory ) );
+		super( "", "", false, Images.getImageB( R.drawable.icon_inventory ) );
 		setSelectable(true);
 		enableCancelButton(false);
 	}
