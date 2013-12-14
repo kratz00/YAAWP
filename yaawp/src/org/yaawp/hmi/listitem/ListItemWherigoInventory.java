@@ -4,6 +4,7 @@ import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
+import org.yaawp.utils.Images;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +16,7 @@ import cz.matejcik.openwig.Thing;
 public class ListItemWherigoInventory extends ListItem3ButtonsHint {
 
 	public ListItemWherigoInventory() {
-		super( "", "", R.drawable.icon_inventory );
+		super( "", "", Images.getImageB( R.drawable.icon_inventory ) );
 		setSelectable(true);
 		enableCancelButton(false);
 	}

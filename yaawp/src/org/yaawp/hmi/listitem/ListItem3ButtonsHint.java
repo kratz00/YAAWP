@@ -37,7 +37,7 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     protected ThreeButtonPanelBar mButtonPanelBar = null;
     private Vector<PanelBarButton> mButtons = new Vector<PanelBarButton>();
     
-    public ListItem3ButtonsHint( String title, String body, int image_resource ) {
+    public ListItem3ButtonsHint( String title, String body, Bitmap iconLeft ) {
     	super( R.layout.list_adapter_hint );
     	mTitle = title;
 
@@ -47,9 +47,7 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     		mBody = body;
     	}
     	
-    	if ( image_resource != 0 ) {
-    		mIconLeft = Images.getImageB(image_resource);
-    	}
+    	mIconLeft = iconLeft;
     }
     
 	public void AddButton( PanelBarButton button ) {

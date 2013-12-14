@@ -11,6 +11,7 @@ import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationEventListener;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.positioning.SatellitePosition;
+import org.yaawp.utils.Images;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +24,7 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 	public ListItemGpsDisabledWarning( Context context ) {
 		super( I18N.get(R.string.gps_disabled),
 				"Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view.",
-				R.drawable.ic_main_gps ) ;
+				Images.getImageB( R.drawable.ic_main_gps ) ) ;
 		
 		mContext = context;
 		

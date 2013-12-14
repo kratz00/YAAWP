@@ -6,6 +6,7 @@ import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
+import org.yaawp.utils.Images;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +17,7 @@ import cz.matejcik.openwig.Zone;
 public class ListItemWherigoZones extends ListItem3ButtonsHint {
 
 	public ListItemWherigoZones() {
-		super( "", "", R.drawable.icon_locations );
+		super( "", "", Images.getImageB( R.drawable.icon_locations ) );
 		setSelectable(true);
 		enableCancelButton(false);
 	}

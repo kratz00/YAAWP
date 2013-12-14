@@ -11,6 +11,7 @@ import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonStopGuidance;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.A;
+import org.yaawp.utils.Images;
 
 public class ListItemGuidanceActive extends ListItem3ButtonsHint implements GuidingListener {
 
@@ -19,7 +20,7 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 	public ListItemGuidanceActive( Context context ) {
 		super(	/* TODO I18N */ "Guidance active",
 				/* TODO I18N */ "Guidance to zone <i>" + A.getGuidingContent().getName() +"</i>",
-				R.drawable.ic_main_gps );
+				Images.getImageB( R.drawable.ic_main_gps ) );
 		
 		mContext = context;
 		
