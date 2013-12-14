@@ -91,13 +91,11 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	
 		mGpsDisabledWarning = (ListItemGpsDisabledWarning) mAdapter.AddItem( new ListItemGpsDisabledWarning( this ) );
     	mGuidanceActive     = (ListItemGuidanceActive)     mAdapter.AddItem( new ListItemGuidanceActive(WigMainMenuActivity.this) );
+    	mWherigoZones       = (ListItemWherigoZones)       mAdapter.AddItem( new ListItemWherigoZones() );
+    	mWherigoYouSee      = (ListItemWherigoYouSee)      mAdapter.AddItem( new ListItemWherigoYouSee() );
     	mWherigoInventory   = (ListItemWherigoInventory)   mAdapter.AddItem( new ListItemWherigoInventory() );
     	mWherigoTasks       = (ListItemWherigoTasks)       mAdapter.AddItem( new ListItemWherigoTasks() );
-    	mWherigoYouSee      = (ListItemWherigoYouSee)      mAdapter.AddItem( new ListItemWherigoYouSee() );
-    	mWherigoZones       = (ListItemWherigoZones)       mAdapter.AddItem( new ListItemWherigoZones() );	    	
-    	
-    	// mAdapter.notifyDataSetChanged();
-    	
+    	    	
 		/* ------------------------------------------------------------------ */
     	
 		mCartridgeListView = new ListView(this);                        
