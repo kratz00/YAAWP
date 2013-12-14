@@ -35,23 +35,18 @@ import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
-import org.yaawp.MainApplication;
 import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.gui.dialogs.DialogMain;
-import org.yaawp.hmi.gui.extension.UtilsGUI;
-import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.listitem.AbstractListItem;
 import org.yaawp.hmi.listitem.ListItemCartridge;
 import org.yaawp.hmi.listitem.ListItemHeader;
-import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
-import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
+import org.yaawp.hmi.listitem.ListItemGpsDisabledWarning;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
@@ -80,17 +75,19 @@ import org.yaawp.utils.FileCollector.FileCollectorListener;
 import org.yaawp.utils.FileCollector.Filter.FileCollectorCartridgeFilter;
 
 
-
 public class CartridgeListActivity extends CustomActivity {
 
 	private static final String TAG = "Main";	
-	public static ListItemAdapter adapter = null;
+	private ListItemAdapter mAdapter = null;
+	private ListItemGpsDisabledWarning mGpsDisabledWarning  = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         A.registerMain(this);	
-		setContentView(R.layout.layout_main);   	
+		setContentView(R.layout.layout_main);  
+		
+		mGpsDisabledWarning = new ListItemGpsDisabledWarning(this); 
 		initCartridgeList();
     }
     
@@ -141,7 +138,7 @@ public class CartridgeListActivity extends CustomActivity {
     
     public void updateCartridgeList() {
         
-    	/*ListItemAdapter*/ adapter = new ListItemAdapter( this );  
+    	/*ListItemAdapter*/ mAdapter = new ListItemAdapter( this );  
     	
     	// TODO added warnings, notes and errors
 		if ( YaawpAppData.GetInstance().mFileSystemCheck == false ) {
@@ -185,51 +182,20 @@ public class CartridgeListActivity extends CustomActivity {
 		}
 		*/
 		/* --------------------------------------------- */
-
-    	if ( LocationState.isActuallyHardwareGpsOn() == false ) {
-    		ListItem3ButtonsHint item = new ListItem3ButtonsHint( I18N.get(R.string.gps_disabled) /* TODO I18N */,
-    				/* TODO I18N */ "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view.",
-    				R.drawable.ic_main_gps // TODO
-    				); 
-    		
-    		item.AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
-					new PanelBarButton.OnClickListener() {
-						@Override
-						public boolean onClick() {
-							LocationState.setGpsOn(CartridgeListActivity.this);
-							CartridgeListActivity.this.updateCartridgeList();
-							return true;
-						}
-					}
-				));  
-    		
-    		item.AddButton( new PanelBarButton( I18N.get(R.string.positioning), 
-					new PanelBarButton.OnClickListener() {
-						@Override
-						public boolean onClick() {
-			                Intent intent02 = new Intent(CartridgeListActivity.this, SatelliteActivity.class);
-			                startActivity(intent02);
-							return true;
-						}
-					}
-				)); 
-    		
-    		item.enableCancelButton( true );
-    		
-    		adapter.AddItem( item );
-    	}
-    	
+    	mAdapter.AddItem( mGpsDisabledWarning );
 		/* --------------------------------------------- */
 		
     	if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
-    		adapter.AddItems( addedCartridgeItems() );
+    		mAdapter.AddItems( addedCartridgeItems() );
     	} else {
-    		ListItem3ButtonsHint item = new ListItem3ButtonsHint( "Note" /* TODO I18N */,
-    				I18N.get(R.string.no_wherigo_cartridge_available,"<i>"+FileSystem.ROOT+"</i>", MainApplication.APP_NAME),
-    				0 // TODO
-    				); 
     		
-    		adapter.AddItem( item );
+    		// ListItem3ButtonsHint item = new ListItem3ButtonsHint( "Note" /* TODO I18N */,
+    				///*I18N.get(R.string.no_wherigo_cartridge_available,"<i>"+FileSystem.ROOT+"</i>", MainApplication.APP_NAME),
+    				// 0 // TODO
+    		//		); 
+    		
+    		// adapter.AddItem( item );
+    	
     	}
     	/* --------------------------------------------- */
     	
@@ -241,8 +207,8 @@ public class CartridgeListActivity extends CustomActivity {
         runOnUiThread( new Runnable() {
                 public void run() {
                 	final ListView listview = (ListView) findViewById(R.id.listView1); 
-                    listview.setAdapter( adapter );
-                    adapter.notifyDataSetChanged();
+                    listview.setAdapter( mAdapter );
+                    mAdapter.notifyDataSetChanged();
                 }
             }
         );     	
@@ -382,11 +348,11 @@ public class CartridgeListActivity extends CustomActivity {
     
     
     private void invalidateCartridgeList() {
-    	if ( adapter != null ) {
+    	if ( mAdapter != null ) {
 	    	runOnUiThread( new Runnable() {
 	            public void run() {
 	            	Logger.i( TAG, "invalidateCartridgeList" );
-	            	adapter.notifyDataSetChanged(); 
+	            	mAdapter.notifyDataSetChanged(); 
 	            }
 	        });
     	}
