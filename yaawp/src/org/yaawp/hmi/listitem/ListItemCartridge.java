@@ -14,11 +14,9 @@ import android.graphics.Color;
 import android.text.Html;
 import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
@@ -30,7 +28,6 @@ import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.Const;
 import org.yaawp.utils.Images;
 import org.yaawp.utils.Logger;
-import org.yaawp.utils.Utils;
 import org.yaawp.utils.UtilsFormat;
 
 public class ListItemCartridge extends AbstractListItem {
@@ -48,7 +45,7 @@ public class ListItemCartridge extends AbstractListItem {
     public YCartridge mCartridge;
       
     public ListItemCartridge( YCartridge cartridge ) {
-    	super( R.layout.iconed_list_adapter );
+    	super( R.layout.listitem_cartridge );
     	mCartridge = cartridge;
     }
     
@@ -94,9 +91,7 @@ public class ListItemCartridge extends AbstractListItem {
 			
 			
 			// set TextView top
-			tv01.setBackgroundColor(Color.TRANSPARENT);
-			tv01.setTextColor(Color.BLACK);
-	
+
 			if (name == null) {
 				tv01.setVisibility(View.GONE);
 			} else {
@@ -105,8 +100,6 @@ public class ListItemCartridge extends AbstractListItem {
 			}
 			
 			// set TextView bottom
-			tv02.setBackgroundColor(Color.TRANSPARENT);
-			tv02.setTextColor(Color.DKGRAY);
 
 			tv02.setVisibility(View.GONE);
 			if (description != null) {

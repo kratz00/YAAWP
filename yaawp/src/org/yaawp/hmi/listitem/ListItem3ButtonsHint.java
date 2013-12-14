@@ -106,8 +106,6 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 		TextView tv01 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView01);
 		if ( mTitle != null && !mTitle.isEmpty() ) {
 			tv01.setVisibility(View.VISIBLE);
-			tv01.setTextColor(Color.BLACK);
-			tv01.setBackgroundColor(Color.TRANSPARENT);
 			tv01.setText(Html.fromHtml(mTitle));
 		} else {
 			tv01.setVisibility(View.GONE);			
@@ -117,8 +115,6 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 		TextView tv02 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView02);
 		if ( mBody != null && !mBody.isEmpty() ) {
 			tv02.setVisibility(View.VISIBLE);
-			tv02.setTextColor(Color.DKGRAY);
-			tv02.setBackgroundColor(Color.TRANSPARENT);
 			tv02.setText(Html.fromHtml(mBody));
 		} else {
 			tv02.setVisibility(View.GONE);			
