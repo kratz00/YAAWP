@@ -51,6 +51,10 @@ public class ThreeButtonPanelBar {
 		updateUI();
 	}
 	
+	public void RemoveAllButtons() {
+		mButton.removeAllElements();
+	}
+	
 	public void SetBackgroundColor( int backgroundColor ) {
 		// COLOR_BACKGROUND = backgroundColor;
 	}	

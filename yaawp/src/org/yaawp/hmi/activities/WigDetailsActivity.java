@@ -193,6 +193,8 @@ public class WigDetailsActivity extends CustomActivity implements Refreshable, L
 		
 		Logger.d(TAG, "setBottomMenu(), loc:" + et.isLocated() + ", et:" + et + ", act:" + actions);
 
+		mButtonPanelBar.RemoveAllButtons();
+		
 		// set location on first two buttons
 		if (location) {
 			
