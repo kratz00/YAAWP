@@ -40,18 +40,23 @@ public class ListItemAdapter extends BaseAdapter {
 	
 	public AbstractListItem AddItem( AbstractListItem item ) {
 		mAllListItems.add( item );
+		item.attach();
 		return item;
 	}
 	
 	public void AddItems( Vector<AbstractListItem> items ) {
     	for ( int i=0; i<items.size(); i++ ) {
     		mAllListItems.add( items.get(i) );
+    		items.get(i).attach();
     	}    		
 	}
 	
 	public void RemoveAllItems() {
-		mAllListItems.removeAllElements();
 		mListItems.removeAllElements();
+    	for ( int i=0; i<mAllListItems.size(); i++ ) {
+    		mAllListItems.get(i).dettach();
+    	}	
+    	mAllListItems.removeAllElements();
 	}
 	
 	/* --------------------------------------------------------- */

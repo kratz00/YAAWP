@@ -27,6 +27,14 @@ public abstract class AbstractListItem {
 	
 	public abstract void layout( Context context, View view  );
 
+	public void attach() {
+		return;
+	}
+	
+	public void dettach() {
+		return;
+	}
+	
 	public boolean isEnabled() {
 		return true;
 	}
