@@ -6,17 +6,25 @@ import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
 
 import android.app.Activity;
+import android.content.Context;
+import android.view.View;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Task;
 
 public class ListItemWherigoTasks extends ListItem3ButtonsHint {
 
 	public ListItemWherigoTasks() {
-		super(I18N.get(R.string.tasks) + " (" + Engine.instance.cartridge.visibleTasks() + ")",
-				"", R.drawable.icon_tasks );
-		mBody = getVisibleTasksDescription();
-		setSelectable(true);		
+		super( "", "", R.drawable.icon_tasks );
+		setSelectable(true);	
+		enableCancelButton(false);
 	}
+	
+	@Override
+	public void layout( Context context, View view  ) {
+		mTitle = I18N.get(R.string.tasks) + " (" + Engine.instance.cartridge.visibleTasks() + ")";
+		mBody = getVisibleTasksDescription();
+		super.layout( context, view );
+	}	
 	
 	@Override
 	public void onListItemClicked( Activity activity ) {

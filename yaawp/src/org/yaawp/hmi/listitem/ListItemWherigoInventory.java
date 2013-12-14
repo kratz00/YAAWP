@@ -6,6 +6,8 @@ import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
 
 import android.app.Activity;
+import android.content.Context;
+import android.view.View;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Player;
 import cz.matejcik.openwig.Thing;
@@ -13,10 +15,16 @@ import cz.matejcik.openwig.Thing;
 public class ListItemWherigoInventory extends ListItem3ButtonsHint {
 
 	public ListItemWherigoInventory() {
-		super(I18N.get(R.string.inventory) + " (" + Engine.instance.player.visibleThings() + ")",
-				"", R.drawable.icon_inventory );
+		super( "", "", R.drawable.icon_inventory );
+		setSelectable(true);
+		enableCancelButton(false);
+	}
+	
+	@Override
+	public void layout( Context context, View view  ) {
+		mTitle = I18N.get(R.string.inventory) + " (" + Engine.instance.player.visibleThings() + ")";
 		mBody = getVisiblePlayerThingsDescription();
-		setSelectable(true);		
+		super.layout( context, view );
 	}
 	
 	@Override

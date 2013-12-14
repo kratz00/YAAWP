@@ -8,19 +8,25 @@ import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
 
 import android.app.Activity;
+import android.content.Context;
+import android.view.View;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Zone;
 
 public class ListItemWherigoZones extends ListItem3ButtonsHint {
 
 	public ListItemWherigoZones() {
-		super( I18N.get(R.string.locations) + " (" + Engine.instance.cartridge.visibleZones() + ")",
-			   "",
-			   R.drawable.icon_locations );
-
-	    mBody = getVisibleZonesDescription();
+		super( "", "", R.drawable.icon_locations );
 		setSelectable(true);
+		enableCancelButton(false);
 	}
+	
+	@Override
+	public void layout( Context context, View view  ) {
+		mTitle = I18N.get(R.string.locations) + " (" + Engine.instance.cartridge.visibleZones() + ")";
+		mBody = getVisibleZonesDescription();
+		super.layout( context, view );
+	}	
 	
 	@Override
 	public void onListItemClicked( Activity activity ) {

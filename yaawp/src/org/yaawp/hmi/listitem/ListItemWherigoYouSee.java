@@ -7,6 +7,8 @@ import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
 
 import android.app.Activity;
+import android.content.Context;
+import android.view.View;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Player;
 import cz.matejcik.openwig.Thing;
@@ -15,12 +17,17 @@ import cz.matejcik.openwig.Zone;
 public class ListItemWherigoYouSee extends ListItem3ButtonsHint {
 
 	public ListItemWherigoYouSee() {
-		super( I18N.get(R.string.you_see) + " (" + Engine.instance.cartridge.visibleThings() + ")",
-			   "",
-			   R.drawable.icon_search );
-		mBody = getVisibleCartridgeThingsDescription();
-		setSelectable(true);		
+		super( "", "", R.drawable.icon_search );
+		setSelectable(true);	
+		enableCancelButton(false);
 	}
+	
+	@Override
+	public void layout( Context context, View view  ) {
+		mTitle = I18N.get(R.string.you_see) + " (" + Engine.instance.cartridge.visibleThings() + ")";
+		mBody = getVisibleCartridgeThingsDescription();
+		super.layout( context, view );
+	}	
 	
 	@Override
 	public void onListItemClicked( Activity activity ) {
