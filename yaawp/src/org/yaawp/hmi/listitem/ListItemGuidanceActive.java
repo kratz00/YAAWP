@@ -9,7 +9,6 @@ import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonStopGuidance;
-import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.A;
 import org.yaawp.utils.Images;
 

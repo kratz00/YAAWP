@@ -26,8 +26,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
-import android.view.Window;
-
 import org.yaawp.MainApplication;
 import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationState;

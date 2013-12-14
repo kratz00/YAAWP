@@ -42,7 +42,6 @@ import org.yaawp.positioning.LocationState;
 import org.yaawp.positioning.OrientationListener;
 import org.yaawp.utils.A;
 import org.yaawp.utils.Const;
-import org.yaawp.utils.Logger;
 import org.yaawp.utils.ManagerNotify;
 import org.yaawp.utils.UtilsFormat;
 

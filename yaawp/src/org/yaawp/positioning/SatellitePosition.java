@@ -20,25 +20,20 @@
 
 package org.yaawp.positioning;
 
-/**
- * Representing one satellite
- * @author menion
- */
+/* This class representing one satellite */
 public class SatellitePosition {
 
     protected Integer prn;
-    protected float azimuth;
-    protected float elevation;
-    /** signal to noise ratio */
-    protected int snr;
-    /** is satellite fixed */
-    protected boolean fixed;
+    protected float mAzimuth;
+    protected float mElevation;
+    protected int mSignalNoiceRatio; /** signal to noise ratio */
+    protected boolean mFixed; /** is satellite fixed */
 
     public SatellitePosition() {
         this.prn = new Integer(0);
-        this.azimuth = 0.0f;
-        this.elevation = 0.0f;
-        this.snr = 0;
+        this.mAzimuth = 0.0f;
+        this.mElevation = 0.0f;
+        this.mSignalNoiceRatio = 0;
     }
 
     public Integer getPrn() {
@@ -46,18 +41,18 @@ public class SatellitePosition {
     }
 
     public float getAzimuth() {
-        return azimuth;
+        return mAzimuth;
     }
 
     public float getElevation() {
-        return elevation;
+        return mElevation;
     }
 
     public int getSnr() {
-        return snr;
+        return mSignalNoiceRatio;
     }
     
     public boolean isFixed() {
-    	return fixed;
+    	return mFixed;
     }
 }

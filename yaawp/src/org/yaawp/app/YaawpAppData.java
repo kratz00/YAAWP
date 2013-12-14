@@ -2,8 +2,9 @@ package org.yaawp.app;
 
 import java.util.Vector;
 import org.yaawp.YCartridge;
-import org.yaawp.hmi.listitem.AbstractListItem;
 import org.yaawp.openwig.WUI;
+
+
 
 public class YaawpAppData {
 	

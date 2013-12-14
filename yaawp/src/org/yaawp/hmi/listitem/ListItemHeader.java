@@ -1,17 +1,14 @@
 package org.yaawp.hmi.listitem;
 
 import org.yaawp.R;
-import org.yaawp.utils.Const;
 import org.yaawp.utils.Images;
 import org.yaawp.utils.Logger;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import cz.matejcik.openwig.formats.ICartridge;
 
 public class ListItemHeader extends AbstractListItem {
 

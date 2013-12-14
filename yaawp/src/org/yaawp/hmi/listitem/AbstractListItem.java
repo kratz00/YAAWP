@@ -1,7 +1,5 @@
 package org.yaawp.hmi.listitem;
 
-import org.yaawp.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.ContextMenu;

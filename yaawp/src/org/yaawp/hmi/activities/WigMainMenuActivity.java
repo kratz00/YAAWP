@@ -21,7 +21,6 @@
 package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
-import org.yaawp.hmi.gui.extension.UtilsGUI;
 
 import org.yaawp.hmi.listitem.*;
 import org.yaawp.hmi.adapter.ListItemAdapter;
@@ -33,8 +32,6 @@ import org.yaawp.utils.A;
 import org.yaawp.utils.Const;
 import org.yaawp.utils.Logger;
 import org.yaawp.utils.ManagerNotify;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -46,18 +43,13 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.LinearLayout.LayoutParams;
 import cz.matejcik.openwig.Engine;
-
 import org.yaawp.hmi.listitem.ListItemGuidanceActive;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
-import org.yaawp.hmi.gui.extension.CustomDialog;
 import org.yaawp.utils.CartridgeHelper;
 
 public class WigMainMenuActivity extends CustomActivity implements Refreshable {

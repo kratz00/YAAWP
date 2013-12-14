@@ -1,7 +1,7 @@
 package org.yaawp.hmi.adapter;
 
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +9,11 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-
 import java.util.Vector;
-
-import org.yaawp.hmi.activities.WigMainMenuActivity;
 import org.yaawp.hmi.listitem.AbstractListItem;
 import org.yaawp.utils.Logger;
-import org.yaawp.utils.Utils;
-import android.app.Activity;
+
+
 
 public class ListItemAdapter extends BaseAdapter {
 

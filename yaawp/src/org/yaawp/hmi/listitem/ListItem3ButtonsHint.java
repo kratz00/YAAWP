@@ -3,22 +3,13 @@ package org.yaawp.hmi.listitem;
 import java.util.Vector;
 
 import org.yaawp.R;
-import org.yaawp.utils.Images;
-import org.yaawp.utils.Logger;
-import org.yaawp.utils.Utils;
-
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Html;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 

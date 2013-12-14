@@ -502,12 +502,12 @@ Logger.i(TAG, "removeLocationChangeListener(" + listener + "), actualSize:" + mL
 					GpsSatellite sat = enuSat.next();
 					//pos.add(enuPos.nextElement());
 					SatellitePosition satPos = new SatellitePosition();
-					satPos.azimuth = sat.getAzimuth();
-					satPos.elevation = sat.getElevation();
+					satPos.mAzimuth = sat.getAzimuth();
+					satPos.mElevation = sat.getElevation();
 					satPos.prn = sat.getPrn();
-					satPos.snr = (int) sat.getSnr();
-					satPos.fixed = sat.usedInFix();
-					if (satPos.fixed)
+					satPos.mSignalNoiceRatio = (int) sat.getSnr();
+					satPos.mFixed = sat.usedInFix();
+					if (satPos.mFixed)
 						mSatsCount.x++;
 					mSatsCount.y++;
 					pos.add(satPos);
@@ -528,7 +528,7 @@ Logger.i(TAG, "removeLocationChangeListener(" + listener + "), actualSize:" + mL
 			while (enuPos.hasMoreElements()) {
 				SatellitePosition sat = enuPos.nextElement();
 				pos.add(sat);
-				if (sat.fixed)
+				if (sat.mFixed)
 					mSatsCount.x++;
 				mSatsCount.y++;
 			}

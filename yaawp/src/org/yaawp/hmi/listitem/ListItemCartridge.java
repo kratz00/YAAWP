@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.text.Html;
 import android.view.ContextMenu;
 import android.view.Menu;

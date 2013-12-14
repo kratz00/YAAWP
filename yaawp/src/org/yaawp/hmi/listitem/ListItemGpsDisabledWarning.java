@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.yaawp.R;
 import org.yaawp.hmi.activities.SatelliteActivity;
-import org.yaawp.hmi.activities.WigMainMenuActivity;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.positioning.Location;

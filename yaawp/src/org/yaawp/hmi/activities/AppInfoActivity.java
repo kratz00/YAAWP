@@ -1,19 +1,17 @@
 package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
-import org.yaawp.hmi.adapter.ListItemAdapter;
 import org.yaawp.hmi.helper.I18N;
-import org.yaawp.hmi.listitem.ListItemGpsDisabledWarning;
 import org.yaawp.utils.A;
-
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
+
+
 
 public class AppInfoActivity extends CustomActivity {
 

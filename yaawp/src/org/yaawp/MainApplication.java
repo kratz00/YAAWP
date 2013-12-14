@@ -32,7 +32,6 @@ import android.Manifest;
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -40,7 +39,6 @@ import android.os.StatFs;
 import android.util.Log;
 
 import org.yaawp.app.YaawpAppData;
-import org.yaawp.hmi.gui.extension.UtilsGUI;
 import org.yaawp.openwig.OpenWigHelper;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceUtils;
