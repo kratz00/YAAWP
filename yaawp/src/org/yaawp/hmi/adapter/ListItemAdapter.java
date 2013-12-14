@@ -36,8 +36,9 @@ public class ListItemAdapter extends BaseAdapter {
 		mActivity = activity;
     }
 	
-	public void AddItem( AbstractListItem item ) {
+	public AbstractListItem AddItem( AbstractListItem item ) {
 		mAllListItems.add( item );
+		return item;
 	}
 	
 	public void AddItems( Vector<AbstractListItem> items ) {
