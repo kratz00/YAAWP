@@ -71,6 +71,7 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 	
 	public void layout( Context context, View view  ) {
 		
+		try {
 		mView = view;
 		
 		mButtonPanelBar = new ThreeButtonPanelBar(view);
@@ -103,7 +104,7 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 		
 		// 
 		TextView tv01 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView01);
-		if ( !mTitle.isEmpty() ) {
+		if ( mTitle != null && !mTitle.isEmpty() ) {
 			tv01.setVisibility(View.VISIBLE);
 			tv01.setTextColor(Color.BLACK);
 			tv01.setBackgroundColor(Color.TRANSPARENT);
@@ -114,7 +115,7 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 		
 		// ***
 		TextView tv02 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView02);
-		if ( !mBody.isEmpty() ) {
+		if ( mBody != null && !mBody.isEmpty() ) {
 			tv02.setVisibility(View.VISIBLE);
 			tv02.setTextColor(Color.DKGRAY);
 			tv02.setBackgroundColor(Color.TRANSPARENT);
@@ -127,6 +128,8 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 		for ( int i=0; i<mButtons.size(); i++ ) {
 			mButtonPanelBar.AddButton( mButtons.get(i) );
 		}
-
+		} catch( Exception e ) {
+			return;
+		}
 	}
 }
