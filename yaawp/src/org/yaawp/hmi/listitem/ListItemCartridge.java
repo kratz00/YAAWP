@@ -37,11 +37,11 @@ public class ListItemCartridge extends AbstractListItem {
 
 	private static String TAG = "CartridgeListAdapterItemCartridge";
     
-    private static final int PADDING = (int) Utils.getDpPixels(4.0f);
+    // private static final int PADDING = (int) Utils.getDpPixels(4.0f);
     
 
     /* min height for line */
-    private int minHeight = Integer.MIN_VALUE;
+    // private int minHeight = Integer.MIN_VALUE;
     // rescale image size
     private float multiplyImageSize = 1.0f;	
     
