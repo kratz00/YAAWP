@@ -88,7 +88,9 @@ public class CartridgeListActivity extends CustomActivity {
 		mGpsDisabledWarning = (ListItemGpsDisabledWarning)mAdapter.AddItem( new ListItemGpsDisabledWarning(this) );
 		
 		
-		mCartridgeListView = new ListView(this);                        
+		mCartridgeListView = new ListView(this);
+		mCartridgeListView.setDividerHeight(0);
+		mCartridgeListView.setDivider( null );
         mCartridgeListView.setAdapter(mAdapter);
         mCartridgeListView.setOnItemClickListener( mAdapter.mListClick );
         mCartridgeListView.setOnCreateContextMenuListener( mAdapter.mCtxMenu );
