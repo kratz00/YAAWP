@@ -77,8 +77,9 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 			mButtonPanelBar = new ThreeButtonPanelBar(view);
 			mButtonPanelBar.SetBackgroundColor( 0x00000000 ); // TODO read from style
 					
+			
 			// xx
-			layoutImageView( view, R.id.layoutIconedListAdapterImageView01, mStyleCancelButton, null );
+			layoutImageView( view, R.id.layoutIconedListAdapterImageView01, mStyleCancelButton, android.R.drawable.ic_menu_close_clear_cancel );
 			layoutImageView( view, R.id.image_leftside, mStyleImageLeft, mIconLeft );
 			layoutTextView( view, R.id.layoutIconedListAdapterTextView01, mStyleTextMajor, mTitle );
 			layoutTextView( view, R.id.layoutIconedListAdapterTextView02, mStyleTextMinor, mBody );

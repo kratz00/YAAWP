@@ -1,5 +1,7 @@
 package org.yaawp.hmi.listitem;
 
+import org.yaawp.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -139,6 +141,21 @@ public abstract class AbstractListItem {
 		if ( image != null ) {
 			if ( style != null && bitmap != null ) {
 				image.setImageBitmap( bitmap );
+				image.setVisibility(style.mVisibility);
+				image.setOnClickListener( style.mClickListener );
+			} else {
+				image.setVisibility(View.GONE);			
+			}
+		} else {
+			// TODO trace
+		}
+	}	
+	
+	protected void layoutImageView( View view, int res, ImageStyle style, int imageResource ) {
+		ImageView image = (ImageView) view.findViewById(res);
+		if ( image != null ) {
+			if ( style != null ) {
+				image.setImageResource( imageResource );
 				image.setVisibility(style.mVisibility);
 				image.setOnClickListener( style.mClickListener );
 			} else {
