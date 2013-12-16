@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 public abstract class AbstractListItem {
 
 	protected boolean mValid = true;
-	protected View mView = null;
 	protected boolean mVisible = true;
 	protected int mLayoutId = -1;
 	private BaseAdapter mChangeObserver = null;
