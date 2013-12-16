@@ -2,8 +2,15 @@ package org.yaawp.hmi.listitem;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.Html;
+import android.util.TypedValue;
 import android.view.ContextMenu;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.view.View;
 import android.widget.BaseAdapter;
 
@@ -14,6 +21,43 @@ public abstract class AbstractListItem {
 	protected int mLayoutId = -1;
 	private BaseAdapter mChangeObserver = null;
 	
+    class StyleDefine {
+    	public int mBackground = Color.TRANSPARENT;
+    	public int mVisibility = View.VISIBLE;
+    	
+    	public StyleDefine( int background ) {
+    		mBackground = background;
+    	}
+    }
+    
+	class ImageStyle extends StyleDefine {
+		public View.OnClickListener mClickListener = null;
+		
+		public ImageStyle( int background, View.OnClickListener clickListener ) {
+			super(background);
+			mClickListener = clickListener;
+		}
+		
+	};     
+    
+	class TextStyle extends StyleDefine  {
+		public int mBackground = Color.TRANSPARENT;
+		public int mTextColor = Color.BLACK;
+		public int mTextSize = 18;
+		public int mTypeface = Typeface.NORMAL;
+		public boolean mHTML = true;
+		
+		TextStyle( int background, int textColor, int textSize, int typeface ) {
+			super(background);
+			mTextColor = textColor;
+			mTextSize = textSize;
+			mTypeface = typeface;
+		}		 
+	};    	
+	
+	/* -------------------------------------------------------- *
+	 * 
+	 */
 	public AbstractListItem( int layoutId ) {
 		mLayoutId = layoutId;
 	}
@@ -69,4 +113,39 @@ public abstract class AbstractListItem {
 			mChangeObserver.notifyDataSetChanged();
 		}
 	}
+	
+	protected void layoutTextView( View view, int res, TextStyle style, String text ) {
+		TextView tv01 = (TextView) view.findViewById(res);
+		if ( tv01 != null ) {
+			if ( style != null && text != null && !text.isEmpty() ) {
+				tv01.setTypeface(null, style.mTypeface );
+				tv01.setTextSize( TypedValue.COMPLEX_UNIT_SP, style.mTextSize );
+				tv01.setVisibility(style.mVisibility);
+				if ( style.mHTML == true ) {
+					tv01.setText(Html.fromHtml(text));
+				} else {
+					tv01.setText(text);
+				}
+			} else {
+				tv01.setVisibility(View.GONE);			
+			}
+		} else {
+			// TODO trace
+		}
+	}
+	
+	protected void layoutImageView( View view, int res, ImageStyle style, Bitmap bitmap ) {
+		ImageView image = (ImageView) view.findViewById(res);
+		if ( image != null ) {
+			if ( style != null && bitmap != null ) {
+				image.setImageBitmap( bitmap );
+				image.setVisibility(style.mVisibility);
+				image.setOnClickListener( style.mClickListener );
+			} else {
+				image.setVisibility(View.GONE);			
+			}
+		} else {
+			// TODO trace
+		}
+	}	
 }
