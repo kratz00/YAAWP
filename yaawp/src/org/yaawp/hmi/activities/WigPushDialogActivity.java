@@ -22,6 +22,9 @@ package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
 import org.yaawp.hmi.gui.extension.CustomDialog;
+import org.yaawp.hmi.helper.I18N;
+import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.utils.Logger;
 
 import se.krka.kahlua.vm.LuaClosure;
@@ -29,7 +32,9 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Media;
@@ -40,6 +45,7 @@ public class WigPushDialogActivity extends CustomActivity {
 	
 	private static String menu01Text = null;
 	private static String menu02Text = null;
+	private ThreeButtonPanelBar mButtonPanelBar = null;
 
 	// STATIC CONTENT
 	private static String[] texts;
@@ -80,27 +86,35 @@ Logger.d(TAG, "setDialog() - finish, callBack:" + (callback != null));
 			menu02Text = null;
 		}
 		
-		CustomDialog.setBottom(this,
-				menu01Text, new CustomDialog.OnClickListener() {
-			
-			@Override
-			public boolean onClick(CustomDialog dialog, View v, int btn) {
-				nextPage();
-				return true;
-			}
-		}, null, null,
-		menu02Text, new CustomDialog.OnClickListener() {
+		mButtonPanelBar = new ThreeButtonPanelBar(this);
 		
-			@Override
-			public boolean onClick(CustomDialog dialog, View v, int btn) {
-				if (callback != null)
-					Engine.invokeCallback(callback, "Button2");
-				callback = null;
-				WigPushDialogActivity.this.finish();
-				return true;
-			}
-		});
+		mButtonPanelBar.RemoveAllButtons();
+
+		mButtonPanelBar.AddButton( new PanelBarButton( menu01Text, 
+				new PanelBarButton.OnClickListener() {
+					@Override
+					public boolean onClick() {
+						nextPage();
+						return true;
+					}
+				}
+			));	
 		
+		if ( menu02Text != null && menu02Text.isEmpty() == false ) {
+			mButtonPanelBar.AddButton( new PanelBarButton( menu02Text, 
+					new PanelBarButton.OnClickListener() {
+						@Override
+						public boolean onClick() {
+							if (callback != null)
+								Engine.invokeCallback(callback, "Button2");
+							callback = null;
+							WigPushDialogActivity.this.finish();
+							return true;
+						}
+					}
+				));						
+		}
+
 		if (page == -1) {
 			nextPage();
 		}

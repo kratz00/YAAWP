@@ -21,8 +21,12 @@
 package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
+import org.yaawp.app.YaawpAppData;
+import org.yaawp.bl.CartridgeSession;
 import org.yaawp.hmi.gui.extension.CustomDialog;
 import org.yaawp.hmi.helper.I18N;
+import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
+import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.utils.Images;
 import org.yaawp.utils.Logger;
 
@@ -54,10 +58,13 @@ public class WigInputActivity extends CustomActivity {
 
 	private int mode = TEXT;
 	
+	private ThreeButtonPanelBar mButtonPanelBar = null;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.layout_input);
+		mButtonPanelBar = new ThreeButtonPanelBar(this);
 	}
 	
 	public static void setInput(EventTable input) {
@@ -118,11 +125,12 @@ public class WigInputActivity extends CustomActivity {
 				mode = MULTI;
 			}
 			
-			CustomDialog.setBottom(this, 
-					I18N.get(R.string.answer), new CustomDialog.OnClickListener() {
-						
+			mButtonPanelBar.RemoveAllButtons();
+
+			mButtonPanelBar.AddButton( new PanelBarButton( I18N.get(R.string.answer), 
+					new PanelBarButton.OnClickListener() {
 						@Override
-						public boolean onClick(CustomDialog dialog, View v, int btn) {
+						public boolean onClick() {
 							if (mode == TEXT) {
 								Engine.callEvent(input, "OnGetInput", ((EditText) ll.getChildAt(0)).getText().toString());
 							} else if (mode == MULTI) {
@@ -134,7 +142,9 @@ public class WigInputActivity extends CustomActivity {
 							WigInputActivity.this.finish();
 							return true;
 						}
-					}, null, null, null, null);
+					}
+				));	
+			
 		} catch (Exception e) {
 			Logger.e(TAG, "onResume()", e);
 		}
