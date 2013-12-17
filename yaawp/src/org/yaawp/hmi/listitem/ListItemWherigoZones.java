@@ -19,7 +19,7 @@ public class ListItemWherigoZones extends ListItem3ButtonsHint {
 	public ListItemWherigoZones() {
 		super( "", "", false, Images.getImageB( R.drawable.icon_locations ) );
 		setSelectable(true);
-		enableCancelButton(false);
+		mStyleCancelButton = null;
 	}
 	
 	@Override

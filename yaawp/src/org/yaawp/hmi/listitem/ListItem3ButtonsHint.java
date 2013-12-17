@@ -20,17 +20,17 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 	private static String TAG = "CartridgeListAdapterItemCartridge";
     
     private boolean mSelectable = false;
-    private Bitmap mIconLeft = null;
+    protected Bitmap mIconLeft = null;
     protected String mTitle;
     protected String mBody;      
     protected ThreeButtonPanelBar mButtonPanelBar = null;
     private Vector<PanelBarButton> mButtons = new Vector<PanelBarButton>();
     
-	private StyleDefine mStyleBackground; //  = new StyleDefine( 0xFFDDDDDD ); 
-	private TextStyle mStyleTextMajor; // = new TextStyle( );
-	private TextStyle mStyleTextMinor; // = new TextStyle( );
-	private ImageStyle mStyleImageLeft = null;
-	private ImageStyle mStyleCancelButton = null;
+    protected StyleDefine mStyleBackground; //  = new StyleDefine( 0xFFDDDDDD ); 
+    protected TextStyle mStyleTextMajor; // = new TextStyle( );
+    protected TextStyle mStyleTextMinor; // = new TextStyle( );
+    protected ImageStyle mStyleImageLeft = null;
+    protected ImageStyle mStyleCancelButton = null;
 
     
     public ListItem3ButtonsHint( String title, String body, boolean boldTitle, Bitmap iconLeft ) {
@@ -43,8 +43,8 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     	mStyleBackground = new StyleDefine( 0xFFDDDDDD ); 
     	mStyleTextMajor = new TextStyle( Color.TRANSPARENT, 0xff333333, 18, boldTitle?Typeface.BOLD:Typeface.NORMAL );
     	mStyleTextMinor = new TextStyle( Color.TRANSPARENT, 0xff555555, 12, Typeface.NORMAL );
-    	mStyleImageLeft = new ImageStyle( Color.TRANSPARENT, null );
-    	mStyleCancelButton = new ImageStyle( Color.TRANSPARENT, new View.OnClickListener() {
+    	mStyleImageLeft = new ImageStyle( Color.TRANSPARENT, -1, -1, null );
+    	mStyleCancelButton = new ImageStyle( Color.TRANSPARENT, -1, -1, new View.OnClickListener() {
 		    public void onClick(View v) {
 		    	ListItem3ButtonsHint.this.mValid = false;
 		    	ListItem3ButtonsHint.this.notifyDataSetChanged();

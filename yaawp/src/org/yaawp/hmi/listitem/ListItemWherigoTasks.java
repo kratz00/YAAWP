@@ -17,7 +17,7 @@ public class ListItemWherigoTasks extends ListItem3ButtonsHint {
 	public ListItemWherigoTasks() {
 		super( "", "", false, Images.getImageB( R.drawable.icon_tasks ) );
 		setSelectable(true);	
-		enableCancelButton(false);
+		mStyleCancelButton = null;
 	}
 	
 	@Override

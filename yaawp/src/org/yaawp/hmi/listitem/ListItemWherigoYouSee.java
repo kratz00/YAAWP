@@ -20,7 +20,7 @@ public class ListItemWherigoYouSee extends ListItem3ButtonsHint {
 	public ListItemWherigoYouSee() {
 		super( "", "", false, Images.getImageB( R.drawable.icon_search ) );
 		setSelectable(true);	
-		enableCancelButton(false);
+		mStyleCancelButton = null;
 	}
 	
 	@Override

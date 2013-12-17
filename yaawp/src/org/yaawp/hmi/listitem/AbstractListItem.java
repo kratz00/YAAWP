@@ -1,6 +1,7 @@
 package org.yaawp.hmi.listitem;
 
 import org.yaawp.R;
+import org.yaawp.utils.Images;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.graphics.Typeface;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.ContextMenu;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,9 +36,13 @@ public abstract class AbstractListItem {
     
 	class ImageStyle extends StyleDefine {
 		public View.OnClickListener mClickListener = null;
+		public int mWidth = -1;
+		public int mHeight = -1;
 		
-		public ImageStyle( int background, View.OnClickListener clickListener ) {
+		public ImageStyle( int background, int width, int height, View.OnClickListener clickListener ) {
 			super(background);
+			mWidth = width;
+			mHeight = height;
 			mClickListener = clickListener;
 		}
 		
@@ -120,6 +126,7 @@ public abstract class AbstractListItem {
 		TextView tv01 = (TextView) view.findViewById(res);
 		if ( tv01 != null ) {
 			if ( style != null && text != null && !text.isEmpty() ) {
+				tv01.setTextColor( style.mTextColor );
 				tv01.setTypeface(null, style.mTypeface );
 				tv01.setTextSize( TypedValue.COMPLEX_UNIT_SP, style.mTextSize );
 				tv01.setVisibility(style.mVisibility);
@@ -143,6 +150,16 @@ public abstract class AbstractListItem {
 				image.setImageBitmap( bitmap );
 				image.setVisibility(style.mVisibility);
 				image.setOnClickListener( style.mClickListener );
+				
+				ViewGroup.LayoutParams params = image.getLayoutParams();
+				if( style.mWidth != -1 ) {
+					params.width = (int) (style.mWidth);
+				}
+				if ( style.mHeight != -1 ) {
+					params.height = (int) (style.mHeight);
+				}
+		        image.setLayoutParams(params);
+		        image.setVisibility(View.VISIBLE);
 			} else {
 				image.setVisibility(View.GONE);			
 			}
@@ -158,6 +175,15 @@ public abstract class AbstractListItem {
 				image.setImageResource( imageResource );
 				image.setVisibility(style.mVisibility);
 				image.setOnClickListener( style.mClickListener );
+				ViewGroup.LayoutParams params = image.getLayoutParams();
+				if( style.mWidth != -1 ) {
+					params.width = (int) (style.mWidth);
+				}
+				if ( style.mHeight != -1 ) {
+					params.height = (int) (style.mHeight);
+				}
+		        image.setLayoutParams(params);
+		        image.setVisibility(View.VISIBLE);				
 			} else {
 				image.setVisibility(View.GONE);			
 			}
