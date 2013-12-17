@@ -208,9 +208,6 @@ public abstract class ListVarious extends CustomActivity implements Refreshable 
         // center linearLayout
 		lv = new ListView(ListVarious.this);
 		CustomDialog.setContent(this, lv, 0, false, true);
-		 
-		// set bottom
-		CustomDialog.setBottom(this, null, null, null, null, null, null);
 	}
 	
 	public void onResume() {

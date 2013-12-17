@@ -107,64 +107,6 @@ public class CustomDialog {
 		}
     }
     
-    public static void setBottom(Activity activity, 
-    		String positiveButtonText, OnClickListener positiveButtonClickListener,
-    		String neutralButtonText, OnClickListener neutralButtonClickListener,
-    		String negativeButtonText, OnClickListener negativeButtonClickListener) {
-    	setCustomDialogBottom(activity.findViewById(R.id.linear_layout_bottom),
-    			positiveButtonText, positiveButtonClickListener,
-    			neutralButtonText, neutralButtonClickListener,
-    			negativeButtonText, negativeButtonClickListener);
-    }
-    
-    private static void setCustomDialogBottom(View view, 
-    		String positiveButtonText, OnClickListener positiveButtonClickListener,
-    		String neutralButtonText, OnClickListener neutralButtonClickListener,
-    		String negativeButtonText, OnClickListener negativeButtonClickListener) {
-    	
-    	// change colors for 3.0+
-    	if (Utils.isAndroid30OrMore()) {
-    		view.findViewById(R.id.linear_layout_bottom).setBackgroundColor(BOTTOM_COLOR_A3);
-    	}
-    	
-        int btnCount = 0;
-        if (setSingalButton(view, R.id.button_positive, DialogInterface.BUTTON_POSITIVE,
-				positiveButtonText, positiveButtonClickListener))
-        	btnCount++;
-		if (setSingalButton(view, R.id.button_negative, DialogInterface.BUTTON_NEGATIVE,
-				negativeButtonText, negativeButtonClickListener))
-			btnCount++;
-		if (setSingalButton(view, R.id.button_neutral, DialogInterface.BUTTON_NEUTRAL,
-				neutralButtonText, neutralButtonClickListener))
-			btnCount++;
-		
-		if (btnCount == 0) {
-			view.findViewById(R.id.linear_layout_bottom).setVisibility(View.GONE);
-		} else if (btnCount == 1) {
-			view.findViewById(R.id.linear_layout_left_spacer).setVisibility(View.VISIBLE);
-			view.findViewById(R.id.linear_layout_right_spacer).setVisibility(View.VISIBLE);
-		}
-    }
-    
-    private static boolean setSingalButton(View layout, int btnId, final int btnType, 
-    		String text, final OnClickListener click) {
-        if (text != null && click != null) {
-        	// set button
-        	Button btn = (Button) layout.findViewById(btnId);
-        	btn.setText(text);
-            btn.setOnClickListener(new View.OnClickListener() {
-            	public void onClick(View v) {
-            		click.onClick(null, v, btnType);
-            	}
-            });	
-            return true;
-        } else {
-            // if no confirm button just set the visibility to GONE
-            layout.findViewById(btnId).setVisibility(View.GONE);
-            return false;
-        }
-    }
-       
     public static void setContent(Activity activity, View view, int margins,
     		boolean fillHeight, boolean dialog) {
     	// set width to correct values if dialog is shown
