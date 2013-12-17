@@ -36,7 +36,7 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 		
 		AddButton( new PanelBarButtonStopGuidance() );  
 		
-		enableCancelButton( false );
+		mStyleCancelButton = null;
 	}
 	
 	@Override
