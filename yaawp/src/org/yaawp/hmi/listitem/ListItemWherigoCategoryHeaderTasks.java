@@ -13,9 +13,9 @@ import android.view.View;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Task;
 
-public class ListItemWherigoTasksHeader extends ListItem3ButtonsHint {
+public class ListItemWherigoCategoryHeaderTasks extends ListItem3ButtonsHint {
 
-	public ListItemWherigoTasksHeader() {
+	public ListItemWherigoCategoryHeaderTasks() {
 		super( "", "", false, Images.getImageB( R.drawable.icon_tasks ) );
 		setSelectable(true);	
 		mStyleCancelButton = null;

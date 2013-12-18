@@ -15,9 +15,9 @@ import android.view.View;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Zone;
 
-public class ListItemWherigoZonesHeader extends ListItem3ButtonsHint {
+public class ListItemWherigoCategoryHeaderZones extends ListItem3ButtonsHint {
 
-	public ListItemWherigoZonesHeader() {
+	public ListItemWherigoCategoryHeaderZones() {
 		super( "", "", false, Images.getImageB( R.drawable.icon_locations ) );
 		setSelectable(true);
 		mStyleCancelButton = null;

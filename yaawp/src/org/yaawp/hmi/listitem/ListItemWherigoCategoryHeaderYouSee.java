@@ -16,9 +16,9 @@ import cz.matejcik.openwig.Player;
 import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
-public class ListItemWherigoYouSeeHeader extends ListItem3ButtonsHint {
+public class ListItemWherigoCategoryHeaderYouSee extends ListItem3ButtonsHint {
 
-	public ListItemWherigoYouSeeHeader() {
+	public ListItemWherigoCategoryHeaderYouSee() {
 		super( "", "", false, Images.getImageB( R.drawable.icon_search ) );
 		setSelectable(true);	
 		mStyleCancelButton = null;

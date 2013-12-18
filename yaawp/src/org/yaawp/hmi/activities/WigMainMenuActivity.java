@@ -68,10 +68,10 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	
 	private ListItemGpsDisabledWarning mGpsDisabledWarning = null;
 	private ListItemGuidanceActive mGuidanceActive = null;
-	private ListItemWherigoInventoryHeader mWherigoInventory = null;
-	private ListItemWherigoTasksHeader mWherigoTasks = null;
-	private ListItemWherigoYouSeeHeader mWherigoYouSee = null;
-	private ListItemWherigoZonesHeader mWherigoZones = null;
+	private ListItemWherigoCategoryHeaderInventor mWherigoInventory = null;
+	private ListItemWherigoCategoryHeaderTasks mWherigoTasks = null;
+	private ListItemWherigoCategoryHeaderYouSee mWherigoYouSee = null;
+	private ListItemWherigoCategoryHeaderZones mWherigoZones = null;
 	
 	private ListItemAdapter mAdapter = null;	
 	private ListView mCartridgeListView = null;
@@ -133,7 +133,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	}
 	
 	private void addElementsOfCategoryZones() {
-    	mWherigoZones       = (ListItemWherigoZonesHeader)       mAdapter.AddItem( new ListItemWherigoZonesHeader() );
+    	mWherigoZones       = (ListItemWherigoCategoryHeaderZones)       mAdapter.AddItem( new ListItemWherigoCategoryHeaderZones() );
 		for (int i = 0; i < Engine.instance.cartridge.zones.size(); i++) {
 			Zone z = (Zone)Engine.instance.cartridge.zones.get(i);
 			if (z.isVisible()) {
@@ -143,7 +143,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	}
 	
 	private void addElementsOfCategoryYouSee() {
-    	mWherigoYouSee      = (ListItemWherigoYouSeeHeader)      mAdapter.AddItem( new ListItemWherigoYouSeeHeader() );
+    	mWherigoYouSee      = (ListItemWherigoCategoryHeaderYouSee)      mAdapter.AddItem( new ListItemWherigoCategoryHeaderYouSee() );
 		Vector<Zone> zones = Engine.instance.cartridge.zones;
 		for (int i = 0; i < zones.size(); i++) {
 			Zone z = (Zone)zones.elementAt(i);			
@@ -163,7 +163,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		}   		
 	}
 	private void addElementsOfCategoryInventory() {
-    	mWherigoInventory   = (ListItemWherigoInventoryHeader)   mAdapter.AddItem( new ListItemWherigoInventoryHeader() );
+    	mWherigoInventory   = (ListItemWherigoCategoryHeaderInventor)   mAdapter.AddItem( new ListItemWherigoCategoryHeaderInventor() );
 		Player p = Engine.instance.player;
 		Object key = null;
 		while ((key = p.inventory.next(key)) != null) {
@@ -174,7 +174,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		}		
 	}
 	private void addElementsOfCategoryTasks() {
-    	mWherigoTasks       = (ListItemWherigoTasksHeader)       mAdapter.AddItem( new ListItemWherigoTasksHeader() ); 	
+    	mWherigoTasks       = (ListItemWherigoCategoryHeaderTasks)       mAdapter.AddItem( new ListItemWherigoCategoryHeaderTasks() ); 	
 		for (int i = 0; i < Engine.instance.cartridge.tasks.size(); i++) {
 			Task a = (Task)Engine.instance.cartridge.tasks.elementAt(i);
 			if (a.isVisible()) {
