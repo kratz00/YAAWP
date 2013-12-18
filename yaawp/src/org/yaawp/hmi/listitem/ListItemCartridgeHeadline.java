@@ -1,9 +1,7 @@
 package org.yaawp.hmi.listitem;
 
-import org.yaawp.R;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
 import org.yaawp.utils.CartridgeHelper;
-import org.yaawp.utils.Images;
 
 import cz.matejcik.openwig.Engine;
 
