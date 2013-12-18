@@ -15,22 +15,31 @@ import android.view.View;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Zone;
 
-public class ListItemWherigoCategoryHeaderZones extends ListItem3ButtonsHint {
+public class ListItemWherigoCategoryHeaderZones extends ListItemWherigoCategoryHeader {
 
 	public ListItemWherigoCategoryHeaderZones() {
-		super( "", "", false, Images.getImageB( R.drawable.icon_locations ) );
-		setSelectable(false);
+		super();
+		setSelectable(true);
+		mIconLeft = Images.getImageB( R.drawable.icon_locations );
 		mStyleCancelButton = null;
     	mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 		
 	}
 	
 	@Override
-	public void layout( Context context, View view  ) {
-		mTitle = I18N.get(R.string.locations); // TODO  + " (" + Engine.instance.cartridge.visibleZones() + ")";
-		// TODO mBody = getVisibleZonesDescription();
-		super.layout( context, view );
-	}	
+	public void layoutOpen( Context context, View view  ) {
+		mTitle = I18N.get(R.string.locations)+ " (" + Engine.instance.cartridge.visibleZones() + ")";
+		mBody = getVisibleZonesDescription();
+		super.layoutOpen( context, view );
+	}
 	
+	@Override
+	public void layoutClose( Context context, View view  ) {
+		mTitle = I18N.get(R.string.locations);
+		mBody = "";
+		super.layoutClose( context, view );
+	}
+	
+		
 	private String getVisibleZonesDescription() {
 		String description = null;
 		@SuppressWarnings("unchecked")
