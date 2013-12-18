@@ -137,7 +137,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		for (int i = 0; i < Engine.instance.cartridge.zones.size(); i++) {
 			Zone z = (Zone)Engine.instance.cartridge.zones.get(i);
 			if (z.isVisible()) {
-				mAdapter.AddItem( new ListItem3ButtonsHint( z.name,"",false,null ) );
+				mAdapter.AddItem( new ListItemWherigoElementZone( z ) );
 			}
 		}  		
 	}
@@ -156,7 +156,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 					if (!(o instanceof Thing))
 						continue;
 					if (((Thing) o).isVisible()) {
-						mAdapter.AddItem( new ListItem3ButtonsHint( ((Thing) o).name,z.name,false,null ) );
+						mAdapter.AddItem( new ListItemWherigoElementThing( (Thing) o ) );
 					}
 				}
 			}
@@ -169,7 +169,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		while ((key = p.inventory.next(key)) != null) {
 			Object o = p.inventory.rawget(key);
 			if (o instanceof Thing && ((Thing) o).isVisible()) {
-				mAdapter.AddItem( new ListItem3ButtonsHint( ((Thing) o).name,"",false,null ) );
+				mAdapter.AddItem( new ListItemWherigoElementThing( (Thing) o ) );
 			}
 		}		
 	}
@@ -178,7 +178,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		for (int i = 0; i < Engine.instance.cartridge.tasks.size(); i++) {
 			Task a = (Task)Engine.instance.cartridge.tasks.elementAt(i);
 			if (a.isVisible()) {
-				mAdapter.AddItem( new ListItem3ButtonsHint( a.name,"",false,null ) );
+				mAdapter.AddItem( new ListItemWherigoElementTask( a ) );
 			}
 		}   		
 	}	

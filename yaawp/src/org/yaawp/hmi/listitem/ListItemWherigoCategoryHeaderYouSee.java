@@ -20,23 +20,16 @@ public class ListItemWherigoCategoryHeaderYouSee extends ListItem3ButtonsHint {
 
 	public ListItemWherigoCategoryHeaderYouSee() {
 		super( "", "", false, Images.getImageB( R.drawable.icon_search ) );
-		setSelectable(true);	
+		setSelectable(false);	
 		mStyleCancelButton = null;
 		mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 
 	}
 	
 	@Override
 	public void layout( Context context, View view  ) {
-		mTitle = I18N.get(R.string.you_see) + " (" + Engine.instance.cartridge.visibleThings() + ")";
+		mTitle = I18N.get(R.string.you_see); // TODO + " (" + Engine.instance.cartridge.visibleThings() + ")";
 		// TODO mBody = getVisibleCartridgeThingsDescription();
 		super.layout( context, view );
-	}	
-	
-	@Override
-	public void onListItemClicked( Activity activity ) {
-		if (Engine.instance.cartridge.visibleThings() >= 1) {
-			ScreenHelper.activateScreen(ScreenHelper.SCREEN_ITEMSCREEN, null);
-		}		
 	}	
 	
 	private String getVisibleCartridgeThingsDescription() {

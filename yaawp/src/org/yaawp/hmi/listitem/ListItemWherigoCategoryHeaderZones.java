@@ -19,24 +19,17 @@ public class ListItemWherigoCategoryHeaderZones extends ListItem3ButtonsHint {
 
 	public ListItemWherigoCategoryHeaderZones() {
 		super( "", "", false, Images.getImageB( R.drawable.icon_locations ) );
-		setSelectable(true);
+		setSelectable(false);
 		mStyleCancelButton = null;
     	mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 		
 	}
 	
 	@Override
 	public void layout( Context context, View view  ) {
-		mTitle = I18N.get(R.string.locations) + " (" + Engine.instance.cartridge.visibleZones() + ")";
-		// mBody = getVisibleZonesDescription();
+		mTitle = I18N.get(R.string.locations); // TODO  + " (" + Engine.instance.cartridge.visibleZones() + ")";
+		// TODO mBody = getVisibleZonesDescription();
 		super.layout( context, view );
 	}	
-	
-	@Override
-	public void onListItemClicked( Activity activity ) {
-		if (Engine.instance.cartridge.visibleZones() >= 1) {
-			ScreenHelper.activateScreen(ScreenHelper.SCREEN_LOCATIONSCREEN, null);
-		}		
-	}
 	
 	private String getVisibleZonesDescription() {
 		String description = null;

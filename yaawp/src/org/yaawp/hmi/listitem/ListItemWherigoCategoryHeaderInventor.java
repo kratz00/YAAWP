@@ -18,24 +18,17 @@ public class ListItemWherigoCategoryHeaderInventor extends ListItem3ButtonsHint 
 
 	public ListItemWherigoCategoryHeaderInventor() {
 		super( "", "", false, Images.getImageB( R.drawable.icon_inventory ) );
-		setSelectable(true);
+		setSelectable(false);
 		mStyleCancelButton = null;
 		mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 
 	}
 	
 	@Override
 	public void layout( Context context, View view  ) {
-		mTitle = I18N.get(R.string.inventory) + " (" + Engine.instance.player.visibleThings() + ")";
+		mTitle = I18N.get(R.string.inventory); //  + " (" + Engine.instance.player.visibleThings() + ")";
 		// TODO mBody = getVisiblePlayerThingsDescription();
 		super.layout( context, view );
-	}
-	
-	@Override
-	public void onListItemClicked( Activity activity ) {
-		if (Engine.instance.player.visibleThings() >= 1) {
-			ScreenHelper.activateScreen(ScreenHelper.SCREEN_INVENTORYSCREEN, null);
-		}
-	}		
+	}	
 	
 	private String getVisiblePlayerThingsDescription() {
 		Player p = Engine.instance.player;

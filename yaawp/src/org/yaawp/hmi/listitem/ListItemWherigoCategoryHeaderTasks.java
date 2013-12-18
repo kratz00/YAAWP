@@ -17,23 +17,16 @@ public class ListItemWherigoCategoryHeaderTasks extends ListItem3ButtonsHint {
 
 	public ListItemWherigoCategoryHeaderTasks() {
 		super( "", "", false, Images.getImageB( R.drawable.icon_tasks ) );
-		setSelectable(true);	
+		setSelectable(false);	
 		mStyleCancelButton = null;
 		mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 
 	}
 	
 	@Override
 	public void layout( Context context, View view  ) {
-		mTitle = I18N.get(R.string.tasks) + " (" + Engine.instance.cartridge.visibleTasks() + ")";
+		mTitle = I18N.get(R.string.tasks); //  + " (" + Engine.instance.cartridge.visibleTasks() + ")";
 		// TODO mBody = getVisibleTasksDescription();
 		super.layout( context, view );
-	}	
-	
-	@Override
-	public void onListItemClicked( Activity activity ) {
-		if ( Engine.instance.cartridge.visibleTasks() >= 1) {
-			ScreenHelper.activateScreen(ScreenHelper.SCREEN_TASKSCREEN, null);
-		}
 	}	
 	
 	/* public int getVisibleTasksCount() {
