@@ -38,7 +38,6 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     	mTitle = title;   
     	mBody = body;
     	mIconLeft = iconLeft;
-
     	// ----
     	mStyleBackground = new StyleDefine( 0xFFDDDDDD ); 
     	mStyleTextMajor = new TextStyle( Color.TRANSPARENT, 0xff333333, 18, boldTitle?Typeface.BOLD:Typeface.NORMAL );
@@ -49,6 +48,8 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 		    	ListItem3ButtonsHint.this.mValid = false;
 		    	ListItem3ButtonsHint.this.notifyDataSetChanged();
 		    } } );
+    	
+    	enableCancelButton(false);
     }
     
 	public void AddButton( PanelBarButton button ) {
