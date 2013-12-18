@@ -48,7 +48,9 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import cz.matejcik.openwig.Engine;
+import cz.matejcik.openwig.Player;
 import cz.matejcik.openwig.Task;
+import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
 import org.yaawp.hmi.listitem.ListItemGuidanceActive;
@@ -86,18 +88,62 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		mGpsDisabledWarning = (ListItemGpsDisabledWarning) mAdapter.AddItem( new ListItemGpsDisabledWarning( this ) );
     	mGuidanceActive     = (ListItemGuidanceActive)     mAdapter.AddItem( new ListItemGuidanceActive(WigMainMenuActivity.this) );
     	
-    	/*
-    	mAdapter.AddItem( new ListItemHeader( Engine.instance.cartridge.name , "", 
-    			CartridgeHelper.getCartridgeImage( Engine.instance.gwcfile)) );
-    	*/
+    	/* ------------------------------------------------------------------ */
     	
     	mAdapter.AddItem( new ListItemCartridgeHeadline() );
     	
-    	mWherigoZones       = (ListItemWherigoZonesHeader)       mAdapter.AddItem( new ListItemWherigoZonesHeader() );
-    	mWherigoYouSee      = (ListItemWherigoYouSeeHeader)      mAdapter.AddItem( new ListItemWherigoYouSeeHeader() );
-    	mWherigoInventory   = (ListItemWherigoInventoryHeader)   mAdapter.AddItem( new ListItemWherigoInventoryHeader() );
-    	mWherigoTasks       = (ListItemWherigoTasksHeader)       mAdapter.AddItem( new ListItemWherigoTasksHeader() ); 	
+    	/* ------------------------------------------------------------------ */
     	
+    	mWherigoZones       = (ListItemWherigoZonesHeader)       mAdapter.AddItem( new ListItemWherigoZonesHeader() );
+		for (int i = 0; i < Engine.instance.cartridge.zones.size(); i++) {
+			Zone z = (Zone)Engine.instance.cartridge.zones.get(i);
+			if (z.isVisible()) {
+				mAdapter.AddItem( new ListItem3ButtonsHint( z.name,"",false,null ) );
+			}
+		}  
+		
+		/* ------------------------------------------------------------------ */
+		
+    	mWherigoYouSee      = (ListItemWherigoYouSeeHeader)      mAdapter.AddItem( new ListItemWherigoYouSeeHeader() );
+		Vector<Zone> zones = Engine.instance.cartridge.zones;
+		for (int i = 0; i < zones.size(); i++) {
+			Zone z = (Zone)zones.elementAt(i);			
+			if (!z.showThings()) {
+				Object key = null;
+				while ((key = z.inventory.next(key)) != null) {
+					Object o = z.inventory.rawget(key);
+					if (o instanceof Player)
+						continue;
+					if (!(o instanceof Thing))
+						continue;
+					if (((Thing) o).isVisible()) {
+						mAdapter.AddItem( new ListItem3ButtonsHint( ((Thing) o).name,z.name,false,null ) );
+					}
+				}
+			}
+		}    	
+    	
+		/* ------------------------------------------------------------------ */
+		
+    	mWherigoInventory   = (ListItemWherigoInventoryHeader)   mAdapter.AddItem( new ListItemWherigoInventoryHeader() );
+		Player p = Engine.instance.player;
+		Object key = null;
+		while ((key = p.inventory.next(key)) != null) {
+			Object o = p.inventory.rawget(key);
+			if (o instanceof Thing && ((Thing) o).isVisible()) {
+				mAdapter.AddItem( new ListItem3ButtonsHint( ((Thing) o).name,"",false,null ) );
+			}
+		}
+		
+		/* ------------------------------------------------------------------ */
+		
+    	mWherigoTasks       = (ListItemWherigoTasksHeader)       mAdapter.AddItem( new ListItemWherigoTasksHeader() ); 	
+		for (int i = 0; i < Engine.instance.cartridge.tasks.size(); i++) {
+			Task a = (Task)Engine.instance.cartridge.tasks.elementAt(i);
+			if (a.isVisible()) {
+				mAdapter.AddItem( new ListItem3ButtonsHint( a.name,"",false,null ) );
+			}
+		}    	
 		/* ------------------------------------------------------------------ */
     	
 		mCartridgeListView = new ListView(this);  
