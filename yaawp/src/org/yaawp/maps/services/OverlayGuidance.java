@@ -3,6 +3,7 @@ package org.yaawp.maps.services;
 
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.positioning.Location;
+import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.A;
 
 import android.graphics.Canvas;
@@ -39,6 +40,8 @@ public class OverlayGuidance extends GenericOverlay {
 		if ( g != null ) {
 			destination = g.getLocation();    	
 		}
+		
+		mLocation = LocationState.getLocation();
 		
         if ( mLocation == null || destination == null ) {
             return;
