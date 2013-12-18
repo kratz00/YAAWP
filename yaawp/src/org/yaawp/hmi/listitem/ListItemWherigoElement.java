@@ -10,8 +10,8 @@ public class ListItemWherigoElement extends ListItem3ButtonsHint {
 
 	EventTable mObject = null;
 	
-	public ListItemWherigoElement( EventTable e ) {
-		super("","",false,null);
+	public ListItemWherigoElement( EventTable e, AbstractListItem parent ) {
+		super("","",false,null,parent);
 		setSelectable(true);
 		enableCancelButton(false);		mObject = e;
 		mStyleImageLeft = new ImageStyle( Color.TRANSPARENT, 32, 32, null );

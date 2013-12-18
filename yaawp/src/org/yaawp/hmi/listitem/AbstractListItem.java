@@ -24,6 +24,8 @@ public abstract class AbstractListItem {
 	protected boolean mVisible = true;
 	protected int mLayoutId = -1;
 	private BaseAdapter mChangeObserver = null;
+	protected boolean mOpen = false;
+	protected AbstractListItem mParent = null;
 	
     class StyleDefine {
     	public int mBackground = Color.TRANSPARENT;
@@ -66,8 +68,9 @@ public abstract class AbstractListItem {
 	/* -------------------------------------------------------- *
 	 * 
 	 */
-	public AbstractListItem( int layoutId ) {
+	public AbstractListItem( int layoutId, AbstractListItem parent ) {
 		mLayoutId = layoutId;
+		mParent = parent;
 	}
 	
 	public View inflate( Context context ) {
@@ -93,6 +96,13 @@ public abstract class AbstractListItem {
 	}
 	
 	public boolean isValid() {
+		if ( mParent != null ) {
+			if ( mParent.mOpen == true ) {
+				return mValid;
+			} else {
+				return false;
+			}
+		}
 		return mValid;
 	}
 	

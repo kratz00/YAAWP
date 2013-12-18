@@ -33,8 +33,8 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     protected ImageStyle mStyleCancelButton = null;
 
     
-    public ListItem3ButtonsHint( String title, String body, boolean boldTitle, Bitmap iconLeft ) {
-    	super( R.layout.list_adapter_hint );
+    public ListItem3ButtonsHint( String title, String body, boolean boldTitle, Bitmap iconLeft, AbstractListItem parent ) {
+    	super( R.layout.list_adapter_hint, parent );
     	mTitle = title;   
     	mBody = body;
     	mIconLeft = iconLeft;

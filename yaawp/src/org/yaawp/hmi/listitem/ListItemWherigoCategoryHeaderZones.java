@@ -19,27 +19,35 @@ public class ListItemWherigoCategoryHeaderZones extends ListItemWherigoCategoryH
 
 	public ListItemWherigoCategoryHeaderZones() {
 		super();
-		setSelectable(true);
-		mIconLeft = Images.getImageB( R.drawable.icon_locations );
-		mStyleCancelButton = null;
-    	mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 		
+		mIconLeft = Images.getImageB( R.drawable.icon_locations );	
 	}
 	
 	@Override
 	public void layoutOpen( Context context, View view  ) {
-		mTitle = I18N.get(R.string.locations)+ " (" + Engine.instance.cartridge.visibleZones() + ")";
-		mBody = getVisibleZonesDescription();
+		int count = Engine.instance.cartridge.visibleZones();
+		if ( count == 0 ) {
+			mTitle = I18N.get(R.string.locations);
+			mBody = "No area to go"; // TODO I18N			
+		} else {	
+			mTitle = I18N.get(R.string.locations);
+			mBody = "";		
+		}
 		super.layoutOpen( context, view );
 	}
 	
 	@Override
 	public void layoutClose( Context context, View view  ) {
-		mTitle = I18N.get(R.string.locations);
-		mBody = "";
+		int count = Engine.instance.cartridge.visibleZones();
+		if ( count == 0 ) {
+			mTitle = I18N.get(R.string.locations);
+			mBody = "No area to go"; // TODO I18N			
+		} else {
+			mTitle = I18N.get(R.string.locations)+ " (" + count + ")";
+			mBody = getVisibleZonesDescription();			
+		}
 		super.layoutClose( context, view );
 	}
 	
-		
 	private String getVisibleZonesDescription() {
 		String description = null;
 		@SuppressWarnings("unchecked")

@@ -13,21 +13,38 @@ import android.view.View;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Task;
 
-public class ListItemWherigoCategoryHeaderTasks extends ListItem3ButtonsHint {
+public class ListItemWherigoCategoryHeaderTasks extends ListItemWherigoCategoryHeader {
 
 	public ListItemWherigoCategoryHeaderTasks() {
-		super( "", "", false, Images.getImageB( R.drawable.icon_tasks ) );
-		setSelectable(false);	
-		mStyleCancelButton = null;
-		mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 
+		super();
+		mIconLeft = Images.getImageB( R.drawable.icon_tasks );			
 	}
 	
 	@Override
-	public void layout( Context context, View view  ) {
-		mTitle = I18N.get(R.string.tasks); //  + " (" + Engine.instance.cartridge.visibleTasks() + ")";
-		// TODO mBody = getVisibleTasksDescription();
-		super.layout( context, view );
-	}	
+	public void layoutOpen( Context context, View view  ) {
+		int count = Engine.instance.cartridge.visibleTasks();
+		if ( count == 0 ) {
+			mTitle = I18N.get(R.string.tasks);
+			mBody = "Nothing to do for you"; // TODO I18N
+		} else {
+			mTitle = I18N.get(R.string.tasks);
+			mBody = "";		
+		}
+		super.layoutOpen( context, view );
+	}
+	
+	@Override
+	public void layoutClose( Context context, View view  ) {
+		int count = Engine.instance.cartridge.visibleTasks();
+		if ( count == 0 ) {
+			mTitle = I18N.get(R.string.tasks);
+			mBody = "Nothing to do for you"; // TODO I18N
+		} else {
+			mTitle = I18N.get(R.string.tasks)+ " (" + count + ")";
+			mBody = getVisibleTasksDescription();			
+		}
+		super.layoutClose( context, view );
+	}
 	
 	/* public int getVisibleTasksCount() {
 		int count = 0;

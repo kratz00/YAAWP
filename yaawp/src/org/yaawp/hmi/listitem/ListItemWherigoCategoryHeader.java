@@ -2,6 +2,7 @@ package org.yaawp.hmi.listitem;
 
 import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
+import org.yaawp.hmi.listitem.AbstractListItem.StyleDefine;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,10 +11,13 @@ import android.view.View;
 
 public abstract class ListItemWherigoCategoryHeader extends ListItem3ButtonsHint {
 
-	protected boolean mOpen = false;
+
 	
 	public ListItemWherigoCategoryHeader() {
-		super("","",false,null);
+		super("","",false,null,null);
+		setSelectable(true);
+		mStyleCancelButton = null;
+    	mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 			
 	}
 	
 	@Override

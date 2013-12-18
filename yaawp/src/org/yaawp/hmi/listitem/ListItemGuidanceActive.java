@@ -20,7 +20,7 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 		super(	/* TODO I18N */ "Guidance active",
 				/* TODO I18N */ "Guidance to zone <i>" + A.getGuidingContent().getName() +"</i>",
 				true,
-				Images.getImageB( R.drawable.ic_main_gps ) );
+				Images.getImageB( R.drawable.ic_main_gps ),null );
 		
 		mContext = context;
 		

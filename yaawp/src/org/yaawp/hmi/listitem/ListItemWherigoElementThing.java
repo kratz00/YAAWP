@@ -12,8 +12,8 @@ public class ListItemWherigoElementThing extends ListItemWherigoElement {
 	
 	private static final String TAG = "ListItemWherigoElementInventory";
 	
-	public ListItemWherigoElementThing( Thing t ) {
-		super( t );
+	public ListItemWherigoElementThing( Thing t, AbstractListItem parent ) {
+		super( t, parent );
 	}	
 	
 	@Override

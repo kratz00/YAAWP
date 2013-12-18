@@ -16,20 +16,37 @@ import cz.matejcik.openwig.Player;
 import cz.matejcik.openwig.Thing;
 import cz.matejcik.openwig.Zone;
 
-public class ListItemWherigoCategoryHeaderYouSee extends ListItem3ButtonsHint {
+public class ListItemWherigoCategoryHeaderYouSee extends ListItemWherigoCategoryHeader {
 
 	public ListItemWherigoCategoryHeaderYouSee() {
-		super( "", "", false, Images.getImageB( R.drawable.icon_search ) );
-		setSelectable(false);	
-		mStyleCancelButton = null;
-		mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 
+		super();
+		mIconLeft = Images.getImageB( R.drawable.icon_search );
 	}
 	
 	@Override
-	public void layout( Context context, View view  ) {
-		mTitle = I18N.get(R.string.you_see); // TODO + " (" + Engine.instance.cartridge.visibleThings() + ")";
-		// TODO mBody = getVisibleCartridgeThingsDescription();
-		super.layout( context, view );
+	public void layoutOpen( Context context, View view  ) {
+		int count = Engine.instance.cartridge.visibleThings();
+		if ( count == 0 ) {
+			mTitle = I18N.get(R.string.you_see);
+			mBody = "You see nothing"; // TODO I18N		
+		} else {		
+			mTitle = I18N.get(R.string.you_see);
+			mBody = "";
+		}
+		super.layoutOpen( context, view );
+	}
+	
+	@Override
+	public void layoutClose( Context context, View view  ) {
+		int count = Engine.instance.cartridge.visibleThings();
+		if ( count == 0 ) {
+			mTitle = I18N.get(R.string.you_see);
+			mBody = "You see nothing"; // TODO I18N		
+		} else {
+			mTitle = I18N.get(R.string.you_see) + " (" + count + ")";
+			mBody = getVisibleCartridgeThingsDescription();
+		}
+		super.layoutClose( context, view );
 	}	
 	
 	private String getVisibleCartridgeThingsDescription() {

@@ -11,8 +11,8 @@ public class ListItemWherigoElementZone extends ListItemWherigoElement {
 
 	private static final String TAG = "ListItemWherigoElementZone";
 		
-	public ListItemWherigoElementZone( Zone z ) {
-		super( z );
+	public ListItemWherigoElementZone( Zone z, AbstractListItem parent ) {
+		super( z, parent );
 	}	
 	
 	@Override

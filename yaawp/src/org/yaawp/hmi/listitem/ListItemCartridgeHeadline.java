@@ -12,7 +12,7 @@ import android.graphics.Typeface;
 public class ListItemCartridgeHeadline extends ListItem3ButtonsHint {
 
 	public ListItemCartridgeHeadline() {
-		super("","",true,null);
+		super("","",true,null,null);
 		    	
     	mTitle = Engine.instance.cartridge.name;   
     	mIconLeft = CartridgeHelper.getCartridgeImage( Engine.instance.gwcfile);

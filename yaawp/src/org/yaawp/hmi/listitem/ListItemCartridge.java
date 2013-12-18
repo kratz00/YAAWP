@@ -43,8 +43,8 @@ public class ListItemCartridge extends AbstractListItem {
     
     public YCartridge mCartridge;
       
-    public ListItemCartridge( YCartridge cartridge ) {
-    	super( R.layout.listitem_cartridge );
+    public ListItemCartridge( YCartridge cartridge, AbstractListItem parent ) {
+    	super( R.layout.listitem_cartridge, parent );
     	mCartridge = cartridge;
     }
     

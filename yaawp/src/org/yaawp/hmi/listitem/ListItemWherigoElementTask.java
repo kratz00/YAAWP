@@ -11,8 +11,8 @@ public class ListItemWherigoElementTask extends ListItemWherigoElement {
 
 	private static final String TAG = "ListItemWherigoElementTask";
 	
-	public ListItemWherigoElementTask( Task taskObject ) {
-		super( taskObject );
+	public ListItemWherigoElementTask( Task taskObject, AbstractListItem parent ) {
+		super( taskObject, parent );
 	}	
 	
 	@Override
