@@ -93,7 +93,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
     	mAdapter.AddItem( new ListItemCartridgeHeadline() );
     	
     	/* ------------------------------------------------------------------ */
-    	
+    
     	mWherigoZones       = (ListItemWherigoZonesHeader)       mAdapter.AddItem( new ListItemWherigoZonesHeader() );
 		for (int i = 0; i < Engine.instance.cartridge.zones.size(); i++) {
 			Zone z = (Zone)Engine.instance.cartridge.zones.get(i);
@@ -108,7 +108,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		Vector<Zone> zones = Engine.instance.cartridge.zones;
 		for (int i = 0; i < zones.size(); i++) {
 			Zone z = (Zone)zones.elementAt(i);			
-			if (!z.showThings()) {
+			if (z.showThings()) {
 				Object key = null;
 				while ((key = z.inventory.next(key)) != null) {
 					Object o = z.inventory.rawget(key);
@@ -124,7 +124,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		}    	
     	
 		/* ------------------------------------------------------------------ */
-		
+	
     	mWherigoInventory   = (ListItemWherigoInventoryHeader)   mAdapter.AddItem( new ListItemWherigoInventoryHeader() );
 		Player p = Engine.instance.player;
 		Object key = null;
@@ -136,7 +136,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		}
 		
 		/* ------------------------------------------------------------------ */
-		
+
     	mWherigoTasks       = (ListItemWherigoTasksHeader)       mAdapter.AddItem( new ListItemWherigoTasksHeader() ); 	
 		for (int i = 0; i < Engine.instance.cartridge.tasks.size(); i++) {
 			Task a = (Task)Engine.instance.cartridge.tasks.elementAt(i);
