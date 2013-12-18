@@ -6,6 +6,7 @@ import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
+import org.yaawp.hmi.listitem.AbstractListItem.StyleDefine;
 import org.yaawp.utils.Images;
 
 import android.app.Activity;
@@ -20,12 +21,13 @@ public class ListItemWherigoZonesHeader extends ListItem3ButtonsHint {
 		super( "", "", false, Images.getImageB( R.drawable.icon_locations ) );
 		setSelectable(true);
 		mStyleCancelButton = null;
+    	mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 		
 	}
 	
 	@Override
 	public void layout( Context context, View view  ) {
 		mTitle = I18N.get(R.string.locations) + " (" + Engine.instance.cartridge.visibleZones() + ")";
-		mBody = getVisibleZonesDescription();
+		// mBody = getVisibleZonesDescription();
 		super.layout( context, view );
 	}	
 	
