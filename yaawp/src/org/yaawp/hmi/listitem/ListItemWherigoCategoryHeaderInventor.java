@@ -18,33 +18,24 @@ public class ListItemWherigoCategoryHeaderInventor extends ListItemWherigoCatego
 
 	public ListItemWherigoCategoryHeaderInventor() {
 		super();
-		mIconLeft = Images.getImageB( R.drawable.icon_inventory );			
+		mIconLeft = Images.getImageB( R.drawable.icon_inventory );	
+		refresh();
 	}
 	
 	@Override
-	public void layoutOpen( Context context, View view  ) {
+	public void refresh() {
 		int count = Engine.instance.player.visibleThings();
 		if ( count == 0 ) {
-			mTitle = I18N.get(R.string.tasks);
-			mBody = "You have nothing"; // TODO I18N
+			mTitleOpen = I18N.get(R.string.inventory);
+			mBodyOpen = "You have nothing"; // TODO I18N
+			mTitleClose = mTitleOpen;	
+			mBodyClose = mBodyOpen;					
 		} else {
-			mTitle = I18N.get(R.string.inventory);
-			mBody = "";	
+			mTitleOpen = I18N.get(R.string.inventory);
+			mBodyOpen = "";
+			mTitleClose = I18N.get(R.string.inventory) + " (" + count + ")";
+			mBodyClose = getVisiblePlayerThingsDescription();				
 		}
-		super.layoutOpen( context, view );
-	}
-	
-	@Override
-	public void layoutClose( Context context, View view  ) {
-		int count = Engine.instance.player.visibleThings();
-		if ( count == 0 ) {
-			mTitle = I18N.get(R.string.tasks);
-			mBody = "You have nothing"; // TODO I18N
-		} else {
-			mTitle = I18N.get(R.string.inventory)+ " (" + count + ")";
-			mBody = getVisiblePlayerThingsDescription();		
-		}
-		super.layoutClose( context, view );		
 	}	
 	
 	private String getVisiblePlayerThingsDescription() {

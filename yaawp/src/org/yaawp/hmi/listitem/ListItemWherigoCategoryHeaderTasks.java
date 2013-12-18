@@ -17,34 +17,25 @@ public class ListItemWherigoCategoryHeaderTasks extends ListItemWherigoCategoryH
 
 	public ListItemWherigoCategoryHeaderTasks() {
 		super();
-		mIconLeft = Images.getImageB( R.drawable.icon_tasks );			
+		mIconLeft = Images.getImageB( R.drawable.icon_tasks );	
+		refresh();
 	}
 	
 	@Override
-	public void layoutOpen( Context context, View view  ) {
+	public void refresh() {
 		int count = Engine.instance.cartridge.visibleTasks();
 		if ( count == 0 ) {
-			mTitle = I18N.get(R.string.tasks);
-			mBody = "Nothing to do for you"; // TODO I18N
+			mTitleOpen = I18N.get(R.string.tasks);
+			mBodyOpen = "Nothing to do for you"; // TODO I18N
+			mTitleClose = mTitleOpen;	
+			mBodyClose = mBodyOpen;					
 		} else {
-			mTitle = I18N.get(R.string.tasks);
-			mBody = "";		
+			mTitleOpen = I18N.get(R.string.tasks);
+			mBodyOpen = "";
+			mTitleClose = I18N.get(R.string.tasks) + " (" + count + ")";
+			mBodyClose = getVisibleTasksDescription();				
 		}
-		super.layoutOpen( context, view );
-	}
-	
-	@Override
-	public void layoutClose( Context context, View view  ) {
-		int count = Engine.instance.cartridge.visibleTasks();
-		if ( count == 0 ) {
-			mTitle = I18N.get(R.string.tasks);
-			mBody = "Nothing to do for you"; // TODO I18N
-		} else {
-			mTitle = I18N.get(R.string.tasks)+ " (" + count + ")";
-			mBody = getVisibleTasksDescription();			
-		}
-		super.layoutClose( context, view );
-	}
+	}	
 	
 	/* public int getVisibleTasksCount() {
 		int count = 0;

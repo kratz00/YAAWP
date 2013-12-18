@@ -21,34 +21,39 @@ public class ListItemWherigoCategoryHeaderYouSee extends ListItemWherigoCategory
 	public ListItemWherigoCategoryHeaderYouSee() {
 		super();
 		mIconLeft = Images.getImageB( R.drawable.icon_search );
+		refresh();
 	}
 	
 	@Override
 	public void layoutOpen( Context context, View view  ) {
-		int count = Engine.instance.cartridge.visibleThings();
-		if ( count == 0 ) {
-			mTitle = I18N.get(R.string.you_see);
-			mBody = "You see nothing"; // TODO I18N		
-		} else {		
-			mTitle = I18N.get(R.string.you_see);
-			mBody = "";
-		}
+		mTitle = mTitleOpen;
+		mBody = mBodyOpen;		
 		super.layoutOpen( context, view );
 	}
 	
 	@Override
 	public void layoutClose( Context context, View view  ) {
+		mTitle = mTitleClose;
+		mBody = mBodyClose;		
+		super.layoutClose( context, view );
+	}
+	
+	@Override
+	public void refresh() {
 		int count = Engine.instance.cartridge.visibleThings();
 		if ( count == 0 ) {
-			mTitle = I18N.get(R.string.you_see);
-			mBody = "You see nothing"; // TODO I18N		
+			mTitleOpen = I18N.get(R.string.you_see);
+			mBodyOpen = "You see nothing"; // TODO I18N	
+			mTitleClose = mTitleOpen;	
+			mBodyClose = mBodyOpen;
 		} else {
-			mTitle = I18N.get(R.string.you_see) + " (" + count + ")";
-			mBody = getVisibleCartridgeThingsDescription();
+			mTitleOpen = I18N.get(R.string.you_see);
+			mBodyOpen = "";
+			mTitleClose = I18N.get(R.string.you_see) + " (" + count + ")";
+			mBodyClose = getVisibleCartridgeThingsDescription();					
 		}
-		super.layoutClose( context, view );
-	}	
-	
+	}
+		
 	private String getVisibleCartridgeThingsDescription() {
 		String description = null;
 		@SuppressWarnings("unchecked")

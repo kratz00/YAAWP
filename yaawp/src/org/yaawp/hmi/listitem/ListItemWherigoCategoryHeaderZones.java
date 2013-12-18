@@ -20,32 +20,23 @@ public class ListItemWherigoCategoryHeaderZones extends ListItemWherigoCategoryH
 	public ListItemWherigoCategoryHeaderZones() {
 		super();
 		mIconLeft = Images.getImageB( R.drawable.icon_locations );	
+		refresh();
 	}
 	
 	@Override
-	public void layoutOpen( Context context, View view  ) {
+	public void refresh() {
 		int count = Engine.instance.cartridge.visibleZones();
 		if ( count == 0 ) {
-			mTitle = I18N.get(R.string.locations);
-			mBody = "No area to go"; // TODO I18N			
-		} else {	
-			mTitle = I18N.get(R.string.locations);
-			mBody = "";		
-		}
-		super.layoutOpen( context, view );
-	}
-	
-	@Override
-	public void layoutClose( Context context, View view  ) {
-		int count = Engine.instance.cartridge.visibleZones();
-		if ( count == 0 ) {
-			mTitle = I18N.get(R.string.locations);
-			mBody = "No area to go"; // TODO I18N			
+			mTitleOpen = I18N.get(R.string.locations);
+			mBodyOpen = "No area to go"; // TODO I18N	
+			mTitleClose = mTitleOpen;	
+			mBodyClose = mBodyOpen;					
 		} else {
-			mTitle = I18N.get(R.string.locations)+ " (" + count + ")";
-			mBody = getVisibleZonesDescription();			
+			mTitleOpen = I18N.get(R.string.locations);
+			mBodyOpen = "";
+			mTitleClose = I18N.get(R.string.locations) + " (" + count + ")";
+			mBodyClose = getVisibleZonesDescription();				
 		}
-		super.layoutClose( context, view );
 	}
 	
 	private String getVisibleZonesDescription() {
