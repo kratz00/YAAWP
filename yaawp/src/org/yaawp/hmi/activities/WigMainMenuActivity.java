@@ -20,6 +20,8 @@
 
 package org.yaawp.hmi.activities;
 
+import java.util.Vector;
+
 import org.yaawp.R;
 
 import org.yaawp.hmi.listitem.*;
@@ -46,6 +48,9 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import cz.matejcik.openwig.Engine;
+import cz.matejcik.openwig.Task;
+import cz.matejcik.openwig.Zone;
+
 import org.yaawp.hmi.listitem.ListItemGuidanceActive;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
@@ -61,10 +66,10 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	
 	private ListItemGpsDisabledWarning mGpsDisabledWarning = null;
 	private ListItemGuidanceActive mGuidanceActive = null;
-	private ListItemWherigoInventory mWherigoInventory = null;
-	private ListItemWherigoTasks mWherigoTasks = null;
-	private ListItemWherigoYouSee mWherigoYouSee = null;
-	private ListItemWherigoZones mWherigoZones = null;
+	private ListItemWherigoInventoryHeader mWherigoInventory = null;
+	private ListItemWherigoTasksHeader mWherigoTasks = null;
+	private ListItemWherigoYouSeeHeader mWherigoYouSee = null;
+	private ListItemWherigoZonesHeader mWherigoZones = null;
 	
 	private ListItemAdapter mAdapter = null;	
 	private ListView mCartridgeListView = null;
@@ -88,11 +93,11 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
     	
     	mAdapter.AddItem( new ListItemCartridgeHeadline() );
     	
-    	mWherigoZones       = (ListItemWherigoZones)       mAdapter.AddItem( new ListItemWherigoZones() );
-    	mWherigoYouSee      = (ListItemWherigoYouSee)      mAdapter.AddItem( new ListItemWherigoYouSee() );
-    	mWherigoInventory   = (ListItemWherigoInventory)   mAdapter.AddItem( new ListItemWherigoInventory() );
-    	mWherigoTasks       = (ListItemWherigoTasks)       mAdapter.AddItem( new ListItemWherigoTasks() );
-    	    	
+    	mWherigoZones       = (ListItemWherigoZonesHeader)       mAdapter.AddItem( new ListItemWherigoZonesHeader() );
+    	mWherigoYouSee      = (ListItemWherigoYouSeeHeader)      mAdapter.AddItem( new ListItemWherigoYouSeeHeader() );
+    	mWherigoInventory   = (ListItemWherigoInventoryHeader)   mAdapter.AddItem( new ListItemWherigoInventoryHeader() );
+    	mWherigoTasks       = (ListItemWherigoTasksHeader)       mAdapter.AddItem( new ListItemWherigoTasksHeader() ); 	
+    	
 		/* ------------------------------------------------------------------ */
     	
 		mCartridgeListView = new ListView(this);  
