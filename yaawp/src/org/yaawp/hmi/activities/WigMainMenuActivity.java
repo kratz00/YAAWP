@@ -93,57 +93,10 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
     	mAdapter.AddItem( new ListItemCartridgeHeadline() );
     	
     	/* ------------------------------------------------------------------ */
-    
-    	mWherigoZones       = (ListItemWherigoZonesHeader)       mAdapter.AddItem( new ListItemWherigoZonesHeader() );
-		for (int i = 0; i < Engine.instance.cartridge.zones.size(); i++) {
-			Zone z = (Zone)Engine.instance.cartridge.zones.get(i);
-			if (z.isVisible()) {
-				mAdapter.AddItem( new ListItem3ButtonsHint( z.name,"",false,null ) );
-			}
-		}  
-		
-		/* ------------------------------------------------------------------ */
-		
-    	mWherigoYouSee      = (ListItemWherigoYouSeeHeader)      mAdapter.AddItem( new ListItemWherigoYouSeeHeader() );
-		Vector<Zone> zones = Engine.instance.cartridge.zones;
-		for (int i = 0; i < zones.size(); i++) {
-			Zone z = (Zone)zones.elementAt(i);			
-			if (z.showThings()) {
-				Object key = null;
-				while ((key = z.inventory.next(key)) != null) {
-					Object o = z.inventory.rawget(key);
-					if (o instanceof Player)
-						continue;
-					if (!(o instanceof Thing))
-						continue;
-					if (((Thing) o).isVisible()) {
-						mAdapter.AddItem( new ListItem3ButtonsHint( ((Thing) o).name,z.name,false,null ) );
-					}
-				}
-			}
-		}    	
-    	
-		/* ------------------------------------------------------------------ */
-	
-    	mWherigoInventory   = (ListItemWherigoInventoryHeader)   mAdapter.AddItem( new ListItemWherigoInventoryHeader() );
-		Player p = Engine.instance.player;
-		Object key = null;
-		while ((key = p.inventory.next(key)) != null) {
-			Object o = p.inventory.rawget(key);
-			if (o instanceof Thing && ((Thing) o).isVisible()) {
-				mAdapter.AddItem( new ListItem3ButtonsHint( ((Thing) o).name,"",false,null ) );
-			}
-		}
-		
-		/* ------------------------------------------------------------------ */
-
-    	mWherigoTasks       = (ListItemWherigoTasksHeader)       mAdapter.AddItem( new ListItemWherigoTasksHeader() ); 	
-		for (int i = 0; i < Engine.instance.cartridge.tasks.size(); i++) {
-			Task a = (Task)Engine.instance.cartridge.tasks.elementAt(i);
-			if (a.isVisible()) {
-				mAdapter.AddItem( new ListItem3ButtonsHint( a.name,"",false,null ) );
-			}
-		}    	
+    	addElementsOfCategoryZones();
+    	addElementsOfCategoryYouSee();
+    	addElementsOfCategoryInventory();
+    	addElementsOfCategoryTasks(); 	
 		/* ------------------------------------------------------------------ */
     	
 		mCartridgeListView = new ListView(this);  
@@ -178,6 +131,57 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
     	mButtonPanelBar.AddButton( mButtonShowMap );
     	mButtonPanelBar.updateUI();
 	}
+	
+	private void addElementsOfCategoryZones() {
+    	mWherigoZones       = (ListItemWherigoZonesHeader)       mAdapter.AddItem( new ListItemWherigoZonesHeader() );
+		for (int i = 0; i < Engine.instance.cartridge.zones.size(); i++) {
+			Zone z = (Zone)Engine.instance.cartridge.zones.get(i);
+			if (z.isVisible()) {
+				mAdapter.AddItem( new ListItem3ButtonsHint( z.name,"",false,null ) );
+			}
+		}  		
+	}
+	
+	private void addElementsOfCategoryYouSee() {
+    	mWherigoYouSee      = (ListItemWherigoYouSeeHeader)      mAdapter.AddItem( new ListItemWherigoYouSeeHeader() );
+		Vector<Zone> zones = Engine.instance.cartridge.zones;
+		for (int i = 0; i < zones.size(); i++) {
+			Zone z = (Zone)zones.elementAt(i);			
+			if (z.showThings()) {
+				Object key = null;
+				while ((key = z.inventory.next(key)) != null) {
+					Object o = z.inventory.rawget(key);
+					if (o instanceof Player)
+						continue;
+					if (!(o instanceof Thing))
+						continue;
+					if (((Thing) o).isVisible()) {
+						mAdapter.AddItem( new ListItem3ButtonsHint( ((Thing) o).name,z.name,false,null ) );
+					}
+				}
+			}
+		}   		
+	}
+	private void addElementsOfCategoryInventory() {
+    	mWherigoInventory   = (ListItemWherigoInventoryHeader)   mAdapter.AddItem( new ListItemWherigoInventoryHeader() );
+		Player p = Engine.instance.player;
+		Object key = null;
+		while ((key = p.inventory.next(key)) != null) {
+			Object o = p.inventory.rawget(key);
+			if (o instanceof Thing && ((Thing) o).isVisible()) {
+				mAdapter.AddItem( new ListItem3ButtonsHint( ((Thing) o).name,"",false,null ) );
+			}
+		}		
+	}
+	private void addElementsOfCategoryTasks() {
+    	mWherigoTasks       = (ListItemWherigoTasksHeader)       mAdapter.AddItem( new ListItemWherigoTasksHeader() ); 	
+		for (int i = 0; i < Engine.instance.cartridge.tasks.size(); i++) {
+			Task a = (Task)Engine.instance.cartridge.tasks.elementAt(i);
+			if (a.isVisible()) {
+				mAdapter.AddItem( new ListItem3ButtonsHint( a.name,"",false,null ) );
+			}
+		}   		
+	}	
 	
 	@Override 
 	public void onResume() {
