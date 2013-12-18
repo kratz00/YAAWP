@@ -159,7 +159,7 @@ public abstract class AbstractListItem {
 					params.height = (int) (style.mHeight);
 				}
 		        image.setLayoutParams(params);
-		        image.setVisibility(View.VISIBLE);
+		        image.setVisibility(style.mVisibility);
 			} else {
 				image.setVisibility(View.GONE);			
 			}
@@ -183,7 +183,7 @@ public abstract class AbstractListItem {
 					params.height = (int) (style.mHeight);
 				}
 		        image.setLayoutParams(params);
-		        image.setVisibility(View.VISIBLE);				
+		        image.setVisibility(style.mVisibility);				
 			} else {
 				image.setVisibility(View.GONE);			
 			}
