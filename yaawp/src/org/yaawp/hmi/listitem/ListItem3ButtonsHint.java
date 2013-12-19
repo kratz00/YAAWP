@@ -16,7 +16,6 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 
     protected ThreeButtonPanelBar mButtonPanelBar = null;
     private Vector<PanelBarButton> mButtons = new Vector<PanelBarButton>();
-    private boolean mSelectable = false;
        
     protected String      mDataTextMajor;
     protected String      mDataTextMinor;      
@@ -32,14 +31,16 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 	    public void onClick(View v) {
 	    	ListItem3ButtonsHint.this.mValid = false;
 	    	ListItem3ButtonsHint.this.notifyDataSetChanged();
-	    } };
+	    } };    
     
-    public ListItem3ButtonsHint( String title, String body, boolean boldTitle, Bitmap iconLeft, AbstractListItem parent ) {
-    	super( R.layout.list_adapter_hint, parent );
+    public ListItem3ButtonsHint( boolean selectable, AbstractListItem parent ) {
+    	super( selectable, R.layout.list_adapter_hint, parent );
     	
-    	mDataTextMajor = title;   
-    	mDataTextMinor = body;
-    	mDataImageLeft = iconLeft;
+    	
+    	
+    	mDataTextMajor = null;   
+    	mDataTextMinor = null;
+    	mDataImageLeft = null;
 
     	mStyleBackground   = Styles.mStyleBackgroundLightGray; 
     	mStyleTextMajor    = Styles.mStyleTextMajor;
@@ -51,16 +52,7 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 	public void AddButton( PanelBarButton button ) {
 		mButtons.add( button );
 	}    
-    
-	
-	public boolean isEnabled() {
-		return mSelectable; 
-	}	
-		
-	public void setSelectable( boolean selectable ) {
-		mSelectable = selectable;
-	}
-	
+			
 	public void layout( Context context, View view  ) {
 		view.setBackgroundColor( mStyleBackground.mBackground );
 		

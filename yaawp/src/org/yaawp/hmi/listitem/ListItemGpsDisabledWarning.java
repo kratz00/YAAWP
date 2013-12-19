@@ -24,12 +24,13 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 	private Context mContext;
 	
 	public ListItemGpsDisabledWarning( Context context ) {
-		super( I18N.get(R.string.gps_disabled),
-				"Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view.",
-				true,
-				Images.getImageB( R.drawable.ic_main_gps ),null ) ;
+		super( false, null );
 		
 		mContext = context;
+		
+		mDataTextMajor = I18N.get(R.string.gps_disabled);
+		mDataTextMinor = "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view."; // TODO I18N
+		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );
 		
     	mStyleCancelButton = new ImageStyle( View.VISIBLE, Color.TRANSPARENT, -1, -1, new View.OnClickListener() {
 		    public void onClick(View v) {

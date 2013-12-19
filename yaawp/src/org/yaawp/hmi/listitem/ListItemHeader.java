@@ -20,7 +20,7 @@ public class ListItemHeader extends AbstractListItem {
     private Bitmap mBitmap;
     
     public ListItemHeader( String titleLeft, String titleRight, Bitmap bitmap ) {
-    	super( R.layout.list_separator, null );
+    	super( true, R.layout.list_separator, null );
     	mTitleLeft = titleLeft;
     	mTitleRight = titleRight;
     	mBitmap = Images.resizeBitmap( bitmap, 40 );

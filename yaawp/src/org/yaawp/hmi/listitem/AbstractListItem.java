@@ -27,13 +27,15 @@ public abstract class AbstractListItem {
 	private BaseAdapter mChangeObserver = null;
 	protected boolean mOpen = false;
 	protected AbstractListItem mParent = null;
+	private boolean mSelectable = false;
 	
 	/* -------------------------------------------------------- *
 	 * 
 	 */
-	public AbstractListItem( int layoutId, AbstractListItem parent ) {
+	public AbstractListItem( boolean selectable, int layoutId, AbstractListItem parent ) {
 		mLayoutId = layoutId;
 		mParent = parent;
+		mSelectable = selectable;
 	}
 	
 	public View inflate( Context context ) {

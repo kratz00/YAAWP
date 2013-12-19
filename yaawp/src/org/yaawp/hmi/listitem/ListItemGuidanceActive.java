@@ -21,12 +21,13 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 	public Context mContext = null;
 	
 	public ListItemGuidanceActive( Context context ) {
-		super(	/* TODO I18N */ "Guidance active",
-				/* TODO I18N */ "Guidance to zone <i>" + A.getGuidingContent().getName() +"</i>",
-				true,
-				Images.getImageB( R.drawable.ic_main_gps ),null );
+		super( false, null );
 		
 		mContext = context;
+		
+		mDataTextMajor = /* TODO I18N */ "Guidance active" ;
+		mDataTextMinor = /* TODO I18N */ "Guidance to zone <i>" + A.getGuidingContent().getName() +"</i>";
+		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );
 		
     	mStyleCancelButton = new ImageStyle( View.VISIBLE, Color.TRANSPARENT, -1, -1, new View.OnClickListener() {
 		    public void onClick(View v) {

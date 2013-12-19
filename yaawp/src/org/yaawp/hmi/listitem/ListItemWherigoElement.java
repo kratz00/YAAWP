@@ -13,8 +13,7 @@ public class ListItemWherigoElement extends ListItem3ButtonsHint {
 	EventTable mObject = null;
 	
 	public ListItemWherigoElement( EventTable et, AbstractListItem parent ) {
-		super("","",false,null,parent);
-		setSelectable(true);
+		super( true, parent );
 		
 		mObject = et;
 

@@ -20,8 +20,7 @@ public abstract class ListItemWherigoCategoryHeader extends ListItem3ButtonsHint
 	protected String mBodyClose = null;
 	
 	public ListItemWherigoCategoryHeader() {
-		super("","",false,null,null);
-		setSelectable(true);
+		super( true, null );
 		mStyleCancelButton = null;
     	mStyleBackground = Styles.mStyleBackgroundDarkGray; 			
 	}
