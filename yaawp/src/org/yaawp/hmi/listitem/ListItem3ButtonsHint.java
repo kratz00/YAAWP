@@ -69,25 +69,19 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 	}
 	
 	public void layout( Context context, View view  ) {
+		view.setBackgroundColor( mStyleBackground.mBackground );
 		
-		try {
-			view.setBackgroundColor( mStyleBackground.mBackground );
-						
-			// --- set layout of button bar
-			mButtonPanelBar = new ThreeButtonPanelBar(view);
-			mButtonPanelBar.SetBackgroundColor( 0x00000000 ); // TODO read from style
-			for ( int i=0; i<mButtons.size(); i++ ) {
-				mButtonPanelBar.AddButton( mButtons.get(i) );
-			}
-			
-			// --- set layout of list elements
-			layoutImageView( view, R.id.layoutIconedListAdapterImageView01, mStyleCancelButton, android.R.drawable.ic_menu_close_clear_cancel );
-			layoutImageView( view, R.id.image_leftside, mStyleImageLeft, mDataImageLeft );
-			layoutTextView( view, R.id.layoutIconedListAdapterTextView01, mStyleTextMajor, mDataTextMajor );
-			layoutTextView( view, R.id.layoutIconedListAdapterTextView02, mStyleTextMinor, mDataTextMinor );
-						
-		} catch( Exception e ) {
-			return;
+		// --- set layout of button bar
+		mButtonPanelBar = new ThreeButtonPanelBar(view);
+		mButtonPanelBar.SetBackgroundColor( 0x00000000 ); // TODO read from style
+		for ( int i=0; i<mButtons.size(); i++ ) {
+			mButtonPanelBar.AddButton( mButtons.get(i) );
 		}
+		
+		// --- set layout of list elements
+		layoutImageView( view, R.id.layoutIconedListAdapterImageView01, mStyleCancelButton, android.R.drawable.ic_menu_close_clear_cancel );
+		layoutImageView( view, R.id.image_leftside, mStyleImageLeft, mDataImageLeft );
+		layoutTextView( view, R.id.layoutIconedListAdapterTextView01, mStyleTextMajor, mDataTextMajor );
+		layoutTextView( view, R.id.layoutIconedListAdapterTextView02, mStyleTextMinor, mDataTextMinor );		
 	}
 }
