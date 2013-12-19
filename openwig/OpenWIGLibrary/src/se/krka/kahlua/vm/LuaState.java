@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Random;
+
+import android.util.Log;
 import se.krka.kahlua.stdlib.BaseLib;
 import se.krka.kahlua.stdlib.CoroutineLib;
 import se.krka.kahlua.stdlib.MathLib;
@@ -214,8 +216,10 @@ public class LuaState {
 				base + 1, base, nArguments, false, false);
 		callFrame.init();
 
+		Log.d( "openwig>", "null");
 		luaMainloop();
-
+		Log.d( "openwig<", "null");
+		
 		int nReturnValues = currentThread.getTop() - base;
 
 		currentThread.stackTrace = "";

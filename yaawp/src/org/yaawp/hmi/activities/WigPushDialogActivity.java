@@ -119,6 +119,12 @@ Logger.d(TAG, "setDialog() - finish, callBack:" + (callback != null));
 			nextPage();
 		}
 	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+	}
+	
 	
 	private void nextPage() {
 Logger.d(TAG, "nextpage() - page:" + page + ", texts:" + texts.length + ", callback:" + (callback != null));

@@ -23,7 +23,7 @@ public abstract class ListItemWherigoCategoryHeader extends ListItem3ButtonsHint
 		super("","",false,null,null);
 		setSelectable(true);
 		mStyleCancelButton = null;
-    	mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 			
+    	mStyleBackground = Styles.mStyleBackgroundDarkGray; 			
 	}
 	
 	@Override

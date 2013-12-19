@@ -3,12 +3,13 @@ package org.yaawp.hmi.listitem.styles;
 import android.graphics.Color;
 import android.view.View;
 
-public class StyleDefine {
+public class StyleBasics {
 
 	public int mBackground = Color.TRANSPARENT;
-	public int mVisibility = View.VISIBLE;
+	public int mVisibility = View.GONE;
 	
-	public StyleDefine( int background ) {
+	public StyleBasics( int visibility, int background ) {
+		mVisibility = visibility;
 		mBackground = background;
 	}
 	

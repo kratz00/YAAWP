@@ -4,6 +4,7 @@ import org.yaawp.R;
 import org.yaawp.utils.CartridgeHelper;
 
 import android.graphics.Color;
+import android.view.View;
 import cz.matejcik.openwig.EventTable;
 import org.yaawp.hmi.listitem.styles.*;
 
@@ -14,8 +15,11 @@ public class ListItemWherigoElement extends ListItem3ButtonsHint {
 	public ListItemWherigoElement( EventTable e, AbstractListItem parent ) {
 		super("","",false,null,parent);
 		setSelectable(true);
-		enableCancelButton(false);		mObject = e;
-		mStyleImageLeft = new ImageStyle( Color.TRANSPARENT, 32, 32, null );
+		enableCancelButton(false);
+		mObject = e;
+		
+		mStyleBackground = Styles.mStyleBackgroundLightGray; 
+		mStyleImageLeft = new ImageStyle( View.VISIBLE, Color.TRANSPARENT, 32, 32, null );
 		// mStyleCancelButton = null;
     	// mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 
 		// TODO Icon

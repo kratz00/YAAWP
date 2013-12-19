@@ -15,6 +15,9 @@ import org.yaawp.utils.Images;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.graphics.Color;
+import org.yaawp.hmi.listitem.styles.*;
 
 public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements LocationEventListener {
 
@@ -27,6 +30,12 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 				Images.getImageB( R.drawable.ic_main_gps ),null ) ;
 		
 		mContext = context;
+		
+    	mStyleCancelButton = new ImageStyle( View.VISIBLE, Color.TRANSPARENT, -1, -1, new View.OnClickListener() {
+		    public void onClick(View v) {
+		    	ListItemGpsDisabledWarning.this.mValid = false;
+		    	ListItemGpsDisabledWarning.this.notifyDataSetChanged();
+		    } } );	
 		
 		AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
 				new PanelBarButton.OnClickListener() {

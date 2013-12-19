@@ -1,6 +1,8 @@
 package org.yaawp.hmi.listitem;
 
 import android.content.Context;
+import android.view.View;
+
 import org.yaawp.R;
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.guidance.interfaces.GuidingListener;
@@ -11,6 +13,8 @@ import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonStopGuidance;
 import org.yaawp.utils.A;
 import org.yaawp.utils.Images;
+import android.graphics.Color;
+import org.yaawp.hmi.listitem.styles.*;
 
 public class ListItemGuidanceActive extends ListItem3ButtonsHint implements GuidingListener {
 
@@ -23,6 +27,12 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 				Images.getImageB( R.drawable.ic_main_gps ),null );
 		
 		mContext = context;
+		
+    	mStyleCancelButton = new ImageStyle( View.VISIBLE, Color.TRANSPARENT, -1, -1, new View.OnClickListener() {
+		    public void onClick(View v) {
+		    	ListItemGuidanceActive.this.mValid = false;
+		    	ListItemGuidanceActive.this.notifyDataSetChanged();
+		    } } );		
 		
 		AddButton( new PanelBarButton( I18N.get(R.string.navigate ), 
 				new PanelBarButton.OnClickListener() {
