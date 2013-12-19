@@ -19,7 +19,7 @@ public class ListItemWherigoElement extends ListItem3ButtonsHint {
 
 		mDataTextMajor = mObject.name;
 		mDataTextMinor = null;
-		mDataImageLeft = CartridgeHelper.getIcon( mObject, R.drawable.icon_locations );	// TODO default icon!?!?
+		mDataImageLeft = CartridgeHelper.getIconFrom( et, R.drawable.icon_locations );				
 		
 		mStyleBackground = Styles.mStyleBackgroundLightGray; 
 		mStyleImageLeft  = new ImageStyle( View.VISIBLE, Color.TRANSPARENT, 32, 32, null );
