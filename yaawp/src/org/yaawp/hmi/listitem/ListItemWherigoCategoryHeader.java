@@ -2,7 +2,7 @@ package org.yaawp.hmi.listitem;
 
 import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
-import org.yaawp.hmi.listitem.AbstractListItem.StyleDefine;
+import org.yaawp.hmi.listitem.styles.*;
 import org.yaawp.utils.Logger;
 
 import android.app.Activity;

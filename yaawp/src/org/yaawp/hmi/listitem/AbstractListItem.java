@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.BaseAdapter;
+import org.yaawp.hmi.listitem.styles.*;
 
 public abstract class AbstractListItem {
 
@@ -26,44 +27,6 @@ public abstract class AbstractListItem {
 	private BaseAdapter mChangeObserver = null;
 	protected boolean mOpen = false;
 	protected AbstractListItem mParent = null;
-	
-    class StyleDefine {
-    	public int mBackground = Color.TRANSPARENT;
-    	public int mVisibility = View.VISIBLE;
-    	
-    	public StyleDefine( int background ) {
-    		mBackground = background;
-    	}
-    }
-    
-	class ImageStyle extends StyleDefine {
-		public View.OnClickListener mClickListener = null;
-		public int mWidth = -1;
-		public int mHeight = -1;
-		
-		public ImageStyle( int background, int width, int height, View.OnClickListener clickListener ) {
-			super(background);
-			mWidth = width;
-			mHeight = height;
-			mClickListener = clickListener;
-		}
-		
-	};     
-    
-	class TextStyle extends StyleDefine  {
-		public int mBackground = Color.TRANSPARENT;
-		public int mTextColor = Color.BLACK;
-		public int mTextSize = 18;
-		public int mTypeface = Typeface.NORMAL;
-		public boolean mHTML = true;
-		
-		TextStyle( int background, int textColor, int textSize, int typeface ) {
-			super(background);
-			mTextColor = textColor;
-			mTextSize = textSize;
-			mTypeface = typeface;
-		}		 
-	};    	
 	
 	/* -------------------------------------------------------- *
 	 * 

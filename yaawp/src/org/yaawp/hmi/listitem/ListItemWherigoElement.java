@@ -5,6 +5,7 @@ import org.yaawp.utils.CartridgeHelper;
 
 import android.graphics.Color;
 import cz.matejcik.openwig.EventTable;
+import org.yaawp.hmi.listitem.styles.*;
 
 public class ListItemWherigoElement extends ListItem3ButtonsHint {
 

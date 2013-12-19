@@ -4,7 +4,7 @@ import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
-import org.yaawp.hmi.listitem.AbstractListItem.StyleDefine;
+import org.yaawp.hmi.listitem.styles.*;
 import org.yaawp.utils.Images;
 
 import android.app.Activity;

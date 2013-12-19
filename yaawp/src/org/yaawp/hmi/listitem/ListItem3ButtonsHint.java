@@ -14,6 +14,7 @@ import android.widget.TextView;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import android.util.TypedValue;
+import org.yaawp.hmi.listitem.styles.*;
 
 public class ListItem3ButtonsHint extends AbstractListItem {
 

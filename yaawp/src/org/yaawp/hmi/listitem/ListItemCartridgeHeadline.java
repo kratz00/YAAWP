@@ -7,7 +7,7 @@ import cz.matejcik.openwig.Engine;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-
+import org.yaawp.hmi.listitem.styles.*;
 
 public class ListItemCartridgeHeadline extends ListItem3ButtonsHint {
 
