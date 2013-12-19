@@ -37,7 +37,7 @@ public class Task extends EventTable {
 		} else if ("CorrectState".equals(key) && value instanceof String) {
 			String v = (String)value;
 			int s = DONE;
-			if ("incorrect".equals(v)) s = FAILED;
+			if ("incorrect".equals(v)) s = FAILED; // TODO value is "NotCorrect"
 			if (s != state) {
 				state = s;
 				callEvent("OnSetCorrectState", null);
