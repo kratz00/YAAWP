@@ -1,6 +1,7 @@
 package org.yaawp.hmi.listitem;
 
 import org.yaawp.R;
+import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.utils.CartridgeHelper;
 import org.yaawp.utils.Images;
@@ -23,12 +24,18 @@ public class ListItemWherigoElementTask extends ListItemWherigoElement {
 		stateIcons[Task.FAILED] = Images.getImageB(R.drawable.task_failed);
 	}	
 	
+	private static final String[] stateTexts = {
+		I18N.get(R.string.pending),
+		I18N.get(R.string.finished),
+		I18N.get(R.string.failed)};	
+	
 	public ListItemWherigoElementTask( Task taskObject, AbstractListItem parent ) {
 		super( taskObject, parent );
 		int state = ((Task)mObject).state();
 		if ( state>=0 && state<3 ) {
 			mDataImageLeft = stateIcons[state];
 		}
+		mDataTextMinor = stateTexts[taskObject.state()];
 	}	
 	
 	@Override
