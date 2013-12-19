@@ -57,9 +57,7 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 						return true;
 					}
 				}
-			)); 	
-		
-		enableCancelButton( true ); 	
+			)); 		
     }
     
 	@Override

@@ -36,6 +36,7 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     
     public ListItem3ButtonsHint( String title, String body, boolean boldTitle, Bitmap iconLeft, AbstractListItem parent ) {
     	super( R.layout.list_adapter_hint, parent );
+    	
     	mDataTextMajor = title;   
     	mDataTextMinor = body;
     	mDataImageLeft = iconLeft;
@@ -45,8 +46,6 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     	mStyleTextMinor    = Styles.mStyleTextMinor;
     	mStyleImageLeft    = Styles.mStyleImageLeft;
     	mStyleCancelButton = null;
-    	    	   	
-    	enableCancelButton(false);
     }
     
 	public void AddButton( PanelBarButton button ) {
@@ -57,13 +56,7 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 	public boolean isEnabled() {
 		return mSelectable; 
 	}	
-	
-	public void enableCancelButton( boolean cancel ) {
-		if ( mStyleCancelButton != null ) {
-			mStyleCancelButton.mVisibility = cancel ? View.VISIBLE : View.GONE;
-		}
-	}
-	
+		
 	public void setSelectable( boolean selectable ) {
 		mSelectable = selectable;
 	}

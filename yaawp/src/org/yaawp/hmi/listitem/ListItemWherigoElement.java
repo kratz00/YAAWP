@@ -12,19 +12,17 @@ public class ListItemWherigoElement extends ListItem3ButtonsHint {
 
 	EventTable mObject = null;
 	
-	public ListItemWherigoElement( EventTable e, AbstractListItem parent ) {
+	public ListItemWherigoElement( EventTable et, AbstractListItem parent ) {
 		super("","",false,null,parent);
 		setSelectable(true);
-		enableCancelButton(false);
-		mObject = e;
+		
+		mObject = et;
+
+		mDataTextMajor = mObject.name;
+		mDataTextMinor = null;
+		mDataImageLeft = CartridgeHelper.getIcon( mObject, R.drawable.icon_locations );	// TODO default icon!?!?
 		
 		mStyleBackground = Styles.mStyleBackgroundLightGray; 
-		mStyleImageLeft = new ImageStyle( View.VISIBLE, Color.TRANSPARENT, 32, 32, null );
-		// mStyleCancelButton = null;
-    	// mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 
-		// TODO Icon
-		mDataTextMajor = mObject.name;
-		// TODO mBody = distance, inside/outside/approxym..
-		mDataImageLeft = CartridgeHelper.getIcon( mObject, R.drawable.icon_locations );	// TODO default icon!?!?	
+		mStyleImageLeft  = new ImageStyle( View.VISIBLE, Color.TRANSPARENT, 32, 32, null );
 	}
 }
