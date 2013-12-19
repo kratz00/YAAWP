@@ -23,8 +23,8 @@ public class ListItemWherigoElement extends ListItem3ButtonsHint {
 		// mStyleCancelButton = null;
     	// mStyleBackground = new StyleDefine( ListItemColor.DARK_GRAY ); 
 		// TODO Icon
-		mTitle = mObject.name;
+		mDataTextMajor = mObject.name;
 		// TODO mBody = distance, inside/outside/approxym..
-		mIconLeft = CartridgeHelper.getIcon( mObject, R.drawable.icon_locations );	// TODO default icon!?!?	
+		mDataImageLeft = CartridgeHelper.getIcon( mObject, R.drawable.icon_locations );	// TODO default icon!?!?	
 	}
 }

@@ -18,7 +18,7 @@ public class ListItemWherigoCategoryHeaderInventor extends ListItemWherigoCatego
 
 	public ListItemWherigoCategoryHeaderInventor() {
 		super();
-		mIconLeft = Images.getImageB( R.drawable.icon_inventory );	
+		mDataImageLeft = Images.getImageB( R.drawable.icon_inventory );	
 		refresh();
 	}
 	

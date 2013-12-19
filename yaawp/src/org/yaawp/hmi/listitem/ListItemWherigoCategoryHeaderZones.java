@@ -19,7 +19,7 @@ public class ListItemWherigoCategoryHeaderZones extends ListItemWherigoCategoryH
 
 	public ListItemWherigoCategoryHeaderZones() {
 		super();
-		mIconLeft = Images.getImageB( R.drawable.icon_locations );	
+		mDataImageLeft = Images.getImageB( R.drawable.icon_locations );	
 		refresh();
 	}
 	

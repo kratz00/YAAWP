@@ -10,7 +10,7 @@ public class ListItemWherigoCategoryHeaderTasks extends ListItemWherigoCategoryH
 
 	public ListItemWherigoCategoryHeaderTasks() {
 		super();
-		mIconLeft = Images.getImageB( R.drawable.icon_tasks );	
+		mDataImageLeft = Images.getImageB( R.drawable.icon_tasks );	
 		refresh();
 	}
 	

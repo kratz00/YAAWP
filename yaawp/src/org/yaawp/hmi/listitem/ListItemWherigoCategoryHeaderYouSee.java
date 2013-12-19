@@ -15,21 +15,21 @@ public class ListItemWherigoCategoryHeaderYouSee extends ListItemWherigoCategory
 
 	public ListItemWherigoCategoryHeaderYouSee() {
 		super();
-		mIconLeft = Images.getImageB( R.drawable.icon_search );
+		mDataImageLeft = Images.getImageB( R.drawable.icon_search );
 		refresh();
 	}
 	
 	@Override
 	public void layoutOpen( Context context, View view  ) {
-		mTitle = mTitleOpen;
-		mBody = mBodyOpen;		
+		mDataTextMajor = mTitleOpen;
+		mDataTextMinor = mBodyOpen;		
 		super.layoutOpen( context, view );
 	}
 	
 	@Override
 	public void layoutClose( Context context, View view  ) {
-		mTitle = mTitleClose;
-		mBody = mBodyClose;		
+		mDataTextMajor = mTitleClose;
+		mDataTextMinor = mBodyClose;		
 		super.layoutClose( context, view );
 	}
 	

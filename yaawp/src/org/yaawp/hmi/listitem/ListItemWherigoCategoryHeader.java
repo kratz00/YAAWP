@@ -43,14 +43,14 @@ public abstract class ListItemWherigoCategoryHeader extends ListItem3ButtonsHint
 	}	
 	
 	public void layoutOpen( Context context, View view  ) {
-		mTitle = mTitleOpen;
-		mBody = mBodyOpen;		
+		mDataTextMajor = mTitleOpen;
+		mDataTextMinor = mBodyOpen;		
 		super.layout( context, view );
 	}
 	
 	public void layoutClose( Context context, View view  ) {
-		mTitle = mTitleClose;
-		mBody = mBodyClose;		
+		mDataTextMajor = mTitleClose;
+		mDataTextMinor = mBodyClose;		
 		super.layout( context, view );
 	}	
 	

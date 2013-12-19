@@ -16,8 +16,8 @@ public class ListItemCartridgeHeadline extends ListItem3ButtonsHint {
 	public ListItemCartridgeHeadline() {
 		super("","",true,null,null);
 		    	
-    	mTitle = Engine.instance.cartridge.name;   
-    	mIconLeft = CartridgeHelper.getCartridgeImage( Engine.instance.gwcfile);
+    	mDataTextMajor = Engine.instance.cartridge.name;   
+    	mDataImageLeft = CartridgeHelper.getCartridgeImage( Engine.instance.gwcfile);
     	// ----
     	mStyleBackground = new StyleBasics( View.VISIBLE, 0xFF24699c ); // wherigo-blue 
     	mStyleTextMajor = new TextStyle( View.VISIBLE, Color.TRANSPARENT, Color.WHITE, 18, Typeface.BOLD );
