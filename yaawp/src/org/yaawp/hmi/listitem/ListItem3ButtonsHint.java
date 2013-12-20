@@ -20,11 +20,13 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     protected String      mDataTextMajor;
     protected String      mDataTextMinor;      
     protected Bitmap      mDataImageLeft = null;
+    protected Bitmap      mDataImageRight = null;
     
     protected StyleBasics mStyleBackground; 
     protected StyleText   mStyleTextMajor;
     protected StyleText   mStyleTextMinor;
     protected StyleImage  mStyleImageLeft = null;
+    protected StyleImage  mStyleImageRight = null;
     protected StyleImage  mStyleCancelButton = null;
 
     View.OnClickListener mOnClickListenerCancel = new View.OnClickListener() {
@@ -36,18 +38,34 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     public ListItem3ButtonsHint( boolean selectable, AbstractListItem parent ) {
     	super( selectable, R.layout.list_adapter_hint, parent );
     	
-    	
-    	
     	mDataTextMajor = null;   
     	mDataTextMinor = null;
     	mDataImageLeft = null;
+    	mDataImageRight = null;
 
     	mStyleBackground   = Styles.mStyleBackgroundLightGray; 
     	mStyleTextMajor    = Styles.mStyleTextMajor;
     	mStyleTextMinor    = Styles.mStyleTextMinor;
     	mStyleImageLeft    = Styles.mStyleImageLeft;
+    	mStyleImageRight    = Styles.mStyleImageRight;
     	mStyleCancelButton = null;
     }
+    
+    public ListItem3ButtonsHint( boolean selectable, AbstractListItem parent, String major, String minor, Bitmap left, Bitmap right ) {
+    	super( selectable, R.layout.list_adapter_hint, parent );
+    	
+    	mDataTextMajor = major;   
+    	mDataTextMinor = minor;
+    	mDataImageLeft = left;
+    	mDataImageRight = right;
+
+    	mStyleBackground   = Styles.mStyleBackgroundLightGray; 
+    	mStyleTextMajor    = Styles.mStyleTextMajor;
+    	mStyleTextMinor    = Styles.mStyleTextMinor;
+    	mStyleImageLeft    = Styles.mStyleImageLeft;
+    	mStyleImageRight    = Styles.mStyleImageRight;
+    	mStyleCancelButton = null;
+    }    
     
 	public void AddButton( PanelBarButton button ) {
 		mButtons.add( button );
@@ -66,6 +84,7 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 		// --- set layout of list elements
 		layoutImageView( view, R.id.layoutIconedListAdapterImageView01, mStyleCancelButton, android.R.drawable.ic_menu_close_clear_cancel );
 		layoutImageView( view, R.id.image_leftside, mStyleImageLeft, mDataImageLeft );
+		layoutImageView( view, R.id.image_rightside, mStyleImageRight, mDataImageRight );
 		layoutTextView( view, R.id.layoutIconedListAdapterTextView01, mStyleTextMajor, mDataTextMajor );
 		layoutTextView( view, R.id.layoutIconedListAdapterTextView02, mStyleTextMinor, mDataTextMinor );		
 	}
