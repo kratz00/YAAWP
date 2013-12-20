@@ -23,13 +23,10 @@ public class ProgressDialogHelper {
 	}	
 	*/
 	
-	public static void Show( final String headline, final String message ) {
-		Show( ((Activity) A.getMain()), headline, message );
-	}
-	public static void Show( final Activity context, final String headline, final String message ) {		
+	public static void Show( final String headline, final String message ) {		
 		Logger.i(TAG, "Show()");
 		
-        context.runOnUiThread(new Runnable() {
+		A.getMain().runOnUiThread(new Runnable() {
             public void run() {		
             	Logger.i(TAG, "Show() - UIThread context");
         		if (progressDialog != null) {
@@ -37,7 +34,7 @@ public class ProgressDialogHelper {
                     progressDialog.dismiss();    
         		}
         		
-            	progressDialog = new ProgressDialog( context );
+            	progressDialog = new ProgressDialog( A.getApp() );
             	progressDialog.setMessage(message);
             	progressDialog.setTitle( headline );
             	progressDialog.show();  	
@@ -48,7 +45,7 @@ public class ProgressDialogHelper {
 	public static void Hide() {
 		Logger.i(TAG, "Hide()");
 		
-        ((Activity) A.getMain()).runOnUiThread(new Runnable() {
+        A.getMain().runOnUiThread(new Runnable() {
             public void run() {
             	Logger.i(TAG, "Hide() - UIThread context");
                 if (progressDialog != null) {
@@ -60,7 +57,7 @@ public class ProgressDialogHelper {
 	}
 	
 	public static void Update( final String message ) {
-        ((Activity) A.getMain()).runOnUiThread(new Runnable() {
+        A.getMain().runOnUiThread(new Runnable() {
             public void run() {
             	Logger.i(TAG, "Update(" + message + ")");
                 if (progressDialog != null) {
