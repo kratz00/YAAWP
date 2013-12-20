@@ -29,7 +29,7 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 		mDataTextMinor = /* TODO I18N */ "Guidance to zone <i>" + A.getGuidingContent().getName() +"</i>";
 		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );
 		
-    	mStyleCancelButton = new ImageStyle( View.VISIBLE, Color.TRANSPARENT, -1, -1, new View.OnClickListener() {
+    	mStyleCancelButton = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, new View.OnClickListener() {
 		    public void onClick(View v) {
 		    	ListItemGuidanceActive.this.mValid = false;
 		    	ListItemGuidanceActive.this.notifyDataSetChanged();

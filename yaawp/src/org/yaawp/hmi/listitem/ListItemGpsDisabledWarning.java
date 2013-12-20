@@ -32,7 +32,7 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 		mDataTextMinor = "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view."; // TODO I18N
 		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );
 		
-    	mStyleCancelButton = new ImageStyle( View.VISIBLE, Color.TRANSPARENT, -1, -1, new View.OnClickListener() {
+    	mStyleCancelButton = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, new View.OnClickListener() {
 		    public void onClick(View v) {
 		    	ListItemGpsDisabledWarning.this.mValid = false;
 		    	ListItemGpsDisabledWarning.this.notifyDataSetChanged();

@@ -22,6 +22,6 @@ public class ListItemWherigoElement extends ListItem3ButtonsHint {
 		mDataImageLeft = CartridgeHelper.getIconFrom( et, R.drawable.icon_locations );				
 		
 		mStyleBackground = Styles.mStyleBackgroundLightGray; 
-		mStyleImageLeft  = new ImageStyle( View.VISIBLE, Color.TRANSPARENT, 32, 32, null );
+		mStyleImageLeft  = new StyleImage( View.VISIBLE, Color.TRANSPARENT, 32, 32, null );
 	}
 }

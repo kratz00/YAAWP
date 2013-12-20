@@ -22,10 +22,10 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     protected Bitmap      mDataImageLeft = null;
     
     protected StyleBasics mStyleBackground; 
-    protected TextStyle   mStyleTextMajor;
-    protected TextStyle   mStyleTextMinor;
-    protected ImageStyle  mStyleImageLeft = null;
-    protected ImageStyle  mStyleCancelButton = null;
+    protected StyleText   mStyleTextMajor;
+    protected StyleText   mStyleTextMinor;
+    protected StyleImage  mStyleImageLeft = null;
+    protected StyleImage  mStyleCancelButton = null;
 
     View.OnClickListener mOnClickListenerCancel = new View.OnClickListener() {
 	    public void onClick(View v) {

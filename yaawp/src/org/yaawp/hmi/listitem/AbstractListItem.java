@@ -97,7 +97,7 @@ public abstract class AbstractListItem {
 		}
 	}
 	
-	protected void layoutTextView( View view, int res, TextStyle style, String text ) {
+	protected void layoutTextView( View view, int res, StyleText style, String text ) {
 		TextView tv01 = (TextView) view.findViewById(res);
 		if ( tv01 != null ) {
 			if ( style != null && text != null && !text.isEmpty() ) {
@@ -118,7 +118,7 @@ public abstract class AbstractListItem {
 		}
 	}
 	
-	protected void layoutImageView( View view, int res, ImageStyle style, Bitmap bitmap ) {
+	protected void layoutImageView( View view, int res, StyleImage style, Bitmap bitmap ) {
 		ImageView image = (ImageView) view.findViewById(res);
 		if ( image != null ) {
 			if ( style != null && bitmap != null ) {
@@ -143,7 +143,7 @@ public abstract class AbstractListItem {
 		}
 	}	
 	
-	protected void layoutImageView( View view, int res, ImageStyle style, int imageResource ) {
+	protected void layoutImageView( View view, int res, StyleImage style, int imageResource ) {
 		ImageView image = (ImageView) view.findViewById(res);
 		if ( image != null ) {
 			if ( style != null ) {
