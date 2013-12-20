@@ -18,13 +18,17 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     private Vector<PanelBarButton> mButtons = new Vector<PanelBarButton>();
        
     protected String      mDataTextMajor;
-    protected String      mDataTextMinor;      
+    protected String      mDataTextMinor;     
+    protected String      mDataTextMajorRight;
+    protected String      mDataTextMinorRight;     
     protected Bitmap      mDataImageLeft = null;
     protected Bitmap      mDataImageRight = null;
     
     protected StyleBasics mStyleBackground; 
     protected StyleText   mStyleTextMajor;
     protected StyleText   mStyleTextMinor;
+    protected StyleText   mStyleTextMajorRight;
+    protected StyleText   mStyleTextMinorRight;    
     protected StyleImage  mStyleImageLeft = null;
     protected StyleImage  mStyleImageRight = null;
     protected StyleImage  mStyleCancelButton = null;
@@ -40,28 +44,36 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     	
     	mDataTextMajor = null;   
     	mDataTextMinor = null;
+    	mDataTextMajorRight = null;   
+    	mDataTextMinorRight = null;    	
     	mDataImageLeft = null;
     	mDataImageRight = null;
 
     	mStyleBackground   = Styles.mStyleBackgroundLightGray; 
     	mStyleTextMajor    = Styles.mStyleTextMajor;
     	mStyleTextMinor    = Styles.mStyleTextMinor;
+    	mStyleTextMajorRight    = Styles.mStyleTextMajor;
+    	mStyleTextMinorRight    = Styles.mStyleTextMinor;    	
     	mStyleImageLeft    = Styles.mStyleImageLeft;
     	mStyleImageRight    = Styles.mStyleImageRight;
     	mStyleCancelButton = null;
     }
     
-    public ListItem3ButtonsHint( boolean selectable, AbstractListItem parent, String major, String minor, Bitmap left, Bitmap right ) {
+    public ListItem3ButtonsHint( boolean selectable, AbstractListItem parent, String major, String minor, String majorRight, String minorRight, Bitmap left, Bitmap right ) {
     	super( selectable, R.layout.list_adapter_hint, parent );
     	
     	mDataTextMajor = major;   
     	mDataTextMinor = minor;
+    	mDataTextMajorRight = majorRight;   
+    	mDataTextMinorRight = minorRight;    	
     	mDataImageLeft = left;
     	mDataImageRight = right;
 
     	mStyleBackground   = Styles.mStyleBackgroundLightGray; 
     	mStyleTextMajor    = Styles.mStyleTextMajor;
     	mStyleTextMinor    = Styles.mStyleTextMinor;
+    	mStyleTextMajorRight    = Styles.mStyleTextMajor;
+    	mStyleTextMinorRight    = Styles.mStyleTextMinor;     	
     	mStyleImageLeft    = Styles.mStyleImageLeft;
     	mStyleImageRight    = Styles.mStyleImageRight;
     	mStyleCancelButton = null;
@@ -82,10 +94,12 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 		}
 		
 		// --- set layout of list elements
-		layoutImageView( view, R.id.layoutIconedListAdapterImageView01, mStyleCancelButton, android.R.drawable.ic_menu_close_clear_cancel );
-		layoutImageView( view, R.id.image_leftside, mStyleImageLeft, mDataImageLeft );
-		layoutImageView( view, R.id.image_rightside, mStyleImageRight, mDataImageRight );
-		layoutTextView( view, R.id.layoutIconedListAdapterTextView01, mStyleTextMajor, mDataTextMajor );
-		layoutTextView( view, R.id.layoutIconedListAdapterTextView02, mStyleTextMinor, mDataTextMinor );		
+		layoutImageView( view, R.id.imageViewCancelButton, mStyleCancelButton, android.R.drawable.ic_menu_close_clear_cancel );
+		layoutImageView( view, R.id.imageViewIconLeft, mStyleImageLeft, mDataImageLeft );
+		layoutImageView( view, R.id.imageViewIconRight, mStyleImageRight, mDataImageRight );
+		layoutTextView( view, R.id.textViewMajorLeft, mStyleTextMajor, mDataTextMajor );
+		layoutTextView( view, R.id.textViewMinorLeft, mStyleTextMinor, mDataTextMinor );
+		layoutTextView( view, R.id.textViewMajorRight, mStyleTextMajorRight, mDataTextMajorRight );
+		layoutTextView( view, R.id.textViewMinorRight, mStyleTextMinorRight, mDataTextMinorRight );		
 	}
 }
