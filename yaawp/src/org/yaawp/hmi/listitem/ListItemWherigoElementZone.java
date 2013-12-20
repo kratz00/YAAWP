@@ -1,6 +1,5 @@
 package org.yaawp.hmi.listitem;
 
-import org.yaawp.R;
 import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.utils.Logger;
 import org.yaawp.utils.UtilsFormat;
@@ -17,16 +16,20 @@ public class ListItemWherigoElementZone extends ListItemWherigoElement {
 		
 		switch (z.contain) {
 			case Zone.DISTANT: 
-				mDataTextMinor = "distant, " + UtilsFormat.formatDistance(z.distance, false); // TODO I18N
+				mDataTextMinor  = UtilsFormat.formatDistance(z.distance, false);
+				mDataTextMinorRight = "distant"; // TODO I18N
 				break;
 			case Zone.PROXIMITY:
-				mDataTextMinor = "near, "+ UtilsFormat.formatDistance(z.distance, false); // TODO I18N
+				mDataTextMinor  = UtilsFormat.formatDistance(z.distance, false);
+				mDataTextMinorRight = "near"; // TODO I18N
 				break; 
 			case Zone.INSIDE:
-				mDataTextMinor = "inside"; // TODO I18N
+				mDataTextMinor = "";
+				mDataTextMinorRight = "inside"; // TODO I18N
 				break; 
 			default:
 				mDataTextMinor = "(nothing)"; // TODO I18N
+				mDataTextMinorRight = "(nothing)"; // TODO I18N
 				break;
 		}		
 	}	
