@@ -18,7 +18,7 @@ public class ListItemWherigoElement extends ListItem3ButtonsHint {
 		mObject = et;
 
 		mDataTextMajor = mObject.name;
-		mDataTextMinor = null;
+		mDataTextMinor = mObject.description;
 		mDataImageLeft = CartridgeHelper.getIconFrom( et, R.drawable.icon_locations );				
 		
 		mStyleBackground = Styles.mStyleBackgroundLightGray; 
