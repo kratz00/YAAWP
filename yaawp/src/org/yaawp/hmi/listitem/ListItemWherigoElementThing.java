@@ -1,6 +1,8 @@
 package org.yaawp.hmi.listitem;
 
+import org.yaawp.R;
 import org.yaawp.hmi.helper.ScreenHelper;
+import org.yaawp.utils.CartridgeHelper;
 import org.yaawp.utils.Logger;
 
 import android.app.Activity;
@@ -14,6 +16,9 @@ public class ListItemWherigoElementThing extends ListItemWherigoElement {
 	
 	public ListItemWherigoElementThing( Thing t, AbstractListItem parent ) {
 		super( t, parent );
+		
+		mDataImageLeft = CartridgeHelper.getIconFrom( t, R.drawable.icon_inventory ) ;
+		mDataTextMajorRight = "" + t.actions.size() + " Actions";
 	}	
 	
 	@Override
