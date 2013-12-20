@@ -5,6 +5,8 @@ import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.listitem.styles.*;
 import org.yaawp.utils.Logger;
 
+import cz.matejcik.openwig.Engine;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
@@ -16,9 +18,11 @@ public abstract class ListItemWherigoCategoryHeader extends ListItem3ButtonsHint
 	
 	protected String mTitleOpen = null;
 	protected String mTitleClose = null;
+	protected String mTitleOpenRight = null;
+	protected String mTitleCloseRight = null;	
 	protected String mBodyOpen = null;
 	protected String mBodyClose = null;
-	
+
 	public ListItemWherigoCategoryHeader() {
 		super( true, null );
 		mStyleCancelButton = null;
@@ -43,12 +47,14 @@ public abstract class ListItemWherigoCategoryHeader extends ListItem3ButtonsHint
 	
 	public void layoutOpen( Context context, View view  ) {
 		mDataTextMajor = mTitleOpen;
-		mDataTextMinor = mBodyOpen;		
+		mDataTextMajorRight = mTitleOpenRight;
+		mDataTextMinor = mBodyOpen;			
 		super.layout( context, view );
 	}
 	
 	public void layoutClose( Context context, View view  ) {
 		mDataTextMajor = mTitleClose;
+		mDataTextMajorRight = mTitleCloseRight;
 		mDataTextMinor = mBodyClose;		
 		super.layout( context, view );
 	}	
@@ -58,5 +64,32 @@ public abstract class ListItemWherigoCategoryHeader extends ListItem3ButtonsHint
 	}
 	
 	public void refresh() {
+		int count = getCountChild();
+		mTitleOpen = getTitle();
+		mTitleClose = getTitle();
+	
+		if ( count == 0 ) {
+			mTitleOpenRight  = "";
+			mBodyOpen        = getSubtitle(); // TODO I18N	
+			mTitleCloseRight = "";
+			mBodyClose       = mBodyOpen;					
+		} else {
+			mTitleOpenRight  = "" + count;
+			mBodyOpen        = "";
+			mTitleCloseRight = "" + count;
+			mBodyClose       = getSubtitle();				
+		}
 	}
+	
+	public int getCountChild() {
+		return 0;
+	}
+	
+	public String getTitle() {
+		return "???";
+	}
+
+	public String getSubtitle() {
+		return "???";		
+	}	
 }

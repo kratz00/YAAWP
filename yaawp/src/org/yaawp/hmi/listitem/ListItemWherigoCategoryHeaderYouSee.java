@@ -20,35 +20,24 @@ public class ListItemWherigoCategoryHeaderYouSee extends ListItemWherigoCategory
 	}
 	
 	@Override
-	public void layoutOpen( Context context, View view  ) {
-		mDataTextMajor = mTitleOpen;
-		mDataTextMinor = mBodyOpen;		
-		super.layoutOpen( context, view );
-	}
-	
-	@Override
-	public void layoutClose( Context context, View view  ) {
-		mDataTextMajor = mTitleClose;
-		mDataTextMinor = mBodyClose;		
-		super.layoutClose( context, view );
-	}
-	
-	@Override
-	public void refresh() {
+	public int getCountChild() {
 		int count = Engine.instance.cartridge.visibleThings();
-		if ( count == 0 ) {
-			mTitleOpen = I18N.get(R.string.you_see);
-			mBodyOpen = "You see nothing"; // TODO I18N	
-			mTitleClose = mTitleOpen;	
-			mBodyClose = mBodyOpen;
-		} else {
-			mTitleOpen = I18N.get(R.string.you_see);
-			mBodyOpen = "";
-			mTitleClose = I18N.get(R.string.you_see) + " (" + count + ")";
-			mBodyClose = getVisibleCartridgeThingsDescription();					
-		}
+		return count;
 	}
-		
+	
+	@Override
+	public String getTitle() {
+		return I18N.get(R.string.you_see);
+	}
+	
+	@Override
+	public String getSubtitle() {
+		if ( getCountChild() == 0) {
+			return "You see nothing"; // TODO I18N	
+		} 
+		return getVisibleCartridgeThingsDescription();		
+	}
+	
 	private String getVisibleCartridgeThingsDescription() {
 		String description = null;
 		@SuppressWarnings("unchecked")

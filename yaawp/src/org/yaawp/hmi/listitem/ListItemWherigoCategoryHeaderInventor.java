@@ -23,19 +23,21 @@ public class ListItemWherigoCategoryHeaderInventor extends ListItemWherigoCatego
 	}
 	
 	@Override
-	public void refresh() {
+	public int getCountChild() {
 		int count = Engine.instance.player.visibleThings();
-		if ( count == 0 ) {
-			mTitleOpen = I18N.get(R.string.inventory);
-			mBodyOpen = "You have nothing"; // TODO I18N
-			mTitleClose = mTitleOpen;	
-			mBodyClose = mBodyOpen;					
-		} else {
-			mTitleOpen = I18N.get(R.string.inventory);
-			mBodyOpen = "";
-			mTitleClose = I18N.get(R.string.inventory) + " (" + count + ")";
-			mBodyClose = getVisiblePlayerThingsDescription();				
-		}
+		return count;
+	}
+	
+	@Override
+	public String getTitle() {
+		return I18N.get(R.string.inventory);
+	}
+	@Override
+	public String getSubtitle() {
+		if ( getCountChild() == 0) {
+			return "You have nothing"; // TODO I18N	
+		} 
+		return getVisiblePlayerThingsDescription();		
 	}	
 	
 	private String getVisiblePlayerThingsDescription() {

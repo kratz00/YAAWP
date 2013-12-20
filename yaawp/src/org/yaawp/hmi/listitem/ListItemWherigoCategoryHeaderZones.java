@@ -24,19 +24,21 @@ public class ListItemWherigoCategoryHeaderZones extends ListItemWherigoCategoryH
 	}
 	
 	@Override
-	public void refresh() {
+	public int getCountChild() {
 		int count = Engine.instance.cartridge.visibleZones();
-		if ( count == 0 ) {
-			mTitleOpen = I18N.get(R.string.locations);
-			mBodyOpen = "No area to go"; // TODO I18N	
-			mTitleClose = mTitleOpen;	
-			mBodyClose = mBodyOpen;					
-		} else {
-			mTitleOpen = I18N.get(R.string.locations);
-			mBodyOpen = "";
-			mTitleClose = I18N.get(R.string.locations) + " (" + count + ")";
-			mBodyClose = getVisibleZonesDescription();				
-		}
+		return count;
+	}
+	
+	@Override
+	public String getTitle() {
+		return I18N.get(R.string.locations);
+	}
+	@Override
+	public String getSubtitle() {
+		if ( getCountChild() == 0) {
+			return "No area to go"; // TODO I18N	
+		} 
+		return getVisibleZonesDescription();		
 	}
 	
 	private String getVisibleZonesDescription() {

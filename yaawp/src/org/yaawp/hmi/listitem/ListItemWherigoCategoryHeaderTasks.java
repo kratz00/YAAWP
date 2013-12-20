@@ -15,20 +15,23 @@ public class ListItemWherigoCategoryHeaderTasks extends ListItemWherigoCategoryH
 	}
 	
 	@Override
-	public void refresh() {
+	public int getCountChild() {
 		int count = Engine.instance.cartridge.visibleTasks();
-		if ( count == 0 ) {
-			mTitleOpen = I18N.get(R.string.tasks);
-			mBodyOpen = "Nothing to do for you"; // TODO I18N
-			mTitleClose = mTitleOpen;	
-			mBodyClose = mBodyOpen;					
-		} else {
-			mTitleOpen = I18N.get(R.string.tasks);
-			mBodyOpen = "";
-			mTitleClose = I18N.get(R.string.tasks) + " (" + count + ")";
-			mBodyClose = getVisibleTasksDescription();				
-		}
-	}	
+		return count;
+	}
+	
+	@Override
+	public String getTitle() {
+		return I18N.get(R.string.tasks);
+	}
+	
+	@Override
+	public String getSubtitle() {
+		if ( getCountChild() == 0) {
+			return "Nothing to do for you"; // TODO I18N	
+		} 
+		return getVisibleTasksDescription();	
+	}
 	
 	/* public int getVisibleTasksCount() {
 		int count = 0;
