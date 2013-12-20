@@ -52,7 +52,7 @@ public class WUI implements UI {
 	public void blockForSaving() {
 		Logger.w(TAG, "blockForSaving()");
 		// TODO use string id
-		ProgressDialogHelper.Show( Settings.getCurrentActivity(), "Save game", I18N.get(R.string.working) );		
+		ProgressDialogHelper.Show( "Save game", I18N.get(R.string.working) );		
 		saving = true;
 	}
 	
