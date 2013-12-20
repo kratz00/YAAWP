@@ -33,9 +33,11 @@ public class ListItemWherigoElementTask extends ListItemWherigoElement {
 		super( taskObject, parent );
 		int state = ((Task)mObject).state();
 		if ( state>=0 && state<3 ) {
-			mDataImageLeft = stateIcons[state];
+			mDataImageRight = stateIcons[state];
 		}
-		mDataTextMinor = stateTexts[taskObject.state()];
+		mDataImageLeft = CartridgeHelper.getIconFrom( taskObject, R.drawable.icon_tasks) ;
+		mDataTextMinor = taskObject.description;
+		mDataTextMinorRight = stateTexts[taskObject.state()];
 	}	
 	
 	@Override
