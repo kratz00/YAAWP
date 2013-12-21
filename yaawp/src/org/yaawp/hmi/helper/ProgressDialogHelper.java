@@ -8,29 +8,18 @@ import android.app.Activity;
 
 public class ProgressDialogHelper {
 
-	private static final String TAG = "ProgressDialogHelper";
-	
-	private static ProgressDialog progressDialog;
-	
-	/*
-	public static void Show( String headline, int message ) {
-	}
+	private static final String TAG = ProgressDialogHelper.class.getSimpleName();
 
-	public static void Show( int headline, String message ) {
-	}		
-	
-	public static void Show( int headline, int message ) {
-	}	
-	*/
+	private static ProgressDialog progressDialog;
 	
 	public static void Show( final String headline, final String message ) {		
 		Logger.i(TAG, "Show()");
 		
 		A.getMain().runOnUiThread(new Runnable() {
             public void run() {		
-            	Logger.i(TAG, "Show() - UIThread context");
+            	Logger.v(TAG, "UIThread context - Show()");
         		if (progressDialog != null) {
-        			Logger.w(TAG, "progress dialog shows twice");
+        			Logger.w(TAG, "close active dialog");
                     progressDialog.dismiss();    
         		}
         		
@@ -38,6 +27,7 @@ public class ProgressDialogHelper {
             	progressDialog.setMessage(message);
             	progressDialog.setTitle( headline );
             	progressDialog.show();  	
+            	Logger.v(TAG, "UIThread context - Show() end");
             }
         });
 	}
@@ -47,22 +37,26 @@ public class ProgressDialogHelper {
 		
         A.getMain().runOnUiThread(new Runnable() {
             public void run() {
-            	Logger.i(TAG, "Hide() - UIThread context");
+            	Logger.v(TAG, "UIThread context - Hide()");
                 if (progressDialog != null) {
                     progressDialog.dismiss();   
                 	progressDialog = null;
                 }
+                Logger.v(TAG, "UIThread context - Hide() end");
             }
         }); 		
 	}
 	
 	public static void Update( final String message ) {
+		Logger.i(TAG, "Update(" + message + ")" );
+		
         A.getMain().runOnUiThread(new Runnable() {
             public void run() {
-            	Logger.i(TAG, "Update(" + message + ")");
+            	Logger.v(TAG, "UIThread context - Update(" + message + ")");
                 if (progressDialog != null) {
                     progressDialog.setMessage(message);
                 }
+                Logger.v(TAG, "UIThread context - Update() end");
             }
         }); 		
 	}
