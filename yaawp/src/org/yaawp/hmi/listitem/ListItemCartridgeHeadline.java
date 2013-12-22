@@ -34,7 +34,8 @@ public class ListItemCartridgeHeadline extends ListItem3ButtonsHint {
     	// ----
     	mStyleBackground = new StyleBasics( View.VISIBLE, 0xFF24699c ); // wherigo-blue 
     	mStyleTextMajor  = new StyleText( View.VISIBLE, Color.TRANSPARENT, Color.WHITE, 18, Typeface.BOLD );
-    	// mStyleTextMinor  = null;
+    	mStyleTextMinor  = new StyleText( View.VISIBLE, Color.TRANSPARENT, 0xffdddddd, 12, Typeface.NORMAL );
+    	mStyleTextMinorRight  = mStyleTextMinor;
     	mStyleImageLeft  = new StyleImage( View.VISIBLE, Color.TRANSPARENT, 48, 48, null );
     	mStyleCancelButton = null;		
 	}
