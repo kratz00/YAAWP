@@ -1,7 +1,5 @@
 package org.yaawp.hmi.listitem.styles;
 
-import org.yaawp.hmi.listitem.ListItemColor;
-
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
