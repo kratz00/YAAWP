@@ -34,6 +34,8 @@ import org.yaawp.utils.Logger;
 
 import android.os.Bundle;
 
+// TODO check if zone entered and stop guidance
+
 /**
  * @author menion
  * @since 25.1.2010 2010
