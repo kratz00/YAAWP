@@ -132,8 +132,10 @@ public class ListItemAdapter extends BaseAdapter {
 			View view = item.inflate( mContext );
 			item.layout( mContext, view );
 			item.SetChangeObserver(this);
-			// view.forceLayout();
 			item.mView = view;
+		} else {
+			item.layout( mContext, item.mView );
+			item.SetChangeObserver(this);			
 		}
 		return item.mView;
 	}
