@@ -32,8 +32,8 @@ public class ListItemHeader extends AbstractListItem {
 	}    
     
 	@Override
-	public void layout( Context context, View view  ) {
-	
+	public void updateView() {
+		View view = mView;
 		try {				
 		
 			ImageView iv01 = (ImageView) view.findViewById(R.id.image_left);

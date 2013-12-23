@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import org.yaawp.utils.Logger;
 
 public class ListItem3ButtonsHint extends AbstractListItem {
 
@@ -48,25 +49,10 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     	ImageView mCancelButton;
     }
     
-    @Override
-	public View inflate( Context context ) {
-    	View view = super.inflate(context);
-    	ViewHolder holder = new ViewHolder();
-        holder.mMajorTextLeft = (TextView)view.findViewById(R.id.textViewMajorLeft);
-        holder.mMajorTextRight = (TextView)view.findViewById(R.id.textViewMajorRight);
-        holder.mMinorTextLeft = (TextView)view.findViewById(R.id.textViewMinorLeft);
-        holder.mMinorTextRight = (TextView)view.findViewById(R.id.textViewMinorRight);
-        holder.mLeftIcon = (ImageView)view.findViewById(R.id.imageViewIconLeft);
-        holder.mRightIcon = (ImageView)view.findViewById(R.id.imageViewIconRight);
-        holder.mCancelButton = (ImageView)view.findViewById(R.id.imageViewCancelButton);
-        view.setTag(holder);
-        return view;
-	}
-
     View.OnClickListener mOnClickListenerCancel = new View.OnClickListener() {
 	    public void onClick(View v) {
-	    	ListItem3ButtonsHint.this.mValid = false;
-	    	ListItem3ButtonsHint.this.notifyDataSetChanged();
+	    	// TODO 
+	    	ListItem3ButtonsHint.this.mView.invalidate();
 	    } };    
     
     public ListItem3ButtonsHint( boolean selectable, AbstractListItem parent ) {
@@ -88,47 +74,45 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     	mStyleImageRight    = Styles.mStyleImageRight;
     	mStyleCancelButton = null;
     }
-    
-    /*
-    public ListItem3ButtonsHint( boolean selectable, AbstractListItem parent, String major, String minor, String majorRight, String minorRight, Bitmap left, Bitmap right ) {
-    	super( selectable, R.layout.list_adapter_hint, parent );
-    	
-    	mDataTextMajor = major;   
-    	mDataTextMinor = minor;
-    	mDataTextMajorRight = majorRight;   
-    	mDataTextMinorRight = minorRight;    	
-    	mDataImageLeft = left;
-    	mDataImageRight = right;
-
-    	mStyleBackground   = Styles.mStyleBackgroundLightGray; 
-    	mStyleTextMajor    = Styles.mStyleTextMajor;
-    	mStyleTextMinor    = Styles.mStyleTextMinor;
-    	mStyleTextMajorRight    = Styles.mStyleTextMajor;
-    	mStyleTextMinorRight    = Styles.mStyleTextMinor;     	
-    	mStyleImageLeft    = Styles.mStyleImageLeft;
-    	mStyleImageRight    = Styles.mStyleImageRight;
-    	mStyleCancelButton = null;
-    }  
-    */  
-    
+       
 	public void AddButton( PanelBarButton button ) {
 		mButtons.add( button );
 	}    
-			
-	public void layout( Context context, View view  ) {
-		view.setBackgroundColor( mStyleBackground.mBackground );
-		
-		// --- set layout of button bar
+	
+    @Override
+	public View createView( Context context ) {
+    	
+    	// create view
+    	View view = super.createView(context);
+    	
+    	// collect sub views
+    	ViewHolder holder = new ViewHolder();
+        holder.mMajorTextLeft = (TextView)view.findViewById(R.id.textViewMajorLeft);
+        holder.mMajorTextRight = (TextView)view.findViewById(R.id.textViewMajorRight);
+        holder.mMinorTextLeft = (TextView)view.findViewById(R.id.textViewMinorLeft);
+        holder.mMinorTextRight = (TextView)view.findViewById(R.id.textViewMinorRight);
+        holder.mLeftIcon = (ImageView)view.findViewById(R.id.imageViewIconLeft);
+        holder.mRightIcon = (ImageView)view.findViewById(R.id.imageViewIconRight);
+        holder.mCancelButton = (ImageView)view.findViewById(R.id.imageViewCancelButton);
+        view.setTag(holder);
+        
+        // layout view
+        view.setBackgroundColor( mStyleBackground.mBackground );
 		mButtonPanelBar = new ThreeButtonPanelBar(view);
 		mButtonPanelBar.SetBackgroundColor( 0x00000000 ); // TODO read from style
 		for ( int i=0; i<mButtons.size(); i++ ) {
 			mButtonPanelBar.AddButton( mButtons.get(i) );
 		}
+        return view;
+	}	
+	
+	@Override
+	public void updateView() {
+		Logger.i( TAG, "layout()" );
 		
-		Object object = view.getTag();
+		Object object = mView.getTag();
 		if ( object instanceof ViewHolder ) {
 			ViewHolder holder = (ViewHolder)object;
-			// --- set layout of list elements
 			layoutImageView( holder.mCancelButton, mStyleCancelButton, android.R.drawable.ic_menu_close_clear_cancel );
 			layoutImageView( holder.mLeftIcon, mStyleImageLeft, mDataImageLeft );
 			layoutImageView( holder.mRightIcon, mStyleImageRight, mDataImageRight );
@@ -136,7 +120,10 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 			layoutTextView( holder.mMinorTextLeft, mStyleTextMinor, mDataTextMinor );
 			layoutTextView( holder.mMajorTextRight, mStyleTextMajorRight, mDataTextMajorRight );
 			layoutTextView( holder.mMinorTextRight, mStyleTextMinorRight, mDataTextMinorRight );				
+		} else {
+			Logger.e( TAG, "updateView() - object mismatch" ); 
 		}
 		
+		mView.invalidate();
 	}
 }

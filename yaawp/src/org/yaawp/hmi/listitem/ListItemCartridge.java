@@ -49,8 +49,8 @@ public class ListItemCartridge extends AbstractListItem {
     }
     
     @Override
-    public void layout( Context context, View view  ) {
-			
+    public void updateView() {
+    	View view = mView;	
 		try {
             byte[] iconData = mCartridge.getFile(mCartridge.getIconId());
             Bitmap iconLeft = null;

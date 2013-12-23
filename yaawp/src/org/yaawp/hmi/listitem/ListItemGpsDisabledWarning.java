@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.graphics.Color;
 import org.yaawp.hmi.listitem.styles.*;
+import android.content.Context;
 
 public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements LocationEventListener {
 
@@ -25,25 +26,24 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 	
 	public ListItemGpsDisabledWarning( Context context ) {
 		super( false, null );
-		
 		mContext = context;
-		
+    }
+    
+	@Override
+	public View createView( Context context ) {
+		super.createView(context);
+
 		mDataTextMajor = I18N.get(R.string.gps_disabled);
 		mDataTextMinor = "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view."; // TODO I18N
 		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );
 		
-    	mStyleCancelButton = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, new View.OnClickListener() {
-		    public void onClick(View v) {
-		    	ListItemGpsDisabledWarning.this.mValid = false;
-		    	ListItemGpsDisabledWarning.this.notifyDataSetChanged();
-		    } } );	
+    	mStyleCancelButton = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, mOnClickListenerCancel );	
 		
 		AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
 				new PanelBarButton.OnClickListener() {
 					@Override
 					public boolean onClick() {
 						LocationState.setGpsOn( mContext );
-						notifyDataSetChanged();
 						return true;
 					}
 				}
@@ -58,9 +58,16 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 						return true;
 					}
 				}
-			)); 		
-    }
-    
+			)); 
+		
+		return mView;
+	}	
+	
+	@Override
+	public void updateView() {
+		super.updateView();
+	}
+	
 	@Override
 	public void attach() {
 		LocationState.addLocationChangeListener(this);
@@ -75,11 +82,13 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 	}
 
     public void onStatusChanged(String provider, int state, Bundle extras) {
-    	notifyDataSetChanged();
+    	// TODO
+    	mView.invalidate();
     }
     
     public void onGpsStatusChanged(int event, ArrayList<SatellitePosition> sats) {
-    	notifyDataSetChanged();
+    	// TOD
+    	mView.invalidate();
     }
     
     public int getPriority() {
@@ -87,8 +96,11 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
     }
     
     // TODO set valid to true if gps available
-    public boolean isValid() {
-    	return this.mValid && ( LocationState.isActuallyHardwareGpsOn() == false );
+    public boolean isVisible() {
+    	if ( mVisible == true ) {
+    		return LocationState.isActuallyHardwareGpsOn() == false; 
+    	}	
+    	return mVisible;
     }
     /** Is required when screen turn off */
     public boolean isRequired() {

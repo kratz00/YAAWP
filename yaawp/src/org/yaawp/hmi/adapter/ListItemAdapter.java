@@ -19,7 +19,6 @@ public class ListItemAdapter extends BaseAdapter {
 
 	private static String TAG = ListItemAdapter.class.getSimpleName();
 	
-	private Vector<AbstractListItem> mAllListItems = null; 
 	private Vector<AbstractListItem> mListItems = null; 
 	
     
@@ -30,43 +29,36 @@ public class ListItemAdapter extends BaseAdapter {
     
 	public ListItemAdapter( Activity activity ) {	
 		super();
-		this.mAllListItems = new Vector<AbstractListItem>();
 		this.mListItems = new Vector<AbstractListItem>();
 		this.mContext = (Context)activity;
 		mActivity = activity;
     }
 	
 	public AbstractListItem AddItem( AbstractListItem item ) {
-		mAllListItems.add( item );
+		mListItems.add( item );
 		item.attach();
 		return item;
 	}
 	
 	public void AddItems( Vector<AbstractListItem> items ) {
     	for ( int i=0; i<items.size(); i++ ) {
-    		mAllListItems.add( items.get(i) );
+    		mListItems.add( items.get(i) );
     		items.get(i).attach();
     	}    		
 	}
 	
 	public void RemoveAllItems() {
 		mListItems.removeAllElements();
-		for ( int i=0; i<mAllListItems.size(); i++ ) {
-			mAllListItems.get(i).dettach();
+		for ( int i=0; i<mListItems.size(); i++ ) {
+			mListItems.get(i).dettach();
     	} 
-		mAllListItems.removeAllElements();		
+		mListItems.removeAllElements();		
 	}
 	
 	/* --------------------------------------------------------- */
 	public AdapterView.OnItemClickListener mListClick = new AdapterView.OnItemClickListener() { // TODO rename member
 		public void onItemClick(AdapterView<?> parent, View view,
 				int position, long id) {
-			Logger.d(TAG, "onItemClick:" + position);
-			
-			/* BaseAdapter adapter = (BaseAdapter)parent.getAdapter();
-			if ( adapter instanceof ListItemAdapter ) {
-				((ListItemAdapter) adapter ).onListItemClicked( position );
-			}*/
 			ListItemAdapter.this.mListItems.get(position).onListItemClicked( mActivity );
 		}
 	};
@@ -84,12 +76,7 @@ public class ListItemAdapter extends BaseAdapter {
 	public boolean onContextItemSelected( int position, int index ) {
 		return mListItems.get(position).onContextItemSelected( mActivity,index);
 	}
-	
-
-    /* public void onListItemClicked( int position) {       
-        mListItems.get(position).onListItemClicked( mActivity );
-    }*/
-	
+		
 	/* --- methods of BaseAdapter --- */
 	
     @Override
@@ -128,30 +115,25 @@ public class ListItemAdapter extends BaseAdapter {
 		Logger.i( TAG, "getView( postion="+position+", ...)");
 		
 		AbstractListItem item = mListItems.get(position);
-		if ( item.mView == null ) {
-			View view = item.inflate( mContext );
-			item.layout( mContext, view );
-			item.SetChangeObserver(this);
-			item.mView = view;
-		} else {
-			item.layout( mContext, item.mView );
-			item.SetChangeObserver(this);			
-		}
-		return item.mView;
+		View view = item.getView();
+		if ( view == null ) {
+			view = item.createView( mContext );
+			item.updateView();
+		}	
+		return view;
 	}
 	
 	@Override
 	public void notifyDataSetChanged() {
 		Logger.i( TAG, "notifyDataSetChanged()");
-		mListItems.clear();
-		for ( int i=0; i<mAllListItems.size(); i++ ) {
-			AbstractListItem item = mAllListItems.get(i);
-			if ( item.isValid() == true ) {
-				mListItems.add( item );
-			}
-    	}    		
 		super.notifyDataSetChanged();
 		return;
+	}
+	
+	@Override
+	public void notifyDataSetInvalidated() {
+		Logger.i( TAG, "notifyDataSetInvalidatedd()");
+		super.notifyDataSetInvalidated();
 	}
 }
 

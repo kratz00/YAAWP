@@ -1,16 +1,19 @@
 package org.yaawp.hmi.listitem;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 
 import org.yaawp.R;
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.guidance.interfaces.GuidingListener;
 import org.yaawp.hmi.activities.GuidingActivity;
+import org.yaawp.hmi.activities.SatelliteActivity;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonStopGuidance;
+import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.A;
 import org.yaawp.utils.Images;
 import android.graphics.Color;
@@ -22,19 +25,19 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 	
 	public ListItemGuidanceActive( Context context ) {
 		super( false, null );
-		
 		mContext = context;
-		
+	}
+	
+	@Override
+	public View createView( Context context ) {
+		super.createView(context);
+
 		mDataTextMajor = /* TODO I18N */ "Guidance active" ;
 		mDataTextMinor = /* TODO I18N */ "Guidance to zone <i>" + A.getGuidingContent().getName() +"</i>";
 		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );
-		
-    	mStyleCancelButton = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, new View.OnClickListener() {
-		    public void onClick(View v) {
-		    	ListItemGuidanceActive.this.mValid = false;
-		    	ListItemGuidanceActive.this.notifyDataSetChanged();
-		    } } );		
-		
+				
+    	mStyleCancelButton = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, mOnClickListenerCancel );		
+    	
 		AddButton( new PanelBarButton( I18N.get(R.string.navigate ), 
 				new PanelBarButton.OnClickListener() {
 					@Override
@@ -45,10 +48,15 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 				}
 			)); 
 		
-		AddButton( new PanelBarButtonStopGuidance() );  
+		AddButton( new PanelBarButtonStopGuidance() );  		
 		
-		mStyleCancelButton = null;
-	}
+		return mView;
+	}	
+	
+	@Override
+	public void updateView() {
+		super.updateView();
+	}	
 	
 	@Override
 	public void attach() {
@@ -61,7 +69,7 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 	}		
 	
 	@Override
-	public boolean isValid() {
+	public boolean isVisible() {
 		return A.getGuidingContent().isGuiding();
 	}
 	
@@ -77,11 +85,15 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 	
 	@Override
 	public void guideStart() {
-		notifyDataSetChanged();
+		// TODO
+		mView.invalidate();
+		// notifyDataSetChanged();
 	}
 
 	@Override
 	public void guideStop() {
-		notifyDataSetChanged();
+		// TODO
+		// notifyDataSetChanged();
+		mView.invalidate();
 	}	
 }

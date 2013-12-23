@@ -1,13 +1,8 @@
 package org.yaawp.hmi.listitem;
 
-import org.yaawp.R;
-import org.yaawp.utils.Images;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.ContextMenu;
@@ -16,19 +11,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View;
-import android.widget.BaseAdapter;
 import org.yaawp.hmi.listitem.styles.*;
 
 public abstract class AbstractListItem {
 
-	protected boolean mValid = true;
 	protected boolean mVisible = true;
 	protected int mLayoutId = -1;
-	private BaseAdapter mChangeObserver = null;
 	protected boolean mOpen = false;
 	protected AbstractListItem mParent = null;
 	private boolean mSelectable = false;
-	public View mView = null;
+	protected View mView = null;
 	
 	/* -------------------------------------------------------- *
 	 * 
@@ -39,11 +31,12 @@ public abstract class AbstractListItem {
 		mSelectable = selectable;
 	}
 	
-	public View inflate( Context context ) {
-		return (LinearLayout) LinearLayout.inflate( context, mLayoutId , null );
+	public View createView( Context context ) {
+		mView = (LinearLayout) LinearLayout.inflate( context, mLayoutId , null );
+		return mView;
 	}
 	
-	public abstract void layout( Context context, View view  );
+	public abstract void updateView();
 
 	public void attach() {
 		return;
@@ -57,23 +50,15 @@ public abstract class AbstractListItem {
 		return true;
 	}
 	
-	public boolean isVisibel() {
-		return mVisible;
-	}
-	
-	public boolean isValid() {
+	public boolean isVisible() {
 		if ( mParent != null ) {
 			if ( mParent.mOpen == true ) {
-				return mValid;
+				return mVisible;
 			} else {
 				return false;
 			}
 		}
-		return mValid;
-	}
-	
-	public void setValid( boolean valid ) {
-		mValid = valid;
+		return mVisible;		
 	}
 	
 	public boolean createContextMenu( Activity activity, ContextMenu menu ) {       
@@ -88,14 +73,12 @@ public abstract class AbstractListItem {
 		return;
 	}	
 	
-	public void SetChangeObserver( BaseAdapter adapter ) {
-		mChangeObserver = adapter;
+	public View getView() {
+		return mView;
 	}
 	
-	protected void notifyDataSetChanged() {
-		if ( mChangeObserver != null ) {
-			mChangeObserver.notifyDataSetChanged();
-		}
+	public void setView( View view ) {
+		mView = view;
 	}
 	
 	protected void layoutTextView( View view, int res, StyleText style, String text ) {
