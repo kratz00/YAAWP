@@ -28,6 +28,7 @@ public abstract class AbstractListItem {
 	protected boolean mOpen = false;
 	protected AbstractListItem mParent = null;
 	private boolean mSelectable = false;
+	public View mView = null;
 	
 	/* -------------------------------------------------------- *
 	 * 
@@ -99,6 +100,10 @@ public abstract class AbstractListItem {
 	
 	protected void layoutTextView( View view, int res, StyleText style, String text ) {
 		TextView tv01 = (TextView) view.findViewById(res);
+		layoutTextView(tv01,style,text);
+	}
+		
+	protected void layoutTextView( TextView tv01, StyleText style, String text ) {
 		if ( tv01 != null ) {
 			if ( style != null && text != null && !text.isEmpty() ) {
 				tv01.setTextColor( style.mTextColor );
@@ -120,6 +125,9 @@ public abstract class AbstractListItem {
 	
 	protected void layoutImageView( View view, int res, StyleImage style, Bitmap bitmap ) {
 		ImageView image = (ImageView) view.findViewById(res);
+		layoutImageView( image, style, bitmap );
+	}
+	protected void layoutImageView( ImageView image, StyleImage style, Bitmap bitmap ) {
 		if ( image != null ) {
 			if ( style != null && bitmap != null ) {
 				image.setImageBitmap( bitmap );
@@ -145,6 +153,10 @@ public abstract class AbstractListItem {
 	
 	protected void layoutImageView( View view, int res, StyleImage style, int imageResource ) {
 		ImageView image = (ImageView) view.findViewById(res);
+		layoutImageView( image, style, imageResource );
+	}
+	
+	protected void layoutImageView( ImageView image, StyleImage style, int imageResource ) {
 		if ( image != null ) {
 			if ( style != null ) {
 				image.setImageResource( imageResource );

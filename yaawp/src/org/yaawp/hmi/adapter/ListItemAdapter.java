@@ -17,7 +17,8 @@ import org.yaawp.utils.Logger;
 
 public class ListItemAdapter extends BaseAdapter {
 
-	private static String TAG = "ListItemAdapter";
+	private static String TAG = ListItemAdapter.class.getSimpleName();
+	
 	private Vector<AbstractListItem> mAllListItems = null; 
 	private Vector<AbstractListItem> mListItems = null; 
 	
@@ -118,24 +119,28 @@ public class ListItemAdapter extends BaseAdapter {
 	
 	@Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
+		Logger.i( TAG, "getDropDownView( postion="+position+", ...)");
 		return getView(position,convertView,parent);
     }
 	   
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		Logger.i( TAG, "getView( postion="+position+", ...)");
 		
 		AbstractListItem item = mListItems.get(position);
-		View view = item.inflate( mContext );
-			
-		item.layout( mContext, view );
-		
-		item.SetChangeObserver(this);
-		view.forceLayout();
-		return view;
+		if ( item.mView == null ) {
+			View view = item.inflate( mContext );
+			item.layout( mContext, view );
+			item.SetChangeObserver(this);
+			// view.forceLayout();
+			item.mView = view;
+		}
+		return item.mView;
 	}
 	
 	@Override
 	public void notifyDataSetChanged() {
+		Logger.i( TAG, "notifyDataSetChanged()");
 		mListItems.clear();
 		for ( int i=0; i<mAllListItems.size(); i++ ) {
 			AbstractListItem item = mAllListItems.get(i);
