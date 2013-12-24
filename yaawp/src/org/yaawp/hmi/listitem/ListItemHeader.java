@@ -32,8 +32,8 @@ public class ListItemHeader extends AbstractListItem {
 	}    
     
 	@Override
-	public void updateView() {
-		View view = mView;
+	public void updateView( View view ) {
+		// View view = mView;
 		try {				
 		
 			ImageView iv01 = (ImageView) view.findViewById(R.id.image_left);
@@ -58,5 +58,10 @@ public class ListItemHeader extends AbstractListItem {
 			Logger.e(TAG, "getView(" + view + ")", e);
 		}
 			
+	}	
+	
+	@Override
+	public int getViewType() {
+		return LISTITEM_VIEW_TYPE_SEPARATOR_LAYOUT;
 	}	
 }

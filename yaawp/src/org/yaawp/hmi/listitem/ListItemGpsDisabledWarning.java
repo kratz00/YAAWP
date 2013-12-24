@@ -27,18 +27,9 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 	public ListItemGpsDisabledWarning( Context context ) {
 		super( false, null );
 		mContext = context;
-    }
-    
-	@Override
-	public View createView( Context context ) {
-		super.createView(context);
-
-		mDataTextMajor = I18N.get(R.string.gps_disabled);
-		mDataTextMinor = "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view."; // TODO I18N
-		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );
+		mVisible = true;
 		
-    	mStyleCancelButton = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, mOnClickListenerCancel );	
-		
+    	
 		AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
 				new PanelBarButton.OnClickListener() {
 					@Override
@@ -58,14 +49,33 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 						return true;
 					}
 				}
-			)); 
+			)); 		
+    }
+    
+	@Override
+	public boolean isEnabled() {
+		return false;
+	}
+	
+	@Override
+	public View createView( Context context ) {
 		
-		return mView;
+
+		mDataTextMajor = I18N.get(R.string.gps_disabled);
+		mDataTextMinor = "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view."; // TODO I18N
+		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );
+		
+    	mStyleCancelButton = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, mOnClickListenerCancel );	
+		
+
+	
+		
+		return super.createView(context);
 	}	
 	
 	@Override
-	public void updateView() {
-		super.updateView();
+	public void updateView( View view ) {
+		super.updateView( view );
 	}
 	
 	@Override
@@ -82,13 +92,11 @@ public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements 
 	}
 
     public void onStatusChanged(String provider, int state, Bundle extras) {
-    	// TODO
-    	mView.invalidate();
+    	notifyDataSetInvalidated();
     }
     
     public void onGpsStatusChanged(int event, ArrayList<SatellitePosition> sats) {
-    	// TOD
-    	mView.invalidate();
+    	notifyDataSetInvalidated();
     }
     
     public int getPriority() {

@@ -51,8 +51,10 @@ public class ListItem3ButtonsHint extends AbstractListItem {
     
     View.OnClickListener mOnClickListenerCancel = new View.OnClickListener() {
 	    public void onClick(View v) {
-	    	// TODO 
-	    	ListItem3ButtonsHint.this.mView.invalidate();
+	    	Logger.i( TAG, "mOnClickListenerCancel()" );
+	    	// ListItem3ButtonsHint.this.mVisible = false;
+	    	// ListItem3ButtonsHint.this.mObserver.notifyDataSetChanged();
+	    	// ListItem3ButtonsHint.this.updateView();
 	    } };    
     
     public ListItem3ButtonsHint( boolean selectable, AbstractListItem parent ) {
@@ -97,33 +99,50 @@ public class ListItem3ButtonsHint extends AbstractListItem {
         view.setTag(holder);
         
         // layout view
-        view.setBackgroundColor( mStyleBackground.mBackground );
+        
 		mButtonPanelBar = new ThreeButtonPanelBar(view);
 		mButtonPanelBar.SetBackgroundColor( 0x00000000 ); // TODO read from style
+		mButtonPanelBar.RemoveAllButtons();
 		for ( int i=0; i<mButtons.size(); i++ ) {
 			mButtonPanelBar.AddButton( mButtons.get(i) );
 		}
+		
+		updateView( view );		
+		
         return view;
 	}	
 	
 	@Override
-	public void updateView() {
-		Logger.i( TAG, "layout()" );
+	public void updateView( View view ) {
+		Logger.i( TAG, "updateView( view="+view+" )" );
 		
-		Object object = mView.getTag();
+		view.setBackgroundColor( mStyleBackground.mBackground );
+		
+		Object object = view.getTag();
 		if ( object instanceof ViewHolder ) {
 			ViewHolder holder = (ViewHolder)object;
-			layoutImageView( holder.mCancelButton, mStyleCancelButton, android.R.drawable.ic_menu_close_clear_cancel );
+			layoutImageView( view, R.id.imageViewCancelButton, mStyleCancelButton, android.R.drawable.ic_menu_close_clear_cancel );
 			layoutImageView( holder.mLeftIcon, mStyleImageLeft, mDataImageLeft );
 			layoutImageView( holder.mRightIcon, mStyleImageRight, mDataImageRight );
 			layoutTextView( holder.mMajorTextLeft, mStyleTextMajor, mDataTextMajor );
 			layoutTextView( holder.mMinorTextLeft, mStyleTextMinor, mDataTextMinor );
 			layoutTextView( holder.mMajorTextRight, mStyleTextMajorRight, mDataTextMajorRight );
-			layoutTextView( holder.mMinorTextRight, mStyleTextMinorRight, mDataTextMinorRight );				
+			layoutTextView( holder.mMinorTextRight, mStyleTextMinorRight, mDataTextMinorRight );	
+			if ( mButtonPanelBar != null ) {
+				mButtonPanelBar.updateUI();
+			} else {
+				Logger.e( TAG, "updateView() - NPE button panel bar" );
+			}
 		} else {
 			Logger.e( TAG, "updateView() - object mismatch" ); 
 		}
-		
-		mView.invalidate();
+			
+		view.forceLayout();
+		view.invalidate();
+	}
+	
+	@Override
+	public int getViewType() {
+		return LISTITEM_VIEW_TYPE_UNIVERSAL_LAYOUT;
 	}
 }

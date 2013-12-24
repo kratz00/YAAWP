@@ -76,6 +76,7 @@ public class CartridgeListActivity extends CustomActivity {
 	private static final String TAG = "Main";	
 	private ListItemAdapter mAdapter = null;
 	private ListItemGpsDisabledWarning mGpsDisabledWarning  = null;
+	private ListItemGpsDisabledWarning mGpsDisabledWarning2  = null;
 	private ListView mCartridgeListView = null;
 	
     @Override
@@ -86,7 +87,7 @@ public class CartridgeListActivity extends CustomActivity {
 				
 		mAdapter = new ListItemAdapter( this );  
 		mGpsDisabledWarning = (ListItemGpsDisabledWarning)mAdapter.AddItem( new ListItemGpsDisabledWarning(this) );
-		
+		mGpsDisabledWarning2 = (ListItemGpsDisabledWarning)mAdapter.AddItem( new ListItemGpsDisabledWarning(this) );
 		
 		mCartridgeListView = new ListView(this);
 		mCartridgeListView.setDividerHeight(0);
@@ -360,8 +361,8 @@ public class CartridgeListActivity extends CustomActivity {
         
         final ListView listview = mCartridgeListView; 
         ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
-        boolean status = xadapter.onContextItemSelected( info.position, index );
-        return status;
+        // boolean status = xadapter.onContextItemSelected( info.position, index );
+        return true;
     }
             
 

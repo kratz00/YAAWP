@@ -19,46 +19,16 @@ public class ListItemAdapter extends BaseAdapter {
 
 	private static String TAG = ListItemAdapter.class.getSimpleName();
 	
-	private Vector<AbstractListItem> mListItems = null; 
+	private Vector<AbstractListItem> mAllListItems = null; 
+	private Vector<AbstractListItem> mListItems = null;
 	
-    
     private Context mContext;
     private Activity mActivity;
-       
-    /* --- ListItemAdapter methods ------------------------ */
     
-	public ListItemAdapter( Activity activity ) {	
-		super();
-		this.mListItems = new Vector<AbstractListItem>();
-		this.mContext = (Context)activity;
-		mActivity = activity;
-    }
-	
-	public AbstractListItem AddItem( AbstractListItem item ) {
-		mListItems.add( item );
-		item.attach();
-		return item;
-	}
-	
-	public void AddItems( Vector<AbstractListItem> items ) {
-    	for ( int i=0; i<items.size(); i++ ) {
-    		mListItems.add( items.get(i) );
-    		items.get(i).attach();
-    	}    		
-	}
-	
-	public void RemoveAllItems() {
-		mListItems.removeAllElements();
-		for ( int i=0; i<mListItems.size(); i++ ) {
-			mListItems.get(i).dettach();
-    	} 
-		mListItems.removeAllElements();		
-	}
-	
-	/* --------------------------------------------------------- */
 	public AdapterView.OnItemClickListener mListClick = new AdapterView.OnItemClickListener() { // TODO rename member
 		public void onItemClick(AdapterView<?> parent, View view,
 				int position, long id) {
+			Logger.i( TAG, "onItemClick( position="+position+" )" );
 			ListItemAdapter.this.mListItems.get(position).onListItemClicked( mActivity );
 		}
 	};
@@ -69,13 +39,47 @@ public class ListItemAdapter extends BaseAdapter {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
             ListItemAdapter.this.mListItems.get(info.position).createContextMenu( mActivity, menu );
         }
-    } ; 	
+    } ;     
+    
+    /* --- ListItemAdapter methods ------------------------ */
+    
+	public ListItemAdapter( Activity activity ) {	
+		super();
+		mAllListItems = new Vector<AbstractListItem>();
+		mListItems = new Vector<AbstractListItem>();
+		mContext = (Context)activity;
+		mActivity = activity;
+    }
+	
+	public AbstractListItem AddItem( AbstractListItem item ) {
+		mAllListItems.add( item );
+		item.mObserver = this;
+		item.attach();
+		return item;
+	}
+	
+	public void AddItems( Vector<AbstractListItem> items ) {
+    	for ( int i=0; i<items.size(); i++ ) {
+    		mAllListItems.add( items.get(i) );
+    		items.get(i).mObserver = this;
+    		items.get(i).attach();
+    	}    		
+	}
+	
+	public void RemoveAllItems() {
+		mAllListItems.removeAllElements();
+		for ( int i=0; i<mAllListItems.size(); i++ ) {
+			mAllListItems.get(i).dettach();
+			mAllListItems.get(i).mObserver = null;
+    	} 
+		mAllListItems.removeAllElements();		
+	}
 	
 	/* --------------------------------------------------------- */
 	
-	public boolean onContextItemSelected( int position, int index ) {
-		return mListItems.get(position).onContextItemSelected( mActivity,index);
-	}
+	
+	/* --------------------------------------------------------- */
+	
 		
 	/* --- methods of BaseAdapter --- */
 	
@@ -86,7 +90,9 @@ public class ListItemAdapter extends BaseAdapter {
     
     @Override
     public boolean isEnabled(int position) {
-    	return mListItems.get(position).isEnabled();
+    	boolean enabled = mListItems.get(position).isEnabled();
+    	Logger.i("", "isEnabled( position="+position+" ) = " + enabled );
+    	return enabled;
     }
     
     @Override
@@ -105,6 +111,17 @@ public class ListItemAdapter extends BaseAdapter {
 	}
 	
 	@Override
+	public int getViewTypeCount() {
+		return 3;
+	}
+	
+	@Override
+	public int getItemViewType(int position) {
+		AbstractListItem item = mListItems.get(position);
+		return item.getViewType();
+	}
+	
+	@Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
 		Logger.i( TAG, "getDropDownView( postion="+position+", ...)");
 		return getView(position,convertView,parent);
@@ -112,20 +129,32 @@ public class ListItemAdapter extends BaseAdapter {
 	   
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Logger.i( TAG, "getView( postion="+position+", ...)");
+		Logger.i( TAG, "getView( postion="+position+", convertView="+convertView+", ...)");
 		
 		AbstractListItem item = mListItems.get(position);
-		View view = item.getView();
+		View view = convertView; // item.getView();
 		if ( view == null ) {
 			view = item.createView( mContext );
-			item.updateView();
-		}	
+		}
+		
+		// view.setFocusableInTouchMode(false);
+		// item.setView(view);
+		item.updateView(view);
+		view.invalidate();
+		view.forceLayout();
 		return view;
 	}
 	
 	@Override
 	public void notifyDataSetChanged() {
 		Logger.i( TAG, "notifyDataSetChanged()");
+		mListItems.removeAllElements();
+		for ( int i=0; i<mAllListItems.size(); i++ ) {
+			AbstractListItem item = mAllListItems.get(i);
+			if ( item.isVisible() ) {
+				mListItems.add(item);
+			}
+		}
 		super.notifyDataSetChanged();
 		return;
 	}
@@ -133,6 +162,13 @@ public class ListItemAdapter extends BaseAdapter {
 	@Override
 	public void notifyDataSetInvalidated() {
 		Logger.i( TAG, "notifyDataSetInvalidatedd()");
+		mListItems.removeAllElements();
+		for ( int i=0; i<mAllListItems.size(); i++ ) {
+			AbstractListItem item = mAllListItems.get(i);
+			if ( item.isVisible() ) {
+				mListItems.add(item);
+			}
+		}		
 		super.notifyDataSetInvalidated();
 	}
 }

@@ -49,8 +49,8 @@ public class ListItemCartridge extends AbstractListItem {
     }
     
     @Override
-    public void updateView() {
-    	View view = mView;	
+    public void updateView( View view ) {
+    	// View view = mView;	
 		try {
             byte[] iconData = mCartridge.getFile(mCartridge.getIconId());
             Bitmap iconLeft = null;
@@ -268,4 +268,9 @@ public class ListItemCartridge extends AbstractListItem {
         	ScreenHelper.activateScreen(ScreenHelper.SCREEN_CART_DETAIL, null);
         }
     }    	
+    
+	@Override
+	public int getViewType() {
+		return LISTITEM_VIEW_TYPE_CARTRIDGE_LAYOUT;
+	}    
 }

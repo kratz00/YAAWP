@@ -32,31 +32,31 @@ public abstract class ListItemWherigoCategoryHeader extends ListItem3ButtonsHint
 	@Override
 	public void onListItemClicked( Activity activity ) {
 		mOpen = !mOpen;
-		// TODO this.notifyDataSetChanged();
+		this.mObserver.notifyDataSetChanged();
 		return;
 	}	
 	
 	@Override
-	public void updateView() {
+	public void updateView( View view ) {
 		if ( mOpen == true ) {
-			layoutOpen();
+			layoutOpen( view );
 		} else {
-			layoutClose();
+			layoutClose( view );
 		}
 	}	
 	
-	public void layoutOpen() {
+	public void layoutOpen( View view ) {
 		mDataTextMajor = mTitleOpen;
 		mDataTextMajorRight = mTitleOpenRight;
 		mDataTextMinor = mBodyOpen;			
-		super.updateView();
+		super.updateView( view );
 	}
 	
-	public void layoutClose() {
+	public void layoutClose( View view ) {
 		mDataTextMajor = mTitleClose;
 		mDataTextMajorRight = mTitleCloseRight;
 		mDataTextMinor = mBodyClose;		
-		super.updateView();
+		super.updateView( view );
 	}	
 	
 	public boolean isOpen() {

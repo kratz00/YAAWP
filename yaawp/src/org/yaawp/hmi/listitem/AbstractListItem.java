@@ -12,15 +12,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View;
 import org.yaawp.hmi.listitem.styles.*;
+import org.yaawp.utils.Logger;
+
+import android.widget.BaseAdapter;
 
 public abstract class AbstractListItem {
 
+	public final static int LISTITEM_VIEW_TYPE_UNIVERSAL_LAYOUT = 0;
+	public final static int LISTITEM_VIEW_TYPE_CARTRIDGE_LAYOUT = 1;
+	public final static int LISTITEM_VIEW_TYPE_SEPARATOR_LAYOUT = 2;
+	
 	protected boolean mVisible = true;
 	protected int mLayoutId = -1;
 	protected boolean mOpen = false;
 	protected AbstractListItem mParent = null;
 	private boolean mSelectable = false;
-	protected View mView = null;
+	// protected View mView = null;
+	public BaseAdapter mObserver;
 	
 	/* -------------------------------------------------------- *
 	 * 
@@ -32,11 +40,12 @@ public abstract class AbstractListItem {
 	}
 	
 	public View createView( Context context ) {
-		mView = (LinearLayout) LinearLayout.inflate( context, mLayoutId , null );
-		return mView;
+		View view = (LinearLayout) LinearLayout.inflate( context, mLayoutId , null );
+		// TODO mView = view;
+		return view;
 	}
 	
-	public abstract void updateView();
+	public abstract void updateView( View view );
 
 	public void attach() {
 		return;
@@ -73,6 +82,7 @@ public abstract class AbstractListItem {
 		return;
 	}	
 	
+	/*
 	public View getView() {
 		return mView;
 	}
@@ -80,6 +90,9 @@ public abstract class AbstractListItem {
 	public void setView( View view ) {
 		mView = view;
 	}
+	*/
+	
+	public abstract int getViewType(); 
 	
 	protected void layoutTextView( View view, int res, StyleText style, String text ) {
 		TextView tv01 = (TextView) view.findViewById(res);
@@ -161,4 +174,12 @@ public abstract class AbstractListItem {
 			// TODO trace
 		}
 	}	
+	
+	public void notifyDataSetChanged() {
+		this.mObserver.notifyDataSetChanged();
+	}
+	
+	public void notifyDataSetInvalidated() {
+		this.mObserver.notifyDataSetInvalidated();
+	}
 }

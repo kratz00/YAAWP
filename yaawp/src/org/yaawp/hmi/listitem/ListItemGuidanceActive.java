@@ -30,14 +30,7 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 	
 	@Override
 	public View createView( Context context ) {
-		super.createView(context);
-
-		mDataTextMajor = /* TODO I18N */ "Guidance active" ;
-		mDataTextMinor = /* TODO I18N */ "Guidance to zone <i>" + A.getGuidingContent().getName() +"</i>";
-		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );
-				
-    	mStyleCancelButton = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, mOnClickListenerCancel );		
-    	
+		
 		AddButton( new PanelBarButton( I18N.get(R.string.navigate ), 
 				new PanelBarButton.OnClickListener() {
 					@Override
@@ -48,14 +41,22 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 				}
 			)); 
 		
-		AddButton( new PanelBarButtonStopGuidance() );  		
+		AddButton( new PanelBarButtonStopGuidance() );  
 		
-		return mView;
+		mStyleCancelButton = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, mOnClickListenerCancel );	
+		
+		/* --- */
+
+		mDataTextMajor = /* TODO I18N */ "Guidance active" ;
+		mDataTextMinor = /* TODO I18N */ "Guidance to zone <i>" + A.getGuidingContent().getName() +"</i>";
+		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );
+
+		return super.createView(context);
 	}	
 	
 	@Override
-	public void updateView() {
-		super.updateView();
+	public void updateView( View view ) {
+		super.updateView( view );
 	}	
 	
 	@Override
@@ -85,15 +86,11 @@ public class ListItemGuidanceActive extends ListItem3ButtonsHint implements Guid
 	
 	@Override
 	public void guideStart() {
-		// TODO
-		mView.invalidate();
-		// notifyDataSetChanged();
+		notifyDataSetChanged();
 	}
 
 	@Override
 	public void guideStop() {
-		// TODO
-		// notifyDataSetChanged();
-		mView.invalidate();
+		notifyDataSetChanged();
 	}	
 }
