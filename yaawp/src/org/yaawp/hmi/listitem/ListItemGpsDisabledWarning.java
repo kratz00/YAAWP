@@ -18,9 +18,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.graphics.Color;
 import org.yaawp.hmi.listitem.styles.*;
-import android.content.Context;
 
-public class ListItemGpsDisabledWarning extends ListItem3ButtonsHint implements LocationEventListener {
+public class ListItemGpsDisabledWarning extends ListItemUniversalLayout implements LocationEventListener {
 
 	private Context mContext;
 	

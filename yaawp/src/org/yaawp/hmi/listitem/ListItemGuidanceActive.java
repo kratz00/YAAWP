@@ -1,25 +1,22 @@
 package org.yaawp.hmi.listitem;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 
 import org.yaawp.R;
 import org.yaawp.guidance.interfaces.Guide;
 import org.yaawp.guidance.interfaces.GuidingListener;
 import org.yaawp.hmi.activities.GuidingActivity;
-import org.yaawp.hmi.activities.SatelliteActivity;
 import org.yaawp.hmi.helper.I18N;
-import org.yaawp.hmi.listitem.ListItem3ButtonsHint;
+import org.yaawp.hmi.listitem.ListItemUniversalLayout;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonStopGuidance;
-import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.A;
 import org.yaawp.utils.Images;
 import android.graphics.Color;
 import org.yaawp.hmi.listitem.styles.*;
 
-public class ListItemGuidanceActive extends ListItem3ButtonsHint implements GuidingListener {
+public class ListItemGuidanceActive extends ListItemUniversalLayout implements GuidingListener {
 
 	public Context mContext = null;
 	

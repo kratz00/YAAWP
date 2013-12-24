@@ -8,7 +8,7 @@ import android.view.View;
 import cz.matejcik.openwig.EventTable;
 import org.yaawp.hmi.listitem.styles.*;
 
-public class ListItemWherigoElement extends ListItem3ButtonsHint {
+public class ListItemWherigoElement extends ListItemUniversalLayout {
 
 	EventTable mObject = null;
 	

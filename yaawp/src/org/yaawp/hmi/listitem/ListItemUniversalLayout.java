@@ -9,15 +9,13 @@ import android.view.View;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.listitem.styles.*;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.yaawp.utils.Logger;
 
-public class ListItem3ButtonsHint extends AbstractListItem {
+public class ListItemUniversalLayout extends AbstractListItem {
 
-	private static String TAG = ListItem3ButtonsHint.class.getSimpleName();
+	private static String TAG = ListItemUniversalLayout.class.getSimpleName();
 
     protected ThreeButtonPanelBar mButtonPanelBar = null;
     private Vector<PanelBarButton> mButtons = new Vector<PanelBarButton>();
@@ -57,8 +55,8 @@ public class ListItem3ButtonsHint extends AbstractListItem {
 	    	// ListItem3ButtonsHint.this.updateView();
 	    } };    
     
-    public ListItem3ButtonsHint( boolean selectable, AbstractListItem parent ) {
-    	super( selectable, R.layout.list_adapter_hint, parent );
+    public ListItemUniversalLayout( boolean selectable, AbstractListItem parent ) {
+    	super( selectable, R.layout.listitem_universal, parent );
     	
     	mDataTextMajor = null;   
     	mDataTextMinor = null;

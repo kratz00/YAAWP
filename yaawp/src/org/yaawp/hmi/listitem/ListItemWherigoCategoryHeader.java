@@ -1,18 +1,11 @@
 package org.yaawp.hmi.listitem;
 
-import org.yaawp.R;
-import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.listitem.styles.*;
-import org.yaawp.utils.Logger;
-
-import cz.matejcik.openwig.Engine;
-
 import android.app.Activity;
-import android.content.Context;
 import android.view.View;
 
 
-public abstract class ListItemWherigoCategoryHeader extends ListItem3ButtonsHint {
+public abstract class ListItemWherigoCategoryHeader extends ListItemUniversalLayout {
 
 	protected int mChildElements = 0;
 	
