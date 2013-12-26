@@ -50,9 +50,8 @@ public class ListItemUniversalLayout extends AbstractListItem {
     View.OnClickListener mOnClickListenerCancel = new View.OnClickListener() {
 	    public void onClick(View v) {
 	    	Logger.i( TAG, "mOnClickListenerCancel()" );
-	    	// ListItem3ButtonsHint.this.mVisible = false;
-	    	// ListItem3ButtonsHint.this.mObserver.notifyDataSetChanged();
-	    	// ListItem3ButtonsHint.this.updateView();
+	    	ListItemUniversalLayout.this.mVisible = false;
+	    	ListItemUniversalLayout.this.notifyDataSetChanged();
 	    } };    
     
     public ListItemUniversalLayout( boolean selectable, AbstractListItem parent ) {
@@ -87,13 +86,13 @@ public class ListItemUniversalLayout extends AbstractListItem {
     	
     	// collect sub views
     	ViewHolder holder = new ViewHolder();
-        holder.mMajorTextLeft = (TextView)view.findViewById(R.id.textViewMajorLeft);
+        holder.mMajorTextLeft  = (TextView)view.findViewById(R.id.textViewMajorLeft);
         holder.mMajorTextRight = (TextView)view.findViewById(R.id.textViewMajorRight);
-        holder.mMinorTextLeft = (TextView)view.findViewById(R.id.textViewMinorLeft);
+        holder.mMinorTextLeft  = (TextView)view.findViewById(R.id.textViewMinorLeft);
         holder.mMinorTextRight = (TextView)view.findViewById(R.id.textViewMinorRight);
-        holder.mLeftIcon = (ImageView)view.findViewById(R.id.imageViewIconLeft);
-        holder.mRightIcon = (ImageView)view.findViewById(R.id.imageViewIconRight);
-        holder.mCancelButton = (ImageView)view.findViewById(R.id.imageViewCancelButton);
+        holder.mLeftIcon       = (ImageView)view.findViewById(R.id.imageViewIconLeft);
+        holder.mRightIcon      = (ImageView)view.findViewById(R.id.imageViewIconRight);
+        holder.mCancelButton   = (ImageView)view.findViewById(R.id.imageViewCancelButton);
         view.setTag(holder);
         
         // layout view
