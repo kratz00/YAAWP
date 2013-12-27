@@ -15,8 +15,8 @@ public class CartridgeListAdapterItemComparator implements Comparator<AbstractLi
 		if ( !(o2 instanceof ListItemCartridge) )
 			return 0;
 				
-    	YCartridge c1 = ((ListItemCartridge)o1).mCartridge;
-    	YCartridge c2 = ((ListItemCartridge)o2).mCartridge;
+    	YCartridge c1 = null; // ((ListItemCartridge)o1).mCartridge;
+    	YCartridge c2 = null; // ((ListItemCartridge)o2).mCartridge;
     	
     	return compare(c1,c2);
 	}

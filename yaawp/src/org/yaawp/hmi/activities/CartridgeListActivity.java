@@ -196,7 +196,9 @@ public class CartridgeListActivity extends CustomActivity {
 		/* --------------------------------------------- */
 		
     	if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
-    		mAdapter.AddItems( addedCartridgeItems() );
+        	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
+        		mAdapter.AddItem( new ListItemCartridge( YaawpAppData.GetInstance().mCartridges.get(i), null ) );
+        	}
     	} else {
     		
     		// ListItem3ButtonsHint item = new ListItem3ButtonsHint( "Note" /* TODO I18N */,
@@ -274,15 +276,17 @@ public class CartridgeListActivity extends CustomActivity {
     	}
     	*/
     	
-    	/* --------------------------------------------- */
+
     	
+    	/* --------------------------------------------- */
+    	/*
     	if ( PreferenceUtils.getPrefBoolean(R.string.pref_cartridgelist_anywhere_first ) ) {
         	if ( sorting==2 || sorting==3 ) {
     	    	Vector<AbstractListItem> localData2 = new Vector<AbstractListItem>();
     	    	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
     	    		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
     	    		if ( cartridge.isPlayAnywhere() ) {
-    	    			localData2.add( new ListItemCartridge( cartridge, null ) );
+    	    			localData2.add( new ListItemCartridge( cartridge, cartridge.getFilename(), null ) );
     	    		}
     	    	}
     	    	Collections.sort(localData2, comparator2 );
@@ -299,12 +303,12 @@ public class CartridgeListActivity extends CustomActivity {
     		{
     			case 0:
     			case 1:
-    				localData.add( new ListItemCartridge( cartridge, null ) );
+    				localData.add( new ListItemCartridge( cartridge, cartridge.getFilename(), null ) );
     				break;			
     			case 2:
     			case 3:
     	    		if ( !cartridge.isPlayAnywhere() ) {
-    	    			localData.add( new ListItemCartridge( cartridge, null ) );
+    	    			localData.add( new ListItemCartridge( cartridge, cartridge.getFilename(), null ) );
     	    		}
     				break;
     		}    		
@@ -314,13 +318,14 @@ public class CartridgeListActivity extends CustomActivity {
     	Append( data, localData );
 
        	/* --------------------------------------------- */
+    	/*
     	if ( !(PreferenceUtils.getPrefBoolean(R.string.pref_cartridgelist_anywhere_first )) ) {
         	if ( sorting==2 || sorting==3 ) {
     	    	Vector<AbstractListItem> localData2 = new Vector<AbstractListItem>();
     	    	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
     	    		YCartridge cartridge = YaawpAppData.GetInstance().mCartridges.get(i);
     	    		if ( cartridge.isPlayAnywhere() ) {
-    	    			localData2.add( new ListItemCartridge( cartridge, null ) );
+    	    			localData2.add( new ListItemCartridge( cartridge, cartridge.getFilename(), null ) );
     	    		}
     	    	}
     	    	Collections.sort(localData2, comparator2 );
@@ -328,7 +333,7 @@ public class CartridgeListActivity extends CustomActivity {
     	    	Append( data, localData2 );
         	}    		
     	}   
-
+*/
     	return data;
     }
     

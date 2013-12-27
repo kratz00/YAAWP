@@ -3,6 +3,8 @@ package org.yaawp;
 import java.io.File;
 import java.io.IOException;
 
+import org.yaawp.utils.Logger;
+
 import cz.matejcik.openwig.formats.CartridgeFile;
 import cz.matejcik.openwig.platform.FileHandle;
 import cz.matejcik.openwig.platform.SeekableFile;
@@ -15,6 +17,7 @@ public class YCartridge extends CartridgeFile {
 	
 	private YCartridge( String _filename, SeekableFile source, FileHandle savefile ) throws IOException {
 		super(source,savefile);
+		Logger.i( "YCartridge", "ctor, file="+_filename );
 		filename = _filename;
 	}
 	

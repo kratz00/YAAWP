@@ -5,11 +5,19 @@ import java.io.FileOutputStream;
 
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.openwig.WLocationService;
+import org.yaawp.openwig.WSaveFile;
+import org.yaawp.openwig.WSeekableFile;
 import org.yaawp.openwig.WUI;
+import org.yaawp.positioning.Location;
+import org.yaawp.positioning.LocationState;
+import org.yaawp.utils.CartridgeHelper;
 import org.yaawp.utils.Logger;
+import org.yaawp.utils.UtilsFormat;
 
 
 import cz.matejcik.openwig.Engine;
+
+import org.yaawp.R;
 import org.yaawp.YCartridge;
 
 public class CartridgeSession
@@ -24,19 +32,31 @@ public class CartridgeSession
     private CartridgeSession() {
     }
     
+    static public boolean Start( String filename, WUI _wui ) {
+    	
+		File file;
+        try {
+        	file = new File( filename );
 
-
-    
-  
+        	if ( file.isFile() ) {
+	            YCartridge cart = YCartridge.read(file.getAbsolutePath(), new WSeekableFile(file), new WSaveFile(file));
+	            return Start( cart, _wui );
+        	} else {
+        		Logger.e( TAG, filename+" is not a file" ); 
+        	}
+        } catch (Exception e) {
+        	Logger.e( TAG, "", e );       	
+        }	    
+        
+        return false;
+    }
     
     static public boolean Start( YCartridge cartridge, WUI _wui ) { // this method replaces Main.loadCartridge
         
     	if ( cartridge == null ) {
             return false;
         }   
-        
-    	YaawpAppData.GetInstance().mCurrentCartridge = cartridge;
-    	
+            	
         try {
             File fileLog = new File( cartridge.getLogFileName() );
             if (!fileLog.exists()) {
@@ -60,15 +80,32 @@ public class CartridgeSession
         
         return true;
     }
-      
+    
+    static public boolean Continue( String filename, WUI _wui ) {
+    	
+		File file;
+        try {
+        	file = new File( filename );
+
+        	if ( file.isFile() ) {
+	            YCartridge cart = YCartridge.read(file.getAbsolutePath(), new WSeekableFile(file), new WSaveFile(file));
+	            return Continue( cart, _wui );
+        	} else {
+        		Logger.e( TAG, filename+" is not a file" ); 
+        	}
+        } catch (Exception e) {
+        	Logger.e( TAG, "", e );       	
+        }	    
+        
+        return false;
+    }    
+    
     public static boolean Continue( YCartridge cartridge, WUI _wui ) {
         
     	Logger.w(TAG, "Continue()");
         if ( cartridge == null ) {
             return false;
         }   
-        
-        YaawpAppData.GetInstance().mCurrentCartridge = cartridge;
         
         try {
         	File fileLog = new File( cartridge.getLogFileName() );

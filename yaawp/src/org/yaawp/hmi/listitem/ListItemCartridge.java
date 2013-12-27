@@ -3,59 +3,70 @@ package org.yaawp.hmi.listitem;
 import org.yaawp.R;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
+import org.yaawp.hmi.activities.CartridgeDetailsActivity;
 import org.yaawp.hmi.gui.extension.UtilsGUI;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
-import org.yaawp.hmi.listitem.styles.StyleBasics;
-import org.yaawp.hmi.listitem.styles.StyleImage;
-import org.yaawp.hmi.listitem.styles.StyleText;
 import org.yaawp.hmi.listitem.styles.Styles;
+import org.yaawp.openwig.WSaveFile;
+import org.yaawp.openwig.WSeekableFile;
 import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.CartridgeHelper;
 import org.yaawp.utils.UtilsFormat;
 import android.content.DialogInterface;
 
-import cz.matejcik.openwig.Engine;
+
+import java.io.File;
+
+
+
 
 public class ListItemCartridge extends ListItemUniversalLayout {
 
 	private static String TAG = ListItemCartridge.class.getSimpleName();
-    public YCartridge mCartridge;
+    public boolean mIsAnywhere;
+    private String mFilename;
     
-	public ListItemCartridge( YCartridge cartridge, AbstractListItem parent ) {
+	public ListItemCartridge( String filename, AbstractListItem parent ) {
 		super( false, parent );	
-		
-		mDataImageLeft = CartridgeHelper.getIconFromId( cartridge, cartridge.getIconId(), R.drawable.icon_gc_wherigo );
-		mDataTextMajor = cartridge.getName();
-		
-		String description = "";
-        if ( !cartridge.isPlayAnywhere() ) {
-    		Location loc = new Location(TAG);
-    		loc.setLatitude(cartridge.getLatitude());
-    		loc.setLongitude(cartridge.getLongitude());
+		mFilename = filename;
+		File file;
+        try {
+        	file = new File( filename );
 
-    		description += (description.length()>0 ? ", " : "") + UtilsFormat.formatDistance(LocationState.getLocation().distanceTo(loc), false);
-        }
-       
-        description += (description.length()>0 ? ", " : "") + cartridge.getAuthor();
-        description += (description.length()>0 ? ", " : "") + cartridge.getVersion();		
-        mDataTextMinor = description;
-        
-        mCartridge = cartridge;
-        
+        	if ( file.isFile() ) {
+	            YCartridge cart = YCartridge.read(file.getAbsolutePath(), new WSeekableFile(file), new WSaveFile(file));
+	            
+	    		mDataImageLeft = CartridgeHelper.getIconFromId( cart, cart.getIconId(), R.drawable.icon_gc_wherigo );
+	    		mDataTextMajor = cart.getName();
+	    		mIsAnywhere = cart.isPlayAnywhere();
+	    		
+	    		String description = "";
+	            if ( !cart.isPlayAnywhere() ) {
+	        		Location loc = new Location(TAG);
+	        		loc.setLatitude(cart.getLatitude());
+	        		loc.setLongitude(cart.getLongitude());
+
+	        		description += (description.length()>0 ? ", " : "") + UtilsFormat.formatDistance(LocationState.getLocation().distanceTo(loc), false);
+	            }
+	           
+	            description += (description.length()>0 ? ", " : "") + cart.getAuthor();
+	            description += (description.length()>0 ? ", " : "") + cart.getVersion();		
+	            mDataTextMinor = description;
+	            		
+        	} else {
+        		mDataTextMajor = "{error}";
+        		mDataTextMinor = filename;	
+        	}
+        } catch (Exception e) {
+    		mDataTextMajor = "{exception:"+e.toString()+"}";
+    		mDataTextMinor = filename;     	
+        }		
+		      
         /*
         if (mCartridge.getSavegame().exists()) { 
         	iconRight = Images.getImageB(android.R.drawable.ic_menu_save);
@@ -75,26 +86,24 @@ public class ListItemCartridge extends ListItemUniversalLayout {
 	
 	@Override
 	public void onListItemClicked( Activity activity ) {
-        if ( mCartridge.existsSaveFile() ) {
+        if ( /*mCartridge.existsSaveFile()*/ true ) {
             UtilsGUI.showDialogQuestion( activity,
                     R.string.resume_previous_cartridge,
                     new DialogInterface.OnClickListener() {
         
                 @Override
                 public void onClick(DialogInterface dialog, int btn) {
-                    CartridgeSession.Continue( mCartridge, YaawpAppData.GetInstance().mWui );
+                    CartridgeSession.Continue( mFilename, YaawpAppData.GetInstance().mWui );
                 }
             }, new DialogInterface.OnClickListener() {
                 
                 @Override
                 public void onClick(DialogInterface dialog, int btn) {
-                	YaawpAppData.GetInstance().mCurrentCartridge = mCartridge;
-                    ScreenHelper.activateScreen(ScreenHelper.SCREEN_CART_DETAIL, null);
+                	CartridgeDetailsActivity.showScreen(mFilename);
                 }
             });
         } else {
-        	YaawpAppData.GetInstance().mCurrentCartridge = mCartridge;
-        	ScreenHelper.activateScreen(ScreenHelper.SCREEN_CART_DETAIL, null);
+        	CartridgeDetailsActivity.showScreen(mFilename);
         }
 	}	
 	

@@ -9,20 +9,20 @@ import org.yaawp.openwig.WSeekableFile;
 
 public class FileCollectorCartridgeFilter extends FileCollectorExtentionFilter {
 
-	private static Vector<YCartridge> mCartridges;
+	private static Vector<String> mCartridges;
 	
-	public FileCollectorCartridgeFilter( Vector<YCartridge> cartridges ) {
+	public FileCollectorCartridgeFilter( Vector<String> cartridges ) {
 		super( "gwc" );
 		mCartridges = cartridges;
 	}
-	
-	public void setCartridgeStore( Vector<YCartridge> cartridges ) {
-		mCartridges = cartridges;
-	}
-	
+		
 	public boolean accept(File dir, String name) {
 		boolean status = super.accept( dir, name );
 		if ( status ) {
+			// TODO check if this file a wig cartridge
+			mCartridges.add( dir.getAbsolutePath()+"/"+name );
+			status = true;
+			/*
 			File file;
 	        try {
 	        	file = new File(dir.getAbsolutePath()+"/"+name);
@@ -39,7 +39,8 @@ public class FileCollectorCartridgeFilter extends FileCollectorExtentionFilter {
 	        	}
 	        } catch (Exception e) {
 	        	status = false;
-	        }			
+	        }	
+	        */		
 		}
         return status;
     }
