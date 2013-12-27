@@ -1,6 +1,7 @@
 package org.yaawp.hmi.listitem;
 
 import org.yaawp.hmi.listitem.styles.*;
+
 import android.app.Activity;
 import android.view.View;
 
@@ -17,9 +18,15 @@ public abstract class ListItemWherigoCategoryHeader extends ListItemUniversalLay
 	protected String mBodyClose = null;
 
 	public ListItemWherigoCategoryHeader() {
-		super( true, null );
-		mStyleCancelButton = null;
-    	mStyleBackground = Styles.mStyleBackgroundDarkGray; 			
+		super( true, null );    	
+    	mStyleBackground     = Styles.mStyleBackgroundDarkGray; 
+    	mStyleTextMajor      = Styles.mStyleTextMajor;
+    	mStyleTextMinor      = Styles.mStyleTextMinor;
+    	mStyleTextMajorRight = Styles.mStyleTextMajor;
+    	mStyleTextMinorRight = Styles.mStyleTextMinor;  	
+    	mStyleImageLeft      = Styles.mStyleImageLarge;
+    	mStyleImageRight     = null;
+    	mStyleCancelButton   = null;	       	
 	}
 	
 	@Override

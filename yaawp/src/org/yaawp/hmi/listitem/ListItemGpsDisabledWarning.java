@@ -28,8 +28,7 @@ public class ListItemGpsDisabledWarning extends ListItemUniversalLayout implemen
 		mContext = context;
 		mVisible = true;
 		
-    	
-		AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
+    	AddButton( new PanelBarButton( I18N.get(R.string.gps_on), 
 				new PanelBarButton.OnClickListener() {
 					@Override
 					public boolean onClick() {
@@ -49,32 +48,24 @@ public class ListItemGpsDisabledWarning extends ListItemUniversalLayout implemen
 					}
 				}
 			)); 		
+		
+		mDataTextMajor = I18N.get(R.string.gps_disabled);
+		mDataTextMinor = "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view."; // TODO I18N
+		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );	
+		
+    	mStyleBackground     = Styles.mStyleBackgroundLightGray; 
+    	mStyleTextMajor      = Styles.mStyleTextMajor;
+    	mStyleTextMinor      = Styles.mStyleTextMinor;
+    	mStyleTextMajorRight = null;
+    	mStyleTextMinorRight = null;    	
+    	mStyleImageLeft      = Styles.mStyleImageLarge;
+    	mStyleImageRight     = null;
+    	mStyleCancelButton   = Styles.mStyleCancelButton;			
     }
     
 	@Override
 	public boolean isEnabled() {
 		return false;
-	}
-	
-	@Override
-	public View createView( Context context ) {
-		
-
-		mDataTextMajor = I18N.get(R.string.gps_disabled);
-		mDataTextMinor = "Currently the GPS is off. Press the button 'GPS on' to switch on the GPS or 'Positioning' to change to the satellite view."; // TODO I18N
-		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );
-		
-    	mStyleCancelButton = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, mOnClickListenerCancel );	
-		
-
-	
-		
-		return super.createView(context);
-	}	
-	
-	@Override
-	public void updateView( View view ) {
-		super.updateView( view );
 	}
 	
 	@Override

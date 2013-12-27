@@ -1,16 +1,11 @@
 package org.yaawp.hmi.listitem;
 
-import java.io.File;
-
-
 import org.yaawp.R;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.text.Html;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.View;
@@ -21,137 +16,94 @@ import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.hmi.gui.extension.UtilsGUI;
+import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.helper.ScreenHelper;
+import org.yaawp.hmi.listitem.styles.StyleBasics;
+import org.yaawp.hmi.listitem.styles.StyleImage;
+import org.yaawp.hmi.listitem.styles.StyleText;
+import org.yaawp.hmi.listitem.styles.Styles;
 import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationState;
-import org.yaawp.utils.Const;
-import org.yaawp.utils.Images;
-import org.yaawp.utils.Logger;
+import org.yaawp.utils.CartridgeHelper;
 import org.yaawp.utils.UtilsFormat;
+import android.content.DialogInterface;
 
-public class ListItemCartridge extends AbstractListItem {
+import cz.matejcik.openwig.Engine;
 
-	private static String TAG = "CartridgeListAdapterItemCartridge";
-    
-    // private static final int PADDING = (int) Utils.getDpPixels(4.0f);
-    
+public class ListItemCartridge extends ListItemUniversalLayout {
 
-    /* min height for line */
-    // private int minHeight = Integer.MIN_VALUE;
-    // rescale image size
-    private float multiplyImageSize = 1.0f;	
-    
+	private static String TAG = ListItemCartridge.class.getSimpleName();
     public YCartridge mCartridge;
-      
-    public ListItemCartridge( YCartridge cartridge, AbstractListItem parent ) {
-    	super( true, R.layout.listitem_cartridge, parent );
-    	mCartridge = cartridge;
-    }
     
-    @Override
-    public void updateView( View view ) {
-    	// View view = mView;	
-		try {
-            byte[] iconData = mCartridge.getFile(mCartridge.getIconId());
-            Bitmap iconLeft = null;
-            try {
-            	iconLeft = BitmapFactory.decodeByteArray(iconData, 0, iconData.length);
-            } catch (Exception e) {
-            	iconLeft = Images.getImageB(R.drawable.icon_gc_wherigo);
-            }
-            
-            String name = mCartridge.getName();
-            String description = "";
-            
-            if ( !mCartridge.isPlayAnywhere() ) {
-        		Location loc = new Location(TAG);
-        		loc.setLatitude(mCartridge.getLatitude());
-        		loc.setLongitude(mCartridge.getLongitude());
- 
-        		description += (description.length()>0 ? ", " : "") + UtilsFormat.formatDistance(LocationState.getLocation().distanceTo(loc), false);
-            }
-           
-            description += (description.length()>0 ? ", " : "") + mCartridge.getAuthor();
-            description += (description.length()>0 ? ", " : "") + mCartridge.getVersion();
-            
-            Bitmap iconRight = null;
-            try {
-                if (mCartridge.getSavegame().exists()) {
-                	iconRight = Images.getImageB(android.R.drawable.ic_menu_save);
-                }
-            } catch (Exception e) {
-                Logger.e(TAG, "xxx() - xxxx", e);
-            }   
+	public ListItemCartridge( YCartridge cartridge, AbstractListItem parent ) {
+		super( false, parent );	
+		
+		mDataImageLeft = CartridgeHelper.getIconFromId( cartridge, cartridge.getIconId(), R.drawable.icon_gc_wherigo );
+		mDataTextMajor = cartridge.getName();
+		
+		String description = "";
+        if ( !cartridge.isPlayAnywhere() ) {
+    		Location loc = new Location(TAG);
+    		loc.setLatitude(cartridge.getLatitude());
+    		loc.setLongitude(cartridge.getLongitude());
 
-			TextView tv01 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView01);
-			TextView tv02 = (TextView) view.findViewById(R.id.layoutIconedListAdapterTextView02);
-	    	ImageView iv01 = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView01);
-			ImageView iv02 = (ImageView) view.findViewById(R.id.layoutIconedListAdapterImageView02);
-			
-			
-			// set TextView top
-
-			if (name == null) {
-				tv01.setVisibility(View.GONE);
-			} else {
-				tv01.setVisibility(View.VISIBLE);
-				tv01.setText(Html.fromHtml(name));
-			}
-			
-			// set TextView bottom
-
-			tv02.setVisibility(View.GONE);
-			if (description != null) {
-				tv02.setVisibility(View.VISIBLE);
-				tv02.setText(Html.fromHtml(description));				
-			}
-
-			// compute MULTI
-			float multi = 1.0f;
-			multi *= multiplyImageSize;
-			
-			// set ImageView left
-			int iv01Width = (int) (multi * Images.SIZE_BIG);
-			
-			if ( iconLeft != null) {
-				// resize image if is too width
-				Bitmap bitmap = iconLeft;
-				if (bitmap.getWidth() > Const.SCREEN_WIDTH / 2 && name != null &&
-						name.length() > 0) {
-					bitmap = Images.resizeBitmap(bitmap, Const.SCREEN_WIDTH / 2);
-				} else if (bitmap.getWidth() > Const.SCREEN_WIDTH) {
-					bitmap = Images.resizeBitmap(bitmap, Const.SCREEN_WIDTH);
-				}
-				
-				iv01.setImageBitmap(bitmap);
-			} else {
-				iv01Width = 0;
-			}
-			
-			// set visibility and size
-			ViewGroup.LayoutParams params = iv01.getLayoutParams();
-			params.width = iv01Width;
-			params.height = (int) (multi * Images.SIZE_BIG);
-	        iv01.setLayoutParams(params);
-	        iv01.setVisibility(View.VISIBLE);
-			
-			// set ImageView right
-			iv02.setVisibility(View.GONE);
-			
-			if ( iconRight != null){
-				iv02.setVisibility(View.VISIBLE);
-				iv02.setImageBitmap(iconRight);
-			}
-			
-
-
-		} catch (Exception e) {
-			Logger.e(TAG, "getView( " + view + " )", e);
-		}
-
-		// view.forceLayout();
-		// return view;
+    		description += (description.length()>0 ? ", " : "") + UtilsFormat.formatDistance(LocationState.getLocation().distanceTo(loc), false);
+        }
+       
+        description += (description.length()>0 ? ", " : "") + cartridge.getAuthor();
+        description += (description.length()>0 ? ", " : "") + cartridge.getVersion();		
+        mDataTextMinor = description;
+        
+        mCartridge = cartridge;
+        
+        /*
+        if (mCartridge.getSavegame().exists()) { 
+        	iconRight = Images.getImageB(android.R.drawable.ic_menu_save);
+        }
+        */        
+        
+    	mStyleBackground     = Styles.mStyleBackgroundLightGray; 
+    	mStyleTextMajor      = Styles.mStyleTextMajor;
+    	mStyleTextMinor      = Styles.mStyleTextMinor;
+    	mStyleTextMajorRight = null;
+    	mStyleTextMinorRight = null;    	
+    	mStyleImageLeft      = Styles.mStyleImageLarge;
+    	mStyleImageRight     = null;
+    	mStyleCancelButton   = null;	        
+        	        
 	}
+	
+	@Override
+	public void onListItemClicked( Activity activity ) {
+        if ( mCartridge.existsSaveFile() ) {
+            UtilsGUI.showDialogQuestion( activity,
+                    R.string.resume_previous_cartridge,
+                    new DialogInterface.OnClickListener() {
+        
+                @Override
+                public void onClick(DialogInterface dialog, int btn) {
+                    CartridgeSession.Continue( mCartridge, YaawpAppData.GetInstance().mWui );
+                }
+            }, new DialogInterface.OnClickListener() {
+                
+                @Override
+                public void onClick(DialogInterface dialog, int btn) {
+                	YaawpAppData.GetInstance().mCurrentCartridge = mCartridge;
+                    ScreenHelper.activateScreen(ScreenHelper.SCREEN_CART_DETAIL, null);
+                }
+            });
+        } else {
+        	YaawpAppData.GetInstance().mCurrentCartridge = mCartridge;
+        	ScreenHelper.activateScreen(ScreenHelper.SCREEN_CART_DETAIL, null);
+        }
+	}	
+	
+	// updateView() - Daten verändern sich nicht
+	
+
+	/*
+   
+ 
 	
     @Override
 	public boolean createContextMenu( Activity activity, ContextMenu menu ) {
@@ -204,7 +156,8 @@ public class ListItemCartridge extends AbstractListItem {
             	mapCartridge.setMarker( defaultMarker );
         		MapOverlays.mWaypoints.add( mapCartridge );                  
                 activity.startActivity(intent);     
-                */       	
+                */    
+/*	
                 break;
             case R.string.ctx_menu_continue_game:
                 CartridgeSession.Continue( cartridge, YaawpAppData.GetInstance().mWui );
@@ -268,9 +221,6 @@ public class ListItemCartridge extends AbstractListItem {
         	ScreenHelper.activateScreen(ScreenHelper.SCREEN_CART_DETAIL, null);
         }
     }    	
+  */  
     
-	@Override
-	public int getViewType() {
-		return LISTITEM_VIEW_TYPE_CARTRIDGE_LAYOUT;
-	}    
 }

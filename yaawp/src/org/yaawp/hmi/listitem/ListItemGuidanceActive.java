@@ -23,10 +23,6 @@ public class ListItemGuidanceActive extends ListItemUniversalLayout implements G
 	public ListItemGuidanceActive( Context context ) {
 		super( false, null );
 		mContext = context;
-	}
-	
-	@Override
-	public View createView( Context context ) {
 		
 		AddButton( new PanelBarButton( I18N.get(R.string.navigate ), 
 				new PanelBarButton.OnClickListener() {
@@ -40,21 +36,21 @@ public class ListItemGuidanceActive extends ListItemUniversalLayout implements G
 		
 		AddButton( new PanelBarButtonStopGuidance() );  
 		
-		mStyleCancelButton = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, mOnClickListenerCancel );	
+    	mStyleBackground     = Styles.mStyleBackgroundLightGray; 
+    	mStyleTextMajor      = Styles.mStyleTextMajor;
+    	mStyleTextMinor      = Styles.mStyleTextMinor;
+    	mStyleTextMajorRight = null;
+    	mStyleTextMinorRight = null;    	
+    	mStyleImageLeft      = Styles.mStyleImageLarge;
+    	mStyleImageRight     = null;
+    	mStyleCancelButton   = Styles.mStyleCancelButton;	
 		
 		/* --- */
 
 		mDataTextMajor = /* TODO I18N */ "Guidance active" ;
 		mDataTextMinor = /* TODO I18N */ "Guidance to zone <i>" + A.getGuidingContent().getName() +"</i>";
-		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );
-
-		return super.createView(context);
-	}	
-	
-	@Override
-	public void updateView( View view ) {
-		super.updateView( view );
-	}	
+		mDataImageLeft = Images.getImageB( R.drawable.ic_main_gps );		
+	}
 	
 	@Override
 	public void attach() {

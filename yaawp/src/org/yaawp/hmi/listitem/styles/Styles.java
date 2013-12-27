@@ -13,7 +13,9 @@ public class Styles {
     public static final StyleText   mStyleTextMinor     = new StyleText( View.VISIBLE, Color.TRANSPARENT, 0xff555555, 12, Typeface.NORMAL );
     
     // --- Images
-    public static final StyleImage  mStyleImageLeft     = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, null );
-    public static final StyleImage  mStyleImageRight    = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, null );
-    public static final StyleImage  mStyleCancelButton  = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1, null );	
+    public static final StyleImage  mStyleImage         = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1 );
+    public static final StyleImage  mStyleImageLarge    = new StyleImage( View.VISIBLE, Color.TRANSPARENT, 48, 48 );
+    public static final StyleImage  mStyleImageSmall    = new StyleImage( View.VISIBLE, Color.TRANSPARENT, 32, 32 );
+    
+    public static final StyleImage  mStyleCancelButton  = new StyleImage( View.VISIBLE, Color.TRANSPARENT, -1, -1 );	
 }

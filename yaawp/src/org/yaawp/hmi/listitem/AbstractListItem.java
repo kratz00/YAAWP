@@ -19,15 +19,15 @@ import android.widget.BaseAdapter;
 public abstract class AbstractListItem {
 
 	public final static int LISTITEM_VIEW_TYPE_UNIVERSAL_LAYOUT = 0;
-	public final static int LISTITEM_VIEW_TYPE_CARTRIDGE_LAYOUT = 1;
+	public final static int LISTITEM_VIEW_TYPE_UNIVERSAL_BUTTON_LAYOUT = 0;
 	public final static int LISTITEM_VIEW_TYPE_SEPARATOR_LAYOUT = 2;
+
+	
 	
 	protected boolean mVisible = true;
 	protected int mLayoutId = -1;
 	protected boolean mOpen = false;
 	protected AbstractListItem mParent = null;
-	private boolean mSelectable = false;
-	// protected View mView = null;
 	public BaseAdapter mObserver;
 	
 	/* -------------------------------------------------------- *
@@ -36,12 +36,10 @@ public abstract class AbstractListItem {
 	public AbstractListItem( boolean selectable, int layoutId, AbstractListItem parent ) {
 		mLayoutId = layoutId;
 		mParent = parent;
-		mSelectable = selectable;
 	}
 	
 	public View createView( Context context ) {
 		View view = (LinearLayout) LinearLayout.inflate( context, mLayoutId , null );
-		// TODO mView = view;
 		return view;
 	}
 	
@@ -81,16 +79,6 @@ public abstract class AbstractListItem {
 	public void onListItemClicked( Activity activity ) {
 		return;
 	}	
-	
-	/*
-	public View getView() {
-		return mView;
-	}
-	
-	public void setView( View view ) {
-		mView = view;
-	}
-	*/
 	
 	public abstract int getViewType(); 
 	

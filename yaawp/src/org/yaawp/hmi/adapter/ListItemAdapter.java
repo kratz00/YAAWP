@@ -112,7 +112,7 @@ public class ListItemAdapter extends BaseAdapter {
 	
 	@Override
 	public int getViewTypeCount() {
-		return 3;
+		return 4;
 	}
 	
 	@Override
@@ -129,19 +129,18 @@ public class ListItemAdapter extends BaseAdapter {
 	   
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Logger.i( TAG, "getView( postion="+position+", convertView="+convertView+", ...)");
+		// Logger.i( TAG, "getView( postion="+position+", convertView="+convertView+", ...)");
 		
 		AbstractListItem item = mListItems.get(position);
-		View view = convertView; // item.getView();
+		View view = convertView; 
 		if ( view == null ) {
 			view = item.createView( mContext );
 		}
-		
 		// view.setFocusableInTouchMode(false);
 		// item.setView(view);
 		item.updateView(view);
-		view.invalidate();
-		view.forceLayout();
+		// view.invalidate();
+		// view.forceLayout();
 		return view;
 	}
 	

@@ -45,6 +45,7 @@ public class ListItemUniversalLayout extends AbstractListItem {
     	ImageView mLeftIcon;
     	ImageView mRightIcon;
     	ImageView mCancelButton;
+    	int mViewType;
     }
     
     View.OnClickListener mOnClickListenerCancel = new View.OnClickListener() {
@@ -57,21 +58,23 @@ public class ListItemUniversalLayout extends AbstractListItem {
     public ListItemUniversalLayout( boolean selectable, AbstractListItem parent ) {
     	super( selectable, R.layout.listitem_universal, parent );
     	
-    	mDataTextMajor = null;   
-    	mDataTextMinor = null;
-    	mDataTextMajorRight = null;   
-    	mDataTextMinorRight = null;    	
-    	mDataImageLeft = null;
-    	mDataImageRight = null;
+    	mDataTextMajor       = null;   
+    	mDataTextMinor       = null;
+    	mDataTextMajorRight  = null;   
+    	mDataTextMinorRight  = null;    	
+    	mDataImageLeft       = null;
+    	mDataImageRight      = null;
 
-    	mStyleBackground   = Styles.mStyleBackgroundLightGray; 
-    	mStyleTextMajor    = Styles.mStyleTextMajor;
-    	mStyleTextMinor    = Styles.mStyleTextMinor;
-    	mStyleTextMajorRight    = Styles.mStyleTextMajor;
-    	mStyleTextMinorRight    = Styles.mStyleTextMinor;    	
-    	mStyleImageLeft    = Styles.mStyleImageLeft;
-    	mStyleImageRight    = Styles.mStyleImageRight;
-    	mStyleCancelButton = null;
+    	mStyleBackground     = null; 
+    	mStyleTextMajor      = null;
+    	mStyleTextMinor      = null;
+    	mStyleTextMajorRight = null;
+    	mStyleTextMinorRight = null;    	
+    	mStyleImageLeft      = null;
+    	mStyleImageRight     = null;
+    	mStyleCancelButton   = null;   
+    	
+    	
     }
        
 	public void AddButton( PanelBarButton button ) {
@@ -93,27 +96,19 @@ public class ListItemUniversalLayout extends AbstractListItem {
         holder.mLeftIcon       = (ImageView)view.findViewById(R.id.imageViewIconLeft);
         holder.mRightIcon      = (ImageView)view.findViewById(R.id.imageViewIconRight);
         holder.mCancelButton   = (ImageView)view.findViewById(R.id.imageViewCancelButton);
+        holder.mViewType       = getViewType();
         view.setTag(holder);
-        
-        // layout view
-        
-		mButtonPanelBar = new ThreeButtonPanelBar(view);
-		mButtonPanelBar.SetBackgroundColor( 0x00000000 ); // TODO read from style
-		mButtonPanelBar.RemoveAllButtons();
-		for ( int i=0; i<mButtons.size(); i++ ) {
-			mButtonPanelBar.AddButton( mButtons.get(i) );
-		}
-		
-		updateView( view );		
-		
+        	
         return view;
 	}	
 	
 	@Override
 	public void updateView( View view ) {
-		Logger.i( TAG, "updateView( view="+view+" )" );
+		// Logger.i( TAG, "updateView( view="+view+" )" );
 		
-		view.setBackgroundColor( mStyleBackground.mBackground );
+		if ( mStyleBackground != null ) {
+			view.setBackgroundColor( mStyleBackground.mBackground );
+		}
 		
 		Object object = view.getTag();
 		if ( object instanceof ViewHolder ) {
@@ -125,7 +120,16 @@ public class ListItemUniversalLayout extends AbstractListItem {
 			layoutTextView( holder.mMinorTextLeft, mStyleTextMinor, mDataTextMinor );
 			layoutTextView( holder.mMajorTextRight, mStyleTextMajorRight, mDataTextMajorRight );
 			layoutTextView( holder.mMinorTextRight, mStyleTextMinorRight, mDataTextMinorRight );	
+			if ( holder.mViewType != getViewType() ) {
+				return ;
+			}
+			mButtonPanelBar = new ThreeButtonPanelBar(view);
 			if ( mButtonPanelBar != null ) {
+				mButtonPanelBar.SetBackgroundColor( 0x00000000 ); // TODO read from style
+				mButtonPanelBar.RemoveAllButtons();
+				for ( int i=0; i<mButtons.size(); i++ ) {
+					mButtonPanelBar.AddButton( mButtons.get(i) );
+				}				
 				mButtonPanelBar.updateUI();
 			} else {
 				Logger.e( TAG, "updateView() - NPE button panel bar" );

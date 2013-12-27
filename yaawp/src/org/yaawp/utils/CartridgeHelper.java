@@ -14,10 +14,10 @@ import cz.matejcik.openwig.EventTable;
 
 public class CartridgeHelper {
 
-	public static byte[] getRawMediaData( int id ) {
+	public static byte[] getRawMediaData( ICartridge cartridge, int id ) {
 		byte[] iconData = null;
 		try {
-			iconData = Engine.instance.gwcfile.getFile(id);
+			iconData = cartridge.getFile(id);
 		} catch ( IOException e ) {
 			// TODO log message
 			iconData = null;
@@ -33,9 +33,14 @@ public class CartridgeHelper {
 		return Images.getImageB(defaultResource);
 	}
 	
-	private static Bitmap getIconFromId( int id, int defaultResource ) {
+	public static Bitmap getIconFromId( int id, int defaultResource ) {
+		Bitmap icon = getIconFromId( Engine.instance.gwcfile, id, defaultResource );
+		return icon;
+	}
+	
+	public static Bitmap getIconFromId( ICartridge cartridge, int id, int defaultResource ) {
 		Bitmap icon = null;
-		byte[] iconData = getRawMediaData( id );
+		byte[] iconData = getRawMediaData( cartridge, id );
 		
 		if ( iconData != null ) {
 			icon = BitmapFactory.decodeByteArray(iconData, 0, iconData.length);
@@ -44,5 +49,7 @@ public class CartridgeHelper {
 		}
 		return icon;
 	}
+	
+	
 
 }

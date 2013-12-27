@@ -10,11 +10,10 @@ public class StyleImage extends StyleBasics {
 	public int mWidth = -1;
 	public int mHeight = -1;
 	
-	public StyleImage( int visibility, int background, int width, int height, View.OnClickListener clickListener ) {
+	public StyleImage( int visibility, int background, int width, int height ) {
 		super( visibility, background );
 		mWidth = width;
 		mHeight = height;
-		mClickListener = clickListener;
 	}
 	
 };   
