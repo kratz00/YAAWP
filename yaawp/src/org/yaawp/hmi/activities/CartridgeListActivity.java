@@ -39,9 +39,6 @@ import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
-import org.yaawp.hmi.listitem.AbstractListItem;
-import org.yaawp.hmi.listitem.ListItemCartridge;
-import org.yaawp.hmi.listitem.ListItemHeader;
 import org.yaawp.hmi.listitem.ListItemGpsDisabledWarning;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceFunc;
@@ -57,7 +54,6 @@ import android.view.MenuItem;
 import java.util.Vector;
 import org.yaawp.hmi.adapter.*;
 
-import java.util.Collections;
 
 import org.yaawp.utils.A;
 import org.yaawp.utils.AssetHelper;
