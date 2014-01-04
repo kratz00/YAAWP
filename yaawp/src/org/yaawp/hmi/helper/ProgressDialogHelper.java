@@ -13,7 +13,7 @@ public class ProgressDialogHelper {
 	private static ProgressDialog progressDialog;
 	
 	public static void Show( final String headline, final String message ) {		
-		Logger.i(TAG, "Show()");
+		Logger.v(TAG, "Show()");
 
 		A.getMain().runOnUiThread(new Runnable() {
             public void run() {		
@@ -33,7 +33,7 @@ public class ProgressDialogHelper {
 	}
 	
 	public static void Hide() {
-		Logger.i(TAG, "Hide()");
+		Logger.v(TAG, "Hide()");
 		
         A.getMain().runOnUiThread(new Runnable() {
             public void run() {
@@ -48,9 +48,9 @@ public class ProgressDialogHelper {
 	}
 	
 	public static void Update( final String message ) {
-		Logger.i(TAG, "Update(" + message + ")" );
-		return;
-        /* A.getMain().runOnUiThread(new Runnable() {
+		Logger.v(TAG, "Update(" + message + ")" );
+        
+		A.getMain().runOnUiThread(new Runnable() {
             public void run() {
             	Logger.v(TAG, "UIThread context - Update(" + message + ")");
                 if (progressDialog != null) {
@@ -58,7 +58,7 @@ public class ProgressDialogHelper {
                 }
                 Logger.v(TAG, "UIThread context - Update() end");
             }
-        }); */		
+        }); 	
 	}
 	
 }
