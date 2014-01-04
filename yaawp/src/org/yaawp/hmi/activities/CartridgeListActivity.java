@@ -74,9 +74,8 @@ import org.yaawp.utils.FileCollector.Filter.FileCollectorCartridgeFilter;
 public class CartridgeListActivity extends CustomActivity {
 
 	private static final String TAG = "Main";	
-	private ListItemAdapter mAdapter = null;
+	private ListAdapterCartridges mAdapter = null;
 	private ListItemGpsDisabledWarning mGpsDisabledWarning  = null;
-	private ListItemGpsDisabledWarning mGpsDisabledWarning2  = null;
 	private ListView mCartridgeListView = null;
 	
     @Override
@@ -85,9 +84,9 @@ public class CartridgeListActivity extends CustomActivity {
         A.registerMain(this);	
 		setContentView(R.layout.layout_main);  
 				
-		mAdapter = new ListItemAdapter( this );  
+		mAdapter = new ListAdapterCartridges( this );  
 		mGpsDisabledWarning = (ListItemGpsDisabledWarning)mAdapter.AddItem( new ListItemGpsDisabledWarning(this) );
-		mGpsDisabledWarning2 = (ListItemGpsDisabledWarning)mAdapter.AddItem( new ListItemGpsDisabledWarning(this) );
+
 		
 		mCartridgeListView = new ListView(this);
 		mCartridgeListView.setDividerHeight(0);
@@ -139,13 +138,7 @@ public class CartridgeListActivity extends CustomActivity {
 
 
     }    
-    
-    private void Append( Vector<AbstractListItem> first, Vector<AbstractListItem> second ) {
-    	for ( int i=0; i<second.size(); i++ ) {
-    		first.add( second.get(i) );
-    	}    	
-    }
-    
+       
     public void updateCartridgeList() {
          	
     	mAdapter.RemoveAllItems();
@@ -195,26 +188,11 @@ public class CartridgeListActivity extends CustomActivity {
     	mAdapter.AddItem( mGpsDisabledWarning );
 		/* --------------------------------------------- */
 		
-    	if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
-        	for ( int i=0; i<YaawpAppData.GetInstance().mCartridges.size(); i++ ) {
-        		mAdapter.AddItem( new ListItemCartridge( YaawpAppData.GetInstance().mCartridges.get(i), null ) );
-        	}
-    	} else {
+    	mAdapter.AddCartridges( YaawpAppData.GetInstance().mCartridges );
     		
-    		// ListItem3ButtonsHint item = new ListItem3ButtonsHint( "Note" /* TODO I18N */,
-    				///*I18N.get(R.string.no_wherigo_cartridge_available,"<i>"+FileSystem.ROOT+"</i>", MainApplication.APP_NAME),
-    				// 0 // TODO
-    		//		); 
-    		
-    		// adapter.AddItem( item );
     	
-    	}
-    	/* --------------------------------------------- */
-    	
-    	// Vector<CartridgeListAdapterItem> data = YaawpAppData.GetInstance().mData;
-    	
-    	/* --------------------------------------------- */
-    	  
+
+    	/* --------------------------------------------- */  	  
   
         runOnUiThread( new Runnable() {
                 public void run() {
