@@ -6,25 +6,22 @@ import java.util.Vector;
 import org.yaawp.YCartridge;
 import org.yaawp.openwig.WSaveFile;
 import org.yaawp.openwig.WSeekableFile;
+import org.yaawp.utils.Logger;
 
 public class FileCollectorCartridgeFilter extends FileCollectorExtentionFilter {
 
-	private static Vector<String> mCartridges;
+	private static String TAG = FileCollectorCartridgeFilter.class.getSimpleName();
 	
-	public FileCollectorCartridgeFilter( Vector<String> cartridges ) {
+	private static Vector<YCartridge> mCartridges;
+	
+	public FileCollectorCartridgeFilter( Vector<YCartridge> cartridges ) {
 		super( "gwc" );
 		mCartridges = cartridges;
 	}
 		
 	public boolean accept(File dir, String name) {
 		boolean status = super.accept( dir, name );
-		if ( status ) {
-			// TODO check if this file a wig cartridge
-			if ( name.endsWith("gwc") ) {
-				mCartridges.add( dir.getAbsolutePath()+"/"+name );
-			}
-			status = true;
-			/*
+		if ( status == FileCollectorExtentionFilter.CONTINUE ) {		
 			File file;
 	        try {
 	        	file = new File(dir.getAbsolutePath()+"/"+name);
@@ -35,14 +32,16 @@ public class FileCollectorCartridgeFilter extends FileCollectorExtentionFilter {
 		            if (cart != null) {               
 		                mCartridges.add( cart );
 		            }
-		            status = false;
+		            status = STOP;
+	        	} else if ( file.isDirectory() ){
+	        		status = CONTINUE;
 	        	} else {
-	        		status = true;
+	        		Logger.e( TAG, "file object is not a file or a directory" );
 	        	}
 	        } catch (Exception e) {
 	        	status = false;
 	        }	
-	        */		
+	 		
 		}
         return status;
     }

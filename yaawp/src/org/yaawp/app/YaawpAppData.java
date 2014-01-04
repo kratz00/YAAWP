@@ -11,7 +11,6 @@ public class YaawpAppData {
 	private static YaawpAppData mInstance = null;
 	
 	private YaawpAppData() {
-		mCartridges = new Vector<String>();
 		mRefreshCartridgeList = true;
 		mWui = new WUI();
 	}
@@ -24,9 +23,7 @@ public class YaawpAppData {
 	}
 	
 	/* ---------------------------------- */
-		
-	public Vector<String> mCartridges;
-		
+			
 	public boolean mRefreshCartridgeList;
 	
 	public WUI mWui;

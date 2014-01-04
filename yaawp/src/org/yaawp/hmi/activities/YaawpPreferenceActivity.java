@@ -186,19 +186,19 @@ public class YaawpPreferenceActivity extends PreferenceActivity implements Prefe
         	YaawpAppData.GetInstance().mRefreshCartridgeList = true;
         }            
         else if (isPreference(preference, R.string.pref_scan_external_storage)) {
-        	YaawpAppData.GetInstance().mCartridges.clear(); // TODO set flag for new file scan
+        	// TODO YaawpAppData.GetInstance().mCartridges.clear(); // TODO set flag for new file scan
         }            
         else if (isPreference(preference, R.string.pref_exclude_android_dir)) {
-        	YaawpAppData.GetInstance().mCartridges.clear(); // TODO set flag for new file scan
+        	// TODO YaawpAppData.GetInstance().mCartridges.clear(); // TODO set flag for new file scan
         }
         else if (isPreference(preference, R.string.pref_exclude_hidden_dirs)) {
-        	YaawpAppData.GetInstance().mCartridges.clear(); // TODO set flag for new file scan
+        	// TODO YaawpAppData.GetInstance().mCartridges.clear(); // TODO set flag for new file scan
         }
         else if (isPreference(preference, R.string.pref_exclude_whereyougo_dir)) {
-        	YaawpAppData.GetInstance().mCartridges.clear(); // TODO set flag for new file scan
+        	// TODO YaawpAppData.GetInstance().mCartridges.clear(); // TODO set flag for new file scan
         }
         else if (isPreference(preference, R.string.pref_include_dropbox_dir)) {
-        	YaawpAppData.GetInstance().mCartridges.clear(); // TODO set flag for new file scan
+        	// TODO YaawpAppData.GetInstance().mCartridges.clear(); // TODO set flag for new file scan
         }            
         else if (isPreference(preference, R.string.pref_guiding_sound_type)) {
             int result = Utils.parseInt(value);

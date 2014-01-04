@@ -25,12 +25,12 @@ public class FileCollectorExtentionFilter implements FileCollectorFilter {
 	
 	public boolean accept(File dir, String name) {
 		File f;
-		boolean status = false;
+		boolean status = CONTINUE;
 		
 		if( ( mHidden == false ) && name.startsWith(".")){
-			status = false;
+			status = STOP;
 		} else if (name.endsWith( mExtention )){
-        	status = true;
+        	status = CONTINUE;
         } else { 
 	        try {
 	        	f = new File(dir.getAbsolutePath()+"/"+name);
@@ -39,7 +39,7 @@ public class FileCollectorExtentionFilter implements FileCollectorFilter {
 	           	}   
 	           	status = f.isDirectory();
 	        } catch (Exception e) {
-	        	status = false;
+	        	status = STOP;
 	        }
         }
         return status;

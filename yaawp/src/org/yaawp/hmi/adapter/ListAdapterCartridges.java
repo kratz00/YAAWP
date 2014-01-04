@@ -3,6 +3,7 @@ package org.yaawp.hmi.adapter;
 import android.app.Activity;
 import java.util.Vector;
 
+import org.yaawp.YCartridge;
 import org.yaawp.hmi.listitem.ListItemCartridge;
 
 public class ListAdapterCartridges extends ListItemAdapter {
@@ -11,7 +12,7 @@ public class ListAdapterCartridges extends ListItemAdapter {
 		super( activity );
 	}
 	
-	public void AddCartridges( Vector<String> cartridges ) {
+	public void AddCartridges( Vector<YCartridge> cartridges ) {
     	if ( cartridges.size() > 0 ) {
         	for ( int i=0; i<cartridges.size(); i++ ) {
         		AddItem( new ListItemCartridge( cartridges.get(i), null ) );

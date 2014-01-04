@@ -77,6 +77,7 @@ public class CartridgeListActivity extends CustomActivity {
 	private ListAdapterCartridges mAdapter = null;
 	private ListItemGpsDisabledWarning mGpsDisabledWarning  = null;
 	private ListView mCartridgeListView = null;
+	private Vector<YCartridge> mCartridges = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class CartridgeListActivity extends CustomActivity {
 		mAdapter = new ListAdapterCartridges( this );  
 		mGpsDisabledWarning = (ListItemGpsDisabledWarning)mAdapter.AddItem( new ListItemGpsDisabledWarning(this) );
 
+		mCartridges = new Vector<YCartridge>();
 		
 		mCartridgeListView = new ListView(this);
 		mCartridgeListView.setDividerHeight(0);
@@ -188,7 +190,7 @@ public class CartridgeListActivity extends CustomActivity {
     	mAdapter.AddItem( mGpsDisabledWarning );
 		/* --------------------------------------------- */
 		
-    	mAdapter.AddCartridges( YaawpAppData.GetInstance().mCartridges );
+    	mAdapter.AddCartridges( mCartridges );
     		
     	
 
@@ -207,8 +209,8 @@ public class CartridgeListActivity extends CustomActivity {
     	Vector<AbstractListItem> data = new Vector<AbstractListItem>();
     	data.clear();
     	
-    	CartridgeListAdapterItemComparator comparator1 = null;
-    	CartridgeListAdapterItemComparator comparator2 = null;
+    	CartridgeComparator comparator1 = null;
+    	CartridgeComparator comparator2 = null;
     	
     	String headerRight1 = "";
     	String headerRight2 = "";
@@ -445,11 +447,11 @@ public class CartridgeListActivity extends CustomActivity {
 				 YaawpAppData.GetInstance().mFileSystemSpace == true) {
 				  	
     	
-    	if ( YaawpAppData.GetInstance().mCartridges.size() > 0 ) {
+    	if ( mCartridges.size() > 0 ) {
     	   	updateCartridgeList();
     	} else {
 
-	    	FileCollectorCartridgeFilter filter = new FileCollectorCartridgeFilter( YaawpAppData.GetInstance().mCartridges );	
+	    	FileCollectorCartridgeFilter filter = new FileCollectorCartridgeFilter( mCartridges );	
 	    	filter.acceptHiddenFiles(true);
 
 	    	Vector<String> excludePaths = new Vector<String>();
@@ -483,7 +485,7 @@ public class CartridgeListActivity extends CustomActivity {
 	    	FileCollector fc = new FileCollector( includePaths, filter, true, mCartridgeCollectorListener );
 	    	
 
-	    	YaawpAppData.GetInstance().mCartridges.clear();
+	    	mCartridges.clear();
 	    	fc.startAsyncronCollecting();
     	}
 		} else {

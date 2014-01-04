@@ -1,8 +1,10 @@
 package org.yaawp.hmi.listitem;
 
-import org.yaawp.R;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import java.io.File;
+import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
@@ -17,12 +19,6 @@ import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.CartridgeHelper;
 import org.yaawp.utils.UtilsFormat;
-import android.content.DialogInterface;
-
-
-import java.io.File;
-
-
 
 
 public class ListItemCartridge extends ListItemUniversalLayout {
@@ -30,42 +26,28 @@ public class ListItemCartridge extends ListItemUniversalLayout {
 	private static String TAG = ListItemCartridge.class.getSimpleName();
     public boolean mIsAnywhere;
     private String mFilename;
+    public YCartridge mCartridge = null ;
     
-	public ListItemCartridge( String filename, AbstractListItem parent ) {
+	public ListItemCartridge( YCartridge cartridge, AbstractListItem parent ) {
 		super( false, parent );	
-		mFilename = filename;
-		File file;
-        try {
-        	file = new File( filename );
-
-        	if ( file.isFile() ) {
-	            YCartridge cart = YCartridge.read(file.getAbsolutePath(), new WSeekableFile(file), new WSaveFile(file));
+		mCartridge = cartridge;
 	            
-	    		mDataImageLeft = CartridgeHelper.getIconFromId( cart, cart.getIconId(), R.drawable.icon_gc_wherigo );
-	    		mDataTextMajor = cart.getName();
-	    		mIsAnywhere = cart.isPlayAnywhere();
+	    mDataImageLeft = CartridgeHelper.getIconFromId( mCartridge, mCartridge.getIconId(), R.drawable.icon_gc_wherigo );
+   		mDataTextMajor = mCartridge.getName();
+   		mIsAnywhere    = mCartridge.isPlayAnywhere();
 	    		
-	    		String description = "";
-	            if ( !cart.isPlayAnywhere() ) {
-	        		Location loc = new Location(TAG);
-	        		loc.setLatitude(cart.getLatitude());
-	        		loc.setLongitude(cart.getLongitude());
-
-	        		description += (description.length()>0 ? ", " : "") + UtilsFormat.formatDistance(LocationState.getLocation().distanceTo(loc), false);
-	            }
+   		String description = "";
+        if ( !mCartridge.isPlayAnywhere() ) {
+       		Location loc = new Location(TAG);
+       		loc.setLatitude(mCartridge.getLatitude());
+       		loc.setLongitude(mCartridge.getLongitude());
+       		description += (description.length()>0 ? ", " : "") + UtilsFormat.formatDistance(LocationState.getLocation().distanceTo(loc), false);
+        }
 	           
-	            description += (description.length()>0 ? ", " : "") + cart.getAuthor();
-	            description += (description.length()>0 ? ", " : "") + cart.getVersion();		
-	            mDataTextMinor = description;
+        description += (description.length()>0 ? ", " : "") + mCartridge.getAuthor();
+        description += (description.length()>0 ? ", " : "") + mCartridge.getVersion();		
+        mDataTextMinor = description;
 	            		
-        	} else {
-        		mDataTextMajor = "{error}";
-        		mDataTextMinor = filename;	
-        	}
-        } catch (Exception e) {
-    		mDataTextMajor = "{exception:"+e.toString()+"}";
-    		mDataTextMinor = filename;     	
-        }		
 		      
         /*
         if (mCartridge.getSavegame().exists()) { 
