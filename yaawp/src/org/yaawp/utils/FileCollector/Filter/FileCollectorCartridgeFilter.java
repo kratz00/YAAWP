@@ -20,7 +20,9 @@ public class FileCollectorCartridgeFilter extends FileCollectorExtentionFilter {
 		boolean status = super.accept( dir, name );
 		if ( status ) {
 			// TODO check if this file a wig cartridge
-			mCartridges.add( dir.getAbsolutePath()+"/"+name );
+			if ( name.endsWith("gwc") ) {
+				mCartridges.add( dir.getAbsolutePath()+"/"+name );
+			}
 			status = true;
 			/*
 			File file;
