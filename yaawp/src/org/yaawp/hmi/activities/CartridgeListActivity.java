@@ -93,7 +93,7 @@ public class CartridgeListActivity extends CustomActivity {
 		mCartridgeListView.setDividerHeight(0);
 		mCartridgeListView.setDivider( null );
         mCartridgeListView.setAdapter(mAdapter);
-        mCartridgeListView.setOnItemClickListener( mAdapter.mListClick );
+        mCartridgeListView.setOnItemClickListener( mAdapter.mOnItemClickListener );
         mCartridgeListView.setOnCreateContextMenuListener( mAdapter.mCtxMenu );
 		
         RelativeLayout contentArea = (RelativeLayout) this.findViewById(R.id.relative_layout_content);

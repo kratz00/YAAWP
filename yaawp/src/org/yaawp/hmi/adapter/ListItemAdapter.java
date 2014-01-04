@@ -25,9 +25,8 @@ public class ListItemAdapter extends BaseAdapter {
     private Context mContext;
     private Activity mActivity;
     
-	public AdapterView.OnItemClickListener mListClick = new AdapterView.OnItemClickListener() { // TODO rename member
-		public void onItemClick(AdapterView<?> parent, View view,
-				int position, long id) {
+	public AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			Logger.i( TAG, "onItemClick( position="+position+" )" );
 			ListItemAdapter.this.mListItems.get(position).onListItemClicked( mActivity );
 		}
