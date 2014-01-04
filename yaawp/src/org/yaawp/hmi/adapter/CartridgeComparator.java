@@ -6,7 +6,7 @@ import org.yaawp.YCartridge;
 import org.yaawp.hmi.listitem.AbstractListItem;
 import org.yaawp.hmi.listitem.ListItemCartridge;
 
-public class CartridgeListAdapterItemComparator implements Comparator<AbstractListItem> {
+public class CartridgeComparator implements Comparator<AbstractListItem> {
 
 	@Override
     public int compare(AbstractListItem o1, AbstractListItem o2) {

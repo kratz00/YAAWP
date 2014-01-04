@@ -4,7 +4,7 @@ import org.yaawp.YCartridge;
 import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationState;
 
-public class CartridgeComparatorDistanceNear extends CartridgeListAdapterItemComparator {
+public class CartridgeComparatorDistanceNear extends CartridgeComparator {
  
 	private static String TAG="CartridgeComparatorDistanceNear";
     	

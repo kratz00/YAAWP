@@ -2,7 +2,7 @@ package org.yaawp.hmi.adapter;
 
 import org.yaawp.YCartridge;
 
-public class CartridgeComparatorNameZtoA extends CartridgeListAdapterItemComparator { 
+public class CartridgeComparatorNameZtoA extends CartridgeComparator { 
     @Override
     public int compare(YCartridge c1, YCartridge c2) {
     	String s1 = c1.getName();

@@ -7,7 +7,7 @@ import org.yaawp.positioning.LocationState;
 
 
 
-public class CartridgeComparatorDistanceFar extends CartridgeListAdapterItemComparator {
+public class CartridgeComparatorDistanceFar extends CartridgeComparator {
     private static String TAG="CartridgeComparatorDistanceFar";
     
 	@Override
