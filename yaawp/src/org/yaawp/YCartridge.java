@@ -11,7 +11,7 @@ import cz.matejcik.openwig.platform.SeekableFile;
 
 public class YCartridge extends CartridgeFile {
 
-	private String filename;
+	public String filename;
 	
 	private YCartridge() { }
 	

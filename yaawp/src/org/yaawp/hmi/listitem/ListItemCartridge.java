@@ -24,9 +24,7 @@ import org.yaawp.utils.UtilsFormat;
 public class ListItemCartridge extends ListItemUniversalLayout {
 
 	private static String TAG = ListItemCartridge.class.getSimpleName();
-    public boolean mIsAnywhere;
-    private String mFilename;
-    public YCartridge mCartridge = null ;
+    public YCartridge mCartridge = null;
     
 	public ListItemCartridge( YCartridge cartridge, AbstractListItem parent ) {
 		super( false, parent );	
@@ -34,8 +32,7 @@ public class ListItemCartridge extends ListItemUniversalLayout {
 	            
 	    mDataImageLeft = CartridgeHelper.getIconFromId( mCartridge, mCartridge.getIconId(), R.drawable.icon_gc_wherigo );
    		mDataTextMajor = mCartridge.getName();
-   		mIsAnywhere    = mCartridge.isPlayAnywhere();
-	    		
+
    		String description = "";
         if ( !mCartridge.isPlayAnywhere() ) {
        		Location loc = new Location(TAG);
@@ -75,17 +72,17 @@ public class ListItemCartridge extends ListItemUniversalLayout {
         
                 @Override
                 public void onClick(DialogInterface dialog, int btn) {
-                    CartridgeSession.Continue( mFilename, YaawpAppData.GetInstance().mWui );
+                    CartridgeSession.Continue( mCartridge, YaawpAppData.GetInstance().mWui );
                 }
             }, new DialogInterface.OnClickListener() {
                 
                 @Override
                 public void onClick(DialogInterface dialog, int btn) {
-                	CartridgeDetailsActivity.showScreen(mFilename);
+                	CartridgeDetailsActivity.showScreen( mCartridge.filename );
                 }
             });
         } else {
-        	CartridgeDetailsActivity.showScreen(mFilename);
+        	CartridgeDetailsActivity.showScreen( mCartridge.filename );
         }
 	}	
 	
