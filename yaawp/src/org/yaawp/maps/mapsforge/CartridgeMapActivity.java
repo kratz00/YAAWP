@@ -48,6 +48,11 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		super.onResume();
 		Settings.setCurrentActivity(this);
 		mMapview.invalidate();
+		mOverlayZones.requestRedraw();
+		mOverlayPosition.requestRedraw();
+		Guide g = A.getGuidingContent().getGuide();
+		mOverlayGuidance.show(g != null);
+		mOverlayGuidance.requestRedraw();		
 	}
 	
 	@Override
@@ -125,6 +130,8 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 			mOverlayPosition.requestRedraw();
 			
 			if ( mOverlayGuidance != null ) {
+				Guide g = A.getGuidingContent().getGuide();
+				mOverlayGuidance.show( g != null );
 				mOverlayGuidance.onLocationChanged( location );
 				mOverlayGuidance.requestRedraw();			
 			}
