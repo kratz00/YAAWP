@@ -22,8 +22,7 @@ public class ListItemAdapter extends BaseAdapter {
 	private Vector<AbstractListItem> mAllListItems = null; 
 	private Vector<AbstractListItem> mListItems = null;
 	
-    private Context mContext;
-    private Activity mActivity;
+    protected Activity mActivity;
     
 	public AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -46,7 +45,6 @@ public class ListItemAdapter extends BaseAdapter {
 		super();
 		mAllListItems = new Vector<AbstractListItem>();
 		mListItems = new Vector<AbstractListItem>();
-		mContext = (Context)activity;
 		mActivity = activity;
     }
 	
@@ -133,7 +131,7 @@ public class ListItemAdapter extends BaseAdapter {
 		AbstractListItem item = mListItems.get(position);
 		View view = convertView; 
 		if ( view == null ) {
-			view = item.createView( mContext );
+			view = item.createView( mActivity );
 		}
 		// view.setFocusableInTouchMode(false);
 		// item.setView(view);
