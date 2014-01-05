@@ -9,8 +9,6 @@ import android.graphics.Point;
 public abstract class GenericOverlay {
 
 	protected Location mLocation;
-    private Point center = new Point();
-    private Point left = new Point();
     
     public abstract void drawBitmap(Canvas canvas, MapProjection projection);   
     
@@ -18,10 +16,12 @@ public abstract class GenericOverlay {
     	mLocation = location;
     }
     
-    public int distanceInMap( float distanceMeter, MapProjection projection ) {
-        float longitudeLineDistance = mLocation.longitudeLineDistance();
-        double latitude = mLocation.getLatitude();
-        double longitude = mLocation.getLongitude();
+    protected static int distanceInMap( Location location, float distanceMeter, MapProjection projection ) {
+    	Point center = new Point();
+    	Point left = new Point();
+    	float longitudeLineDistance = location.longitudeLineDistance();
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
         projection.toPixels( latitude, longitude - (distanceMeter / longitudeLineDistance), left);
         projection.toPixels( latitude, longitude, center);
         return center.x - left.x;  
