@@ -88,10 +88,13 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 		// mOverlayZones = new OverlayZones();
 		mMapview.getOverlays().add(mOverlayZones);
 		mOverlayZones.requestRedraw();
-		
-		
 	}	
 
+	public void onDestroy() {
+		super.onDestroy();
+		mMapview.getOverlays().clear();
+	}
+	
 	public void onStart() {
 		super.onStart();
 		LocationState.addLocationChangeListener(this);
@@ -152,6 +155,7 @@ public class CartridgeMapActivity extends MapActivity implements LocationEventLi
 	
 	@Override
 	public void refresh() {
+		
 		mOverlayZones.requestRedraw();
 	}
 	
