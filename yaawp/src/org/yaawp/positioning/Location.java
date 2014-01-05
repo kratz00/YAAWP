@@ -357,6 +357,19 @@ public class Location {
     }
 
     /**
+     * Returns the approximate distance in meters between this
+     * longitude and the next longitude at this position (latitude)
+     * Distance is defined using the WGS84 ellipsoid.
+     * 
+     * @return the approximate distance in meters
+     */
+    public float longitudeLineDistance() {
+    	Location next = new Location(this);
+    	next.setLongitude(this.getLongitude()+1);
+    	return this.distanceTo(next); 
+    }
+        
+    /**
      * Returns the approximate initial bearing in degrees East of true
      * North when traveling along the shortest path between this
      * location and the given location.  The shortest path is defined
