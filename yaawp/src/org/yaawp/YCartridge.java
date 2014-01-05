@@ -17,7 +17,7 @@ public class YCartridge extends CartridgeFile {
 	
 	private YCartridge( String _filename, SeekableFile source, FileHandle savefile ) throws IOException {
 		super(source,savefile);
-		Logger.i( "YCartridge", "ctor, file="+_filename );
+		Logger.v( "YCartridge", "ctor, file="+_filename );
 		filename = _filename;
 	}
 	
