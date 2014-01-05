@@ -65,7 +65,7 @@ public class ListItemCartridge extends ListItemUniversalLayout {
 	
 	@Override
 	public void onListItemClicked( Activity activity ) {
-        if ( /*mCartridge.existsSaveFile()*/ true ) {
+        if ( mCartridge.existsSaveFile() ) {
             UtilsGUI.showDialogQuestion( activity,
                     R.string.resume_previous_cartridge,
                     new DialogInterface.OnClickListener() {
