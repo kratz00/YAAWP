@@ -61,7 +61,7 @@ import org.yaawp.utils.CartridgeHelper;
 
 public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 
-	private static final String TAG = "CartridgeMainMenu";
+	private static final String TAG = WigMainMenuActivity.class.getSimpleName();
 	
 	private ThreeButtonPanelBar mButtonPanelBar;
 	private PanelBarButtonShowMap mButtonShowMap;
