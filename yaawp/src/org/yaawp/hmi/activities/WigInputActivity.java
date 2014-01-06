@@ -21,9 +21,6 @@
 package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
-import org.yaawp.app.YaawpAppData;
-import org.yaawp.bl.CartridgeSession;
-import org.yaawp.hmi.gui.extension.CustomDialog;
 import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
@@ -35,7 +32,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;

@@ -15,8 +15,6 @@ import org.yaawp.utils.Images;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.graphics.Color;
 import org.yaawp.hmi.listitem.styles.*;
 
 public class ListItemGpsDisabledWarning extends ListItemUniversalLayout implements LocationEventListener {

@@ -43,7 +43,6 @@ import org.yaawp.maps.mapsforge.CartridgeMapActivity;
 import org.yaawp.openwig.Refreshable;
 import org.yaawp.openwig.WUI;
 import org.yaawp.utils.A;
-import org.yaawp.utils.Const;
 import org.yaawp.utils.Logger;
 import org.yaawp.utils.ManagerNotify;
 

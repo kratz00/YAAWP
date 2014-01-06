@@ -24,7 +24,6 @@ import java.io.File;
 
 import org.yaawp.R;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -46,7 +45,6 @@ import org.yaawp.openwig.WSeekableFile;
 import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.A;
-import org.yaawp.utils.CartridgeHelper;
 import org.yaawp.utils.Logger;
 import org.yaawp.utils.UtilsFormat;
 

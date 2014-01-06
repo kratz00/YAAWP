@@ -1,18 +1,16 @@
 package org.yaawp.hmi.listitem;
 
-import org.yaawp.hmi.helper.I18N;
-import org.yaawp.hmi.listitem.ListItemUniversalLayout;
-import org.yaawp.utils.CartridgeHelper;
-import org.yaawp.utils.Images;
-import cz.matejcik.openwig.Engine;
-import org.yaawp.R;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
-
+import cz.matejcik.openwig.Engine;
+import org.yaawp.R;
+import org.yaawp.hmi.helper.I18N;
+import org.yaawp.hmi.listitem.ListItemUniversalLayout;
 import org.yaawp.hmi.listitem.styles.*;
+import org.yaawp.utils.CartridgeHelper;
+import org.yaawp.utils.Images;
 
-import android.content.Context;
 
 public class ListItemCartridgeHeadline extends ListItemUniversalLayout {
 

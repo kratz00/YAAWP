@@ -21,8 +21,6 @@
 package org.yaawp.hmi.activities;
 
 import org.yaawp.R;
-import org.yaawp.hmi.gui.extension.CustomDialog;
-import org.yaawp.hmi.helper.I18N;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.utils.Logger;
@@ -32,9 +30,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Media;

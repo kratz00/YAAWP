@@ -21,13 +21,9 @@
 package org.yaawp.hmi.gui.extension;
 
 import org.yaawp.R;
-import org.yaawp.utils.Utils;
-
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;

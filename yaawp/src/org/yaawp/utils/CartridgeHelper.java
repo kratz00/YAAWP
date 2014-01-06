@@ -1,16 +1,11 @@
 package org.yaawp.utils;
 
-import java.io.IOException;
-
-import org.yaawp.R;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import cz.matejcik.openwig.formats.ICartridge;
-import cz.matejcik.openwig.Media;
-import cz.matejcik.openwig.Zone;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.EventTable;
+import java.io.IOException;
 
 public class CartridgeHelper {
 

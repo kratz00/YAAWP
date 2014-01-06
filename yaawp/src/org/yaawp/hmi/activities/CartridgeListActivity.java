@@ -219,12 +219,14 @@ public class CartridgeListActivity extends CustomActivity {
     
     @Override
     public boolean onContextItemSelected( MenuItem item ) {
+    	/*
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         int index = item.getItemId();
         
         final ListView listview = mCartridgeListView; 
         ListItemAdapter xadapter = (ListItemAdapter)listview.getAdapter();
         // boolean status = xadapter.onContextItemSelected( info.position, index );
+         */
         return true;
     }
             

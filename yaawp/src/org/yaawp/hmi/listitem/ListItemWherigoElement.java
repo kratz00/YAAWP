@@ -1,12 +1,8 @@
 package org.yaawp.hmi.listitem;
 
+import cz.matejcik.openwig.EventTable;
 import org.yaawp.R;
 import org.yaawp.utils.CartridgeHelper;
-
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.view.View;
-import cz.matejcik.openwig.EventTable;
 import org.yaawp.hmi.listitem.styles.*;
 
 public class ListItemWherigoElement extends ListItemUniversalLayout {

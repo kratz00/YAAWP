@@ -4,14 +4,7 @@ import java.util.Vector;
 
 import org.yaawp.R;
 import org.yaawp.hmi.helper.I18N;
-import org.yaawp.hmi.helper.ScreenHelper;
-import org.yaawp.hmi.listitem.ListItemUniversalLayout;
-import org.yaawp.hmi.listitem.styles.*;
 import org.yaawp.utils.Images;
-
-import android.app.Activity;
-import android.content.Context;
-import android.view.View;
 import cz.matejcik.openwig.Engine;
 import cz.matejcik.openwig.Zone;
 
