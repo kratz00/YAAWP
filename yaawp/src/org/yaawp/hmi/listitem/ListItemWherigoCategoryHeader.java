@@ -19,11 +19,11 @@ public abstract class ListItemWherigoCategoryHeader extends ListItemUniversalLay
 
 	public ListItemWherigoCategoryHeader() {
 		super( true, null );    	
-    	mStyleBackground     = Styles.mStyleBackgroundDarkGray; 
-    	mStyleTextMajor      = Styles.mStyleTextMajor;
-    	mStyleTextMinor      = Styles.mStyleTextMinor;
-    	mStyleTextMajorRight = Styles.mStyleTextMajor;
-    	mStyleTextMinorRight = Styles.mStyleTextMinor;  	
+    	mStyleBackground     = Styles.mStyleBackgroundDarkHolo2; 
+    	mStyleTextMajor      = Styles.mStyleTextDarkHoloMajorBold;
+    	mStyleTextMinor      = Styles.mStyleTextDarkHoloMinor;
+    	mStyleTextMajorRight = Styles.mStyleTextDarkHoloMajor;
+    	mStyleTextMinorRight = Styles.mStyleTextDarkHoloMinor;  	
     	mStyleImageLeft      = Styles.mStyleImageLarge;
     	mStyleImageRight     = null;
     	mStyleCancelButton   = null;	       	

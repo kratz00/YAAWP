@@ -33,7 +33,7 @@ public class ListItemHeader extends AbstractListItem {
 	public void updateView( View view ) {
 		// View view = mView;
 		try {				
-		
+			view.setBackgroundColor( 0xff2d2d2d );
 			ImageView iv01 = (ImageView) view.findViewById(R.id.image_left);
 			if ( iv01 != null ) {
 				if ( mBitmap != null ) {
@@ -47,10 +47,12 @@ public class ListItemHeader extends AbstractListItem {
 			TextView tvLeft  = (TextView) view.findViewById(R.id.linearLayoutSeparatorHeadline);
 			tvLeft.setVisibility(View.VISIBLE);
 			tvLeft.setText(Html.fromHtml(mTitleLeft));
+			tvLeft.setTextColor(0xfffefefe);
 			
 			TextView tvRight = (TextView) view.findViewById(R.id.linearLayoutSeparatorHeadline2);
 			tvRight.setVisibility(View.VISIBLE);
 			tvRight.setText(Html.fromHtml(mTitleRight));
+			tvRight.setTextColor(0xffa8a8a8);
 
 		} catch (Exception e) {
 			Logger.e(TAG, "getView(" + view + ")", e);

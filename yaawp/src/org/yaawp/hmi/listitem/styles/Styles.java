@@ -7,6 +7,7 @@ import android.view.View;
 public class Styles {
     public static final StyleBasics mStyleBackgroundLightGray = new StyleBasics( View.VISIBLE, 0xFFDDDDDD ); 
     public static final StyleBasics mStyleBackgroundDarkGray  = new StyleBasics( View.VISIBLE, 0xff999999 ); 
+    public static final StyleBasics mStyleBackgroundDarkHolo2 = new StyleBasics( View.VISIBLE, 0xff2d2d2d );
     public static final StyleBasics mStyleBackgroundDarkHolo = new StyleBasics( View.VISIBLE, 0xff000000 );
     
     public static final StyleText   mStyleTextMajor     = new StyleText( View.VISIBLE, Color.TRANSPARENT, 0xff333333, 18, Typeface.NORMAL );

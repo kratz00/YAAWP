@@ -82,6 +82,7 @@ public class CartridgeListActivity extends CustomActivity {
 		mCartridges = new Vector<YCartridge>();
 		
 		mCartridgeListView = new ListView(this);
+		mCartridgeListView.setDivider( getResources().getDrawable( R.drawable.list_divider ) );
 		mCartridgeListView.setDividerHeight(2);
         mCartridgeListView.setAdapter(mAdapter);
         mCartridgeListView.setOnItemClickListener( mAdapter.mOnItemClickListener );

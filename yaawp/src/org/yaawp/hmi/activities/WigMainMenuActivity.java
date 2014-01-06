@@ -72,6 +72,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		/* ------------------------------------------------------------------ */
     	
 		mCartridgeListView = new ListView(this);  
+		mCartridgeListView.setDivider( getResources().getDrawable( R.drawable.list_divider ) );
 		mCartridgeListView.setDividerHeight(2);	
 		mCartridgeListView.setAdapter(mAdapter);
 		mCartridgeListView.setOnItemClickListener( mAdapter.mOnItemClickListener );
