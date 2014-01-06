@@ -164,53 +164,56 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
         return status;
     }            
     
-
-
-	private long lastPressedTime;
+    @Override
+	public boolean onKeyTwiceDown( int keyCode, KeyEvent event ) {
+		Log.i( TAG, "onKeyTwiceDown( KeyCode="+keyCode );
+		boolean status = false;
+		
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+	    	AlertDialog.Builder b = new AlertDialog.Builder(WigMainMenuActivity.this);
+	    	b.setCancelable(true);
+	    	b.setTitle(R.string.question);
+	    	b.setMessage(R.string.save_game_before_exit);
+	    	b.setPositiveButton(R.string.yes, 
+	    		new DialogInterface.OnClickListener() {
+						
+		    		@Override
+		    		public void onClick(DialogInterface dialog, int which) {	    		    
+						Engine.requestSync();
+						new SaveGameOnExit().execute();
+		    		}
+	    		});
+	    	b.setNeutralButton(R.string.cancel, null);
+	    	b.setNegativeButton(R.string.no, 
+	    		new DialogInterface.OnClickListener() {
+				
+		    		@Override
+		    		public void onClick(DialogInterface dialog, int which) {
+						Engine.kill();
+						WigMainMenuActivity.this.finish();
+		    		}
+		    	});
+			b.show();
+			status = true;
+		} else {
+			status = super.onKeyTwiceDown(keyCode, event);
+		}
+		return status;
+	}
 	
     @Override
-    public boolean onKeyDown (int keyCode, KeyEvent event) {
-    	Log.i("GuidingActivity", "onKeyDown( KeyCode="+keyCode );
-    	
-	    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            if (event.getDownTime() - lastPressedTime < Const.DOUBLE_PRESS_HK_BACK_PERIOD) {
-    	    	AlertDialog.Builder b = new AlertDialog.Builder(WigMainMenuActivity.this);
-    	    	b.setCancelable(true);
-    	    	b.setTitle(R.string.question);
-    	    	b.setMessage(R.string.save_game_before_exit);
-    	    	b.setPositiveButton(R.string.yes, 
-    	    			new DialogInterface.OnClickListener() {
-    						
-    	    		@Override
-    	    		public void onClick(DialogInterface dialog, int which) {	    		    
-    					Engine.requestSync();
-    					// Main.currentCartridge = null;
-    					new SaveGameOnExit().execute();
-    	    		}
-    	    	});
-    	    	b.setNeutralButton(R.string.cancel, null);
-    	    	b.setNegativeButton(R.string.no, 
-    	    			new DialogInterface.OnClickListener() {
-    				
-    	    		@Override
-    	    		public void onClick(DialogInterface dialog, int which) {
-    					Engine.kill();
-    					// Main.currentCartridge = null;
-    					WigMainMenuActivity.this.finish();
-    	    		}
-    	    	});
-    			b.show();
-            } else {
-            	ManagerNotify.toastShortMessage(R.string.double_hk_back_exit_game);
-                lastPressedTime = event.getEventTime();
-            }
-	    	return true; 
-    	} else {
-    		super.onKeyDown(keyCode, event);
-    	}
-	        
-        return false;
-    }
+	public boolean onKeyOnceDown( int keyCode, KeyEvent event ) {
+		Log.i( TAG, "onKeyOnceDown( KeyCode="+keyCode );
+		boolean status = false;
+		
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+			ManagerNotify.toastShortMessage(R.string.double_hk_back_exit_game);
+			status = true;
+		} else {
+			status = super.onKeyOnceDown(keyCode, event);
+		}
+		return status;
+	}
     
 	private class SaveGameOnExit extends AsyncTask<Void, Void, Void> {
 
@@ -248,6 +251,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		
 	}
 	
+	@Override
 	public void refresh() {
 		mAdapter.refresh();
 	}

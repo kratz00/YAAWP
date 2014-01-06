@@ -20,41 +20,34 @@
 
 package org.yaawp.hmi.activities;
 
-import java.io.File;
-import java.io.StringReader;
-
 import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
+import java.io.File;
+import java.io.StringReader;
+import java.util.Vector;
 import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
+import org.yaawp.hmi.adapter.*;
 import org.yaawp.hmi.helper.ProgressDialogHelper;
 import org.yaawp.hmi.listitem.ListItemGpsDisabledWarning;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.preferences.PreferenceFunc;
 import org.yaawp.preferences.PreferenceUtils;
 import org.yaawp.preferences.Settings;
-
-import android.os.Bundle;
-import android.os.Debug;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import java.util.Vector;
-import org.yaawp.hmi.adapter.*;
-
-
 import org.yaawp.utils.A;
 import org.yaawp.utils.AssetHelper;
 import org.yaawp.utils.Const;
@@ -65,6 +58,8 @@ import org.yaawp.utils.Utils;
 import org.yaawp.utils.FileCollector.FileCollector;
 import org.yaawp.utils.FileCollector.FileCollectorListener;
 import org.yaawp.utils.FileCollector.Filter.FileCollectorCartridgeFilter;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 
 public class CartridgeListActivity extends CustomActivity {
@@ -377,27 +372,36 @@ public class CartridgeListActivity extends CustomActivity {
 		
     }
     
-    private long lastPressedTime;
-    
     @Override
-    public boolean onKeyDown (int keyCode, KeyEvent event) {
-    	Log.i("CartridgeListActivity", "onKeyDown( KeyCode="+keyCode );
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            switch (event.getAction()) {
-            case KeyEvent.ACTION_DOWN:
-                if (event.getDownTime() - lastPressedTime < Const.DOUBLE_PRESS_HK_BACK_PERIOD) {
-                    finish();
-                } else {
-                	ManagerNotify.toastShortMessage(R.string.double_hk_back_exit_app);
-                    lastPressedTime = event.getEventTime();
-                }
-                return true;
-            }
-        }
-        return false;
-    }  
+	public boolean onKeyTwiceDown( int keyCode, KeyEvent event ) {
+		Log.i( TAG, "onKeyTwiceDown( KeyCode="+keyCode );
+		boolean status = false;
+		
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+	    	finish();
+			status = true;
+		} else {
+			status = super.onKeyTwiceDown(keyCode, event);
+		}
+		return status;
+	}
+	
+    @Override
+	public boolean onKeyOnceDown( int keyCode, KeyEvent event ) {
+		Log.i( TAG, "onKeyOnceDown( KeyCode="+keyCode );
+		boolean status = false;
+		
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+			ManagerNotify.toastShortMessage(R.string.double_hk_back_exit_app);
+			status = true;
+		} else {
+			status = super.onKeyOnceDown(keyCode, event);
+		}
+		return status;
+	}    
     
-    // MainAfterStart
+
+    
     public static String getNewsFromTo(int lastVersion, int actualVersion) {
 //Logger.d(TAG, "getNewsFromTo(" + lastVersion + ", " + actualVersion + "), file:" + 
 //		"news_" + (Const.isPro() ? "pro" : "free") + ".xml");

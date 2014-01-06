@@ -21,8 +21,12 @@
 package org.yaawp.hmi.activities;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -39,7 +43,10 @@ import java.lang.System;
 
 public class CustomActivity extends FragmentActivity {
 
-	// protected Handler handler;
+	private static String TAG = CustomActivity.class.getSimpleName();
+	
+	private long lastPressedTime;
+	private long lastKeyCode;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -142,4 +149,33 @@ Logger.v(getLocalClassName(), "onDestroy(), id:" + hashCode());
 		return -1;
 	}
 	
+	public boolean onKeyTwiceDown( int keyCode, KeyEvent event ) {
+		Log.i( TAG, "onKeyTwiceDown( KeyCode="+keyCode );
+		return super.onKeyDown(keyCode, event);
+	}
+	
+	public boolean onKeyOnceDown( int keyCode, KeyEvent event ) {
+		Log.i( TAG, "onKeyOnceDown( KeyCode="+keyCode );
+		return super.onKeyDown(keyCode, event);
+	}	
+	
+    @Override
+    public boolean onKeyDown (int keyCode, KeyEvent event) {
+    	Log.i( TAG, "onKeyDown( KeyCode="+keyCode+" KeyEvent="+event.getAction() );
+    	boolean status = false;
+    	
+	    if ( event.getAction() == KeyEvent.ACTION_DOWN ) {
+            if (    event.getKeyCode() == lastKeyCode
+            	 && event.getDownTime() - lastPressedTime < Const.DOUBLE_PRESS_HK_BACK_PERIOD) {
+            	status = onKeyTwiceDown( event.getKeyCode(), event );
+            } else {
+                lastPressedTime = event.getDownTime();
+                lastKeyCode = event.getKeyCode();
+                status = onKeyOnceDown( keyCode, event );
+            }
+    	} else {
+    		status = super.onKeyDown( keyCode, event );
+    	}
+        return status;
+    }	
 }
