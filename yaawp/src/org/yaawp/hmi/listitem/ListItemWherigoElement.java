@@ -18,11 +18,11 @@ public class ListItemWherigoElement extends ListItemUniversalLayout {
 		mDataTextMinor = mObject.description;
 		mDataImageLeft = CartridgeHelper.getIconFrom( et, R.drawable.icon_locations );				
 		
-    	mStyleBackground     = Styles.mStyleBackgroundLightGray;
-    	mStyleTextMajor      = Styles.mStyleTextMajor;
-    	mStyleTextMinor      = Styles.mStyleTextMinor;
-    	mStyleTextMajorRight = Styles.mStyleTextMajor;
-    	mStyleTextMinorRight = Styles.mStyleTextMinor;
+    	mStyleBackground     = Styles.mStyleBackgroundDarkHolo;
+    	mStyleTextMajor      = Styles.mStyleTextDarkHoloMajor;
+    	mStyleTextMinor      = Styles.mStyleTextDarkHoloMinor;
+    	mStyleTextMajorRight = Styles.mStyleTextDarkHoloMajor;
+    	mStyleTextMinorRight = Styles.mStyleTextDarkHoloMinor;
     	mStyleImageLeft      = Styles.mStyleImageSmall;
     	mStyleImageRight     = Styles.mStyleImageSmall;
     	mStyleCancelButton   = null;		

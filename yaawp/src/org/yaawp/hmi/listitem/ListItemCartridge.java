@@ -47,9 +47,9 @@ public class ListItemCartridge extends ListItemUniversalLayout {
         }
         */        
         
-    	mStyleBackground     = Styles.mStyleBackgroundLightGray; 
-    	mStyleTextMajor      = Styles.mStyleTextMajor;
-    	mStyleTextMinor      = Styles.mStyleTextMinor;
+    	mStyleBackground     = Styles.mStyleBackgroundDarkHolo; 
+    	mStyleTextMajor      = Styles.mStyleTextDarkHoloMajor;
+    	mStyleTextMinor      = Styles.mStyleTextDarkHoloMinor;
     	mStyleTextMajorRight = null;
     	mStyleTextMinorRight = null;    	
     	mStyleImageLeft      = Styles.mStyleImageLarge;
