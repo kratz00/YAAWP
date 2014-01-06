@@ -3,18 +3,13 @@ package org.yaawp.hmi.listitem;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import java.io.File;
 import org.yaawp.R;
 import org.yaawp.YCartridge;
 import org.yaawp.app.YaawpAppData;
 import org.yaawp.bl.CartridgeSession;
 import org.yaawp.hmi.activities.CartridgeDetailsActivity;
 import org.yaawp.hmi.gui.extension.UtilsGUI;
-import org.yaawp.hmi.helper.I18N;
-import org.yaawp.hmi.helper.ScreenHelper;
 import org.yaawp.hmi.listitem.styles.Styles;
-import org.yaawp.openwig.WSaveFile;
-import org.yaawp.openwig.WSeekableFile;
 import org.yaawp.positioning.Location;
 import org.yaawp.positioning.LocationState;
 import org.yaawp.utils.CartridgeHelper;
