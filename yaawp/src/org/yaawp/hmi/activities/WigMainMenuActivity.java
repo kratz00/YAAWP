@@ -20,20 +20,6 @@
 
 package org.yaawp.hmi.activities;
 
-import java.util.Vector;
-
-import org.yaawp.R;
-
-import org.yaawp.hmi.listitem.*;
-import org.yaawp.hmi.adapter.ListItemAdapter;
-
-import org.yaawp.maps.mapsforge.CartridgeMapActivity;
-import org.yaawp.openwig.Refreshable;
-import org.yaawp.openwig.WUI;
-import org.yaawp.utils.A;
-import org.yaawp.utils.Const;
-import org.yaawp.utils.Logger;
-import org.yaawp.utils.ManagerNotify;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -48,16 +34,19 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import cz.matejcik.openwig.Engine;
-import cz.matejcik.openwig.Player;
-import cz.matejcik.openwig.Task;
-import cz.matejcik.openwig.Thing;
-import cz.matejcik.openwig.Zone;
-
-import org.yaawp.hmi.listitem.ListItemGuidanceActive;
+import org.yaawp.R;
+import org.yaawp.hmi.adapter.ListAdapterWigElements;
 import org.yaawp.hmi.panelbar.ThreeButtonPanelBar;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButton;
 import org.yaawp.hmi.panelbar.buttons.PanelBarButtonShowMap;
-import org.yaawp.utils.CartridgeHelper;
+import org.yaawp.maps.mapsforge.CartridgeMapActivity;
+import org.yaawp.openwig.Refreshable;
+import org.yaawp.openwig.WUI;
+import org.yaawp.utils.A;
+import org.yaawp.utils.Const;
+import org.yaawp.utils.Logger;
+import org.yaawp.utils.ManagerNotify;
+
 
 public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 
@@ -65,17 +54,10 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 	
 	private ThreeButtonPanelBar mButtonPanelBar;
 	private PanelBarButtonShowMap mButtonShowMap;
-	
-	private ListItemGpsDisabledWarning mGpsDisabledWarning = null;
-	private ListItemGuidanceActive mGuidanceActive = null;
-	private ListItemCartridgeHeadline mCartridgeHeadline = null;
-	private ListItemWherigoCategoryHeaderInventor mWherigoInventory = null;
-	private ListItemWherigoCategoryHeaderTasks mWherigoTasks = null;
-	private ListItemWherigoCategoryHeaderYouSee mWherigoYouSee = null;
-	private ListItemWherigoCategoryHeaderZones mWherigoZones = null;
-
-	private ListItemAdapter mAdapter = null;	
 	private ListView mCartridgeListView = null;
+
+	private ListAdapterWigElements mAdapter = null;	
+
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -84,25 +66,10 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		        
 		/* ------------------------------------------------------------------ */
 		
-		mAdapter = new ListItemAdapter(WigMainMenuActivity.this);
-	
-		mGpsDisabledWarning = new ListItemGpsDisabledWarning( this );
-    	mGuidanceActive     = new ListItemGuidanceActive(WigMainMenuActivity.this);
-    	mCartridgeHeadline  = new ListItemCartridgeHeadline();
-    	mWherigoYouSee      = (ListItemWherigoCategoryHeaderYouSee)      mAdapter.AddItem( new ListItemWherigoCategoryHeaderYouSee() );
-    	mWherigoZones       = (ListItemWherigoCategoryHeaderZones)       mAdapter.AddItem( new ListItemWherigoCategoryHeaderZones() );
-       	mWherigoInventory   = (ListItemWherigoCategoryHeaderInventor)   mAdapter.AddItem( new ListItemWherigoCategoryHeaderInventor() );
-       	mWherigoTasks       = (ListItemWherigoCategoryHeaderTasks)       mAdapter.AddItem( new ListItemWherigoCategoryHeaderTasks() ); 	
-    	
-       	/* ------------------------------------------------------------------ */
-       	mAdapter.RemoveAllItems();
-       	mAdapter.AddItem( mGpsDisabledWarning );
-       	mAdapter.AddItem( mGuidanceActive );
-       	mAdapter.AddItem( mCartridgeHeadline );
-       	addElementsOfCategoryZones();
-    	addElementsOfCategoryYouSee();
-    	addElementsOfCategoryInventory();
-    	addElementsOfCategoryTasks(); 	
+		mAdapter = new ListAdapterWigElements(WigMainMenuActivity.this);
+	    	
+       	
+
 		/* ------------------------------------------------------------------ */
     	
 		mCartridgeListView = new ListView(this);  
@@ -111,6 +78,8 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 		mCartridgeListView.setAdapter(mAdapter);
 		mCartridgeListView.setOnItemClickListener( mAdapter.mOnItemClickListener );
 		mCartridgeListView.setOnCreateContextMenuListener( null );
+		
+		
 
         RelativeLayout contentArea = (RelativeLayout) this.findViewById(R.id.relative_layout_content);
         contentArea.removeAllViews();
@@ -138,65 +107,10 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
     	mButtonPanelBar.updateUI();
 	}
 	
-	private void addElementsOfCategoryZones() {
-    	mWherigoZones.refresh();
-    	mAdapter.AddItem( mWherigoZones );
-		for (int i = 0; i < Engine.instance.cartridge.zones.size(); i++) {
-			Zone z = (Zone)Engine.instance.cartridge.zones.get(i);
-			if (z.isVisible()) {
-				mAdapter.AddItem( new ListItemWherigoElementZone( z, mWherigoZones ) );
-			}
-		}  		
-	}
-	
-	private void addElementsOfCategoryYouSee() {
-		mWherigoYouSee.refresh();
-		mAdapter.AddItem( mWherigoYouSee );
-		Vector<Zone> zones = Engine.instance.cartridge.zones;
-		for (int i = 0; i < zones.size(); i++) {
-			Zone z = (Zone)zones.elementAt(i);			
-			if (z.showThings()) {
-				Object key = null;
-				while ((key = z.inventory.next(key)) != null) {
-					Object o = z.inventory.rawget(key);
-					if (o instanceof Player)
-						continue;
-					if (!(o instanceof Thing))
-						continue;
-					if (((Thing) o).isVisible()) {
-						mAdapter.AddItem( new ListItemWherigoElementThing( (Thing) o, mWherigoYouSee ) );
-					}
-				}
-			}
-		}   		
-	}
-	private void addElementsOfCategoryInventory() {
-		mWherigoInventory.refresh();
-		mAdapter.AddItem( mWherigoInventory );
-		Player p = Engine.instance.player;
-		Object key = null;
-		while ((key = p.inventory.next(key)) != null) {
-			Object o = p.inventory.rawget(key);
-			if (o instanceof Thing && ((Thing) o).isVisible()) {
-				mAdapter.AddItem( new ListItemWherigoElementThing( (Thing) o, mWherigoInventory ) );
-			}
-		}		
-	}
-	private void addElementsOfCategoryTasks() {
-    	mWherigoTasks.refresh();
-    	mAdapter.AddItem( mWherigoTasks );
-		for (int i = 0; i < Engine.instance.cartridge.tasks.size(); i++) {
-			Task a = (Task)Engine.instance.cartridge.tasks.elementAt(i);
-			if (a.isVisible()) {
-				mAdapter.AddItem( new ListItemWherigoElementTask( a, mWherigoTasks ) );
-			}
-		}   		
-	}	
-	
 	@Override 
 	public void onResume() {
 		super.onResume();
-		refresh();
+		mAdapter.refresh();
     	mButtonPanelBar.updateUI();
 	}
 	
@@ -250,21 +164,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
         return status;
     }            
     
-	public void refresh() {
-		runOnUiThread(new Runnable() {
-			public void run() {
-		       	mAdapter.RemoveAllItems();
-		       	mAdapter.AddItem( mGpsDisabledWarning );
-		       	mAdapter.AddItem( mGuidanceActive );
-		       	mAdapter.AddItem( mCartridgeHeadline );
-		       	addElementsOfCategoryZones();
-		    	addElementsOfCategoryYouSee();
-		    	addElementsOfCategoryInventory();
-		    	addElementsOfCategoryTasks(); 					
-		    	mAdapter.notifyDataSetChanged();
-			}
-		});		
-	}
+
 
 	private long lastPressedTime;
 	
@@ -346,5 +246,9 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 			WigMainMenuActivity.this.finish();
 		}
 		
+	}
+	
+	public void refresh() {
+		mAdapter.refresh();
 	}
 }
