@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="org.yaawp"
+	android:versionCode="1"
+	android:versionName="Release-1"
+	android:installLocation="auto">
+	
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.PERSISTENT_ACTIVITY" />
+	<uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	
+	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17" />
+	<supports-screens 
+    	android:largeScreens="true"
+    	android:normalScreens="true"
+    	android:smallScreens="true"
+ 		android:anyDensity="true" />
+
+	<application android:icon="@drawable/ic_launcher"
+		android:label="Yaawp"
+		android:name="org.yaawp.MainApplication" >
+	
+	   <!-- 
+	    <activity 
+	        android:name="org.yaawp.hmi.activities.SplashscreenActivity"
+	        android:screenOrientation="portrait">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+	-->
+			     <!--  android:theme="@style/AppTheme"  -->
+		<activity 
+		    android:name="org.yaawp.hmi.activities.CartridgeListActivity" 
+			android:label="Yaawp" 
+			android:screenOrientation="portrait"
+			>
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+
+		<activity
+			android:name="org.yaawp.hmi.activities.CartridgeDetailsActivity"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name="org.yaawp.hmi.activities.AppInfoActivity"
+			android:screenOrientation="portrait"/>		
+		<activity
+			android:name="org.yaawp.hmi.activities.WigMainMenuActivity"
+			android:launchMode="singleTask"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name="org.yaawp.hmi.activities.WigDetailsActivity"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name="org.yaawp.hmi.activities.WigInputActivity"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name="org.yaawp.hmi.gui.ListActions"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name="org.yaawp.hmi.gui.ListTargets"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name="org.yaawp.hmi.gui.ListTasks"
+			android:screenOrientation="portrait"
+			android:theme="@android:style/Theme.Dialog"/>
+		<activity
+			android:name="org.yaawp.hmi.gui.ListThings"
+			android:screenOrientation="portrait"
+			android:theme="@android:style/Theme.Dialog"/>
+		<activity
+			android:name="org.yaawp.hmi.gui.ListZones"
+			android:screenOrientation="portrait"
+			android:theme="@android:style/Theme.Dialog"/>
+		<activity
+			android:name="org.yaawp.hmi.activities.WigPushDialogActivity" 
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name="org.yaawp.hmi.activities.GuidingActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name="org.yaawp.hmi.activities.SatelliteActivity"
+			android:screenOrientation="portrait" />	
+		<activity
+		    android:name="org.yaawp.hmi.activities.YaawpPreferenceActivity"
+		    android:screenOrientation="portrait" />
+		<activity
+		    android:name="org.yaawp.maps.mapsforge.CartridgeMapActivity"
+		    android:screenOrientation="portrait" />		
+		<service android:name="org.yaawp.audio.AudioPlayService" />
+		
+	</application>
+</manifest> 
