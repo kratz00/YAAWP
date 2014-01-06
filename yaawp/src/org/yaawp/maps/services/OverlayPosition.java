@@ -1,6 +1,5 @@
 package org.yaawp.maps.services;
 
-import org.yaawp.positioning.Location;
 import org.yaawp.preferences.Settings;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -63,8 +62,7 @@ public class OverlayPosition extends GenericOverlay {
 
   
     // private float heading = 0f;
-    private Point center = new Point();
-    private Point left = new Point();
+
     private Bitmap arrow = null;
     private int widthArrowHalf = 0;
     private int heightArrowHalf = 0;
@@ -89,25 +87,13 @@ public class OverlayPosition extends GenericOverlay {
 
         canvas.setDrawFilter(setfil);
 
-        double latitude = mLocation.getLatitude();
-        double longitude = mLocation.getLongitude();
-        float accuracy = mLocation.getAccuracy();
+        Point position = new Point();
+        projection.toPixels( mLocation, position );        
 
-        // float[] result = new float[1];
-
-        Location next = new Location(mLocation);
-        next.setLongitude(mLocation.getLongitude()+1);
-
-        // Location.distanceBetween(latitude, longitude, latitude, longitude + 1, result);
-        float longitudeLineDistance = mLocation.distanceTo(next); 
-       
-        // GeoPointImpl leftGeo = mapItemFactory.getGeoPointBase(leftCoords);
-        projection.toPixels(latitude, longitude - accuracy / longitudeLineDistance, left);
-        projection.toPixels(latitude,longitude, center);
-        int radius = center.x - left.x;
-
-        canvas.drawCircle(center.x, center.y, radius, mPaintCurrentAccuracyFill);
-        canvas.drawCircle(center.x, center.y, radius, mPaintCurrentAccuracyBorder);
+        // - calc & draw accuracy circle
+        int radius = GenericOverlay.distanceInMap( mLocation, mLocation.getAccuracy(), projection );
+        canvas.drawCircle( position.x, position.y, radius, mPaintCurrentAccuracyFill );
+        canvas.drawCircle( position.x, position.y, radius, mPaintCurrentAccuracyBorder );
 
         if (arrow == null) {
             arrow = BitmapFactory.decodeResource(mActivity.getResources(), R.drawable.my_location_chevron);
@@ -115,8 +101,8 @@ public class OverlayPosition extends GenericOverlay {
             heightArrowHalf = arrow.getHeight() / 2;
         }
 
-        int marginLeft = center.x - widthArrowHalf;
-        int marginTop = center.y - heightArrowHalf;
+        int marginLeft = position.x - widthArrowHalf;
+        int marginTop = position.y - heightArrowHalf;
 
         Matrix matrix = new Matrix();
         matrix.setRotate( mAzimuth, widthArrowHalf, heightArrowHalf);
