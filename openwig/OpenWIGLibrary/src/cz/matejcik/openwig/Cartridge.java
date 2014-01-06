@@ -6,13 +6,13 @@ import se.krka.kahlua.stdlib.TableLib;
 import se.krka.kahlua.vm.*;
 
 public class Cartridge extends EventTable {
-	public Vector zones = new Vector();
-	public Vector timers = new Vector();
+	public Vector<Zone> zones = new Vector<Zone>();
+	public Vector<Timer> timers = new Vector<Timer>();
 	
-	public Vector things = new Vector();
-	public Vector universalActions = new Vector();
+	public Vector<Thing> things = new Vector<Thing>();
+	public Vector<Action> universalActions = new Vector<Action>();
 	
-	public Vector tasks = new Vector();
+	public Vector<Task> tasks = new Vector<Task>();
 	
 	public LuaTable allZObjects = new LuaTableImpl();
 	
@@ -105,10 +105,10 @@ public class Cartridge extends EventTable {
 	}
 
 	private void sortObject (Object o) {
-		if (o instanceof Task) tasks.addElement(o);
-		else if (o instanceof Zone) zones.addElement(o);
-		else if (o instanceof Timer) timers.addElement(o);
-		else if (o instanceof Thing) things.addElement(o);
+		if (o instanceof Task) tasks.addElement((Task)o);
+		else if (o instanceof Zone) zones.addElement((Zone)o);
+		else if (o instanceof Timer) timers.addElement((Timer)o);
+		else if (o instanceof Thing) things.addElement((Thing)o);
 	}
 
 	public void deserialize (DataInputStream in)
