@@ -6,6 +6,7 @@ import org.yaawp.maps.services.MapProjection;
 import org.yaawp.positioning.Location;
 
 import android.graphics.Point;
+import cz.matejcik.openwig.ZonePoint;
 
 public class MapsforgeProjection implements MapProjection {
 	
@@ -24,4 +25,9 @@ public class MapsforgeProjection implements MapProjection {
         final GeoPoint geopoint = new GeoPoint(latitude, longitude);       
         mProjection.toPixels( geopoint, point );			
 	}
+	
+	public void toPixels( ZonePoint zp, Point point ) {
+        final GeoPoint geopoint = new GeoPoint(zp.latitude, zp.longitude);       
+        mProjection.toPixels( geopoint, point );			
+	}	
 }
