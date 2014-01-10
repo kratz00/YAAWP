@@ -53,6 +53,7 @@ public class A {
 	}
 	
 	public static void destroy() {
+		
 		guidingContent = null;			
 		managerAudio = null;
 		main = null;
@@ -61,9 +62,9 @@ public class A {
 			rotator = null;
 		}
 		// finally destroy app
-		if (app != null)
+		/* TODO if (app != null)
 			app.destroy();
-		app = null;
+		app = null; */
 	}
 	
 	public static void registerApp(MainApplication app) {
