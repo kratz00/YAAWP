@@ -50,9 +50,11 @@ public class Container extends EventTable {
 			else if (position != null) setPosition(c.position);
 			else if (container == Engine.instance.player) setPosition(ZonePoint.copy(Engine.instance.player.position));
 			container = c;
+			table.rawset("Container", c);
 		} else {
 			container = null;
-			rawset("ObjectLocation", null);
+			table.rawset("Container", null );
+			setPosition(null);
 		}
 	}
 
