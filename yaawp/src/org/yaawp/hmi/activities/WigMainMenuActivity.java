@@ -94,7 +94,7 @@ public class WigMainMenuActivity extends CustomActivity implements Refreshable {
 					public boolean onClick() {
 				    	new Thread(new Runnable() {
 							public void run() {
-								Engine.instance.store();
+								Engine.instance.requestSync();
 							}
 						}).start();
 				    	return true;
