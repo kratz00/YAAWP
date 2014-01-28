@@ -32,11 +32,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>LocusAPI</name>
-			<type>2</type>
-			<locationURI>LocusAPI/src</locationURI>
-		</link>
-		<link>
 			<name>OpenWIG</name>
 			<type>2</type>
 			<location>/Users/andreas/workspaces/YAAWP/openwig/OpenWIGLibrary/src</location>
