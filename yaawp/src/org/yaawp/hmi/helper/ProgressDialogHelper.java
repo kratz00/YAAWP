@@ -13,11 +13,11 @@ public class ProgressDialogHelper {
 	private static ProgressDialog progressDialog;
 	
 	public static void Show( final String headline, final String message ) {		
-		Logger.v(TAG, "Show()");
+		// Logger.v(TAG, "Show()");
 
 		A.getMain().runOnUiThread(new Runnable() {
             public void run() {		
-            	Logger.v(TAG, "UIThread context - Show()");
+            	// Logger.v(TAG, "UIThread context - Show()");
         		if (progressDialog != null) {
         			Logger.w(TAG, "close active dialog");
                     progressDialog.dismiss();    
@@ -27,36 +27,36 @@ public class ProgressDialogHelper {
             	progressDialog.setMessage(message);
             	progressDialog.setTitle( headline );
             	progressDialog.show();  	
-            	Logger.v(TAG, "UIThread context - Show() end");
+            	// Logger.v(TAG, "UIThread context - Show() end");
             }
         });
 	}
 	
 	public static void Hide() {
-		Logger.v(TAG, "Hide()");
+		// Logger.v(TAG, "Hide()");
 		
         A.getMain().runOnUiThread(new Runnable() {
             public void run() {
-            	Logger.v(TAG, "UIThread context - Hide()");
+            	// Logger.v(TAG, "UIThread context - Hide()");
                 if (progressDialog != null) {
                     progressDialog.dismiss();   
                 	progressDialog = null;
                 }
-                Logger.v(TAG, "UIThread context - Hide() end");
+             // Logger.v(TAG, "UIThread context - Hide() end");
             }
         }); 		
 	}
 	
 	public static void Update( final String message ) {
-		Logger.v(TAG, "Update(" + message + ")" );
+		// Logger.v(TAG, "Update(" + message + ")" );
         
 		A.getMain().runOnUiThread(new Runnable() {
             public void run() {
-            	Logger.v(TAG, "UIThread context - Update(" + message + ")");
+            	// Logger.v(TAG, "UIThread context - Update(" + message + ")");
                 if (progressDialog != null) {
                     progressDialog.setMessage(message);
                 }
-                Logger.v(TAG, "UIThread context - Update() end");
+             // Logger.v(TAG, "UIThread context - Update() end");
             }
         }); 	
 	}
