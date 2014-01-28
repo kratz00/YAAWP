@@ -18,7 +18,12 @@ public class ListItemWherigoElementThing extends ListItemWherigoElement {
 		super( t, parent );
 		
 		mDataImageLeft = CartridgeHelper.getIconFrom( t, R.drawable.icon_inventory ) ;
-		mDataTextMajorRight = "" + t.actions.size() + " Actions";
+		int actions = t.visibleActions();
+		if ( actions > 0 ) {
+			mDataTextMajorRight = "" + actions + " Actions";
+		} else {
+			mDataTextMajorRight = "";
+		}
 	}	
 	
 	@Override
