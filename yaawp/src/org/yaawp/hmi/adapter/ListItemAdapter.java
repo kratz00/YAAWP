@@ -87,7 +87,7 @@ public class ListItemAdapter extends BaseAdapter {
     @Override
     public boolean isEnabled(int position) {
     	boolean enabled = mListItems.get(position).isEnabled();
-    	Logger.i("", "isEnabled( position="+position+" ) = " + enabled );
+    	// Logger.v("", "isEnabled( position="+position+" ) = " + enabled );
     	return enabled;
     }
     
